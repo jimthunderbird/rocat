@@ -13,3 +13,20 @@ task [closed] {
   usage: sh rocat.sh <rocat_name>
   example: sh rocat.sh sudoku_spa_app
 }
+
+task [closed] {
+  In README.md, add a section demonstrating a curly prompt language that is designed to let coding agent understand the logic better.
+
+  Example:
+  <code>
+  app_spec {
+    html {
+      component.abc {
+        div.id:"abc" {
+          text: "This is a abc div"
+        }
+      }
+    }  
+  }
+  </code>
+}

@@ -34,3 +34,30 @@ sh rocat.sh sudoku_spa_app
 | Structured Approach | Organizes AI tasks using the ROCAT framework components |
 | Reusable Templates | Each ROCAT can be executed repeatedly with consistent results |
 | Task Automation | Automates complex development workflows through prompt engineering |
+
+## Curly Prompt Language
+
+ROCAT uses a curly bracket-based prompt language designed to help coding agents better understand hierarchical logic and structure. This syntax provides a clear, nested representation of application specifications and configurations.
+
+### Example
+
+```
+app_spec {
+  html {
+    component.abc {
+      div.id:"abc" {
+        text: "This is a abc div"
+      }
+    }
+  }  
+}
+```
+
+### Benefits
+
+| Benefit | Description |
+|---------|-------------|
+| **Hierarchical Clarity** | Nested structure makes relationships and containment explicit |
+| **Agent-Friendly** | Easy for AI agents to parse and understand component relationships |
+| **Concise Syntax** | Reduces verbosity while maintaining readability |
+| **Flexible Notation** | Supports properties, attributes, and nested components in a unified format |
