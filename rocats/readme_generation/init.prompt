@@ -1,0 +1,8 @@
+context {
+  ./role.prompt
+  ./objective.prompt
+  ./constraint.prompt
+  ./app_spec.prompt
+}
+
+perform the tasks in ./tasks.prompt
