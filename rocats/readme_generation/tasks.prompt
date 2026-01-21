@@ -44,3 +44,7 @@ task [closed] {
 task [closed] {
   please include rocat.jpg as the header image
 }
+
+task [closed] {
+  the rocat.jpg is not found in the README.md
+}
