@@ -78,3 +78,17 @@ ROCAT is designed to work seamlessly with any text editor, allowing developers t
 | **Context Switching** | Seamlessly switch between writing code and crafting AI prompts without leaving your editor |
 | **Collaboration Ready** | Share and collaborate on ROCAT definitions using standard version control tools |
 | **Task Visibility** | See a complete history of "vibes" (tasks) you've completed by viewing the tasks.prompt file |
+
+## Spec-Driven Development Workflow
+
+ROCAT embraces a spec-driven development mindset by automatically maintaining an up-to-date application specification throughout the development process. After each task is completed, ROCAT's workflow merges the changes back into the `app_spec.md` file, ensuring that your specification always reflects the current state of the application.
+
+### Key Advantages
+
+| Advantage | Description |
+|-----------|-------------|
+| **Living Documentation** | The specification evolves with your codebase, eliminating documentation drift |
+| **Iterative Refinement** | Each task completion updates the spec, creating a feedback loop for continuous improvement |
+| **Single Source of Truth** | The app spec remains the authoritative reference for what the application does |
+| **Audit Trail** | Version-controlled spec changes provide a clear history of application evolution |
+| **AI-Friendly Evolution** | Coding agents can reference the updated spec for subsequent tasks, building on previous work |

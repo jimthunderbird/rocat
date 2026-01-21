@@ -52,3 +52,7 @@ task [closed] {
 task [closed] {
   simply open this task so that we can update spec at app_spec.prompt
 }
+
+task [closed] {
+  add a new section to mention that ROCAT has ability to define a workflow to constantly merge the changes on each tasks into app_spec.md, reflecting the spec driven development mindset
+}

@@ -55,5 +55,18 @@ spec {
         | Task Visibility | View complete history of completed tasks |
       }
     }
+    
+    spec_driven_development {
+      description: "Maintains up-to-date specification through automated workflow"
+      
+      key_advantages_table {
+        | Advantage | Description |
+        | Living Documentation | Specification evolves with codebase, eliminating drift |
+        | Iterative Refinement | Task completion updates spec, creating feedback loop |
+        | Single Source of Truth | App spec remains authoritative reference |
+        | Audit Trail | Version-controlled spec shows application evolution |
+        | AI-Friendly Evolution | Agents reference updated spec for subsequent tasks |
+      }
+    }
   }
 }
