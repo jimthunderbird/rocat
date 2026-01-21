@@ -19,6 +19,12 @@ spec {
     usage {
       command: "sh rocat.sh <rocat_name>"
       example: "sh rocat.sh sudoku_spa_app"
+      
+      custom_scripts {
+        description: "Run custom scripts inside of a rocat"
+        command: "sh rocat.sh <rocat_name> <script_name>"
+        example: "sh rocat.sh sudoku_spa_app runapp_hotreload"
+      }
     }
     
     features_table {

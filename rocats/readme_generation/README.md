@@ -28,6 +28,14 @@ sh rocat.sh <rocat_name>
 sh rocat.sh sudoku_spa_app
 ```
 
+### Running Custom Scripts Inside a ROCAT
+
+You can run custom scripts inside of a rocat by specifying the script name as an additional argument:
+
+```bash
+sh rocat.sh sudoku_spa_app runapp_hotreload
+```
+
 ## Features
 
 | Feature | Description |

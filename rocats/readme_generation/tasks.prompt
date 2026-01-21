@@ -68,3 +68,10 @@ task [closed] {
 task [closed] {
   please include "https://github.com/jimthunderbird/rocat/blob/master/rocat.jpg" as the header image
 }
+
+task [closed] {
+  In the usage section, add usage {
+    description: "Run custom scripts inside of a rocat" 
+    command: "sh rocat.sh sudoku_spa_app runapp_hotreload"
+  }
+}
