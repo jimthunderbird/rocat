@@ -64,3 +64,7 @@ task.remove_image_reference [closed] {
 task [closed] {
   update app_spec.prompt based on task.remove_image_reference
 }
+
+task [closed] {
+  please include "https://github.com/jimthunderbird/rocat/blob/master/rocat.jpg" as the header image
+}
