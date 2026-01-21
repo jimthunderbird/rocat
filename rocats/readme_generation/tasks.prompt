@@ -56,3 +56,7 @@ task [closed] {
 task [closed] {
   add a new section to mention that ROCAT has ability to define a workflow to constantly merge the changes on each tasks into app_spec.md, reflecting the spec driven development mindset
 }
+
+task [closed] {
+  remove the rocat.jpg reference in readme
+}

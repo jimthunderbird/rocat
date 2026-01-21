@@ -1,5 +1,3 @@
-![ROCAT](rocat.jpg)
-
 # ROCAT
 
 ROCAT is an application framework that runs on multiple AI coding agents like copilot-cli, gemini-cli, claudecode, and more.
