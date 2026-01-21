@@ -40,3 +40,7 @@ task [closed] {
     one advantage of ROCAT is to allow vibe coders see a list of "vibes" (tasks) they completed
   } 
 }
+
+task [closed] {
+  please include rocat.jpg as the header image
+}
