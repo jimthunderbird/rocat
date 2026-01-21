@@ -57,6 +57,10 @@ task [closed] {
   add a new section to mention that ROCAT has ability to define a workflow to constantly merge the changes on each tasks into app_spec.md, reflecting the spec driven development mindset
 }
 
-task [closed] {
+task.remove_image_reference [closed] {
   remove the rocat.jpg reference in readme
+}
+
+task [closed] {
+  update app_spec.prompt based on task.remove_image_reference
 }

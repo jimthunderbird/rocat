@@ -1,7 +1,5 @@
 spec {
   README.md {
-    header_image: rocat.jpg
-    
     introduction {
       description: "ROCAT is an application framework that runs on multiple AI coding agents"
       supported_agents: ["copilot-cli", "gemini-cli", "claudecode"]
