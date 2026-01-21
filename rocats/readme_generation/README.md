@@ -75,3 +75,4 @@ ROCAT is designed to work seamlessly with any text editor, allowing developers t
 | **File-Based Workflow** | All ROCAT components are plain text files that can be versioned, shared, and edited |
 | **Context Switching** | Seamlessly switch between writing code and crafting AI prompts without leaving your editor |
 | **Collaboration Ready** | Share and collaborate on ROCAT definitions using standard version control tools |
+| **Task Visibility** | See a complete history of "vibes" (tasks) you've completed by viewing the tasks.prompt file |

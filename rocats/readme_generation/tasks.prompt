@@ -34,3 +34,9 @@ task [closed] {
 task [closed] {
   add a new section to mention one feature of ROCAT, it is designed to work with any editors, it can good for users who want to do vibe coding in their editor instead of in the coding agent console
 }
+
+task [closed] {
+  in the "Editor Integration" section, add a new point {
+    one advantage of ROCAT is to allow vibe coders see a list of "vibes" (tasks) they completed
+  } 
+}
