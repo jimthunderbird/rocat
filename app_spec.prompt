@@ -1,0 +1,220 @@
+spec {
+  let action.create_sudoku_board = generate a random extremely difficult level sudoku board, must have some filled number cells and some unfilled number cells according to the difficult level (65-74 cells removed for extremely difficult level). Optimized generation: pre-fills diagonal 3x3 boxes first (which don't conflict with each other) using Fisher-Yates shuffle, then fills remaining cells with sequential number testing for faster completion
+
+  html {
+    title: "Super Simple Sudoku version 3"
+    style {
+      background: lightyellow
+      font: Tahoma, Verdana, sans-serif
+      location: defined in App.vue <style> section for proper Vue.js component structure
+    }
+    implementation: Vue.js 3 application with proper component structure (App.vue as root, components in src/components/, index.html in public/, main.js as entry point, vue.config.js configures devServer to run on port 3000)
+    documentation: README.md file included in ./app/ directory with installation and running instructions
+  }
+
+  component.sudokuboard {
+    div.id:"sudokuboard" {
+      border: 8px solid Maroon (#800000) with 3D picture frame effect (implemented using box-shadow with inset shadows for beveled depth, light/dark gradients for dimensional appearance, and outer shadows for raised frame effect)
+      perform action.create_sudoku_board (createSudokuBoard() called on component mounted lifecycle hook in Vue.js, generates board with filled/empty cells based on current difficulty level)
+      layout: 3x3 grid of boxes (template uses nested v-for loops: outer loop for 3 rows, inner loop for 3 columns per row, creating proper 3x3 grid with display: flex for row containers, each box uses CSS grid with 3x3 layout for perfect cell alignment)
+      for the filled number {
+        background should expand and cover the whole number cell
+        background should be Teal #008080 with 3D look and feel (implemented as gradient from #009999 to #007070 with multiple box-shadows for depth, inset shadows for beveled effect, text-shadow for 3D text, and white text color)
+        width: 50px
+        height: 50px
+        border: 1px black solid
+      }
+      for the emtpty number {
+        background: transparent
+        width: 50px
+        height: 50px
+        border: 1px black solid
+        cells maintain square shape (box-sizing: border-box ensures 50px × 50px including borders)
+      }
+    }
+
+    each 3x3 cells should be grouped into "box" (COMPLETED)
+    for each box {box} {
+      if box.number is even {
+        box.background: light yellow (boxes 2,4,6,8 have lightyellow background)
+      } else {
+        box.background: orange (boxes 1,3,5,7,9 have orange background)
+      }
+    }
+    filled cells have Teal background (filled cells use background: #008080 !important)
+    when clicked on empty number cell {cell} {
+      for all other empty cells, style should be back to default, with mouse pointer style
+      cell.background: "gold" 
+      allow me to enter a number {number}
+      the blinking cursor {cursor} should show up {
+        {cursor}.alignment.horizontal: center (cell uses display: flex; justify-content: center)
+        {cursor}.alignment.veritcal: center (cell uses display: flex; align-items: center; contenteditable cells use line-height: 50px)
+        when @key.enter {
+          set {cell} number to {number} and do not change it
+          mark {cell} is non empty
+          remove focus on {cell}
+        }
+      }
+    }
+
+  }
+
+  component.control {
+    button.id:"control" {
+      text: "Brand New Game"
+      style {
+        width: 200px
+        height: 50px
+        background: OliveDrab
+        font-size: 16px (increased from 14px for better prominence)
+        font-weight: 900 (bolder/extra bold for prominent display)
+        letter-spacing: 0.5px (enhanced readability and boldness perception)
+        text-shadow: enhanced with multiple shadows for stronger bold appearance
+        3D effect: implemented with outset border, inset/outset box-shadows for depth, text-shadow for raised text appearance, and active state with inset border for pressed effect
+      }
+      @click {
+        perform action.create_sudoku_board
+      }
+      @hover {
+        background: DodgerBlue (implemented as #control:hover with background: DodgerBlue)
+      }
+    }
+  }
+
+  component.solve {
+    button.id:"solve" {
+      text: "Solve this puzzle"
+      style {
+        width: 200px
+        height: 50px
+        background: OliveDrab
+        font-size: 16px (increased from 14px for better prominence)
+        font-weight: 900 (bolder/extra bold for prominent display)
+        letter-spacing: 0.5px (enhanced readability and boldness perception)
+        text-shadow: enhanced with multiple shadows for stronger bold appearance
+        3D effect: implemented with outset border, inset/outset box-shadows for depth, text-shadow for raised text appearance, and active state with inset border for pressed effect
+      }
+      @click {
+        solve the sudoku problem and fill in all the missing numbers in the board (implemented with solveSudoku function using backtracking algorithm)
+        solves even if board has invalid state (validates board, attempts to solve current board state, generates new valid solution if unsolvable, preserves current board context without generating new puzzle)
+        uses stored solution when available (checks if solution variable exists and is valid, uses it directly to avoid re-solving, ensures correct solution is shown after difficulty level changes)
+      }
+      @hover {
+        background: DodgerBlue (implemented as #solve:hover with background: DodgerBlue)
+      }
+    }
+  }
+
+  component.LevelSelection {
+    div.class:"level-selection-container" {
+      label {
+        text: "Pick a Difficulty Level"
+        style {
+          font-weight: bold
+          font-size: 16px
+        }
+      }
+      custom-select.id:"level-selection" (implemented as custom dropdown with div elements to enable full styling control) {
+        options {
+          "Easy" (value: "easy", removes 36-45 cells)
+          "Medium" (value: "medium", removes 46-54 cells)
+          "Hard" (value: "hard", removes 55-64 cells)
+          "Super Hard" (value: "superhard", removes 65-74 cells, selected by default)
+          "Crazy Hard" (value: "crazyhard", removes 75-81 cells)
+        }
+        style {
+          width: 150px
+          height: 40px
+          font: Courier New (monospace)
+          font-size: 16px
+          font-weight: bold
+          color: white
+          background: SaddleBrown (#8B4513)
+          border: 2px outset silver
+          cursor: pointer
+          padding: 5px
+          3D effect: implemented with outset border, inset/outset box-shadows for depth and beveled edges, text-shadow for raised text, and active state with inset border for pressed effect
+          options styling: custom dropdown menu with SaddleBrown (#8B4513) background, white bold font color, implemented using absolute positioned div elements for full style control, includes hover state (#A0522D), selected state (#704214), and proper borders/shadows for 3D effect
+        }
+        @change {
+          update currentDifficulty variable and regenerate board with new difficulty level using getDifficultyRange function
+        }
+        @click {
+          toggle dropdown menu visibility (isOpen state variable controls v-if directive on select-items div)
+        }
+        click-outside-handler {
+          close dropdown when clicking outside the component (implemented with document event listener added on mounted, removed on beforeUnmount)
+        }
+      }
+      style {
+        display: flex
+        flex-direction: column
+        gap: 10px
+      }
+    }
+  }
+
+  component.hint {
+    button.id:"hint" {
+      text: "Hint"
+      style {
+        width: 200px
+        height: 50px
+        background: OliveDrab
+        font-size: 16px (increased from 14px for better prominence)
+        font-weight: 900 (bolder/extra bold for prominent display)
+        letter-spacing: 0.5px (enhanced readability and boldness perception)
+        text-shadow: enhanced with multiple shadows for stronger bold appearance
+        3D effect: implemented with outset border, inset/outset box-shadows for depth, text-shadow for raised text appearance, and active state with inset border for pressed effect
+      }
+      @click {
+        give minimum hints by highlighting one random empty cell with correct answer value (solves current board, picks random empty cell, shows answer with pulsing fade-in/fade-out animation using Tomato (#FF6347) background that repeats for 5 seconds using animatingHint reactive flag, colorFade CSS keyframes animation applied via .animating-hint CSS class with !important to override inline styles, animation uses infinite iteration pulsing between background rgba(255, 99, 71, 1) at full visibility and rgba(255, 99, 71, 0.3) at 30% visibility at 1.8 second intervals with synchronized box-shadow fading for depth effect, text-shadow for 3D text, white text color, then applies filled cell styling with Teal 3D background after animation completes by setting filled and isHint flags)
+      }
+      @hover {
+        background: DodgerBlue (implemented as #hint:hover with background: DodgerBlue)
+      }
+    }
+  }
+
+  component.abc {
+    div.id:"abc" {
+      text: "ABC"
+      style {
+        width: 80px
+        height: 40px
+        background: orange
+      }
+      @click {
+        perform action.create_sudoku_board
+      }
+    }
+
+  }
+
+  component.efg {
+    div.id:"efg" {
+      background: Light Sky Blue
+      text: "EFG"
+      border: 5px silver solid
+      @click {
+        perform action.create_sudoku_board
+      }
+    }
+  }
+
+  layout {
+    row.id:"board-row" {
+      {component.sudokuboard} {component.LevelSelection}
+    }.style {
+      display: flex
+      gap: 20px
+      align-items: flex-start
+      justify-content: center (centers the board and level selection horizontally)
+    }
+    row {
+      {component.control} {component.hint} {component.solve} (order implemented: control, hint, and solve buttons side by side)
+    }.style {
+      make components align center
+    }
+  }
+}
