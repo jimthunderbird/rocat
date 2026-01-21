@@ -4,6 +4,10 @@ constrain {
   }
   DO NOT CREATE ANYTHING UNDER /tmp/ DIRECTORY, IF IT REALLY NEEDS TO CREATE ANYTHING TEMPORARY, CREATE IT UNDER ./tmp DIRECTORY INSTEAD
   FOR each task {task} in tasks, when task is completed {
+    update ./app_spec.prompt {
+      do not update the status 
+      merge the changes you made into the spec
+    }
     in task.prompt, mark the latest task to closed
     let files = use "git status" cli command to find all the files that are created or changed in the current directory and all of its subdirectories
     create a git commit {

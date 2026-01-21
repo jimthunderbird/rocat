@@ -1,3 +1,59 @@
 spec {
-  use markdown table to explain each individual feature 
+  README.md {
+    header_image: rocat.jpg
+    
+    introduction {
+      description: "ROCAT is an application framework that runs on multiple AI coding agents"
+      supported_agents: ["copilot-cli", "gemini-cli", "claudecode"]
+    }
+    
+    rocat_components {
+      | Component | Description |
+      | Role | Defines the role or persona the AI agent should assume |
+      | Objective | Specifies the goal or outcome to achieve |
+      | Constraint | Sets boundaries and limitations for task execution |
+      | Application Specification | Details specific requirements and features |
+      | Tasks | Lists concrete actions to perform |
+    }
+    
+    usage {
+      command: "sh rocat.sh <rocat_name>"
+      example: "sh rocat.sh sudoku_spa_app"
+    }
+    
+    features_table {
+      | Feature | Description |
+      | Multi-Agent Support | Works with various AI coding agents |
+      | Structured Approach | Organizes AI tasks using ROCAT framework |
+      | Reusable Templates | Each ROCAT can be executed repeatedly |
+      | Task Automation | Automates complex development workflows |
+    }
+    
+    curly_prompt_language {
+      description: "Curly bracket-based syntax for hierarchical logic"
+      example: "app_spec { html { component.abc { div.id:\"abc\" { text: \"...\" } } } }"
+      
+      benefits_table {
+        | Benefit | Description |
+        | Hierarchical Clarity | Nested structure makes relationships explicit |
+        | Agent-Friendly | Easy for AI agents to parse |
+        | Concise Syntax | Reduces verbosity while maintaining readability |
+        | Flexible Notation | Supports properties and nested components |
+      }
+    }
+    
+    editor_integration {
+      description: "Works seamlessly with any text editor for vibe coding"
+      
+      benefits_table {
+        | Benefit | Description |
+        | Editor Freedom | Use favorite editor with customizations |
+        | Vibe Coding | Write prompts in comfortable environment |
+        | File-Based Workflow | Plain text files for versioning |
+        | Context Switching | Switch between code and prompts seamlessly |
+        | Collaboration Ready | Share using version control tools |
+        | Task Visibility | View complete history of completed tasks |
+      }
+    }
+  }
 }

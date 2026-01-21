@@ -48,3 +48,7 @@ task [closed] {
 task [closed] {
   the rocat.jpg is not found in the README.md
 }
+
+task [closed] {
+  simply open this task so that we can update spec at app_spec.prompt
+}
