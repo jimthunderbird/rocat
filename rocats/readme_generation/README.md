@@ -61,3 +61,17 @@ app_spec {
 | **Agent-Friendly** | Easy for AI agents to parse and understand component relationships |
 | **Concise Syntax** | Reduces verbosity while maintaining readability |
 | **Flexible Notation** | Supports properties, attributes, and nested components in a unified format |
+
+## Editor Integration
+
+ROCAT is designed to work seamlessly with any text editor, allowing developers to practice "vibe coding" directly in their preferred editing environment rather than being confined to the coding agent console.
+
+### Benefits of Editor-Based Workflow
+
+| Benefit | Description |
+|---------|-------------|
+| **Editor Freedom** | Use your favorite editor (VS Code, Vim, Emacs, Sublime, etc.) with all your customizations |
+| **Vibe Coding** | Write prompts and specifications in a comfortable, familiar environment |
+| **File-Based Workflow** | All ROCAT components are plain text files that can be versioned, shared, and edited |
+| **Context Switching** | Seamlessly switch between writing code and crafting AI prompts without leaving your editor |
+| **Collaboration Ready** | Share and collaborate on ROCAT definitions using standard version control tools |
