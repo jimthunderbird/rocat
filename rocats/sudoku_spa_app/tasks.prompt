@@ -184,3 +184,9 @@ task (closed) {
   
   RESOLUTION: Increased font-size from 18px to 20px for all three button components (Control.vue, Hint.vue, Solve.vue) for larger, more prominent text display.
 }
+
+task (closed) {
+  use The Dancing Links (DLX) Algorithm to generate the random sudoku board
+  
+  RESOLUTION: Implemented Dancing Links (DLX) Algorithm for Sudoku generation. The algorithm models Sudoku as an exact cover problem with 324 constraints (81 cell, 81 row, 81 column, and 81 box constraints). DLX uses a circular doubly-linked list structure with efficient cover/uncover operations. The implementation includes: createDLXMatrix() to build the constraint matrix, solveDLX() for backtracking search, coverColumn()/uncoverColumn() for efficient matrix manipulation, and encodeConstraint()/decodeConstraint() for mapping between board positions and constraint indices. Board generation pre-fills diagonal boxes using Fisher-Yates shuffle, then uses DLX to complete the solution for optimal performance.
+}

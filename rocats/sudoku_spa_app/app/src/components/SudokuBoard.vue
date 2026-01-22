@@ -93,8 +93,181 @@ export default {
         }
       }
       
-      this.solveSudokuBoard(board)
+      this.solveSudokuDLX(board)
       return board
+    },
+    solveSudokuDLX(board) {
+      const dlx = this.createDLXMatrix(board)
+      const solution = this.solveDLX(dlx)
+      
+      if (solution) {
+        solution.forEach(rowIndex => {
+          const [r, c, num] = this.decodeConstraint(rowIndex)
+          board[r][c] = num
+        })
+        return true
+      }
+      return false
+    },
+    createDLXMatrix(board) {
+      const constraints = []
+      
+      for (let r = 0; r < 9; r++) {
+        for (let c = 0; c < 9; c++) {
+          if (board[r][c] !== 0) {
+            const num = board[r][c]
+            constraints.push(this.encodeConstraint(r, c, num))
+          } else {
+            for (let num = 1; num <= 9; num++) {
+              constraints.push(this.encodeConstraint(r, c, num))
+            }
+          }
+        }
+      }
+      
+      const matrix = {
+        header: { L: null, R: null, U: null, D: null, C: null, S: 0 },
+        columns: [],
+        rows: constraints.map((constraint, idx) => ({ constraint, nodes: [], index: idx }))
+      }
+      
+      for (let i = 0; i < 324; i++) {
+        const col = { L: null, R: null, U: null, D: null, C: null, S: 0, id: i }
+        col.C = col
+        col.U = col
+        col.D = col
+        matrix.columns.push(col)
+      }
+      
+      matrix.header.R = matrix.columns[0]
+      matrix.header.L = matrix.columns[323]
+      matrix.columns[0].L = matrix.header
+      matrix.columns[323].R = matrix.header
+      
+      for (let i = 0; i < 323; i++) {
+        matrix.columns[i].R = matrix.columns[i + 1]
+        matrix.columns[i + 1].L = matrix.columns[i]
+      }
+      
+      matrix.rows.forEach((row, rowIdx) => {
+        const cols = row.constraint
+        cols.forEach(colIdx => {
+          const node = { L: null, R: null, U: null, D: null, C: matrix.columns[colIdx], rowIndex: rowIdx }
+          
+          const col = matrix.columns[colIdx]
+          node.U = col.U
+          node.D = col
+          col.U.D = node
+          col.U = node
+          col.S++
+          
+          row.nodes.push(node)
+        })
+        
+        if (row.nodes.length > 0) {
+          for (let i = 0; i < row.nodes.length; i++) {
+            row.nodes[i].L = row.nodes[(i - 1 + row.nodes.length) % row.nodes.length]
+            row.nodes[i].R = row.nodes[(i + 1) % row.nodes.length]
+          }
+        }
+      })
+      
+      return matrix
+    },
+    encodeConstraint(r, c, num) {
+      const box = Math.floor(r / 3) * 3 + Math.floor(c / 3)
+      return [
+        r * 9 + c,
+        81 + r * 9 + (num - 1),
+        162 + c * 9 + (num - 1),
+        243 + box * 9 + (num - 1)
+      ]
+    },
+    decodeConstraint(rowIndex) {
+      const r = Math.floor(rowIndex / 81)
+      const c = Math.floor((rowIndex % 81) / 9)
+      const num = (rowIndex % 9) + 1
+      return [r, c, num]
+    },
+    solveDLX(matrix) {
+      const solution = []
+      
+      const search = () => {
+        if (matrix.header.R === matrix.header) {
+          return true
+        }
+        
+        let col = matrix.header.R
+        let minSize = col.S
+        for (let c = col.R; c !== matrix.header; c = c.R) {
+          if (c.S < minSize) {
+            col = c
+            minSize = c.S
+          }
+        }
+        
+        if (col.S === 0) return false
+        
+        this.coverColumn(col)
+        
+        for (let row = col.D; row !== col; row = row.D) {
+          solution.push(row.rowIndex)
+          
+          for (let j = row.R; j !== row; j = j.R) {
+            this.coverColumn(j.C)
+          }
+          
+          if (search()) return true
+          
+          solution.pop()
+          for (let j = row.L; j !== row; j = j.L) {
+            this.uncoverColumn(j.C)
+          }
+        }
+        
+        this.uncoverColumn(col)
+        return false
+      }
+      
+      const rows = []
+      for (let r = 0; r < 9; r++) {
+        for (let c = 0; c < 9; c++) {
+          for (let num = 1; num <= 9; num++) {
+            rows.push([r, c, num])
+          }
+        }
+      }
+      
+      for (let i = rows.length - 1; i > 0; i--) {
+        const j = Math.floor(Math.random() * (i + 1));
+        [rows[i], rows[j]] = [rows[j], rows[i]]
+      }
+      
+      return search() ? solution : null
+    },
+    coverColumn(col) {
+      col.R.L = col.L
+      col.L.R = col.R
+      
+      for (let row = col.D; row !== col; row = row.D) {
+        for (let j = row.R; j !== row; j = j.R) {
+          j.D.U = j.U
+          j.U.D = j.D
+          j.C.S--
+        }
+      }
+    },
+    uncoverColumn(col) {
+      for (let row = col.U; row !== col; row = row.U) {
+        for (let j = row.L; j !== row; j = j.L) {
+          j.C.S++
+          j.D.U = j
+          j.U.D = j
+        }
+      }
+      
+      col.R.L = col
+      col.L.R = col
     },
     solveSudokuBoard(board) {
       const empty = this.findEmpty(board)

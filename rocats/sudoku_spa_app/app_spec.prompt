@@ -1,5 +1,5 @@
 spec {
-  let action.create_sudoku_board = generate a random extremely difficult level sudoku board, must have some filled number cells and some unfilled number cells according to the difficult level (65-74 cells removed for extremely difficult level). Optimized generation: pre-fills diagonal 3x3 boxes first (which don't conflict with each other) using Fisher-Yates shuffle, then fills remaining cells with sequential number testing for faster completion
+  let action.create_sudoku_board = generate a random extremely difficult level sudoku board, must have some filled number cells and some unfilled number cells according to the difficult level (65-74 cells removed for extremely difficult level). Uses Dancing Links (DLX) Algorithm: pre-fills diagonal 3x3 boxes first (which don't conflict with each other) using Fisher-Yates shuffle, then solves remaining cells using DLX algorithm which models Sudoku as an exact cover problem with 324 constraints (81 cell constraints, 81 row constraints, 81 column constraints, 81 box constraints). DLX uses a circular doubly-linked list structure with efficient cover/uncover operations for optimal backtracking performance
 
   html {
     title: "Super Simple Sudoku version 3"
@@ -15,7 +15,7 @@ spec {
   component.sudokuboard {
     div.id:"sudokuboard" {
       border: 8px solid Maroon (#800000) with 3D picture frame effect (implemented using box-shadow with inset shadows for beveled depth, light/dark gradients for dimensional appearance, and outer shadows for raised frame effect)
-      perform action.create_sudoku_board (createSudokuBoard() called on component mounted lifecycle hook in Vue.js, generates board with filled/empty cells based on current difficulty level)
+      perform action.create_sudoku_board (createSudokuBoard() called on component mounted lifecycle hook in Vue.js, generates board with filled/empty cells based on current difficulty level using DLX algorithm)
       layout: 3x3 grid of boxes (template uses nested v-for loops: outer loop for 3 rows, inner loop for 3 columns per row, creating proper 3x3 grid with display: flex for row containers, each box uses CSS grid with 3x3 layout for perfect cell alignment)
       for the filled number {
         background should expand and cover the whole number cell
