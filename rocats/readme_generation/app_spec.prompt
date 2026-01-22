@@ -49,7 +49,7 @@ spec {
     }
     
     editor_integration {
-      description: "Designed to work with any editors, good for users who want to do vibe coding in their editor instead of in the coding agent console and a specific IDE"
+      description: "Designed to work with any editor, which is good for users who want to do vibe coding in their editor instead of in the coding agent console and a specific IDE"
       
       benefits_table {
         | Benefit | Description |
