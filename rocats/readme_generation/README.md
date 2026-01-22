@@ -74,7 +74,7 @@ app_spec {
 
 ## Editor Integration
 
-ROCAT is designed to work seamlessly with any text editor, allowing developers to practice "vibe coding" directly in their preferred editing environment rather than being confined to the coding agent console.
+ROCAT is designed to work with any editors, it can good for users who want to do vibe coding in their editor instead of in the coding agent console and a specific IDE.
 
 ### Benefits of Editor-Based Workflow
 

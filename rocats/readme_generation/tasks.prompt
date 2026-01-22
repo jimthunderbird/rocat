@@ -75,3 +75,10 @@ task [closed] {
     command: "sh rocat.sh sudoku_spa_app runapp_hotreload"
   }
 }
+
+task [closed] {
+  In the "Editor Integration" section {
+    update the wording with the following:
+    "ROCAT is designed to work with any editors, it can good for users who want to do vibe coding in their editor instead of in the coding agent console and a specific IDE"
+  }
+}
