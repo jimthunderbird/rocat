@@ -79,7 +79,7 @@ task [closed] {
 task [closed] {
   In the "Editor Integration" section {
     update the wording with the following:
-    "ROCAT is designed to work with any editors, it can good for users who want to do vibe coding in their editor instead of in the coding agent console and a specific IDE"
+    "ROCAT is designed to work with any editors, it can good for users who want to do vibe coding in their editor instead of in the coding agent console or a specific IDE"
     please help me fix any grammar mistakes
   }
 }
