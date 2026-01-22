@@ -83,3 +83,8 @@ task [closed] {
     please help me fix any grammar mistakes
   }
 }
+
+task [closed] {
+  in the "Spec-Driven Development Workflow", please fix the following:
+  app_spec.md should be app_spec.prompt
+}

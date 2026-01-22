@@ -89,7 +89,7 @@ ROCAT is designed to work with any editor, which is good for users who want to d
 
 ## Spec-Driven Development Workflow
 
-ROCAT embraces a spec-driven development mindset by automatically maintaining an up-to-date application specification throughout the development process. After each task is completed, ROCAT's workflow merges the changes back into the `app_spec.md` file, ensuring that your specification always reflects the current state of the application.
+ROCAT embraces a spec-driven development mindset by automatically maintaining an up-to-date application specification throughout the development process. After each task is completed, ROCAT's workflow merges the changes back into the `app_spec.prompt` file, ensuring that your specification always reflects the current state of the application.
 
 ### Key Advantages
 
