@@ -190,3 +190,9 @@ task (closed) {
   
   RESOLUTION: Implemented Dancing Links (DLX) Algorithm for Sudoku generation. The algorithm models Sudoku as an exact cover problem with 324 constraints (81 cell, 81 row, 81 column, and 81 box constraints). DLX uses a circular doubly-linked list structure with efficient cover/uncover operations. The implementation includes: createDLXMatrix() to build the constraint matrix, solveDLX() for backtracking search, coverColumn()/uncoverColumn() for efficient matrix manipulation, and encodeConstraint()/decodeConstraint() for mapping between board positions and constraint indices. Board generation pre-fills diagonal boxes using Fisher-Yates shuffle, then uses DLX to complete the solution for optimal performance.
 }
+
+task (closed) {
+  bug: when i click on "Solve this puzzle", the board should have all numbers covered, but currently it only have partial coverage
+  
+  RESOLUTION: Fixed DLX algorithm implementation to properly track (r, c, num) values with each matrix row. The bug was in decodeConstraint() which incorrectly decoded rowIndex - instead, we now store r, c, num directly in the matrix row structure and return them from solveDLX(). Also added animatingHint flag clearing when solving puzzle to ensure all cells display properly.
+}

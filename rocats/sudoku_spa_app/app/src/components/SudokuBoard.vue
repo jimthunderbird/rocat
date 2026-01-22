@@ -101,9 +101,8 @@ export default {
       const solution = this.solveDLX(dlx)
       
       if (solution) {
-        solution.forEach(rowIndex => {
-          const [r, c, num] = this.decodeConstraint(rowIndex)
-          board[r][c] = num
+        solution.forEach(row => {
+          board[row.r][row.c] = row.num
         })
         return true
       }
@@ -116,10 +115,10 @@ export default {
         for (let c = 0; c < 9; c++) {
           if (board[r][c] !== 0) {
             const num = board[r][c]
-            constraints.push(this.encodeConstraint(r, c, num))
+            constraints.push({ cols: this.encodeConstraint(r, c, num), r, c, num })
           } else {
             for (let num = 1; num <= 9; num++) {
-              constraints.push(this.encodeConstraint(r, c, num))
+              constraints.push({ cols: this.encodeConstraint(r, c, num), r, c, num })
             }
           }
         }
@@ -128,7 +127,7 @@ export default {
       const matrix = {
         header: { L: null, R: null, U: null, D: null, C: null, S: 0 },
         columns: [],
-        rows: constraints.map((constraint, idx) => ({ constraint, nodes: [], index: idx }))
+        rows: constraints.map((constraint, idx) => ({ constraint: constraint.cols, r: constraint.r, c: constraint.c, num: constraint.num, nodes: [], index: idx }))
       }
       
       for (let i = 0; i < 324; i++) {
@@ -152,7 +151,7 @@ export default {
       matrix.rows.forEach((row, rowIdx) => {
         const cols = row.constraint
         cols.forEach(colIdx => {
-          const node = { L: null, R: null, U: null, D: null, C: matrix.columns[colIdx], rowIndex: rowIdx }
+          const node = { L: null, R: null, U: null, D: null, C: matrix.columns[colIdx], rowIndex: rowIdx, r: row.r, c: row.c, num: row.num }
           
           const col = matrix.columns[colIdx]
           node.U = col.U
@@ -211,7 +210,7 @@ export default {
         this.coverColumn(col)
         
         for (let row = col.D; row !== col; row = row.D) {
-          solution.push(row.rowIndex)
+          solution.push({ r: row.r, c: row.c, num: row.num, rowIndex: row.rowIndex })
           
           for (let j = row.R; j !== row; j = j.R) {
             this.coverColumn(j.C)
@@ -446,6 +445,7 @@ export default {
             cell.filled = true
             cell.isHint = false
             cell.selected = false
+            cell.animatingHint = false
           })
         })
         return
@@ -471,6 +471,7 @@ export default {
           cell.filled = true
           cell.isHint = false
           cell.selected = false
+          cell.animatingHint = false
         })
       })
     },
