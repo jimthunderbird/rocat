@@ -1,0 +1,27 @@
+let wiki_source_url = "https://en.wikipedia.org/wiki/Rust_(programming_language)"
+
+role: you are great video creator and python 
+
+objective {
+  write a python script ./video_gen.py and run the script to create a 2 persons talk video based on app_spec.two_person_talk_video
+}
+
+app_spec {
+  two_person_talk_video {
+    style: "David Letterman type of talkshow"
+    file: "talk.mp4"
+    personl_a {
+      gender: male
+      name: "TinTin"
+    }
+    personl_b {
+      gender: male
+      name: "Professor Calculus"
+    }
+    language: "English"
+    video_length: 120 seconds
+  }
+  requirement {
+    "Professor Calculus" should explain Rust and also show and explain Rust code snippets in the video
+  }
+}
