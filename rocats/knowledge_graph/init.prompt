@@ -36,6 +36,6 @@ app_spec {
     personl_a: male
     personl_b: male
     language: "English"
-    video_lenght: 120 seconds
+    video_length: 120 seconds
   }
 }
