@@ -1,14 +1,41 @@
 role: you are a good knowledge graph drawer
 
-objective: draw me a kowledge graph based on app_spec
+objective {
+  draw me a kowledge graph based on app_spec 
+  write a python script ./video_gen.py and run the script to create a 2 persons talk video based on app_spec.two_person_talk_video
 
 constraint {
-    
+  only generate the "Relationship Graph"   
+  generate a mermaid graph with index.html so that it can be viewed in browser
+  only focus on {app_spec.knowledge_graph.source}, do not need to look into other sources
+  in index.html, make sure {
+    each element in the mermaid graph is large enough so that i can see its font
+    the graph can be scroll verizontally or vertically in the browser so that i can explore other elemnts as needed
+  }
+  do not create index.html in /tmp directory!
 }
 
 app_spec {
   knowledge_graph {
     source: "https://en.wikipedia.org/wiki/Antikythera_mechanism"
     file: "./graph.md"
+    mermaid_graph_file: "./index.html" {
+      layout {
+        div.id: "summary" {
+          a 300 words summary of the main topic
+        }
+        div.id: "graph" {
+          the mermaid graph
+        }
+      }
+    }
   }  
+  two_person_talk_video {
+    style: "David Letterman type of talkshow"
+    file: "talk.mp4"
+    personl_a: male
+    personl_b: male
+    language: "English"
+    video_lenght: 120 seconds
+  }
 }

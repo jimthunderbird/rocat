@@ -1,0 +1,346 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Antikythera Mechanism - Knowledge Graph</title>
+    <script src="https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.min.js"></script>
+    <style>
+        * { box-sizing: border-box; }
+        body {
+            font-family: 'Segoe UI', Arial, sans-serif;
+            margin: 0;
+            padding: 24px;
+            background-color: #1a1a2e;
+            color: #eee;
+        }
+        h1 {
+            text-align: center;
+            color: #e94560;
+            font-size: 36px;
+            margin: 0 0 8px;
+        }
+        h1 small {
+            display: block;
+            font-size: 14px;
+            color: #888;
+            font-weight: normal;
+            margin-top: 4px;
+        }
+
+        /* ---- Summary ---- */
+        #summary {
+            max-width: 1000px;
+            margin: 0 auto 32px;
+            padding: 28px 32px;
+            background: #16213e;
+            border-radius: 12px;
+            border-left: 5px solid #e94560;
+            line-height: 1.8;
+            font-size: 17px;
+            color: #d4d4d4;
+        }
+        #summary h2 {
+            margin-top: 0;
+            color: #e94560;
+            font-size: 24px;
+        }
+        #summary p { margin: 0 0 14px; text-align: justify; }
+        #summary p:last-child { margin-bottom: 0; }
+
+        /* ---- Graph container ---- */
+        #graph {
+            background: #0f3460;
+            border-radius: 12px;
+            padding: 32px;
+            overflow: auto;
+            max-height: 90vh;
+            border: 1px solid #1a1a4e;
+            cursor: grab;
+            position: relative;
+        }
+        #graph:active { cursor: grabbing; }
+
+        /* Make mermaid diagram large enough to read */
+        .mermaid {
+            min-width: 4000px;
+            min-height: 3600px;
+        }
+        .mermaid svg {
+            min-width: 4000px;
+            min-height: 3600px;
+        }
+
+        /* Override mermaid node text sizes via CSS */
+        .mermaid .nodeLabel {
+            font-size: 18px !important;
+            line-height: 1.4 !important;
+        }
+        .mermaid .edgeLabel {
+            font-size: 15px !important;
+        }
+
+        /* Scroll hint */
+        .scroll-hint {
+            text-align: center;
+            color: #888;
+            font-size: 13px;
+            margin: 8px 0 0;
+        }
+    </style>
+</head>
+<body>
+
+<h1>Antikythera Mechanism &mdash; Knowledge Graph
+    <small>Source: <a href="https://en.wikipedia.org/wiki/Antikythera_mechanism" style="color:#e94560">Wikipedia</a></small>
+</h1>
+
+<!-- ==================== SUMMARY ==================== -->
+<div id="summary">
+    <h2>Summary</h2>
+    <p>
+        The Antikythera mechanism is an ancient Greek hand-powered orrery and the oldest known example of an
+        analogue computer, dating to approximately 150&ndash;100 BCE. Recovered in 1901 from a Roman-era
+        shipwreck off the Greek island of Antikythera by sponge divers working with the Hellenic Royal Navy,
+        the device remained unrecognised for two years until archaeologist Valerios Stais spotted a gear wheel
+        embedded in one of the corroded bronze lumps. Housed in a wooden case roughly the size of a shoebox
+        (34 &times; 18 &times; 9 cm), the mechanism contained at least 37 interlocking bronze gears capable of
+        predicting the positions of the Sun and Moon against the zodiac, modelling the Moon&rsquo;s irregular
+        orbit through a sophisticated pin-and-slot device, forecasting solar and lunar eclipses via the
+        223-month Saros cycle, and tracking the four-year cycle of Panhellenic athletic games including the
+        ancient Olympics.
+    </p>
+    <p>
+        Its front dial displayed the zodiac and an Egyptian calendar ring, while the rear carried two large
+        spiral dials&mdash;the Metonic dial (235 months over 19 years) for calendar alignment and the Saros
+        dial for eclipse prediction&mdash;each with subsidiary dials for finer corrections. Inscriptions
+        deciphered through X-ray tomography in 2005 by the Antikythera Mechanism Research Project revealed
+        synodic cycle data for Venus (462) and Saturn (442), confirming the device&rsquo;s extraordinary scope.
+        The astronomical theories it encodes, particularly Hipparchus of Rhodes&rsquo; lunar model and
+        Babylonian arithmetic prediction methods, link it to the vibrant scientific tradition of Hellenistic Rhodes.
+    </p>
+    <p>
+        No comparable technological complexity appeared again until the astronomical clocks of 14th-century
+        Europe, though partial transmission occurred through Byzantine geared calendars and Islamic mechanical
+        traditions. The mechanism thus stands as powerful evidence that the ancient Greeks possessed engineering
+        and mathematical capabilities far beyond what was previously believed, representing a lost tradition
+        of precision instrument-making that would not be rediscovered for over a thousand years. Today all
+        82 surviving fragments reside in the National Archaeological Museum of Athens.
+    </p>
+</div>
+
+<!-- ==================== GRAPH ==================== -->
+<div id="graph">
+    <div class="mermaid">
+graph TD
+    AM["<b>ANTIKYTHERA MECHANISM</b><br/>Ancient Greek Analogue Computer<br/>c. 205 – 60 BCE"]
+
+    %% ===== DISCOVERY & SHIPWRECK =====
+    AM -->|"discovered in"| WRECK["<b>Antikythera Shipwreck</b><br/>c. 70-60 BCE"]
+    WRECK -->|"located at"| GLYPHADIA["Point Glyphadia<br/>Antikythera Island"]
+    GLYPHADIA -->|"depth"| DEPTH["45 m / 148 ft"]
+    WRECK -->|"discovered by"| KONTOS["Capt. Dimitrios Kontos<br/>& Sponge Divers from Symi<br/>1900"]
+    WRECK -->|"recovered by"| NAVY["Hellenic Royal Navy<br/>1900-1901"]
+    WRECK -->|"also carried"| CARGO["<b>Luxury Cargo</b><br/>Bronze & Marble Statues<br/>Pottery, Glassware, Jewellery"]
+    CARGO -->|"includes"| YOUTH["Youth of Antikythera<br/>c. 340 BCE"]
+    WRECK -->|"revisited by"| COUSTEAU["Jacques Cousteau<br/>1970s · found coins"]
+
+    %% ===== PHYSICAL STRUCTURE =====
+    AM -->|"made of"| BRONZE["Bronze Gears & Plates"]
+    AM -->|"enclosed in"| CASE["Wooden Case<br/>34 x 18 x 9 cm"]
+    AM -->|"survives as"| FRAGS["<b>82 Fragments</b>"]
+    FRAGS -->|"largest"| FRAGA["Fragment A<br/>27 of 30 surviving gears"]
+    FRAGS -->|"with gears"| FRAGBCD["Fragments B, C, D<br/>1 gear each"]
+    FRAGS -->|"found 2005"| FRAGF["Fragment F<br/>(in storage)"]
+    FRAGS -->|"Fragment D"| FRAGD["Fragment D<br/>epicyclic system<br/>63-tooth gear r1"]
+    FRAGD -.->|"may model"| JUPITER["Jupiter"]
+    AM -->|"contains"| GEARS["<b>~37 Bronze Gears</b>"]
+    GEARS -->|"largest"| GEAR223["13 cm diameter<br/>223 teeth · gear b1"]
+    GEARS -->|"tooth form"| TEETH["Equilateral Triangles<br/>1.6 mm pitch · hand-cut"]
+    AM -->|"bears"| INSCRIP["Greek Inscriptions<br/>~3,000 of ~15,000 chars"]
+    INSCRIP -->|"includes"| PARAPEGMA["Parapegma<br/>star almanac on front"]
+    AM -->|"operated by"| CRANK["Hand Crank (lost)<br/>Crown Gear to b1"]
+
+    %% ===== FRONT FACE =====
+    AM -->|"front face"| FRONT["<b>Front Face</b>"]
+    FRONT -->|"inner ring"| ZODIAC["Zodiac Dial<br/>12 signs x 30 degrees"]
+    FRONT -->|"outer ring"| EGYPCAL["Egyptian Calendar Ring<br/>12 months + 5 days"]
+    EGYPCAL -.->|"354-hole debate"| LUNARCAL["Lunar Calendar?<br/>Budiselic et al. 2020"]
+    FRONT -->|"pointer"| SUNPTR["Sun Pointer<br/>(mean Sun position)"]
+    FRONT -->|"pointer"| MOONPTR["Moon Pointer<br/>+ Phase Display"]
+    MOONPTR -->|"uses"| DIFFGEAR["Differential Gear<br/>half-white half-black ball"]
+    FRONT -->|"may have shown"| PLANPTR["5 Planet Pointers<br/>(mostly lost)"]
+
+    %% ===== BACK FACE UPPER =====
+    AM -->|"upper back"| METDIAL["<b>Metonic Dial</b><br/>5-turn spiral"]
+    METDIAL -->|"tracks"| METCYC["Metonic Cycle<br/>235 months = 19 years"]
+    METDIAL -->|"subsidiary"| GAMESDIAL["Games Dial<br/>4-year cycle<br/>(anticlockwise)"]
+    GAMESDIAL -->|"tracks"| OLYMPICS["Olympic Games"]
+    GAMESDIAL -->|"tracks"| PYTHIAN["Pythian Games"]
+    GAMESDIAL -->|"tracks"| ISTHMIAN["Isthmian Games"]
+    GAMESDIAL -->|"tracks"| NEMEAN["Nemean Games"]
+    GAMESDIAL -->|"tracks"| NAA["Naa at Dodona"]
+    GAMESDIAL -->|"tracks"| HALIEIA["Halieia of Rhodes"]
+    METDIAL -->|"subsidiary"| CALLDIAL["Callippic Dial<br/>76 yrs = 4 Metonic"]
+
+    %% ===== BACK FACE LOWER =====
+    AM -->|"lower back"| SARDIAL["<b>Saros Dial</b><br/>4-turn spiral"]
+    SARDIAL -->|"tracks"| SARCYC["Saros Cycle<br/>223 months approx 18.2 yrs"]
+    SARCYC -->|"predicts"| SOLECLIP["Solar Eclipses"]
+    SARCYC -->|"predicts"| LUNECLIP["Lunar Eclipses"]
+    SARDIAL -->|"displays"| ECLGLYPH["Eclipse Glyphs<br/>38 lunar + 27 solar<br/>type, time, hour"]
+    SARDIAL -->|"subsidiary"| EXELDIAL["Exeligmos Dial<br/>3 Saros = 54 yrs<br/>19,756 days"]
+
+    %% ===== GEAR MECHANICS =====
+    GEARS -->|"features"| EPICYCLIC["Epicyclic Gearing"]
+    GEARS -->|"features"| PINSLOT["Pin-and-Slot Device"]
+    PINSLOT -->|"models"| LUNANOM["Lunar Anomaly<br/>perigee vs apogee"]
+    PINSLOT -->|"encodes"| MOONPREC["Moon Precession<br/>8.88-year cycle"]
+
+    %% ===== CELESTIAL BODIES TRACKED =====
+    AM -->|"tracks"| SUN["Sun"]
+    AM -->|"tracks"| MOON["Moon<br/>position + phase + anomaly"]
+    AM -->|"inscriptions"| MERCURY["Mercury"]
+    AM -->|"inscriptions"| VENUS["Venus<br/>synodic 462"]
+    AM -->|"inscriptions"| MARS["Mars"]
+    AM -->|"inscriptions"| JUPITER
+    AM -->|"inscriptions"| SATURN["Saturn<br/>synodic 442"]
+
+    %% ===== INTELLECTUAL ORIGINS =====
+    BABYLON["<b>Babylonian Astronomy</b><br/>arithmetic prediction"] -->|"contributed cycles"| AM
+    ARCHIMEDES["<b>Archimedes</b><br/>~287-212 BCE<br/>Syracuse"] -.->|"sphaerae ancestor"| AM
+    ARCHIMEDES -->|"devices brought to Rome by"| MARCELLUS["Marcus Claudius Marcellus<br/>Siege of Syracuse 212 BCE"]
+    HIPPARCHUS["<b>Hipparchus</b><br/>Rhodes ~190-120 BCE"] -->|"lunar motion theory"| AM
+    POSIDONIUS["<b>Posidonius</b><br/>c. 135-51 BCE<br/>School on Rhodes"] -.->|"workshop tradition"| AM
+    CICERO["<b>Cicero</b><br/>106-43 BCE<br/>De re publica"] -->|"wrote about sphaerae"| ARCHIMEDES
+    CICERO -->|"wrote about sphaerae"| POSIDONIUS
+    PAPPUS["Pappus of Alexandria<br/>c. 290-350 AD"] -->|"mentions On Sphere-Making"| ARCHIMEDES
+
+    %% ===== ORIGIN THEORIES =====
+    AM -->|"probable origin"| RHODES["<b>Rhodes</b><br/>astronomy and engineering hub"]
+    RHODES -->|"home of"| HIPPARCHUS
+    RHODES -->|"home of"| POSIDONIUS
+    AM -.->|"alt. origin"| PERGAMON["Pergamon<br/>(coin evidence)"]
+    AM -.->|"calendar from"| CORINTH["Corinth / NW Greece"]
+    CORINTH -->|"colony"| SYRACUSE["Syracuse<br/>home of Archimedes"]
+    AM -.->|"modified for"| EPIRUS["Epirus<br/>(Iversen 2017)"]
+
+    %% ===== DATING =====
+    AM -->|"main estimate"| DATE150["150 to 100 BCE"]
+    AM -.->|"alt. date"| DATE205["205 BCE (Saros epoch)"]
+    AM -.->|"calibration"| DATE178["23 Dec 178 BCE<br/>(2022 proposal)"]
+    AM -.->|"calibration"| DATE204["204 BCE<br/>(alternative)"]
+
+    %% ===== MODERN RESEARCHERS =====
+    STAIS["<b>Valerios Stais</b><br/>Museum Director"] -->|"recognised gears<br/>17 May 1902"| AM
+    SPYRIDON["Spyridon Stais<br/>Politician"] -->|"noticed gear 1902"| AM
+    STAIS -->|"cousin of"| SPYRIDON
+    REHM["<b>Albert Rehm</b><br/>German Philologist"] -->|"first proposed<br/>astronomical calculator"| AM
+    PRICE["<b>Derek de Solla Price</b><br/>Yale, Science Historian"] -->|"studied 1951-1974"| AM
+    PRICE -->|"with"| KARAKALOS["Charalampos Karakalos<br/>Nuclear Physicist"]
+    PRICE -->|"used"| XRAY["X-ray and Gamma-ray<br/>Imaging 1971"]
+    PRICE -->|"published"| GFTG["Gears from the Greeks<br/>1974"]
+    WRIGHT["<b>Michael Wright</b><br/>Science Museum London"] -->|"first working model 2002"| AM
+    WRIGHT -->|"discovered"| PINSLOT
+    WRIGHT -->|"discovered spiral dials"| METDIAL
+    WRIGHT -->|"demonstrated"| DIFFGEAR
+    MOUSSAS["Xenophon Moussas"] -->|"identified Jupiter gear<br/>in Fragment D"| FRAGD
+
+    %% ===== AMRP =====
+    AM -->|"studied by"| AMRP["<b>AMRP</b><br/>Research Project"]
+    AMRP -->|"co-founded by"| FREETH["<b>Tony Freeth</b><br/>Mathematician / Filmmaker"]
+    AMRP -->|"co-founded by"| EDMUNDS["<b>Mike Edmunds</b><br/>Cardiff, Astrophysicist"]
+    AMRP -->|"used"| CTSCAN["450 kV CT Scanner<br/>Roger Hadland 2005"]
+    AMRP -->|"published"| NATURE06["Nature 2006"]
+    AMRP -->|"revealed"| HIDDEN["Hidden Inscriptions<br/>CT + PTM"]
+    AMRP -->|"found 2016"| SYNODIC["Synodic numbers<br/>Venus 462, Saturn 442"]
+    FREETH -->|"published 2021"| UCL["UCL Full<br/>Reconstruction"]
+    FREETH -->|"documentary"| DOC["The Worlds First<br/>Computer, 2012"]
+
+    %% ===== OTHER RESEARCHERS =====
+    JONES["Alexander Jones"] -->|"inscriptions and dating"| AM
+    EVANS["James Evans"] -->|"eclipse dating 205 BCE"| AM
+    CARMAN["Christian Carman 2014"] -->|"eclipse dating"| AM
+
+    %% ===== CURRENT HOME =====
+    AM -->|"housed at"| MUSEUM["<b>National Archaeological<br/>Museum, Athens</b>"]
+    MUSEUM -->|"displays"| REPLICAS["Reconstructions<br/>and Replicas"]
+
+    %% ===== LEGACY AND TECHNOLOGY TRANSMISSION =====
+    AM -->|"represents"| LOSTTECH["Lost Technology<br/>~1,000-year gap"]
+    LOSTTECH -->|"partial transmission"| BYZANTINE["Byzantine Geared Calendar<br/>5th-6th century"]
+    LOSTTECH -->|"partial transmission"| ISLAMIC["Islamic Mechanical Tradition<br/>Banu Musa, al-Biruni"]
+    LOSTTECH -->|"not matched until"| MEDIEVAL["14th-Century Clocks"]
+    MEDIEVAL -->|"e.g."| WALLINGFORD["Richard of Wallingford"]
+    MEDIEVAL -->|"e.g."| DONDI["Giovanni de Dondi<br/>Astrarium"]
+    AM -->|"classified as"| FIRSTCOMP["First Known<br/>Analogue Computer"]
+    AM -->|"classified as"| ORRERY["Ancient Hand-powered<br/>Orrery"]
+
+    %% ===== STYLES =====
+    style AM fill:#e74c3c,stroke:#c0392b,stroke-width:4px,color:#fff
+    style WRECK fill:#8e44ad,stroke:#6c3483,stroke-width:3px,color:#fff
+    style FRONT fill:#2980b9,stroke:#1f618d,stroke-width:2px,color:#fff
+    style METDIAL fill:#27ae60,stroke:#1e8449,stroke-width:2px,color:#fff
+    style SARDIAL fill:#27ae60,stroke:#1e8449,stroke-width:2px,color:#fff
+    style GEARS fill:#d35400,stroke:#a04000,stroke-width:2px,color:#fff
+    style AMRP fill:#f39c12,stroke:#d68910,stroke-width:3px,color:#000
+    style MUSEUM fill:#1abc9c,stroke:#148f77,stroke-width:2px,color:#fff
+    style FIRSTCOMP fill:#e74c3c,stroke:#c0392b,stroke-width:2px,color:#fff
+    style HIPPARCHUS fill:#2980b9,stroke:#1f618d,stroke-width:2px,color:#fff
+    style ARCHIMEDES fill:#2980b9,stroke:#1f618d,stroke-width:2px,color:#fff
+    style RHODES fill:#d35400,stroke:#a04000,stroke-width:2px,color:#fff
+    style BABYLON fill:#7d3c98,stroke:#6c3483,stroke-width:2px,color:#fff
+    style FRAGS fill:#d35400,stroke:#a04000,stroke-width:2px,color:#fff
+    style CARGO fill:#8e44ad,stroke:#6c3483,stroke-width:2px,color:#fff
+    style LOSTTECH fill:#c0392b,stroke:#922b21,stroke-width:2px,color:#fff
+    style BYZANTINE fill:#8e44ad,stroke:#6c3483,stroke-width:2px,color:#fff
+    style ISLAMIC fill:#8e44ad,stroke:#6c3483,stroke-width:2px,color:#fff
+    style FRAGD fill:#d35400,stroke:#a04000,stroke-width:2px,color:#fff
+    </div>
+</div>
+<p class="scroll-hint">Scroll or drag to explore the full graph &harr; &uarr;&darr;</p>
+
+<script>
+    mermaid.initialize({
+        startOnLoad: true,
+        theme: 'dark',
+        flowchart: {
+            useMaxWidth: false,
+            htmlLabels: true,
+            curve: 'basis',
+            nodeSpacing: 120,
+            rankSpacing: 140,
+            padding: 24
+        },
+        themeVariables: {
+            fontSize: '22px',
+            fontFamily: '"Segoe UI", Arial, sans-serif',
+            primaryColor: '#2c3e50',
+            primaryTextColor: '#ecf0f1',
+            lineColor: '#7f8c8d',
+            secondaryColor: '#34495e',
+            tertiaryColor: '#1a1a2e'
+        }
+    });
+
+    // Enable click-drag scrolling on the graph container
+    const graph = document.getElementById('graph');
+    let isDown = false, startX, startY, scrollLeft, scrollTop;
+    graph.addEventListener('mousedown', e => {
+        isDown = true;
+        startX = e.pageX - graph.offsetLeft;
+        startY = e.pageY - graph.offsetTop;
+        scrollLeft = graph.scrollLeft;
+        scrollTop = graph.scrollTop;
+    });
+    graph.addEventListener('mouseleave', () => isDown = false);
+    graph.addEventListener('mouseup', () => isDown = false);
+    graph.addEventListener('mousemove', e => {
+        if (!isDown) return;
+        e.preventDefault();
+        graph.scrollLeft = scrollLeft - (e.pageX - graph.offsetLeft - startX);
+        graph.scrollTop = scrollTop - (e.pageY - graph.offsetTop - startY);
+    });
+</script>
+</body>
+</html>
