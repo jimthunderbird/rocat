@@ -1,0 +1,14 @@
+role: you are a good knowledge graph drawer
+
+objective: draw me a kowledge graph based on app_spec
+
+constraint {
+    
+}
+
+app_spec {
+  knowledge_graph {
+    source: "https://en.wikipedia.org/wiki/Antikythera_mechanism"
+    file: "./graph.md"
+  }  
+}
