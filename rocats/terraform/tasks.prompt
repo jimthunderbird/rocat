@@ -2,3 +2,8 @@ task {
   status: "completed"
   file: ./tasks/task.app_server.prompt
 }
+
+task {
+  status: "completed"
+  file ./tasks/task.app_server_2.prompt
+}

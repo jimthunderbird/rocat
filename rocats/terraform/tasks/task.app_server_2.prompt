@@ -1,0 +1,19 @@
+let instance_name_2 = {
+  description: "Value of the Name tag for the EC2 instance"
+  type: string
+  default: "Pro-Trading-Server_2"
+}
+let ami_id_2 = {
+  type: string
+  default: "ami-0c55b159123456"
+}
+
+app_spec.appendChild({
+  resource.aws_instance.app_server_2 {
+    ami: {ami_id_2}
+    instance_type:"t2.micro"
+    tags {
+      name: {instance_name_2}
+    }
+  }
+})
