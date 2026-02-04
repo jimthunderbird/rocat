@@ -1,7 +1,8 @@
 for each task in ./tasks.prompt {
   if ({task} is completed) {
     update ./tasks.prompt
-    set {task}.status = "completed"  
+    set {task}.status = "completed"
+    DO NOT load {task}.file to context
   }
 
   if ({task}.status is "completed") {

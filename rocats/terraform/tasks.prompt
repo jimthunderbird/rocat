@@ -1,23 +1,4 @@
 task {
   status: "completed"
-
-  let instance_name = {
-    description: "Value of the Name tag for the EC2 instance"
-    type: string
-    default: "Pro-Trading-Server"
-  }
-  let ami_id = {
-    type: string
-    default: "ami-0c55b159cbfafe1f0"
-  }
-
-  app_spec.appendChild({
-    resource.aws_instance.app_server {
-      ami: {ami_id}
-      instance_type:"t2.micro"
-      tags {
-        name: {instance_name}
-      }
-    }
-  })
+  file: ./tasks/task.app_server.prompt
 }
