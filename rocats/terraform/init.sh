@@ -1,1 +1,1 @@
-cat init.prompt | claude --dangerously-skip-permissions --verbose false
+cat init.prompt | claude --dangerously-skip-permissions --settings '{"alwaysThinkingEnabled": false}'
