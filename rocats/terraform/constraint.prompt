@@ -1,4 +1,8 @@
 constraint {
   let target_file = "./main.tf"
   include ./constraint/task_rules.prompt 
+
+  for each task in ./tasks.prompt {
+    if any variables are defined, in {target_file}, keep those variable definitions
+  }
 }
