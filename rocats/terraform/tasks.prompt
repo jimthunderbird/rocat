@@ -5,5 +5,5 @@ task {
 
 task {
   status: "completed"
-  file ./tasks/task.app_server_2.prompt
+  file: ./tasks/task.app_server_2.prompt
 }

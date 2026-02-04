@@ -1,5 +1,5 @@
-include ./role.prompt
-include ./objective.prompt 
-include ./constraint.prompt
-include ./app_spec.prompt
-include ./tasks.prompt
+include: ./role.prompt
+include: ./objective.prompt 
+include: ./constraint.prompt
+include: ./app_spec.prompt
+include: ./tasks.prompt

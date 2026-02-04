@@ -2,22 +2,15 @@ terraform {
   required_providers {
     aws = {
       source  = "hashicorp/aws"
-      version = "~> 4.0"
+      version = "~> 4.16"
     }
   }
+
+  required_version = ">= 1.2.0"
 }
 
 provider "aws" {
   region = "us-west-2"
-}
-
-resource "aws_instance" "example_server" {
-  ami           = "ami-0c55b159cbfafe1f0"
-  instance_type = "t2.micro"
-
-  tags = {
-    Name = "TerraformDemoInstance"
-  }
 }
 
 variable "instance_name" {
@@ -31,15 +24,6 @@ variable "ami_id" {
   default = "ami-0c55b159cbfafe1f0"
 }
 
-resource "aws_instance" "app_server" {
-  ami           = var.ami_id
-  instance_type = "t2.micro"
-
-  tags = {
-    Name = var.instance_name
-  }
-}
-
 variable "instance_name_2" {
   description = "Value of the Name tag for the EC2 instance"
   type        = string
@@ -49,6 +33,24 @@ variable "instance_name_2" {
 variable "ami_id_2" {
   type    = string
   default = "ami-0c55b159123456"
+}
+
+resource "aws_instance" "example_server" {
+  ami           = "ami-0c55b159cbfafe1f0"
+  instance_type = "t2.micro"
+
+  tags = {
+    Name = "TerraformDemoInstance"
+  }
+}
+
+resource "aws_instance" "app_server" {
+  ami           = var.ami_id
+  instance_type = "t2.micro"
+
+  tags = {
+    Name = var.instance_name
+  }
 }
 
 resource "aws_instance" "app_server_2" {
