@@ -1,5 +1,4 @@
-let target_file = "./main.tf"
-
 constraint {
+  let target_file = "./main.tf"
   include ./constraint/task_rules.prompt 
 }
