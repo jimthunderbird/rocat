@@ -3,14 +3,12 @@ role: Vim Plugin Expert
 objective: run task
 
 constraint {
+  let target_file = app_spec.vim_plugin
+  ./constraint/task_rules.prompt
 }
 
 app_spec {
   vim_plugin: ./curlyprompt.vim
 }
 
-task {
-  in app_spec.vim_plugin {
-    add syntax highlighting for pattern like: "app_spec.appendChild("    
-  }
-}
+include: ./tasks.prompt

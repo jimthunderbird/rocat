@@ -9,7 +9,7 @@ for each task in ./tasks.prompt {
     do not perform {task}
   }
 
-  if (./main.tf does not exist) {
+  if ({target_file} does not exist) {
     update ./tasks.prompt
     set {task}.status = "open" 
     perform {task}

@@ -1,0 +1,6 @@
+task {
+  status: "completed"
+  in app_spec.vim_plugin {
+    add syntax highlighting for pattern like: "app_spec.appendChild("
+  }
+}

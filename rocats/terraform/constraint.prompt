@@ -1,3 +1,5 @@
+let target_file = "./main.tf"
+
 constraint {
   include ./constraint/task_rules.prompt 
 }
