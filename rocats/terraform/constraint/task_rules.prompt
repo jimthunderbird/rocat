@@ -1,0 +1,16 @@
+for each task in ./tasks.prompt {
+  if ({task} is completed) {
+    update ./tasks.prompt
+    set {task}.status = "completed"  
+  }
+
+  if ({task}.status is "completed") {
+    do not perform {task}
+  }
+
+  if (./main.tf does not exist) {
+    update ./tasks.prompt
+    set {task}.status = "open" 
+    perform {task}
+  }
+}
