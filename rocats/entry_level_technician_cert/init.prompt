@@ -32,9 +32,9 @@ objective {
 }
 
 constraint {
-  in ./init.prompt, for each task in ./tasks.prompt {
+  for each task in ./init.prompt {
     if ({task} is completed) {
-      update ./tasks.prompt
+      update ./init.prompt
       set {task}.status = "completed"
       DO NOT load {task}.file to context
     }
@@ -48,5 +48,6 @@ constraint {
 
 task {
   based on ase_study_guides.source and ase_study_guides.topics
-  doownload all related pdfs from ase_study_guides.source to directory ./study_guides
+  download all related pdfs from ase_study_guides.source to directory ./study_guides
+  status: "completed"
 }
