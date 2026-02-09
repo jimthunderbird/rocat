@@ -1,0 +1,282 @@
+================================================================================
+7-UNIT ENTRY LEVEL TECHNICIAN CERTIFICATE - RESEARCH SUMMARY
+================================================================================
+
+Prepared for: Community College Mechanic Instructor (San Francisco & San Mateo County)
+Focus: ASE Entry-Level Certification Exams (A1 through A8)
+
+================================================================================
+SECTION 1: WHAT IS THE 7-UNIT ENTRY LEVEL TECHNICIAN CERTIFICATE?
+================================================================================
+
+The 7-unit Entry Level Technician Certificate is a Career Certificate offered by
+Skyline College (San Bruno, San Mateo County, CA) through their Automotive
+Technology department. Skyline College is nationally certified by the ASE
+Education Foundation.
+
+This certificate provides students foundational skills to start an entry-level
+job at a repair facility or dealership. Graduates are prepared for positions
+such as: Lube Tech, Shop Assistant, Express Tech, Driveway Tech, Porter, Car
+Washer, Parts Runner, Detailing, and Customer Service roles.
+
+REQUIRED COURSES (Total: 7 units)
+----------------------------------
+  Course #    | Title                                          | Units
+  ------------|------------------------------------------------|------
+  AUTO 580    | Careers in Automotive Technology                | 1
+  AUTO 670    | Automotive Work Experience                      | 1
+  AUTO 711    | Automotive Entry Level Technician Fundamentals  | 5
+  ------------|------------------------------------------------|------
+  TOTAL       |                                                | 7
+
+Course Descriptions:
+
+  AUTO 580 (1 unit) - Prepares students for careers in Automotive Technology by
+  covering career pathways, soft skills, safety standards, regulation of the
+  automotive industry, and labor law. Topics include resume preparation,
+  interview skills, workplace expectations, and career options.
+  (Lecture: 16-18 hrs/semester; No prerequisites)
+
+  AUTO 670 (1 unit) - Students earn academic credit for employment related to
+  their major or career objectives. Students complete an orientation during the
+  first three weeks and collaborate with an instructor to establish learning
+  goals. One unit of credit is earned for each 48-54 hours of paid or unpaid
+  work per semester.
+  (Pass/No Pass grading; No prerequisites)
+
+  AUTO 711 (5 units) - Teaches fundamental automotive skills including oil
+  changes, safety inspections, fluid flushing, tire service, work order
+  preparation, and recommendations.
+  (Lecture: 56-63 hrs; Lab: 72-81 hrs; No prerequisites)
+
+Note: AUTO 710 (Fundamentals of Automotive Technology, 4 units) is NOT part of
+this certificate but is the prerequisite for the full-time daytime Automotive
+Technology AS Degree program.
+
+Source: https://catalog.skylinecollege.edu/current/programs/automotive-technician-entry-level-cc.php
+
+================================================================================
+SECTION 2: STEPS TO COMPLETE THE CERTIFICATE
+================================================================================
+
+Step 1: ENROLL at Skyline College
+  - Apply for admission to Skyline College (part of the San Mateo County
+    Community College District - SMCCD)
+  - Complete placement assessments if required
+  - Meet with an academic counselor
+
+Step 2: COMPLETE the 3 Required Courses (7 units total)
+  - AUTO 580: Careers in Automotive Technology (1 unit)
+  - AUTO 670: Automotive Work Experience (1 unit)
+  - AUTO 711: Automotive Entry Level Technician Fundamentals (5 units)
+  - Minimum completion time: approximately 1 semester
+  - Courses are offered during both day and evening
+
+Step 3: PREPARE for ASE Entry-Level Certification Exams
+  - Study using ASE Study Guides (see Section 4 below)
+  - Take practice tests to assess readiness
+  - The ASE Entry-Level tests have NO work experience requirement
+  - Tests are administered at the school via secure computer-based testing (CBT)
+
+Step 4: TAKE ASE Entry-Level Certification Tests
+  - The ASE Automobile Entry-Level series includes 10 tests
+  - Tests cost $46-$51 per test
+  - Each test has 40-80 scored questions, 120-240 minutes allowed
+  - Tests are available year-round and administered online at the school
+  - A proctor (staff person other than an automotive instructor) monitors tests
+  - No work experience is required to sit for entry-level tests
+
+Step 5: EARN Entry-Level Certifications
+  - Pass one or more tests to earn entry-level certification
+  - Entry-level certifications are valid for 2 years (non-renewable)
+  - Certificates are printed and signed by school principals
+  - Digital badges are provided upon completion
+
+Step 6: PROGRESS to Professional ASE Certification (Optional Future Step)
+  - After gaining 2 years of hands-on work experience, you can take the
+    professional ASE A1-A8 tests
+  - Professional certifications are renewable (retest every 5 years)
+  - Passing all A1-A8 professional tests earns Master Automobile Technician
+    status
+
+================================================================================
+SECTION 3: ASE ENTRY-LEVEL AUTOMOBILE TESTS (10 Tests)
+================================================================================
+
+The ASE Entry-Level Automobile series includes these 10 tests:
+
+  #  | Entry-Level Test Name              | Maps to Professional Test
+  ---|------------------------------------|--------------------------
+  1  | Engine Repair                      | A1
+  2  | Automatic Transmission/Transaxle   | A2
+  3  | Manual Drive Train and Axles       | A3
+  4  | Suspension and Steering            | A4
+  5  | Brakes                             | A5
+  6  | Electrical/Electronic Systems      | A6
+  7  | Heating and Air Conditioning       | A7
+  8  | Engine Performance                 | A8
+  9  | Automobile Service Technology      | (General/Comprehensive)
+  10 | Maintenance and Light Repair       | G1
+  ---|------------------------------------|--------------------------
+
+Key Differences from Professional A1-A8 Tests:
+  - NO work experience required (professional tests require 2 years)
+  - Curriculum-based (built around ASE Education Foundation task lists)
+  - Valid for 2 years only (non-renewable)
+  - Administered at schools, not at independent testing centers
+  - Designed for students near the end of their studies
+
+================================================================================
+SECTION 4: ANSWERS TO YOUR QUESTIONS
+================================================================================
+
+QUESTION 1: Are the subjects all in the ase_study_guides?
+--------------------------------------------------------------
+YES. All 10 ASE Entry-Level Automobile test subjects are covered by the ASE
+Study Guides:
+
+  - Tests 1-8 (Engine Repair through Engine Performance) map directly to the
+    "Automobile & Light Truck (Includes Exhaust Systems) (A1 - A9)" study guide
+    >> File: ASE_Automobile_Study_Guide_2026.pdf
+
+  - Test 10 (Maintenance and Light Repair) maps to the
+    "Auto Maintenance & Light Repair (G1)" study guide
+    >> File: ASE_MaintenanceLtRepair_Study_Guide_2026.pdf
+
+  - Test 9 (Automobile Service Technology) is a general/comprehensive test
+    that draws from the A1-A8 content areas, so it is also covered by the
+    Automobile & Light Truck study guide.
+
+  - The "ASE Certification: Need to Know" guide provides general test-taking
+    information applicable to all tests.
+    >> File: ASE_CertificationNeedtoKnow_2026.pdf
+
+
+QUESTION 2: Do I need to study the entire ase_study_guides?
+--------------------------------------------------------------
+NO. You do NOT need to study the entire collection of ASE Study Guides. The
+full set of ASE Study Guides covers 22 topics across many specialties (transit
+bus, collision repair, medium-heavy truck, school bus, military vehicles, parts
+specialist, CNG, service consultant, and advanced levels L1-L4). Most of these
+are NOT relevant to the Entry-Level Technician certificate.
+
+You only need to focus on 3 out of the 22 study guides.
+
+
+QUESTION 3: What are the specific topics that are covered?
+--------------------------------------------------------------
+You need to study the following ASE Study Guide topics:
+
+  REQUIRED STUDY GUIDES:
+  ----------------------
+
+  1. "ASE Certification: Need to Know"
+     >> General test information, registration, test-taking strategies
+     >> File: ASE_CertificationNeedtoKnow_2026.pdf
+
+  2. "Automobile & Light Truck (Includes Exhaust Systems) (A1 - A9)"
+     >> This is the PRIMARY study guide. It covers:
+
+     A1 - Engine Repair (45 scored questions, 75 min)
+       - General Engine Diagnosis (40%)
+       - Cylinder Head and Valve Train Diagnosis and Repair (13%)
+       - Engine Block Diagnosis and Repair (9%)
+       - Lubrication and Cooling Systems Diagnosis and Repair (18%)
+       - Fuel, Electrical, Ignition, Air Induction and Exhaust Systems (20%)
+
+     A2 - Automatic Transmission/Transaxle (45 scored questions, 75 min)
+       - Transmission/Transaxle Diagnosis (58%)
+       - In-Vehicle Maintenance and Repair (27%)
+       - Unit Removal, Inspection, and Installation (15%)
+
+     A3 - Manual Drive Train and Axles (40 scored questions, 60 min)
+       - Clutch Diagnosis and Repair (16%)
+       - Transmission Diagnosis and Repair (17%)
+       - Transaxle Diagnosis and Repair (17%)
+       - Drive Shaft/Half-Shaft and Universal/CV Joint (13%)
+       - Drive Axle Diagnosis and Repair (17%)
+       - Four-Wheel/All-Wheel Drive Component Diagnosis (20%)
+
+     A4 - Suspension and Steering (40 scored questions, 60 min)
+       - Steering Systems Diagnosis and Repair (30%)
+       - Suspension Systems Diagnosis and Repair (30%)
+       - Wheel Alignment Diagnosis, Adjustment, and Repair (28%)
+       - Wheel and Tire Diagnosis and Service (12%)
+
+     A5 - Brakes (45 scored questions, 75 min)
+       - Hydraulic, Power Assist, and Parking Brake Systems (43%)
+       - Drum Brake Diagnosis and Repair (11%)
+       - Disc Brake Diagnosis and Repair (24%)
+       - Electronic Brake Control Systems: ABS, TCS, ESC (22%)
+
+     A6 - Electrical/Electronic Systems (50 scored questions, 90 min)
+       - General Electrical/Electronic System Diagnosis (26%)
+       - Battery and Starting System Diagnosis and Repair (18%)
+       - Charging System Diagnosis and Repair (10%)
+       - Lighting Systems Diagnosis and Repair (12%)
+       - Body Electrical Systems Diagnosis and Repair (34%)
+
+     A7 - Heating and Air Conditioning (50 scored questions, 75 min)
+       - HVAC and Engine Cooling System Service/Diagnosis/Repair (42%)
+       - Refrigeration System Component Diagnosis and Repair (20%)
+       - Operating Systems and Related Controls Diagnosis/Repair (38%)
+
+     A8 - Engine Performance (50 scored questions, 75 min)
+       - General Diagnosis (24%)
+       - Ignition System Diagnosis and Repair (16%)
+       - Fuel, Air Induction and Exhaust Systems (18%)
+       - Emissions Control Systems Diagnosis and Repair (16%)
+       - Computerized Engine Controls Diagnosis and Repair (26%)
+
+     >> File: ASE_Automobile_Study_Guide_2026.pdf
+
+  3. "Auto Maintenance & Light Repair (G1)"
+     >> Covers the Maintenance and Light Repair entry-level test
+     >> File: ASE_MaintenanceLtRepair_Study_Guide_2026.pdf
+
+
+  STUDY GUIDES YOU DO NOT NEED:
+  -----------------------------
+  - Collision Repair & Refinishing (B2-B6)
+  - Transit Bus (H1-H8)
+  - Advanced Level L1, L2, L3, L4
+  - Parts Specialist (P1, P2)
+  - Medium-Heavy Truck (T1-T8)
+  - School Bus (S1-S7)
+  - Military Tactical Wheeled Vehicle (MIL Series)
+  - Military Fundamentals (MIL 1)
+  - CNG Vehicle (F1)
+  - Service Consultant (C1)
+
+  Note: Within the Automobile & Light Truck study guide, A9 (Light Vehicle
+  Diesel Engines) is also NOT required for the Entry-Level Technician
+  certificate or for Master Automobile Technician status.
+
+================================================================================
+SECTION 5: ADDITIONAL RESOURCES IN THE AREA
+================================================================================
+
+Skyline College (San Mateo County)
+  - Location: San Bruno, CA
+  - ASE Education Foundation certified program
+  - Website: https://skylinecollege.edu/automotive/
+  - Catalog: https://catalog.skylinecollege.edu/current/programs/automotive-technician-entry-level-cc.php
+
+City College of San Francisco (CCSF)
+  - Also offers Automotive Technology programs
+  - Website: https://www.ccsf.edu/degrees-certificates/automotive-technology
+  - Offers certificate and degree programs with ASE alignment
+
+ASE Official Resources
+  - ASE Entry-Level Program: https://www.ase.com/entry-level
+  - ASE Study Guides: https://www.ase.com/ase-study-guides
+  - ASE Test Series: https://www.ase.com/test-series
+
+Approximate Costs (California Residents)
+  - Tuition: ~$46/unit (7 units = ~$322 for Skyline College certificate)
+  - ASE Entry-Level Tests: $46-$51 per test
+  - Tools and materials: Additional costs may apply
+
+================================================================================
+END OF SUMMARY
+================================================================================

@@ -1,0 +1,68 @@
+REQUIRED STUDY GUIDES:
+----------------------
+
+1. "ASE Certification: Need to Know"
+   >> General test information, registration, test-taking strategies
+   >> File: ASE_CertificationNeedtoKnow_2026.pdf
+
+2. "Automobile & Light Truck (Includes Exhaust Systems) (A1 - A9)"
+   >> This is the PRIMARY study guide. It covers:
+
+   A1 - Engine Repair (45 scored questions, 75 min)
+     - General Engine Diagnosis (40%)
+     - Cylinder Head and Valve Train Diagnosis and Repair (13%)
+     - Engine Block Diagnosis and Repair (9%)
+     - Lubrication and Cooling Systems Diagnosis and Repair (18%)
+     - Fuel, Electrical, Ignition, Air Induction and Exhaust Systems (20%)
+
+   A2 - Automatic Transmission/Transaxle (45 scored questions, 75 min)
+     - Transmission/Transaxle Diagnosis (58%)
+     - In-Vehicle Maintenance and Repair (27%)
+     - Unit Removal, Inspection, and Installation (15%)
+
+   A3 - Manual Drive Train and Axles (40 scored questions, 60 min)
+     - Clutch Diagnosis and Repair (16%)
+     - Transmission Diagnosis and Repair (17%)
+     - Transaxle Diagnosis and Repair (17%)
+     - Drive Shaft/Half-Shaft and Universal/CV Joint (13%)
+     - Drive Axle Diagnosis and Repair (17%)
+     - Four-Wheel/All-Wheel Drive Component Diagnosis (20%)
+
+   A4 - Suspension and Steering (40 scored questions, 60 min)
+     - Steering Systems Diagnosis and Repair (30%)
+     - Suspension Systems Diagnosis and Repair (30%)
+     - Wheel Alignment Diagnosis, Adjustment, and Repair (28%)
+     - Wheel and Tire Diagnosis and Service (12%)
+
+   A5 - Brakes (45 scored questions, 75 min)
+     - Hydraulic, Power Assist, and Parking Brake Systems (43%)
+     - Drum Brake Diagnosis and Repair (11%)
+     - Disc Brake Diagnosis and Repair (24%)
+     - Electronic Brake Control Systems: ABS, TCS, ESC (22%)
+
+   A6 - Electrical/Electronic Systems (50 scored questions, 90 min)
+     - General Electrical/Electronic System Diagnosis (26%)
+     - Battery and Starting System Diagnosis and Repair (18%)
+     - Charging System Diagnosis and Repair (10%)
+     - Lighting Systems Diagnosis and Repair (12%)
+     - Body Electrical Systems Diagnosis and Repair (34%)
+
+   A7 - Heating and Air Conditioning (50 scored questions, 75 min)
+     - HVAC and Engine Cooling System Service/Diagnosis/Repair (42%)
+     - Refrigeration System Component Diagnosis and Repair (20%)
+     - Operating Systems and Related Controls Diagnosis/Repair (38%)
+
+   A8 - Engine Performance (50 scored questions, 75 min)
+     - General Diagnosis (24%)
+     - Ignition System Diagnosis and Repair (16%)
+     - Fuel, Air Induction and Exhaust Systems (18%)
+     - Emissions Control Systems Diagnosis and Repair (16%)
+     - Computerized Engine Controls Diagnosis and Repair (26%)
+
+   >> File: ASE_Automobile_Study_Guide_2026.pdf
+
+3. "Auto Maintenance & Light Repair (G1)"
+   >> Covers the Maintenance and Light Repair entry-level test
+   >> File: ASE_MaintenanceLtRepair_Study_Guide_2026.pdf
+
+

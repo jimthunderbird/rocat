@@ -51,3 +51,33 @@ task {
   download all related pdfs from ase_study_guides.source to directory ./study_guides
   status: "completed"
 }
+
+task {
+  research on "7-unit Entry Level Technician certificate", give me a summary of the steps I need to take, what are the subjects that are covered, aslo answer the following questions {
+    - Are the subjects all in the ase_study_guides?
+    - Do I need to study the entire ase_study_guides?
+    - If I do not need to study the entire ase_study_guides, what are the topics that's cover
+  }
+  output the research in ./entry_level_technician_certificate_summary.txt
+  status: "completed"
+}
+
+task {
+  based on ./entry_level_technician_study_guild.txt and the related files in ./study_guides {
+    generate one video with the following spec {
+      let subject = {
+        pick one topic in ./videos/entry_level_technician_study_guild.txt and related pdf file
+        replace space with _
+      }
+      let number = (a random number between 1 to 1000)
+      video {
+        file: "entry_level_{subject}_{number}.mp4"
+        tone: natural instructor voice
+        length: 2 minute
+        gender: male
+        style: powerpoint style slide-by-slide
+      }
+    }
+  }
+  status: "completed"
+}
