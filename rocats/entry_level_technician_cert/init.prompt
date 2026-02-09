@@ -36,7 +36,6 @@ constraint {
     if ({task} is completed) {
       update ./init.prompt
       set {task}.status = "completed"
-      DO NOT load {task}.file to context
     }
     if ({task}.status is "completed") {
       do not perform {task}
@@ -62,7 +61,7 @@ task {
   status: "completed"
 }
 
-task {
+task.video_gen {
   based on ./entry_level_technician_study_guild.txt and the related files in ./study_guides {
     generate one video with the following spec {
       let subject = {
@@ -72,12 +71,13 @@ task {
       let number = (a random number between 1 to 1000)
       video {
         file: "entry_level_{subject}_{number}.mp4"
-        tone: natural instructor voice
+        tone: natural instructor voice, no robotic voice, natural human voice
         length: 2 minute
         gender: male
         style: powerpoint style slide-by-slide
+        content: please explain to me about the {subject} based on the related pdf file, do not show me the test questions percentage, focus on explaining the concept , please add diagram to explain as well
       }
     }
   }
-  status: "completed"
+  status: "open"
 }
