@@ -1,0 +1,5 @@
+task download_study_guides {
+  description: "Download all ASE study guide PDFs from ase.com/ase-study-guides to ./study_guides"
+  status: "completed"
+  file: "./study_guides/"
+}
