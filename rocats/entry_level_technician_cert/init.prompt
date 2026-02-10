@@ -188,3 +188,27 @@ task {
   }
   status: "completed"
 }
+
+task {
+  please use "https://freeasestudyguides.com/" as resource, also use ase_study_guides.source, create a single page html/javascript/css app in ./ase_study_qa {
+    spec {
+      data {
+        from A1 to A8, and G1, each section should have 100 questions covering all related topics in ase_study_guides.source
+      }
+      user_interface {
+        top_navigation_tabs: A1 to A8, G1, total 9 tabs
+        for each tab in top_navigation_tabs {
+          tab.@click {
+            show a random question and 4 possible answers to choose
+            under the answers, it should have a "Answer" button {
+              @click {
+                show the correct answer with a 50-60 words explanation, ideally with a diagram as well to help me understand it better           
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+  status: "completed"
+}
