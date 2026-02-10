@@ -1,0 +1,1089 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ASE A1-A8 Knowledge Graph – Engineering Diagram</title>
+<style>
+* { margin: 0; padding: 0; box-sizing: border-box; }
+body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; background: #0d1117; color: #c9d1d9; overflow: hidden; }
+
+#header {
+  position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+  background: rgba(13,17,23,0.96); border-bottom: 1px solid #30363d;
+  padding: 8px 20px; display: flex; align-items: center; justify-content: space-between;
+}
+#header h1 { font-size: 16px; color: #58a6ff; letter-spacing: 0.5px; }
+#header .subtitle { font-size: 11px; color: #8b949e; margin-top: 2px; }
+#filters { display: flex; gap: 5px; flex-wrap: wrap; }
+.filter-btn {
+  padding: 3px 10px; border: 1px solid #30363d; border-radius: 4px;
+  background: transparent; color: #8b949e; cursor: pointer;
+  font-size: 11px; font-family: 'Consolas', 'Courier New', monospace;
+  transition: all 0.15s;
+}
+.filter-btn:hover { border-color: #58a6ff; color: #58a6ff; }
+.filter-btn.active { background: #1f6feb; color: #fff; border-color: #1f6feb; }
+#search-box {
+  padding: 4px 10px; border: 1px solid #30363d; border-radius: 4px;
+  background: rgba(255,255,255,0.04); color: #c9d1d9; font-size: 12px;
+  width: 160px; outline: none; font-family: 'Consolas', monospace;
+}
+#search-box:focus { border-color: #58a6ff; }
+#search-box::placeholder { color: #484f58; }
+
+#canvas { display: block; }
+
+#modal-overlay {
+  display: none; position: fixed; top: 0; left: 0; right: 0; bottom: 0;
+  background: rgba(0,0,0,0.65); z-index: 200;
+  justify-content: center; align-items: center;
+}
+#modal-overlay.show { display: flex; }
+#modal {
+  background: #161b22; border: 1px solid #30363d; border-radius: 8px;
+  padding: 28px 32px; max-width: 600px; width: 90%;
+  box-shadow: 0 8px 40px rgba(0,0,0,0.5);
+}
+#modal-category {
+  font-size: 20px; text-transform: uppercase; letter-spacing: 2px;
+  font-family: 'Consolas', monospace; margin-bottom: 8px;
+}
+#modal-title { font-size: 20px; color: #fff; margin-bottom: 12px; font-weight: 600; }
+#modal-desc { font-size: 20px; line-height: 1.65; color: #8b949e; }
+#modal-related {
+  margin-top: 14px; padding-top: 12px; border-top: 1px solid #30363d;
+  font-size: 20px; color: #484f58;
+}
+#modal-related span { color: #58a6ff; cursor: pointer; margin: 0 4px; font-size: 20px; }
+#modal-related span:hover { text-decoration: underline; }
+#modal-close {
+  margin-top: 16px; padding: 8px 24px; background: #1f6feb; color: #fff;
+  border: none; border-radius: 4px; cursor: pointer; font-size: 18px; font-weight: 600;
+}
+#modal-close:hover { background: #388bfd; }
+
+#legend {
+  position: fixed; bottom: 10px; left: 10px;
+  background: rgba(13,17,23,0.94); border: 1px solid #30363d;
+  border-radius: 6px; padding: 10px 14px; z-index: 100; font-size: 10px;
+  font-family: 'Consolas', monospace;
+}
+.legend-item { display: flex; align-items: center; gap: 6px; margin: 3px 0; color: #8b949e; }
+.legend-dot { width: 12px; height: 4px; border-radius: 1px; }
+
+#tooltip {
+  display: none; position: fixed;
+  background: rgba(22,27,34,0.96); border: 1px solid #30363d;
+  border-radius: 4px; padding: 5px 10px; font-size: 11px; color: #58a6ff;
+  z-index: 150; pointer-events: none;
+  font-family: 'Consolas', monospace;
+}
+
+#instructions {
+  position: fixed; bottom: 10px; right: 10px;
+  background: rgba(13,17,23,0.94); border: 1px solid #30363d;
+  border-radius: 6px; padding: 8px 12px; z-index: 100;
+  font-size: 10px; color: #484f58; font-family: 'Consolas', monospace;
+  line-height: 1.6;
+}
+</style>
+</head>
+<body>
+<div id="header">
+  <div>
+    <h1>ASE A1–A8 Systems Engineering Diagram</h1>
+    <div class="subtitle">Click node for details · Drag to reposition · Scroll to zoom · Pan with background drag</div>
+  </div>
+  <input type="text" id="search-box" placeholder="Search terms...">
+  <div id="filters">
+    <button class="filter-btn active" data-filter="all">ALL</button>
+    <button class="filter-btn" data-filter="A1">A1</button>
+    <button class="filter-btn" data-filter="A2">A2</button>
+    <button class="filter-btn" data-filter="A3">A3</button>
+    <button class="filter-btn" data-filter="A4">A4</button>
+    <button class="filter-btn" data-filter="A5">A5</button>
+    <button class="filter-btn" data-filter="A6">A6</button>
+    <button class="filter-btn" data-filter="A7">A7</button>
+    <button class="filter-btn" data-filter="A8">A8</button>
+  </div>
+</div>
+
+<canvas id="canvas"></canvas>
+<div id="tooltip"></div>
+
+<div id="modal-overlay">
+  <div id="modal">
+    <div id="modal-category"></div>
+    <div id="modal-title"></div>
+    <div id="modal-desc"></div>
+    <div id="modal-related"></div>
+    <button id="modal-close">Close</button>
+  </div>
+</div>
+
+<div id="legend">
+  <div style="margin-bottom:4px;color:#c9d1d9;font-weight:600;">SUBSYSTEMS</div>
+  <div class="legend-item"><div class="legend-dot" style="background:#f47067"></div>A1 Engine Repair</div>
+  <div class="legend-item"><div class="legend-dot" style="background:#db6d28"></div>A2 Auto Transmission</div>
+  <div class="legend-item"><div class="legend-dot" style="background:#c69026"></div>A3 Manual Drive Train</div>
+  <div class="legend-item"><div class="legend-dot" style="background:#57ab5a"></div>A4 Suspension & Steering</div>
+  <div class="legend-item"><div class="legend-dot" style="background:#39d2c0"></div>A5 Brakes</div>
+  <div class="legend-item"><div class="legend-dot" style="background:#539bf5"></div>A6 Electrical Systems</div>
+  <div class="legend-item"><div class="legend-dot" style="background:#b083f0"></div>A7 Heating & A/C</div>
+  <div class="legend-item"><div class="legend-dot" style="background:#f778ba"></div>A8 Engine Performance</div>
+  <div style="margin-top:8px;border-top:1px solid #30363d;padding-top:6px;">
+    <div class="legend-item"><div style="width:20px;height:2px;background:#58a6ff;border-radius:1px;"></div> Internal link</div>
+    <div class="legend-item"><div style="width:20px;height:0;border-top:2px dashed #484f58;"></div> Cross-system link</div>
+  </div>
+</div>
+
+<div id="instructions">
+  ▸ Scroll to zoom<br>
+  ▸ Drag background to pan<br>
+  ▸ Drag node to reposition<br>
+  ▸ Click node for definition<br>
+  ▸ Filter by ASE test area
+</div>
+
+<script>
+// ============================================================
+// DATA
+// ============================================================
+const CATEGORIES = {
+  A1: { name: "A1 – Engine Repair", color: "#f47067", bg: "rgba(244,112,103,0.06)", border: "rgba(244,112,103,0.25)" },
+  A2: { name: "A2 – Automatic Transmission", color: "#db6d28", bg: "rgba(219,109,40,0.06)", border: "rgba(219,109,40,0.25)" },
+  A3: { name: "A3 – Manual Drive Train & Axles", color: "#c69026", bg: "rgba(198,144,38,0.06)", border: "rgba(198,144,38,0.25)" },
+  A4: { name: "A4 – Suspension & Steering", color: "#57ab5a", bg: "rgba(87,171,90,0.06)", border: "rgba(87,171,90,0.25)" },
+  A5: { name: "A5 – Brakes", color: "#39d2c0", bg: "rgba(57,210,192,0.06)", border: "rgba(57,210,192,0.25)" },
+  A6: { name: "A6 – Electrical/Electronic", color: "#539bf5", bg: "rgba(83,155,245,0.06)", border: "rgba(83,155,245,0.25)" },
+  A7: { name: "A7 – Heating & A/C", color: "#b083f0", bg: "rgba(176,131,240,0.06)", border: "rgba(176,131,240,0.25)" },
+  A8: { name: "A8 – Engine Performance", color: "#f778ba", bg: "rgba(247,120,186,0.06)", border: "rgba(247,120,186,0.25)" }
+};
+
+const TERMS = [
+  // A1 - Engine Repair
+  { id: "compression_test", label: "Compression Test", cat: "A1", desc: "A diagnostic test measuring cylinder pressure during cranking to evaluate piston rings, valves, and head gasket condition. Low readings indicate internal engine wear or damage." },
+  { id: "leak_down_test", label: "Leak-Down Test", cat: "A1", desc: "Pressurizes a cylinder with compressed air to pinpoint the exact location of leakage, such as through valves, rings, or head gasket, by listening for escaping air." },
+  { id: "cylinder_head", label: "Cylinder Head", cat: "A1", desc: "Bolts to the engine block top, housing valves, spark plugs, and combustion chambers. Must be inspected for cracks, warpage, and passage condition during engine repair." },
+  { id: "valve_train", label: "Valve Train", cat: "A1", desc: "Components controlling intake and exhaust valve operation including camshaft, lifters, pushrods, rocker arms, springs, and retainers. Proper timing ensures efficient engine breathing." },
+  { id: "camshaft", label: "Camshaft", cat: "A1", desc: "A rotating shaft with lobes that open and close engine valves in precise timing with the crankshaft. Inspected for lobe wear, journal damage, and proper lift." },
+  { id: "crankshaft", label: "Crankshaft", cat: "A1", desc: "Converts piston reciprocating motion into rotational force. Inspected for journal wear, end play, keyway damage, and surface cracks. Drives the entire powertrain." },
+  { id: "piston", label: "Piston", cat: "A1", desc: "Moves up and down inside the cylinder, compressing the air-fuel mixture and transmitting combustion force to the crankshaft via the connecting rod." },
+  { id: "connecting_rod", label: "Connecting Rod", cat: "A1", desc: "Links the piston to the crankshaft, converting linear piston movement into crankshaft rotation. Inspected for bending, twisting, and bearing wear." },
+  { id: "engine_block", label: "Engine Block", cat: "A1", desc: "The main structure of the engine containing cylinders, coolant passages, and oil galleries. Inspected for cracks, corrosion, cylinder wall condition, and surface warpage." },
+  { id: "oil_pump", label: "Oil Pump", cat: "A1", desc: "Circulates engine oil under pressure through galleries to lubricate bearings, camshaft, and other moving parts. Inspected for gear wear and pressure relief valve function." },
+  { id: "cooling_system", label: "Cooling System", cat: "A1", desc: "Maintains proper engine operating temperature using coolant, radiator, water pump, thermostat, and hoses. Prevents overheating and ensures efficient combustion." },
+  { id: "thermostat_engine", label: "Thermostat", cat: "A1", desc: "A temperature-sensitive valve that regulates coolant flow between the engine and radiator. Opens at a preset temperature to maintain optimal engine operating temperature." },
+  { id: "water_pump", label: "Water Pump", cat: "A1", desc: "Circulates coolant throughout the engine and heater core using an impeller driven by a belt or chain. Failure causes overheating and potential engine damage." },
+  { id: "pcv_system", label: "PCV System", cat: "A1", desc: "Positive Crankcase Ventilation routes blow-by gases from the crankcase back into the intake manifold for re-burning, reducing harmful emissions and crankcase pressure." },
+  { id: "vvt", label: "VVT", cat: "A1", desc: "Variable Valve Timing adjusts camshaft timing electronically to optimize power, fuel economy, and emissions across different engine speeds. Uses oil pressure actuated phasers." },
+  { id: "timing_chain_belt", label: "Timing Chain/Belt", cat: "A1", desc: "Synchronizes crankshaft and camshaft rotation to ensure valves open and close at the correct time. Chains last longer; belts require periodic replacement." },
+  { id: "head_gasket", label: "Head Gasket", cat: "A1", desc: "Seals the joint between cylinder head and engine block, containing combustion pressure and separating coolant and oil passages. Failure causes overheating and fluid mixing." },
+  { id: "flywheel", label: "Flywheel", cat: "A1", desc: "A heavy rotating disc bolted to the crankshaft that stores rotational energy, smooths power delivery, and provides a friction surface for the clutch or flexplate for torque converter." },
+  { id: "harmonic_balancer", label: "Harmonic Balancer", cat: "A1", desc: "Mounted on the crankshaft front, it dampens torsional vibrations caused by combustion pulses. A failed balancer causes vibration, belt issues, and potential crankshaft damage." },
+  { id: "engine_bearings", label: "Engine Bearings", cat: "A1", desc: "Precision-fit inserts that support the crankshaft and connecting rods, reducing friction with an oil film. Wear patterns indicate alignment, lubrication, or loading issues." },
+
+  // A2 - Automatic Transmission/Transaxle
+  { id: "torque_converter", label: "Torque Converter", cat: "A2", desc: "A fluid coupling between engine and transmission that multiplies torque at low speeds and allows the engine to idle while the vehicle is stopped in gear." },
+  { id: "planetary_gear_set", label: "Planetary Gear Set", cat: "A2", desc: "Compact gear arrangement with sun, planet, and ring gears that provides multiple gear ratios by holding or driving different elements using clutches and bands." },
+  { id: "valve_body", label: "Valve Body", cat: "A2", desc: "The hydraulic control center of an automatic transmission containing passages, valves, and solenoids that direct fluid flow to engage clutches and bands for gear changes." },
+  { id: "tcm", label: "TCM", cat: "A2", desc: "Transmission Control Module: the computer that manages shift timing, torque converter lockup, and line pressure based on sensor inputs like speed, throttle, and temperature." },
+  { id: "cvt", label: "CVT", cat: "A2", desc: "Continuously Variable Transmission uses a belt or chain on variable-diameter pulleys to provide seamless, stepless gear ratios for optimized fuel efficiency and smooth acceleration." },
+  { id: "dct", label: "DCT", cat: "A2", desc: "Dual-Clutch Transmission uses two separate clutches for odd and even gears, enabling lightning-fast shifts without torque interruption. Combines manual efficiency with automatic convenience." },
+  { id: "clutch_pack", label: "Clutch Pack", cat: "A2", desc: "Multiple friction and steel plates compressed together hydraulically inside the transmission to connect or disconnect power flow through specific gear elements." },
+  { id: "transmission_band", label: "Trans Band", cat: "A2", desc: "A friction-lined metal strap wrapped around a drum that, when applied by a servo, holds a planetary gear element stationary to achieve a specific gear ratio." },
+  { id: "solenoid_trans", label: "Shift Solenoid", cat: "A2", desc: "Electronically controlled valves in the valve body that direct hydraulic fluid flow to engage specific clutches and bands, controlled by the TCM for precise shifting." },
+  { id: "atf", label: "ATF", cat: "A2", desc: "Automatic Transmission Fluid serves as hydraulic medium, lubricant, and coolant. Correct type and level are critical; contaminated or low fluid causes shifting problems." },
+  { id: "trans_cooler", label: "Trans Cooler", cat: "A2", desc: "A heat exchanger that reduces transmission fluid temperature, typically built into the radiator or as a separate unit. Restricted coolers cause overheating and damage." },
+  { id: "line_pressure", label: "Line Pressure", cat: "A2", desc: "The main hydraulic pressure in the transmission created by the pump and regulated by valves. Proper line pressure ensures firm, smooth clutch and band engagement." },
+  { id: "torque_converter_clutch", label: "TCC Lock-Up", cat: "A2", desc: "A mechanical clutch inside the torque converter that locks the engine directly to the transmission at highway speeds, eliminating fluid slippage for better fuel economy." },
+  { id: "trans_servo", label: "Servo", cat: "A2", desc: "A hydraulic piston that applies or releases transmission bands. When pressurized fluid acts on the servo piston, it tightens the band around the drum." },
+
+  // A3 - Manual Drive Train and Axles
+  { id: "clutch_disc", label: "Clutch Disc", cat: "A3", desc: "A friction-lined plate splined to the transmission input shaft that transfers engine power when clamped between the flywheel and pressure plate. Wear causes slipping." },
+  { id: "pressure_plate", label: "Pressure Plate", cat: "A3", desc: "Spring-loaded assembly bolted to the flywheel that clamps the clutch disc to transfer engine torque. Release bearing engagement lifts pressure to disengage the clutch." },
+  { id: "release_bearing", label: "Release Bearing", cat: "A3", desc: "Engages the pressure plate diaphragm spring when the clutch pedal is pressed, releasing clamping force on the clutch disc to disconnect engine power." },
+  { id: "synchronizer", label: "Synchronizer", cat: "A3", desc: "Friction rings and hub assemblies that match shaft speeds during gear changes in a manual transmission, enabling smooth, clash-free shifting between gears." },
+  { id: "cv_joint", label: "CV Joint", cat: "A3", desc: "Constant Velocity joint allows smooth power transfer at varying angles on front-wheel and all-wheel drive vehicles. Worn joints cause clicking noise during turns." },
+  { id: "universal_joint", label: "U-Joint", cat: "A3", desc: "A cross-shaped coupling connecting driveshaft sections that allows power transfer at angles. Worn U-joints cause vibration and clunking during acceleration or deceleration." },
+  { id: "drive_shaft", label: "Drive Shaft", cat: "A3", desc: "A rotating tube that transfers power from the transmission to the rear differential on RWD vehicles. Checked for balance, runout, and U-joint condition." },
+  { id: "half_shaft", label: "Half Shaft", cat: "A3", desc: "Transfers power from the transaxle differential to the front wheels on FWD vehicles, using CV joints at each end to accommodate suspension movement and steering angles." },
+  { id: "differential", label: "Differential", cat: "A3", desc: "A gear assembly that splits torque between drive wheels while allowing them to rotate at different speeds during turns. Contains ring gear, pinion, and spider gears." },
+  { id: "ring_pinion", label: "Ring & Pinion", cat: "A3", desc: "The final drive gear set in the differential that changes power flow direction 90 degrees and provides final gear reduction. Gear ratio affects torque and speed." },
+  { id: "transfer_case", label: "Transfer Case", cat: "A3", desc: "Splits power between front and rear axles in 4WD/AWD vehicles. May include low-range gearing, viscous coupling, or electronic controls for torque distribution." },
+  { id: "limited_slip_diff", label: "Limited Slip Diff", cat: "A3", desc: "Transfers torque to the wheel with more traction when one wheel slips, using clutch packs or viscous fluid. Prevents single-wheel spin on slippery surfaces." },
+  { id: "axle_shaft", label: "Axle Shaft", cat: "A3", desc: "Transfers rotational force from the differential to the drive wheels. Inspected for spline wear, bearing condition, seal leakage, and shaft runout." },
+  { id: "pilot_bearing", label: "Pilot Bearing", cat: "A3", desc: "Supports the transmission input shaft tip in the crankshaft or flywheel center. A seized bearing prevents clutch disengagement; a worn one causes noise." },
+
+  // A4 - Suspension and Steering
+  { id: "ball_joint", label: "Ball Joint", cat: "A4", desc: "A pivoting connection between the control arm and steering knuckle that allows wheel movement in multiple directions. Wear causes clunking, wandering, and tire wear." },
+  { id: "control_arm", label: "Control Arm", cat: "A4", desc: "A hinged suspension link connecting the frame to the steering knuckle. Upper and lower arms allow vertical wheel travel while maintaining proper alignment geometry." },
+  { id: "strut", label: "Strut", cat: "A4", desc: "A structural suspension component combining a shock absorber inside a coil spring housing. Serves as the upper steering pivot and is a key alignment-affecting component." },
+  { id: "shock_absorber", label: "Shock Absorber", cat: "A4", desc: "A hydraulic damper that controls spring oscillation and wheel bounce by converting kinetic energy to heat. Worn shocks cause poor handling and excessive tire wear." },
+  { id: "coil_spring", label: "Coil Spring", cat: "A4", desc: "A helical steel spring supporting vehicle weight and absorbing road impacts. Spring rate determines ride height and stiffness; sagging springs affect alignment." },
+  { id: "stabilizer_bar", label: "Sway Bar", cat: "A4", desc: "A torsion bar connecting left and right suspension sides that resists body roll during cornering. Links and bushings wear, causing clunking over bumps." },
+  { id: "tie_rod", label: "Tie Rod", cat: "A4", desc: "Connects the steering gear to the steering knuckle, transmitting steering input to turn the wheels. Inner and outer ends wear, causing loose steering and toe changes." },
+  { id: "rack_pinion", label: "Rack & Pinion", cat: "A4", desc: "A steering gear converting rotational steering wheel input into linear motion to turn the wheels. Most common modern type; checked for leaks, play, and boot condition." },
+  { id: "power_steering", label: "Power Steering", cat: "A4", desc: "Hydraulic or electric assist that reduces steering effort. Hydraulic uses a pump, fluid, and hoses; electric (EPS) uses a motor controlled electronically." },
+  { id: "wheel_alignment", label: "Wheel Alignment", cat: "A4", desc: "Adjusting suspension angles (camber, caster, toe) to manufacturer specifications for proper tire contact, straight tracking, and even tire wear." },
+  { id: "camber", label: "Camber", cat: "A4", desc: "The inward or outward tilt of the wheel when viewed from the front. Positive camber tilts outward; negative tilts inward. Incorrect camber causes one-sided tire wear." },
+  { id: "caster", label: "Caster", cat: "A4", desc: "The forward or rearward tilt of the steering axis viewed from the side. Positive caster provides straight-line stability and steering wheel returnability after turns." },
+  { id: "toe", label: "Toe", cat: "A4", desc: "The angle of the wheels pointing inward (toe-in) or outward (toe-out) viewed from above. The most critical alignment angle; incorrect toe causes rapid tire wear." },
+  { id: "tpms", label: "TPMS", cat: "A4", desc: "Tire Pressure Monitoring System alerts the driver when tire pressure falls below a threshold. Uses direct sensors in each wheel or indirect ABS-based monitoring." },
+  { id: "steering_column", label: "Steering Column", cat: "A4", desc: "Connects the steering wheel to the steering gear, housing the ignition switch, turn signals, and airbag. Collapsible design provides crash protection for the driver." },
+  { id: "idler_arm", label: "Idler Arm", cat: "A4", desc: "Supports the passenger side of the center link in parallelogram steering systems. Wear causes steering wander and uneven tire wear on non-rack systems." },
+  { id: "knuckle", label: "Steering Knuckle", cat: "A4", desc: "The component connecting the wheel hub to the suspension, serving as the steering pivot point. Houses or supports the wheel bearing and connects to tie rods." },
+
+  // A5 - Brakes
+  { id: "master_cylinder", label: "Master Cylinder", cat: "A5", desc: "Converts brake pedal force into hydraulic pressure distributed to all wheel brakes through separate circuits. Internal leaks cause a spongy or sinking pedal." },
+  { id: "brake_booster", label: "Brake Booster", cat: "A5", desc: "Uses engine vacuum or hydraulic pressure to multiply the driver's pedal force applied to the master cylinder. A failed booster requires excessive pedal effort." },
+  { id: "abs", label: "ABS", cat: "A5", desc: "Anti-Lock Brake System prevents wheel lockup during hard braking by rapidly modulating brake pressure at individual wheels, maintaining steering control." },
+  { id: "disc_brake", label: "Disc Brake", cat: "A5", desc: "Uses a caliper to squeeze brake pads against a spinning rotor to create friction and slow the wheel. Preferred for front brakes due to superior heat dissipation." },
+  { id: "drum_brake", label: "Drum Brake", cat: "A5", desc: "Uses brake shoes pressed outward against a rotating drum to create stopping friction. Common on rear wheels; requires periodic adjustment and inspection." },
+  { id: "brake_rotor", label: "Brake Rotor", cat: "A5", desc: "A flat metal disc attached to the wheel hub that the brake pads clamp against. Measured for thickness, runout, and parallelism; machined or replaced when worn." },
+  { id: "brake_caliper", label: "Brake Caliper", cat: "A5", desc: "Straddles the brake rotor and houses pistons that push brake pads against the rotor. Floating or fixed types; seized pistons cause pulling or uneven pad wear." },
+  { id: "brake_pad", label: "Brake Pad", cat: "A5", desc: "Friction material pressed against the rotor by the caliper to stop the vehicle. Wear indicators produce squealing when replacement is needed." },
+  { id: "brake_shoe", label: "Brake Shoe", cat: "A5", desc: "Curved friction-lined components inside drum brakes that press outward against the drum. Primary and secondary shoes differ in lining size for proper braking." },
+  { id: "wheel_cylinder", label: "Wheel Cylinder", cat: "A5", desc: "A small hydraulic cylinder inside drum brakes that pushes brake shoes outward against the drum when brake pedal pressure is applied. Inspected for leaks." },
+  { id: "brake_lines", label: "Brake Lines", cat: "A5", desc: "Steel lines and flexible hoses carry hydraulic fluid from the master cylinder to wheel brakes. Inspected for leaks, kinks, rust, cracks, and bulging." },
+  { id: "proportioning_valve", label: "Prop Valve", cat: "A5", desc: "Reduces hydraulic pressure to rear brakes during hard stops to prevent rear wheel lockup, since weight transfers forward. Some are height-sensing or electronic." },
+  { id: "tcs", label: "TCS", cat: "A5", desc: "Traction Control System prevents drive wheel spin during acceleration by applying brakes to spinning wheels and/or reducing engine power. Works with ABS sensors." },
+  { id: "esc", label: "ESC", cat: "A5", desc: "Electronic Stability Control detects and corrects vehicle skidding by selectively braking individual wheels and reducing engine power using yaw and steering sensors." },
+  { id: "parking_brake", label: "Parking Brake", cat: "A5", desc: "A mechanical or electronic system that holds the vehicle stationary when parked. Cable-operated or motor-driven calipers; must be adjusted for proper holding force." },
+  { id: "brake_fluid", label: "Brake Fluid", cat: "A5", desc: "Hygroscopic hydraulic fluid (DOT 3/4/5.1) that transmits pedal force to wheel brakes. Absorbs moisture over time, lowering boiling point and causing corrosion." },
+  { id: "brake_bleeding", label: "Brake Bleeding", cat: "A5", desc: "Procedure removing trapped air from the hydraulic brake system to restore firm pedal feel. Done manually, with pressure, vacuum, or gravity methods." },
+
+  // A6 - Electrical/Electronic Systems
+  { id: "battery", label: "Battery", cat: "A6", desc: "A 12-volt lead-acid or AGM energy storage device that powers the starter and electrical systems. Tested for voltage, state-of-charge, load capacity, and parasitic draw." },
+  { id: "alternator", label: "Alternator", cat: "A6", desc: "Engine-driven device that converts mechanical energy to electrical energy to charge the battery and power the vehicle's electrical systems while running." },
+  { id: "starter_motor", label: "Starter Motor", cat: "A6", desc: "An electric motor that cranks the engine for starting using a gear that engages the flywheel ring gear. Tested for current draw and circuit voltage drop." },
+  { id: "fuse", label: "Fuse", cat: "A6", desc: "Overcurrent protection devices that melt to prevent wiring damage from short circuits. Blade fuses, cartridge fuses, and fusible links protect different circuits." },
+  { id: "relay", label: "Relay", cat: "A6", desc: "An electromagnetic switch using a small control current to activate a larger power circuit. Common in headlights, horns, fans, and starter circuits." },
+  { id: "circuit_breaker", label: "Circuit Breaker", cat: "A6", desc: "A resettable overcurrent protection device that opens the circuit when current exceeds its rating. Used in power window, wiper, and other high-draw circuits." },
+  { id: "dmm", label: "DMM", cat: "A6", desc: "Digital Multimeter: essential diagnostic tool measuring voltage, current, resistance, and continuity in electrical circuits. Used for voltage drop and parasitic draw tests." },
+  { id: "ohms_law", label: "Ohm's Law", cat: "A6", desc: "Fundamental electrical relationship: Voltage = Current × Resistance (V=IR). Essential for calculating expected values and diagnosing electrical faults." },
+  { id: "voltage_drop", label: "Voltage Drop", cat: "A6", desc: "Measures resistance in a live circuit by checking voltage loss across connections, wires, and switches. High drop indicates corroded or loose connections." },
+  { id: "parasitic_draw", label: "Parasitic Draw", cat: "A6", desc: "Electrical current flowing from the battery with everything off. Excessive draw (above ~50mA) drains the battery overnight, caused by faulty modules or stuck relays." },
+  { id: "can_bus", label: "CAN Bus", cat: "A6", desc: "Controller Area Network: a two-wire communication system allowing vehicle modules to share data. High and low signal wires; faults affect multiple systems." },
+  { id: "wiring_diagram", label: "Wiring Diagram", cat: "A6", desc: "Schematic showing electrical circuit connections, component locations, wire colors, and connector pins. Essential for tracing circuits and diagnosing problems." },
+  { id: "hmi", label: "HMI", cat: "A6", desc: "Human Machine Interface includes instrument cluster, infotainment, navigation, and driver information displays. Diagnosed for communication faults and incorrect data." },
+  { id: "srs", label: "SRS (Airbag)", cat: "A6", desc: "Supplemental Restraint System deploys airbags and tightens seatbelts in a collision. Must be disabled before service; improper handling can cause deployment." },
+
+  // A7 - Heating and Air Conditioning
+  { id: "compressor", label: "A/C Compressor", cat: "A7", desc: "The pump in the refrigeration cycle that pressurizes refrigerant gas, raising its temperature for heat rejection at the condenser. Belt or electrically driven." },
+  { id: "condenser", label: "Condenser", cat: "A7", desc: "A heat exchanger in front of the radiator where hot high-pressure refrigerant gas releases heat to outside air and condenses into a high-pressure liquid." },
+  { id: "evaporator", label: "Evaporator", cat: "A7", desc: "A heat exchanger inside the dash where low-pressure liquid refrigerant absorbs cabin heat and evaporates into gas, cooling and dehumidifying the air." },
+  { id: "txv", label: "TXV", cat: "A7", desc: "Thermal Expansion Valve meters refrigerant flow into the evaporator based on superheat, controlling the pressure drop that enables the cooling evaporation process." },
+  { id: "orifice_tube", label: "Orifice Tube", cat: "A7", desc: "A fixed-restriction metering device that drops refrigerant pressure before the evaporator. Simpler than a TXV; systems use an accumulator instead of receiver/drier." },
+  { id: "receiver_drier", label: "Receiver/Drier", cat: "A7", desc: "Stores liquid refrigerant and removes moisture using desiccant in TXV systems. Located between the condenser and expansion valve; replaced when system is opened." },
+  { id: "accumulator", label: "Accumulator", cat: "A7", desc: "Located between evaporator and compressor in orifice tube systems. Stores excess refrigerant, removes moisture, and prevents liquid from reaching the compressor." },
+  { id: "refrigerant", label: "Refrigerant", cat: "A7", desc: "The working fluid in the A/C system that absorbs and releases heat by changing state. R-1234yf is the newer, lower global-warming-potential replacement for R-134a." },
+  { id: "blower_motor", label: "Blower Motor", cat: "A7", desc: "An electric fan that forces air through the evaporator and heater core into the passenger compartment. Speed controlled by resistor, module, or variable voltage." },
+  { id: "heater_core", label: "Heater Core", cat: "A7", desc: "A small radiator inside the dash that uses hot engine coolant to warm cabin air. Leaks cause fogged windshield, sweet smell, and coolant loss on the floor." },
+  { id: "cabin_filter", label: "Cabin Filter", cat: "A7", desc: "Filters dust, pollen, and contaminants from outside air entering the HVAC system. A clogged filter reduces airflow, causing poor heating/cooling performance." },
+  { id: "ac_clutch", label: "A/C Clutch", cat: "A7", desc: "An electromagnetic clutch that engages and disengages the compressor from the drive belt pulley. Controlled by the A/C system based on pressure and temperature." },
+  { id: "blend_door", label: "Blend Door", cat: "A7", desc: "An electric motor positions a door inside the HVAC housing to mix heated and cooled air for the desired cabin temperature. Failure causes stuck hot or cold air." },
+  { id: "hvac_controls", label: "HVAC Controls", cat: "A7", desc: "Manual or automatic temperature control systems managing compressor engagement, blend doors, mode doors, blower speed, and air distribution for comfort." },
+
+  // A8 - Engine Performance
+  { id: "ignition_system", label: "Ignition System", cat: "A8", desc: "Produces and delivers high-voltage sparks to ignite the air-fuel mixture at precisely timed intervals. Includes coils, spark plugs, control module, and sensors." },
+  { id: "spark_plug", label: "Spark Plug", cat: "A8", desc: "Creates an electrical arc across its gap to ignite the compressed air-fuel mixture in the combustion chamber. Gap, heat range, and condition affect engine performance." },
+  { id: "ignition_coil", label: "Ignition Coil", cat: "A8", desc: "Transforms battery voltage (12V) into high voltage (20,000-50,000V) needed to fire the spark plug. Modern engines use coil-on-plug designs for each cylinder." },
+  { id: "fuel_injection", label: "Fuel Injection", cat: "A8", desc: "Precisely meters and delivers fuel using injectors controlled by the PCM. Includes port injection, gasoline direct injection (GDI), or both." },
+  { id: "maf_sensor", label: "MAF Sensor", cat: "A8", desc: "Mass Airflow Sensor measures the volume and density of air entering the engine. The PCM uses this data to calculate correct fuel injection quantity." },
+  { id: "map_sensor", label: "MAP Sensor", cat: "A8", desc: "Manifold Absolute Pressure sensor measures intake vacuum/pressure to determine engine load. Used by the PCM with speed-density fuel injection." },
+  { id: "o2_sensor", label: "O2 Sensor", cat: "A8", desc: "Oxygen sensor monitors exhaust gas oxygen content before and after the catalytic converter. The PCM adjusts fuel mixture to maintain 14.7:1 air-fuel ratio." },
+  { id: "catalytic_converter", label: "Cat Converter", cat: "A8", desc: "An exhaust emission device containing precious metals that chemically converts harmful pollutants (HC, CO, NOx) into water vapor, CO2, and nitrogen." },
+  { id: "egr_system", label: "EGR System", cat: "A8", desc: "Exhaust Gas Recirculation introduces metered exhaust gas into the intake to lower combustion temperatures, reducing nitrogen oxide (NOx) emissions." },
+  { id: "evap_system", label: "EVAP System", cat: "A8", desc: "Evaporative Emission Control captures fuel vapors from the tank in a charcoal canister and purges them into the engine to burn." },
+  { id: "pcm_ecm", label: "PCM/ECM", cat: "A8", desc: "Powertrain/Engine Control Module: the vehicle's main computer managing fuel injection, ignition timing, emissions, and transmission via sensor data." },
+  { id: "obd2", label: "OBD II", cat: "A8", desc: "On-Board Diagnostics standardized system monitoring emissions-related components. Stores diagnostic trouble codes (DTCs), freeze frame data, and readiness monitors." },
+  { id: "dtc", label: "DTC", cat: "A8", desc: "Diagnostic Trouble Code: a standardized alphanumeric code stored when the PCM detects a system malfunction. Format: P0xxx (powertrain), B/C/U for others." },
+  { id: "mil", label: "MIL (CEL)", cat: "A8", desc: "Malfunction Indicator Lamp illuminates when the PCM detects an emissions-related fault. Steady = stored code; flashing = catalyst-damaging misfire." },
+  { id: "freeze_frame", label: "Freeze Frame", cat: "A8", desc: "A snapshot of engine sensor data captured at the moment a DTC is stored. Shows RPM, coolant temp, fuel trim, load, and speed for diagnostics." },
+  { id: "ckp_sensor", label: "CKP Sensor", cat: "A8", desc: "Crankshaft Position Sensor monitors crankshaft speed and position for ignition timing and fuel injection. Failure typically causes a no-start condition." },
+  { id: "turbocharger", label: "Turbo/Supercharger", cat: "A8", desc: "Forced induction devices that compress intake air to increase engine power. Turbochargers use exhaust gas; superchargers are mechanically belt-driven." },
+  { id: "throttle_body", label: "Throttle Body", cat: "A8", desc: "Controls airflow into the engine via a butterfly valve operated by electronic throttle control. Carbon buildup causes rough idle; position sensor feeds PCM." },
+  { id: "fuel_pressure_reg", label: "Fuel Pressure Reg", cat: "A8", desc: "Maintains consistent fuel pressure at the injectors by controlling return flow to the tank. Failure causes hard starting, rich/lean running." }
+];
+
+const LINKS = [
+  // A1 internal
+  { source: "compression_test", target: "leak_down_test" },
+  { source: "compression_test", target: "piston" },
+  { source: "compression_test", target: "cylinder_head" },
+  { source: "leak_down_test", target: "head_gasket" },
+  { source: "cylinder_head", target: "valve_train" },
+  { source: "cylinder_head", target: "head_gasket" },
+  { source: "valve_train", target: "camshaft" },
+  { source: "camshaft", target: "vvt" },
+  { source: "camshaft", target: "timing_chain_belt" },
+  { source: "crankshaft", target: "piston" },
+  { source: "crankshaft", target: "connecting_rod" },
+  { source: "crankshaft", target: "harmonic_balancer" },
+  { source: "crankshaft", target: "flywheel" },
+  { source: "crankshaft", target: "engine_bearings" },
+  { source: "connecting_rod", target: "piston" },
+  { source: "connecting_rod", target: "engine_bearings" },
+  { source: "engine_block", target: "cylinder_head" },
+  { source: "engine_block", target: "crankshaft" },
+  { source: "engine_block", target: "piston" },
+  { source: "oil_pump", target: "engine_bearings" },
+  { source: "cooling_system", target: "thermostat_engine" },
+  { source: "cooling_system", target: "water_pump" },
+  { source: "pcv_system", target: "engine_block" },
+  { source: "timing_chain_belt", target: "crankshaft" },
+
+  // A2 internal
+  { source: "torque_converter", target: "planetary_gear_set" },
+  { source: "torque_converter", target: "torque_converter_clutch" },
+  { source: "planetary_gear_set", target: "clutch_pack" },
+  { source: "planetary_gear_set", target: "transmission_band" },
+  { source: "valve_body", target: "solenoid_trans" },
+  { source: "valve_body", target: "line_pressure" },
+  { source: "tcm", target: "solenoid_trans" },
+  { source: "tcm", target: "valve_body" },
+  { source: "clutch_pack", target: "trans_servo" },
+  { source: "transmission_band", target: "trans_servo" },
+  { source: "atf", target: "trans_cooler" },
+  { source: "atf", target: "valve_body" },
+  { source: "cvt", target: "tcm" },
+  { source: "dct", target: "tcm" },
+
+  // A3 internal
+  { source: "clutch_disc", target: "pressure_plate" },
+  { source: "clutch_disc", target: "pilot_bearing" },
+  { source: "pressure_plate", target: "release_bearing" },
+  { source: "synchronizer", target: "clutch_disc" },
+  { source: "cv_joint", target: "half_shaft" },
+  { source: "universal_joint", target: "drive_shaft" },
+  { source: "differential", target: "ring_pinion" },
+  { source: "differential", target: "limited_slip_diff" },
+  { source: "differential", target: "axle_shaft" },
+  { source: "transfer_case", target: "differential" },
+  { source: "transfer_case", target: "drive_shaft" },
+  { source: "half_shaft", target: "differential" },
+
+  // A4 internal
+  { source: "ball_joint", target: "control_arm" },
+  { source: "ball_joint", target: "knuckle" },
+  { source: "control_arm", target: "strut" },
+  { source: "strut", target: "coil_spring" },
+  { source: "strut", target: "shock_absorber" },
+  { source: "stabilizer_bar", target: "control_arm" },
+  { source: "tie_rod", target: "rack_pinion" },
+  { source: "tie_rod", target: "knuckle" },
+  { source: "rack_pinion", target: "power_steering" },
+  { source: "rack_pinion", target: "steering_column" },
+  { source: "wheel_alignment", target: "camber" },
+  { source: "wheel_alignment", target: "caster" },
+  { source: "wheel_alignment", target: "toe" },
+  { source: "tpms", target: "wheel_alignment" },
+  { source: "idler_arm", target: "tie_rod" },
+
+  // A5 internal
+  { source: "master_cylinder", target: "brake_booster" },
+  { source: "master_cylinder", target: "brake_lines" },
+  { source: "master_cylinder", target: "brake_fluid" },
+  { source: "disc_brake", target: "brake_rotor" },
+  { source: "disc_brake", target: "brake_caliper" },
+  { source: "disc_brake", target: "brake_pad" },
+  { source: "drum_brake", target: "brake_shoe" },
+  { source: "drum_brake", target: "wheel_cylinder" },
+  { source: "abs", target: "tcs" },
+  { source: "abs", target: "esc" },
+  { source: "brake_lines", target: "proportioning_valve" },
+  { source: "brake_lines", target: "brake_caliper" },
+  { source: "brake_lines", target: "wheel_cylinder" },
+  { source: "parking_brake", target: "drum_brake" },
+  { source: "brake_bleeding", target: "brake_fluid" },
+  { source: "brake_bleeding", target: "master_cylinder" },
+
+  // A6 internal
+  { source: "battery", target: "alternator" },
+  { source: "battery", target: "starter_motor" },
+  { source: "battery", target: "parasitic_draw" },
+  { source: "alternator", target: "voltage_drop" },
+  { source: "starter_motor", target: "relay" },
+  { source: "fuse", target: "circuit_breaker" },
+  { source: "fuse", target: "relay" },
+  { source: "dmm", target: "ohms_law" },
+  { source: "dmm", target: "voltage_drop" },
+  { source: "dmm", target: "parasitic_draw" },
+  { source: "can_bus", target: "wiring_diagram" },
+  { source: "can_bus", target: "hmi" },
+  { source: "srs", target: "can_bus" },
+
+  // A7 internal
+  { source: "compressor", target: "condenser" },
+  { source: "compressor", target: "ac_clutch" },
+  { source: "condenser", target: "receiver_drier" },
+  { source: "condenser", target: "evaporator" },
+  { source: "evaporator", target: "txv" },
+  { source: "evaporator", target: "orifice_tube" },
+  { source: "evaporator", target: "blower_motor" },
+  { source: "txv", target: "receiver_drier" },
+  { source: "orifice_tube", target: "accumulator" },
+  { source: "refrigerant", target: "compressor" },
+  { source: "refrigerant", target: "evaporator" },
+  { source: "heater_core", target: "blend_door" },
+  { source: "blower_motor", target: "cabin_filter" },
+  { source: "blend_door", target: "hvac_controls" },
+  { source: "hvac_controls", target: "ac_clutch" },
+
+  // A8 internal
+  { source: "ignition_system", target: "spark_plug" },
+  { source: "ignition_system", target: "ignition_coil" },
+  { source: "ignition_coil", target: "spark_plug" },
+  { source: "fuel_injection", target: "maf_sensor" },
+  { source: "fuel_injection", target: "map_sensor" },
+  { source: "fuel_injection", target: "fuel_pressure_reg" },
+  { source: "pcm_ecm", target: "obd2" },
+  { source: "pcm_ecm", target: "fuel_injection" },
+  { source: "pcm_ecm", target: "ignition_system" },
+  { source: "pcm_ecm", target: "o2_sensor" },
+  { source: "pcm_ecm", target: "ckp_sensor" },
+  { source: "obd2", target: "dtc" },
+  { source: "obd2", target: "mil" },
+  { source: "obd2", target: "freeze_frame" },
+  { source: "dtc", target: "mil" },
+  { source: "dtc", target: "freeze_frame" },
+  { source: "o2_sensor", target: "catalytic_converter" },
+  { source: "egr_system", target: "catalytic_converter" },
+  { source: "evap_system", target: "obd2" },
+  { source: "turbocharger", target: "throttle_body" },
+  { source: "maf_sensor", target: "throttle_body" },
+
+  // Cross-category connections
+  { source: "flywheel", target: "clutch_disc" },
+  { source: "flywheel", target: "torque_converter" },
+  { source: "starter_motor", target: "flywheel" },
+  { source: "crankshaft", target: "ckp_sensor" },
+  { source: "cooling_system", target: "heater_core" },
+  { source: "thermostat_engine", target: "pcm_ecm" },
+  { source: "battery", target: "starter_motor" },
+  { source: "alternator", target: "battery" },
+  { source: "pcv_system", target: "evap_system" },
+  { source: "abs", target: "dmm" },
+  { source: "tpms", target: "abs" },
+  { source: "esc", target: "pcm_ecm" },
+  { source: "can_bus", target: "pcm_ecm" },
+  { source: "can_bus", target: "tcm" },
+  { source: "can_bus", target: "abs" },
+  { source: "water_pump", target: "heater_core" },
+  { source: "wheel_alignment", target: "strut" },
+  { source: "knuckle", target: "brake_rotor" },
+  { source: "dmm", target: "compression_test" }
+];
+
+// ============================================================
+// LAYOUT ENGINE – Structured engineering diagram
+// ============================================================
+const canvas = document.getElementById("canvas");
+const ctx = canvas.getContext("2d");
+let W, H;
+let activeFilter = "all";
+let searchTerm = "";
+let dragging = null;
+let hoveredNode = null;
+let offsetX = 0, offsetY = 0;
+let scale = 1;
+let panX = 0, panY = 0;
+let isPanning = false;
+let panStartX, panStartY;
+let settled = false;
+let tickCount = 0;
+
+function resize() {
+  W = canvas.width = window.innerWidth;
+  H = canvas.height = window.innerHeight;
+  settled = false;
+  tickCount = 0;
+}
+window.addEventListener("resize", resize);
+resize();
+
+// Build node map
+const nodeMap = {};
+const nodes = [];
+TERMS.forEach(t => {
+  const node = { ...t, x: 0, y: 0, vx: 0, vy: 0, w: 0, h: 28, visible: true, highlighted: false, pinned: false };
+  nodes.push(node);
+  nodeMap[t.id] = node;
+});
+
+// Measure text widths
+function measureNodes() {
+  ctx.font = "bold 13px Consolas, 'Courier New', monospace";
+  nodes.forEach(n => {
+    n.w = ctx.measureText(n.label).width + 24;
+    if (n.w < 60) n.w = 60;
+  });
+}
+measureNodes();
+
+// Build link objects
+const linkObjs = [];
+LINKS.forEach(l => {
+  if (nodeMap[l.source] && nodeMap[l.target]) {
+    linkObjs.push({ source: nodeMap[l.source], target: nodeMap[l.target], cross: nodeMap[l.source].cat !== nodeMap[l.target].cat });
+  }
+});
+
+// Category grid layout (4 columns, 2 rows)
+const CAT_KEYS = Object.keys(CATEGORIES);
+const GRID = [
+  // row 0
+  { cat: "A1", col: 0, row: 0 },
+  { cat: "A2", col: 1, row: 0 },
+  { cat: "A3", col: 2, row: 0 },
+  { cat: "A4", col: 3, row: 0 },
+  // row 1
+  { cat: "A5", col: 0, row: 1 },
+  { cat: "A6", col: 1, row: 1 },
+  { cat: "A7", col: 2, row: 1 },
+  { cat: "A8", col: 3, row: 1 }
+];
+
+function getCatBounds() {
+  const margin = 30;
+  const headerH = 50;
+  const usableW = Math.max(1200, W - margin * 2);
+  const usableH = Math.max(700, H - headerH - margin * 2);
+  const cellW = usableW / 4;
+  const cellH = usableH / 2;
+  const pad = 10;
+  const bounds = {};
+  GRID.forEach(g => {
+    bounds[g.cat] = {
+      x: margin + g.col * cellW + pad,
+      y: headerH + margin + g.row * cellH + pad,
+      w: cellW - pad * 2,
+      h: cellH - pad * 2
+    };
+  });
+  return bounds;
+}
+
+// Initialize positions within category bounds
+function initPositions() {
+  const bounds = getCatBounds();
+  const catNodes = {};
+  CAT_KEYS.forEach(c => catNodes[c] = []);
+  nodes.forEach(n => catNodes[n.cat].push(n));
+
+  CAT_KEYS.forEach(cat => {
+    const b = bounds[cat];
+    const ns = catNodes[cat];
+    const cols = Math.ceil(Math.sqrt(ns.length * (b.w / b.h)));
+    const rows = Math.ceil(ns.length / cols);
+    const cellW = b.w / cols;
+    const cellH = (b.h - 30) / rows; // 30 for title
+    ns.forEach((n, i) => {
+      const col = i % cols;
+      const row = Math.floor(i / cols);
+      n.x = b.x + col * cellW + cellW / 2;
+      n.y = b.y + 30 + row * cellH + cellH / 2;
+    });
+  });
+}
+initPositions();
+
+// ============================================================
+// FORCE SIMULATION – constrained to category boxes
+// ============================================================
+function simulate() {
+  if (settled) return;
+  tickCount++;
+
+  const bounds = getCatBounds();
+  const repulsion = 800;
+  const attraction = 0.008;
+  const damping = 0.7;
+
+  // Group visible nodes by category for repulsion
+  const catGroups = {};
+  CAT_KEYS.forEach(c => catGroups[c] = []);
+  nodes.forEach(n => { if (n.visible && !n.pinned) catGroups[n.cat].push(n); });
+
+  // Repulsion within each category
+  CAT_KEYS.forEach(cat => {
+    const group = catGroups[cat];
+    for (let i = 0; i < group.length; i++) {
+      for (let j = i + 1; j < group.length; j++) {
+        const a = group[i], b = group[j];
+        let dx = b.x - a.x, dy = b.y - a.y;
+        let dist = Math.sqrt(dx * dx + dy * dy) || 1;
+        if (dist < 5) dist = 5;
+        const force = repulsion / (dist * dist);
+        const fx = (dx / dist) * force;
+        const fy = (dy / dist) * force;
+        a.vx -= fx; a.vy -= fy;
+        b.vx += fx; b.vy += fy;
+      }
+    }
+  });
+
+  // Link attraction
+  linkObjs.forEach(l => {
+    if (!l.source.visible || !l.target.visible) return;
+    if (l.source.pinned && l.target.pinned) return;
+    const dx = l.target.x - l.source.x;
+    const dy = l.target.y - l.source.y;
+    const dist = Math.sqrt(dx * dx + dy * dy) || 1;
+    const idealDist = l.cross ? 200 : 70;
+    const force = (dist - idealDist) * attraction;
+    const fx = (dx / dist) * force;
+    const fy = (dy / dist) * force;
+    if (!l.source.pinned) { l.source.vx += fx; l.source.vy += fy; }
+    if (!l.target.pinned) { l.target.vx -= fx; l.target.vy -= fy; }
+  });
+
+  // Update positions and constrain to category bounds
+  let totalV = 0;
+  nodes.forEach(n => {
+    if (n.pinned || !n.visible) return;
+    n.vx *= damping;
+    n.vy *= damping;
+    n.x += n.vx;
+    n.y += n.vy;
+
+    // Constrain to category bounds
+    const b = bounds[n.cat];
+    const hw = n.w / 2 + 4;
+    const hh = n.h / 2 + 4;
+    n.x = Math.max(b.x + hw, Math.min(b.x + b.w - hw, n.x));
+    n.y = Math.max(b.y + 30 + hh, Math.min(b.y + b.h - hh, n.y));
+
+    totalV += Math.abs(n.vx) + Math.abs(n.vy);
+  });
+
+  if (tickCount > 300 || totalV < 0.5) settled = true;
+}
+
+// ============================================================
+// RENDERING – engineering diagram style
+// ============================================================
+function applyFilter() {
+  const search = searchTerm.toLowerCase();
+  nodes.forEach(n => {
+    const catMatch = activeFilter === "all" || n.cat === activeFilter;
+    const searchMatch = !search || n.label.toLowerCase().includes(search);
+    n.visible = catMatch && searchMatch;
+    n.highlighted = search && searchMatch && search.length > 1;
+  });
+  settled = false;
+  tickCount = 0;
+}
+
+function drawArrowhead(fromX, fromY, toX, toY, size, color) {
+  const angle = Math.atan2(toY - fromY, toX - fromX);
+  ctx.save();
+  ctx.translate(toX, toY);
+  ctx.rotate(angle);
+  ctx.beginPath();
+  ctx.moveTo(0, 0);
+  ctx.lineTo(-size, -size * 0.4);
+  ctx.lineTo(-size, size * 0.4);
+  ctx.closePath();
+  ctx.fillStyle = color;
+  ctx.fill();
+  ctx.restore();
+}
+
+function getEdgePoint(node, targetX, targetY) {
+  const dx = targetX - node.x;
+  const dy = targetY - node.y;
+  const hw = node.w / 2;
+  const hh = node.h / 2;
+  if (dx === 0 && dy === 0) return { x: node.x, y: node.y };
+  const absDx = Math.abs(dx);
+  const absDy = Math.abs(dy);
+  let t;
+  if (absDx / hw > absDy / hh) {
+    t = hw / absDx;
+  } else {
+    t = hh / absDy;
+  }
+  return { x: node.x + dx * t, y: node.y + dy * t };
+}
+
+function draw() {
+  ctx.clearRect(0, 0, W, H);
+  ctx.save();
+  ctx.translate(panX, panY);
+  ctx.scale(scale, scale);
+
+  const bounds = getCatBounds();
+
+  // Draw category boxes
+  CAT_KEYS.forEach(cat => {
+    const b = bounds[cat];
+    const c = CATEGORIES[cat];
+    const isActive = activeFilter === "all" || activeFilter === cat;
+    const alpha = isActive ? 1 : 0.25;
+
+    // Box background
+    ctx.fillStyle = isActive ? c.bg : "rgba(22,27,34,0.3)";
+    ctx.strokeStyle = isActive ? c.border : "rgba(48,54,61,0.3)";
+    ctx.lineWidth = 1.5;
+    roundRect(ctx, b.x, b.y, b.w, b.h, 6);
+    ctx.fill();
+    ctx.stroke();
+
+    // Title bar
+    ctx.fillStyle = isActive ? c.border : "rgba(48,54,61,0.2)";
+    roundRectTop(ctx, b.x, b.y, b.w, 24, 6);
+    ctx.fill();
+
+    // Title text
+    ctx.font = "bold 11px Consolas, 'Courier New', monospace";
+    ctx.fillStyle = isActive ? c.color : "rgba(139,148,158,0.4)";
+    ctx.globalAlpha = alpha;
+    ctx.textAlign = "left";
+    ctx.textBaseline = "middle";
+    ctx.fillText(c.name.toUpperCase(), b.x + 8, b.y + 12);
+    ctx.globalAlpha = 1;
+  });
+
+  // Draw links
+  linkObjs.forEach(l => {
+    if (!l.source.visible || !l.target.visible) return;
+    const fromPt = getEdgePoint(l.source, l.target.x, l.target.y);
+    const toPt = getEdgePoint(l.target, l.source.x, l.source.y);
+
+    const isHoverLink = hoveredNode && (l.source === hoveredNode || l.target === hoveredNode);
+    const color = l.cross
+      ? (isHoverLink ? "rgba(139,148,158,0.7)" : "rgba(72,79,88,0.35)")
+      : (isHoverLink ? CATEGORIES[l.source.cat].color + "cc" : "rgba(88,166,255,0.18)");
+    const width = isHoverLink ? 2 : (l.cross ? 0.8 : 1);
+
+    ctx.beginPath();
+    if (l.cross) {
+      ctx.setLineDash([4, 4]);
+    } else {
+      ctx.setLineDash([]);
+    }
+    ctx.moveTo(fromPt.x, fromPt.y);
+
+    // Straight lines for same-category, slight curve for cross-category
+    if (l.cross) {
+      const midX = (fromPt.x + toPt.x) / 2;
+      const midY = (fromPt.y + toPt.y) / 2;
+      const dx = toPt.x - fromPt.x;
+      const dy = toPt.y - fromPt.y;
+      const offset = Math.min(30, Math.sqrt(dx * dx + dy * dy) * 0.1);
+      ctx.quadraticCurveTo(midX + offset, midY - offset, toPt.x, toPt.y);
+    } else {
+      ctx.lineTo(toPt.x, toPt.y);
+    }
+    ctx.strokeStyle = color;
+    ctx.lineWidth = width;
+    ctx.stroke();
+    ctx.setLineDash([]);
+
+    // Arrowhead
+    if (isHoverLink) {
+      drawArrowhead(fromPt.x, fromPt.y, toPt.x, toPt.y, 7, color);
+    } else {
+      drawArrowhead(fromPt.x, fromPt.y, toPt.x, toPt.y, 5, color);
+    }
+  });
+
+  // Draw nodes as rectangular blocks
+  nodes.forEach(n => {
+    if (!n.visible) return;
+    const c = CATEGORIES[n.cat];
+    const isHovered = n === hoveredNode;
+    const isConnected = hoveredNode && linkObjs.some(l =>
+      (l.source === hoveredNode && l.target === n) || (l.target === hoveredNode && l.source === n)
+    );
+    const dimmed = hoveredNode && !isHovered && !isConnected;
+
+    const x = n.x - n.w / 2;
+    const y = n.y - n.h / 2;
+
+    ctx.globalAlpha = dimmed ? 0.2 : 1;
+
+    // Shadow for hovered
+    if (isHovered) {
+      ctx.shadowColor = c.color;
+      ctx.shadowBlur = 12;
+      ctx.shadowOffsetX = 0;
+      ctx.shadowOffsetY = 0;
+    }
+
+    // Block background
+    ctx.fillStyle = isHovered ? c.color + "33" : (n.highlighted ? c.color + "22" : "#161b22");
+    ctx.strokeStyle = isHovered ? c.color : (isConnected ? c.color + "aa" : (n.highlighted ? c.color + "88" : "#30363d"));
+    ctx.lineWidth = isHovered ? 2 : (isConnected ? 1.5 : 1);
+    roundRect(ctx, x, y, n.w, n.h, 4);
+    ctx.fill();
+    ctx.stroke();
+
+    ctx.shadowColor = "transparent";
+    ctx.shadowBlur = 0;
+
+    // Color accent bar on left side
+    ctx.fillStyle = c.color;
+    ctx.fillRect(x, y + 4, 3, n.h - 8);
+
+    // Label text
+    ctx.font = isHovered ? "bold 13px Consolas, 'Courier New', monospace" : "13px Consolas, 'Courier New', monospace";
+    ctx.fillStyle = isHovered ? "#fff" : (isConnected ? "#c9d1d9" : "#8b949e");
+    ctx.textAlign = "center";
+    ctx.textBaseline = "middle";
+    ctx.fillText(n.label, n.x, n.y);
+
+    ctx.globalAlpha = 1;
+  });
+
+  ctx.restore();
+}
+
+function roundRect(ctx, x, y, w, h, r) {
+  ctx.beginPath();
+  ctx.moveTo(x + r, y);
+  ctx.lineTo(x + w - r, y);
+  ctx.quadraticCurveTo(x + w, y, x + w, y + r);
+  ctx.lineTo(x + w, y + h - r);
+  ctx.quadraticCurveTo(x + w, y + h, x + w - r, y + h);
+  ctx.lineTo(x + r, y + h);
+  ctx.quadraticCurveTo(x, y + h, x, y + h - r);
+  ctx.lineTo(x, y + r);
+  ctx.quadraticCurveTo(x, y, x + r, y);
+  ctx.closePath();
+}
+
+function roundRectTop(ctx, x, y, w, h, r) {
+  ctx.beginPath();
+  ctx.moveTo(x + r, y);
+  ctx.lineTo(x + w - r, y);
+  ctx.quadraticCurveTo(x + w, y, x + w, y + r);
+  ctx.lineTo(x + w, y + h);
+  ctx.lineTo(x, y + h);
+  ctx.lineTo(x, y + r);
+  ctx.quadraticCurveTo(x, y, x + r, y);
+  ctx.closePath();
+}
+
+function loop() {
+  simulate();
+  draw();
+  requestAnimationFrame(loop);
+}
+
+// ============================================================
+// INTERACTION
+// ============================================================
+function getMouseNode(mx, my) {
+  const rx = (mx - panX) / scale;
+  const ry = (my - panY) / scale;
+  for (let i = nodes.length - 1; i >= 0; i--) {
+    const n = nodes[i];
+    if (!n.visible) continue;
+    if (rx >= n.x - n.w / 2 && rx <= n.x + n.w / 2 && ry >= n.y - n.h / 2 && ry <= n.y + n.h / 2) {
+      return n;
+    }
+  }
+  return null;
+}
+
+let dragStartX, dragStartY, didDrag;
+
+canvas.addEventListener("mousedown", e => {
+  const node = getMouseNode(e.clientX, e.clientY);
+  if (node) {
+    dragging = node;
+    dragStartX = e.clientX;
+    dragStartY = e.clientY;
+    didDrag = false;
+    offsetX = (e.clientX - panX) / scale - node.x;
+    offsetY = (e.clientY - panY) / scale - node.y;
+  } else {
+    isPanning = true;
+    panStartX = e.clientX - panX;
+    panStartY = e.clientY - panY;
+  }
+});
+
+canvas.addEventListener("mousemove", e => {
+  if (dragging) {
+    const dx = e.clientX - dragStartX;
+    const dy = e.clientY - dragStartY;
+    if (Math.abs(dx) > 3 || Math.abs(dy) > 3) didDrag = true;
+    dragging.x = (e.clientX - panX) / scale - offsetX;
+    dragging.y = (e.clientY - panY) / scale - offsetY;
+    dragging.vx = 0;
+    dragging.vy = 0;
+    // Constrain to category bounds
+    const bounds = getCatBounds();
+    const b = bounds[dragging.cat];
+    const hw = dragging.w / 2 + 4;
+    const hh = dragging.h / 2 + 4;
+    dragging.x = Math.max(b.x + hw, Math.min(b.x + b.w - hw, dragging.x));
+    dragging.y = Math.max(b.y + 30 + hh, Math.min(b.y + b.h - hh, dragging.y));
+    settled = false;
+    tickCount = Math.max(tickCount, 280); // let it settle quickly
+  } else if (isPanning) {
+    panX = e.clientX - panStartX;
+    panY = e.clientY - panStartY;
+  } else {
+    const node = getMouseNode(e.clientX, e.clientY);
+    hoveredNode = node;
+    canvas.style.cursor = node ? "pointer" : "grab";
+    const tooltip = document.getElementById("tooltip");
+    if (node) {
+      tooltip.style.display = "block";
+      tooltip.style.left = (e.clientX + 14) + "px";
+      tooltip.style.top = (e.clientY - 8) + "px";
+      tooltip.textContent = CATEGORIES[node.cat].name + " │ Click for details";
+    } else {
+      tooltip.style.display = "none";
+    }
+  }
+});
+
+canvas.addEventListener("mouseup", e => {
+  if (dragging) {
+    if (!didDrag) {
+      showModal(dragging);
+    }
+    dragging = null;
+  }
+  isPanning = false;
+});
+
+canvas.addEventListener("wheel", e => {
+  e.preventDefault();
+  const zoomFactor = e.deltaY > 0 ? 0.93 : 1.07;
+  const mx = e.clientX, my = e.clientY;
+  panX = mx - (mx - panX) * zoomFactor;
+  panY = my - (my - panY) * zoomFactor;
+  scale *= zoomFactor;
+  scale = Math.max(0.2, Math.min(4, scale));
+}, { passive: false });
+
+// Touch support
+let touchStartNode = null;
+canvas.addEventListener("touchstart", e => {
+  e.preventDefault();
+  const t = e.touches[0];
+  const node = getMouseNode(t.clientX, t.clientY);
+  touchStartNode = node;
+  if (node) {
+    dragging = node;
+    dragStartX = t.clientX;
+    dragStartY = t.clientY;
+    didDrag = false;
+    offsetX = (t.clientX - panX) / scale - node.x;
+    offsetY = (t.clientY - panY) / scale - node.y;
+  } else {
+    isPanning = true;
+    panStartX = t.clientX - panX;
+    panStartY = t.clientY - panY;
+  }
+}, { passive: false });
+
+canvas.addEventListener("touchmove", e => {
+  e.preventDefault();
+  const t = e.touches[0];
+  if (dragging) {
+    const dx = t.clientX - dragStartX;
+    const dy = t.clientY - dragStartY;
+    if (Math.abs(dx) > 3 || Math.abs(dy) > 3) didDrag = true;
+    dragging.x = (t.clientX - panX) / scale - offsetX;
+    dragging.y = (t.clientY - panY) / scale - offsetY;
+    dragging.vx = 0;
+    dragging.vy = 0;
+    const bounds = getCatBounds();
+    const b = bounds[dragging.cat];
+    const hw = dragging.w / 2 + 4;
+    const hh = dragging.h / 2 + 4;
+    dragging.x = Math.max(b.x + hw, Math.min(b.x + b.w - hw, dragging.x));
+    dragging.y = Math.max(b.y + 30 + hh, Math.min(b.y + b.h - hh, dragging.y));
+  } else if (isPanning) {
+    panX = t.clientX - panStartX;
+    panY = t.clientY - panStartY;
+  }
+}, { passive: false });
+
+canvas.addEventListener("touchend", e => {
+  if (dragging && !didDrag) {
+    showModal(dragging);
+  }
+  dragging = null;
+  isPanning = false;
+  touchStartNode = null;
+});
+
+// ============================================================
+// MODAL
+// ============================================================
+function showModal(node) {
+  const overlay = document.getElementById("modal-overlay");
+  document.getElementById("modal-category").textContent = CATEGORIES[node.cat].name;
+  document.getElementById("modal-category").style.color = CATEGORIES[node.cat].color;
+  document.getElementById("modal-title").textContent = node.label;
+  document.getElementById("modal-desc").textContent = node.desc;
+
+  // Show related terms
+  const related = [];
+  linkObjs.forEach(l => {
+    if (l.source === node && l.target.visible) related.push(l.target);
+    if (l.target === node && l.source.visible) related.push(l.source);
+  });
+  const relDiv = document.getElementById("modal-related");
+  if (related.length > 0) {
+    relDiv.innerHTML = "<strong style='color:#8b949e;'>Connected to:</strong> " +
+      related.map(r => `<span data-id="${r.id}" style="color:${CATEGORIES[r.cat].color}">${r.label}</span>`).join(", ");
+    relDiv.style.display = "block";
+    relDiv.querySelectorAll("span").forEach(span => {
+      span.addEventListener("click", () => {
+        const target = nodeMap[span.dataset.id];
+        if (target) showModal(target);
+      });
+    });
+  } else {
+    relDiv.style.display = "none";
+  }
+
+  overlay.classList.add("show");
+}
+
+document.getElementById("modal-overlay").addEventListener("click", e => {
+  if (e.target === e.currentTarget) e.currentTarget.classList.remove("show");
+});
+document.getElementById("modal-close").addEventListener("click", () => {
+  document.getElementById("modal-overlay").classList.remove("show");
+});
+
+// Filters
+document.querySelectorAll(".filter-btn").forEach(btn => {
+  btn.addEventListener("click", () => {
+    document.querySelectorAll(".filter-btn").forEach(b => b.classList.remove("active"));
+    btn.classList.add("active");
+    activeFilter = btn.dataset.filter;
+    applyFilter();
+  });
+});
+
+// Search
+document.getElementById("search-box").addEventListener("input", e => {
+  searchTerm = e.target.value;
+  applyFilter();
+});
+
+// Keyboard
+document.addEventListener("keydown", e => {
+  if (e.key === "Escape") {
+    document.getElementById("modal-overlay").classList.remove("show");
+  }
+});
+
+// Start
+loop();
+</script>
+</body>
+</html>

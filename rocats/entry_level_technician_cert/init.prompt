@@ -106,3 +106,33 @@ task {
   so basically, from A1 to A8 in the ase_study_guides, show me 2 related youtube videos links
   status: "completed"
 }
+
+task {
+  based on th ase_study_guides A1 to A8, generate a single page html/javascript app in ./a1_to_a8_terms_knowledge_graph {
+    main entry: index.html
+    contains a graph of all the important terms, like a knowledge graph
+    when click on each term, show a modal to explain this term with 30-40 words
+  }
+  status: "completed"
+}
+
+task {
+  in ./a1_to_a8_terms_knowledge_graph {
+    make the font of each term bigger so that i can see clearly
+  }
+  status: "completed"
+}
+
+task {
+  in ./a1_to_a8_terms_knowledge_graph {
+    do not make it like a tag-cloud style, make it like an engineering diagram to show the relationship among each term
+  }
+  status: "completed"
+}
+
+task {
+  in ./a1_to_a8_terms_knowledge_graph {
+    when click on each term, in the modal popup, make the title, content body font bigger, connected to section, all in same font size
+  }
+  status: "completed"
+}
