@@ -79,5 +79,5 @@ task.video_gen {
       }
     }
   }
-  status: "open"
+  status: "completed"
 }
