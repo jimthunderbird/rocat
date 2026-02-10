@@ -136,3 +136,10 @@ task {
   }
   status: "completed"
 }
+
+task {
+  in ./a1_to_a8_terms_knowledge_graph {
+    for each term, also include a small picture showing me how it looks like
+  }
+  status: "completed"
+}

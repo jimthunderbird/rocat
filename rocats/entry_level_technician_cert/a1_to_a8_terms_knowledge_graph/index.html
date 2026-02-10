@@ -52,6 +52,7 @@ body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; background:
 #modal-title { font-size: 20px; color: #fff; margin-bottom: 12px; font-weight: 600; }
 #modal-desc { font-size: 20px; line-height: 1.65; color: #8b949e; }
 #modal-related {
+  clear: both;
   margin-top: 14px; padding-top: 12px; border-top: 1px solid #30363d;
   font-size: 20px; color: #484f58;
 }
@@ -62,6 +63,15 @@ body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; background:
   border: none; border-radius: 4px; cursor: pointer; font-size: 18px; font-weight: 600;
 }
 #modal-close:hover { background: #388bfd; }
+
+#modal-image-wrap {
+  float: right; margin: 0 0 12px 18px;
+  width: 200px; height: 150px;
+  background: #0d1117; border: 1px solid #30363d; border-radius: 6px;
+  overflow: hidden; display: flex; align-items: center; justify-content: center;
+}
+#modal-image { max-width: 100%; max-height: 100%; display: none; object-fit: cover; border-radius: 5px; }
+#modal-image-ph { font-size: 12px; color: #484f58; text-align: center; font-family: 'Consolas', monospace; }
 
 #legend {
   position: fixed; bottom: 10px; left: 10px;
@@ -116,6 +126,7 @@ body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; background:
   <div id="modal">
     <div id="modal-category"></div>
     <div id="modal-title"></div>
+    <div id="modal-image-wrap"><img id="modal-image" src="" alt=""><div id="modal-image-ph">Loading...</div></div>
     <div id="modal-desc"></div>
     <div id="modal-related"></div>
     <button id="modal-close">Close</button>
@@ -1019,14 +1030,208 @@ canvas.addEventListener("touchend", e => {
 });
 
 // ============================================================
-// MODAL
+// MODAL – with Wikipedia image lookup
 // ============================================================
+const WIKI_MAP = {
+  compression_test: "Compression test",
+  leak_down_test: "Leak-down test",
+  cylinder_head: "Cylinder head",
+  valve_train: "Valvetrain",
+  camshaft: "Camshaft",
+  crankshaft: "Crankshaft",
+  piston: "Piston",
+  connecting_rod: "Connecting rod",
+  engine_block: "Engine block",
+  oil_pump: "Oil pump (internal combustion engine)",
+  cooling_system: "Internal combustion engine cooling",
+  thermostat_engine: "Thermostat",
+  water_pump: "Water pump",
+  pcv_system: "Positive crankcase ventilation",
+  vvt: "Variable valve timing",
+  timing_chain_belt: "Timing belt (camshaft)",
+  head_gasket: "Head gasket",
+  flywheel: "Flywheel",
+  harmonic_balancer: "Harmonic balancer",
+  engine_bearings: "Plain bearing",
+  torque_converter: "Torque converter",
+  planetary_gear_set: "Epicyclic gearing",
+  valve_body: "Valve body",
+  tcm: "Transmission control unit",
+  cvt: "Continuously variable transmission",
+  dct: "Dual-clutch transmission",
+  clutch_pack: "Clutch",
+  transmission_band: "Automatic transmission",
+  solenoid_trans: "Solenoid",
+  atf: "Automatic transmission fluid",
+  trans_cooler: "Transmission cooler",
+  line_pressure: "Hydraulic pressure",
+  torque_converter_clutch: "Torque converter",
+  trans_servo: "Servo mechanism",
+  clutch_disc: "Clutch",
+  pressure_plate: "Clutch",
+  release_bearing: "Clutch",
+  synchronizer: "Synchronizer (transmission)",
+  cv_joint: "Constant-velocity joint",
+  universal_joint: "Universal joint",
+  drive_shaft: "Drive shaft",
+  half_shaft: "Axle",
+  differential: "Differential (mechanical device)",
+  ring_pinion: "Spiral bevel gear",
+  transfer_case: "Transfer case",
+  limited_slip_diff: "Limited-slip differential",
+  axle_shaft: "Axle",
+  pilot_bearing: "Pilot bearing",
+  ball_joint: "Ball joint",
+  control_arm: "Control arm",
+  strut: "MacPherson strut",
+  shock_absorber: "Shock absorber",
+  coil_spring: "Coil spring",
+  stabilizer_bar: "Sway bar",
+  tie_rod: "Tie rod",
+  rack_pinion: "Rack and pinion",
+  power_steering: "Power steering",
+  wheel_alignment: "Wheel alignment",
+  camber: "Camber angle",
+  caster: "Caster angle",
+  toe: "Toe (automotive)",
+  tpms: "Tire-pressure monitoring system",
+  steering_column: "Steering column",
+  idler_arm: "Idler arm",
+  knuckle: "Steering knuckle",
+  master_cylinder: "Master cylinder",
+  brake_booster: "Vacuum servo",
+  abs: "Anti-lock braking system",
+  disc_brake: "Disc brake",
+  drum_brake: "Drum brake",
+  brake_rotor: "Disc brake",
+  brake_caliper: "Disc brake",
+  brake_pad: "Brake pad",
+  brake_shoe: "Drum brake",
+  wheel_cylinder: "Wheel cylinder",
+  brake_lines: "Brake line",
+  proportioning_valve: "Proportioning valve",
+  tcs: "Traction control system",
+  esc: "Electronic stability control",
+  parking_brake: "Parking brake",
+  brake_fluid: "Brake fluid",
+  brake_bleeding: "Brake bleeding",
+  battery: "Automotive battery",
+  alternator: "Alternator (automotive)",
+  starter_motor: "Starter (engine)",
+  fuse: "Fuse (automotive)",
+  relay: "Relay",
+  circuit_breaker: "Circuit breaker",
+  dmm: "Multimeter",
+  ohms_law: "Ohm's law",
+  voltage_drop: "Voltage drop",
+  parasitic_draw: "Parasitic drain",
+  can_bus: "CAN bus",
+  wiring_diagram: "Circuit diagram",
+  hmi: "User interface",
+  srs: "Airbag",
+  compressor: "Gas compressor",
+  condenser: "Condenser (heat transfer)",
+  evaporator: "Evaporator",
+  txv: "Thermal expansion valve",
+  orifice_tube: "Orifice plate",
+  receiver_drier: "Receiver-drier",
+  accumulator: "Accumulator (energy)",
+  refrigerant: "Refrigerant",
+  blower_motor: "Centrifugal fan",
+  heater_core: "Heater core",
+  cabin_filter: "Cabin air filter",
+  ac_clutch: "Electromagnetic clutch",
+  blend_door: "Blend door actuator",
+  hvac_controls: "Automobile air conditioning",
+  ignition_system: "Ignition system",
+  spark_plug: "Spark plug",
+  ignition_coil: "Ignition coil",
+  fuel_injection: "Fuel injection",
+  maf_sensor: "Mass airflow sensor",
+  map_sensor: "Manifold absolute pressure sensor",
+  o2_sensor: "Oxygen sensor",
+  catalytic_converter: "Catalytic converter",
+  egr_system: "Exhaust gas recirculation",
+  evap_system: "Evaporative emission control",
+  pcm_ecm: "Engine control unit",
+  obd2: "On-board diagnostics",
+  dtc: "OBD-II PIDs",
+  mil: "Malfunction indicator lamp",
+  freeze_frame: "On-board diagnostics",
+  ckp_sensor: "Crankshaft position sensor",
+  turbocharger: "Turbocharger",
+  throttle_body: "Throttle",
+  fuel_pressure_reg: "Fuel pressure regulator"
+};
+
+const imgCache = {};
+
+async function loadWikiImage(node) {
+  const imgEl = document.getElementById("modal-image");
+  const ph = document.getElementById("modal-image-ph");
+  imgEl.style.display = "none";
+  ph.style.display = "block";
+  ph.textContent = "Loading...";
+
+  if (imgCache[node.id]) {
+    if (imgCache[node.id] === "none") { ph.textContent = "No image"; return; }
+    imgEl.src = imgCache[node.id];
+    imgEl.style.display = "block";
+    ph.style.display = "none";
+    return;
+  }
+
+  try {
+    const title = WIKI_MAP[node.id] || node.label;
+    const url = "https://en.wikipedia.org/w/api.php?action=query&titles=" +
+      encodeURIComponent(title) + "&prop=pageimages&format=json&pithumbsize=300&origin=*";
+    const resp = await fetch(url);
+    const data = await resp.json();
+    const pages = data.query && data.query.pages;
+    if (pages) {
+      const page = Object.values(pages)[0];
+      if (page && page.thumbnail && page.thumbnail.source) {
+        imgCache[node.id] = page.thumbnail.source;
+        imgEl.src = page.thumbnail.source;
+        imgEl.onload = () => { imgEl.style.display = "block"; ph.style.display = "none"; };
+        imgEl.onerror = () => { imgCache[node.id] = "none"; ph.textContent = "No image"; };
+        return;
+      }
+    }
+    // Fallback: search-based lookup
+    const sUrl = "https://en.wikipedia.org/w/api.php?action=query&generator=search&gsrsearch=" +
+      encodeURIComponent((WIKI_MAP[node.id] || node.label) + " automotive") +
+      "&gsrlimit=1&prop=pageimages&format=json&pithumbsize=300&origin=*";
+    const sResp = await fetch(sUrl);
+    const sData = await sResp.json();
+    const sPages = sData.query && sData.query.pages;
+    if (sPages) {
+      const sPage = Object.values(sPages)[0];
+      if (sPage && sPage.thumbnail && sPage.thumbnail.source) {
+        imgCache[node.id] = sPage.thumbnail.source;
+        imgEl.src = sPage.thumbnail.source;
+        imgEl.onload = () => { imgEl.style.display = "block"; ph.style.display = "none"; };
+        imgEl.onerror = () => { imgCache[node.id] = "none"; ph.textContent = "No image"; };
+        return;
+      }
+    }
+    imgCache[node.id] = "none";
+    ph.textContent = "No image";
+  } catch(e) {
+    imgCache[node.id] = "none";
+    ph.textContent = "No image";
+  }
+}
+
 function showModal(node) {
   const overlay = document.getElementById("modal-overlay");
   document.getElementById("modal-category").textContent = CATEGORIES[node.cat].name;
   document.getElementById("modal-category").style.color = CATEGORIES[node.cat].color;
   document.getElementById("modal-title").textContent = node.label;
   document.getElementById("modal-desc").textContent = node.desc;
+
+  // Load Wikipedia image
+  loadWikiImage(node);
 
   // Show related terms
   const related = [];
