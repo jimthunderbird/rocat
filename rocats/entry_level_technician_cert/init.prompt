@@ -150,3 +150,41 @@ task {
   }
   status: "completed"
 }
+
+task {
+  in ./entry_level_tech_rpg {
+    make a single page app for a rpg game {
+      main_character: an entry level technician certification learner
+      game_play {
+        show a map with all types of questions coming from ase_study_guides A1 to A8, covering all aspects of ase_study_guides
+        when the main main_character move across the map, he will hit a question, once hit, show a modal {
+          show the question
+          below there is a "answer" button {
+            @click {
+              show the anser
+            }
+          }
+        }
+      }
+    }
+  }
+  status: "completed"
+}
+
+task {
+  in ./entry_level_tech_rpg {
+    for A1 to A8, add 30 questions per section
+  }
+  status: "completed"
+}
+
+task {
+  in ./entry_level_tech_rpg {
+    for A1 to A8, add 40 questions per section
+    for each question popup {
+      even if I answered it correctly, still keep it in the map so that I can review it later
+      i should be able to close the popup even without answering it
+    }
+  }
+  status: "completed"
+}
