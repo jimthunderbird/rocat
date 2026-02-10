@@ -1,0 +1,145 @@
+================================================================================
+ASE A1-A8 RECOMMENDED YOUTUBE STUDY VIDEOS
+================================================================================
+
+Prepared for: Community College Mechanic Instructor (San Francisco & San Mateo County)
+Focus: ASE Entry-Level Certification Exams (A1 through A8)
+Sources: Arkansas Tech University Automotive Technology Research Guide,
+         FreeASEStudyGuides.com, Diagnostic Network community recommendations
+
+================================================================================
+
+A1 - Engine Repair {
+  1. WeberAuto - ASE A1 Engine Repair Playlist (56 videos)
+     https://youtube.com/playlist?list=PLIn3FrDiB1lwxMDb9dTs48RCBTd6yTevb
+     - Weber State University automotive technology professor
+     - Covers engine diagnostics, cylinder head repair, engine block repair,
+       lubrication and cooling systems, fuel and ignition systems
+
+  2. FreeASEStudyGuides.com - ASE A1 Test Prep Videos
+     https://www.youtube.com/c/FreeASEStudyGuidescom/playlists
+     - 10-question illustrated video quizzes for A1 Engine Repair
+     - Practice questions with visual answers to improve retention
+}
+
+A2 - Automatic Transmission/Transaxle {
+  1. WeberAuto - ASE A2 Automatic Transmissions Playlist (40 videos)
+     https://youtube.com/playlist?list=PLIn3FrDiB1lzZxMimSZ2OLSx2sOwUVxZq
+     - Covers torque converter operation, planetary gear trains,
+       solenoid diagnostics, transmission fluid, and valve body operation
+
+  2. FreeASEStudyGuides.com - ASE A2 Test Prep Videos
+     https://www.youtube.com/c/FreeASEStudyGuidescom/playlists
+     - 10-question illustrated video quizzes for A2 Automatic Transmission
+     - Practice questions with visual answers to improve retention
+}
+
+A3 - Manual Drive Train and Axles {
+  1. WeberAuto - ASE A3 Manual Drivetrain and Axles Playlist (11 videos)
+     https://youtube.com/playlist?list=PLIn3FrDiB1lyVN-O-zJK8v9q0AHu7wrBi
+     - Covers clutch diagnosis and repair, manual transmission operation,
+       drive shafts, CV joints, differentials, and 4WD/AWD systems
+
+  2. FreeASEStudyGuides.com - ASE A3 Test Prep Videos
+     https://www.youtube.com/c/FreeASEStudyGuidescom/playlists
+     - 10-question illustrated video quizzes for A3 Manual Drive Train
+     - Practice questions with visual answers to improve retention
+}
+
+A4 - Suspension and Steering {
+  1. WeberAuto - ASE A4 Suspension and Steering Playlist
+     https://youtube.com/playlist?list=PLIn3FrDiB1lyQ78Gs06nhqnx1juG0-CIP
+     - Covers steering systems, suspension systems, wheel alignment,
+       and wheel and tire diagnosis and service
+
+  2. FreeASEStudyGuides.com - ASE A4 Test Prep Videos
+     https://www.youtube.com/c/FreeASEStudyGuidescom/playlists
+     - 10-question illustrated video quizzes for A4 Suspension and Steering
+     - Practice questions with visual answers to improve retention
+}
+
+A5 - Brakes {
+  1. WeberAuto - ASE A5 Brakes Playlist (30 videos)
+     https://youtube.com/playlist?list=PLIn3FrDiB1lyulXOdWDQ5SVFAOkV5xcKa
+     - Covers hydraulic systems, power assist, disc brakes, drum brakes,
+       parking brakes, ABS, TCS, and ESC systems
+
+  2. FreeASEStudyGuides.com - ASE A5 Test Prep Videos
+     https://www.youtube.com/c/FreeASEStudyGuidescom/playlists
+     - 10-question illustrated video quizzes for A5 Brakes
+     - Includes video on brake valves and proportioning valves
+}
+
+A6 - Electrical/Electronic Systems {
+  1. WeberAuto - ASE A6 Electrical/Electronic Systems Playlist (6 videos)
+     https://youtube.com/playlist?list=PLIn3FrDiB1lwaeLLs__fD25rUOQeM6itl
+     - Covers general electrical diagnosis, battery and starting systems,
+       charging systems, lighting systems, and body electrical systems
+
+  2. ScannerDanner - Automotive Electrical Diagnostics
+     https://www.youtube.com/c/ScannerDanner
+     - ASE L1 certified Master Technician with 25+ years experience
+     - Extensive free videos on electrical fundamentals, Ohm's Law,
+       circuit diagnostics, wiring diagrams, and scan tool usage
+     - Coordinated playlists matching automotive electrical textbook chapters
+}
+
+A7 - Heating and Air Conditioning {
+  1. WeberAuto - ASE A7 HVAC Playlist
+     https://youtube.com/playlist?list=PLIn3FrDiB1lw0zR7UZZPB7fNAgbb5RUFC
+     - Covers HVAC and engine cooling system diagnosis and repair,
+       refrigeration system components, and operating system controls
+
+  2. FreeASEStudyGuides.com - ASE A7 Test Prep Videos
+     https://www.youtube.com/c/FreeASEStudyGuidescom/playlists
+     - 10-question illustrated video quizzes for A7 Heating and A/C
+     - Practice questions with visual answers to improve retention
+}
+
+A8 - Engine Performance {
+  1. WeberAuto - ASE A8 Gasoline Engine Performance Playlist (4 videos)
+     https://youtube.com/playlist?list=PLIn3FrDiB1lw6xOsFcZVo6W3thwb9YhXX
+     - Covers general diagnosis, ignition systems, fuel and air induction,
+       emissions control systems, and computerized engine controls
+
+  2. ScannerDanner - Engine Performance Diagnostics
+     https://www.youtube.com/c/ScannerDanner
+     - Emphasis on engine performance, computer controls, scan tool usage,
+       lab scope diagnostics, and real-world troubleshooting scenarios
+     - Free YouTube channel plus premium content available
+}
+
+================================================================================
+ADDITIONAL RECOMMENDED YOUTUBE CHANNELS FOR ASE STUDY
+================================================================================
+
+  - South Main Auto Repair: Real-world diagnostic walkthroughs
+    https://www.youtube.com/c/SouthMainAutoRepairAvoca
+
+  - EricTheCarGuy: 800+ videos, ASE Certified Master Technician since 1997
+    https://www.youtube.com/user/EricTheCarGuy
+
+  - Pine Hollow Auto Diagnostics: Diagnostic techniques and troubleshooting
+    https://www.youtube.com/c/PineHollowAutoDiagnostics
+
+  - FordTechMakuloco: Detailed repair and diagnostic procedures
+    https://www.youtube.com/c/FordTechMakuloco
+
+  - Mechanic Mindset: Training and education focused content
+    https://www.youtube.com/c/MechanicMindset
+
+================================================================================
+NOTES
+================================================================================
+
+  - WeberAuto playlists are from a Weber State University automotive technology
+    professor and are referenced by university automotive programs nationwide.
+  - FreeASEStudyGuides.com videos are short quiz-style videos (10 questions
+    each) designed to reinforce study material with illustrated answers.
+  - ScannerDanner is especially strong for A6 (Electrical) and A8 (Engine
+    Performance) content, taught by an instructor at Rosedale Technical College.
+  - All videos are free to watch on YouTube.
+
+================================================================================
+END OF DOCUMENT
+================================================================================

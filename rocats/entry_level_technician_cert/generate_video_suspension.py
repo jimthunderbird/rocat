@@ -663,7 +663,7 @@ def render_slide_image(index, render_fn):
 
 async def generate_narration(index, text):
     path = os.path.join(TEMP_DIR, f"narration_{index:02d}.mp3")
-    communicate = edge_tts.Communicate(text, VOICE)
+    communicate = edge_tts.Communicate(text, VOICE, rate="-10%")
     await communicate.save(path)
     return path
 
@@ -699,29 +699,17 @@ async def build_video():
     total_with_padding = total_audio_dur + len(slides_data) * 0.5
     print(f"Raw audio duration: {total_audio_dur:.1f}s, with padding: {total_with_padding:.1f}s")
 
-    speed_factor = 1.0
-    if total_with_padding > TARGET_DURATION:
-        speed_factor = min(total_with_padding / TARGET_DURATION, 1.5)
-        print(f"Speeding up audio by {speed_factor:.2f}x to fit {TARGET_DURATION}s")
-
-    # Second pass: build clips
+    # Build clips at natural speed (no speed-up or trimming)
     clips = []
     for i, (img_path, audio_path, orig_dur) in enumerate(assets):
-        if speed_factor > 1.01:
-            audio_path = speed_up_audio(audio_path, speed_factor)
-
         audio = AudioFileClip(audio_path)
-        duration = audio.duration + 0.5
+        duration = audio.duration + 1.0  # pause between slides
         clip = ImageClip(img_path, duration=duration)
         clip = clip.with_audio(audio)
         clips.append(clip)
 
     final = concatenate_videoclips(clips, method="compose")
-    print(f"Final duration: {final.duration:.1f}s (target: {TARGET_DURATION}s)")
-
-    if final.duration > TARGET_DURATION + 2:
-        final = final.subclipped(0, TARGET_DURATION)
-        print(f"Trimmed to {TARGET_DURATION}s")
+    print(f"Final duration: {final.duration:.1f}s")
 
     print(f"Writing video to {OUTPUT_FILE}...")
     final.write_videofile(

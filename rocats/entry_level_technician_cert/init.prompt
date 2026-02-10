@@ -72,12 +72,37 @@ task.video_gen {
       video {
         file: "entry_level_{subject}_{number}.mp4"
         tone: natural instructor voice, no robotic voice, natural human voice
-        length: 2 minute
+        voice_speed: normal
+        length: 2 minute - 4 minutes
         gender: male
         style: powerpoint style slide-by-slide
         content: please explain to me about the {subject} based on the related pdf file, do not show me the test questions percentage, focus on explaining the concept , please add diagram to explain as well
       }
     }
   }
+  status: "completed"
+}
+
+task {
+  the video speed is too fast, please slow down and be normal, if the video needs to be 1-2 minutes longer because of this, so be it
+  status: "completed"
+}
+
+task {
+  create a document with the following format:
+  A1 {
+    {related youtube video 1}
+    {related youtube video 2}
+  }
+  A2 {
+    {related youtube video 1}
+    {related youtube video 2}
+    ...
+  }
+  ...
+  A8 {
+    ...
+  }
+  so basically, from A1 to A8 in the ase_study_guides, show me 2 related youtube videos links
   status: "completed"
 }
