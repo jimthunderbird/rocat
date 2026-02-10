@@ -143,3 +143,10 @@ task {
   }
   status: "completed"
 }
+
+task {
+  in ./a1_to_a8_terms_knowledge_graph {
+    on page load, for each section (A1 to A8, make the title font same as the term, so that it is larger and clear)
+  }
+  status: "completed"
+}
