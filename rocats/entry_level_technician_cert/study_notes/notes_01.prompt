@@ -1,0 +1,31 @@
+q: How is ECU and TCM related?
+a {
+  In a modern vehicle, the ECU (Engine Control Unit) and the TCM (Transmission Control Module) act like a highly coordinated team. While they are separate computers, they are constantly "talking" to each other over a high-speed communication network called the CAN bus (Controller Area Network).
+
+  Think of the ECU as the lungs and muscles (managing power) and the TCM as the legs (managing how that power hits the road).
+
+  How They Work Together
+  For your car to drive smoothly, these two modules must synchronize their actions in real-time:
+
+  Torque Management: When the TCM is about to shift gears, it sends a request to the ECU to momentarily "retard" or reduce engine power. This prevents a "thump" or "jerk" and protects the internal clutches of the gearbox.
+
+  Adaptive Learning: The ECU shares data about engine load and throttle position. If you slam on the gas to overtake someone, the ECU tells the TCM, "I need power now!" and the TCM immediately triggers a downshift.
+
+  Safety Sync: If the ECU detects a major engine problem (like severe overheating), it tells the TCM to enter "Limp Mode" to limit speed and prevent the transmission from being damaged by erratic engine behavior.
+}
+
+q: What is CAN Bus?
+a {
+  In the context of your vehicle—and quite relevant given your interest in technology and hardware—the CAN Bus (Controller Area Network) is the "nervous system" of the car.
+
+  Before the CAN Bus was invented, every component in a car had to be connected to every other component with individual wires. This created miles of heavy, expensive copper wiring. The CAN Bus solved this by allowing all the electronic control units (like your ECU and TCM) to communicate over a single "bus" or pair of wires.
+
+  Beyond the Car
+  Because it is so robust and reliable, the CAN Bus isn't just for cars anymore. It is widely used in:
+
+  Industrial Automation: Connecting sensors on factory floors.
+
+  Robotics: Allowing different limbs or joints to coordinate movements.
+
+  Aerospace: Managing flight control systems.
+}

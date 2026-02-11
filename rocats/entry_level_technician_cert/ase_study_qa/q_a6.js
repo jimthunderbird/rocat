@@ -8,7 +8,14 @@ const questionsA6 = [
     options: ["A) 2 amps", "B) 3 amps", "C) 4 amps", "D) 48 amps"],
     answer: 1,
     explanation: "Ohm's law states that current equals voltage divided by resistance (I = V/R). With 12 volts and 4 ohms of resistance, the current is 12 divided by 4, which equals 3 amps. This fundamental formula is essential for diagnosing electrical circuits and predicting current flow in automotive systems.",
-    diagram: ""
+    diagram: "",
+    terms: ["ohms_law", "battery", "series_circuit"],
+    image: "https://upload.wikimedia.org/wikipedia/commons/thumb/7/78/Fluke_87_multimeter.jpg/400px-Fluke_87_multimeter.jpg",
+    youtube: "https://www.youtube.com/watch?v=HsLLq6Rm5tU",
+    youtubeTitle: "Ohm's Law for Automotive Technicians",
+    qChinese: "一个12伏电池连接到一个4欧姆电阻的电路上。根据欧姆定律，电路中流过多少电流？",
+    optionsChinese: ["A) 2安培","B) 3安培","C) 4安培","D) 48安培"],
+    explanationChinese: "欧姆定律指出，电流等于电压除以电阻（I = V/R）。在12伏电压和4欧姆电阻的条件下，电流为12除以4，等于3安培。这个基本公式对于诊断电路和预测汽车系统中的电流流动至关重要。"
   },
   {
     id: 2,
@@ -16,7 +23,14 @@ const questionsA6 = [
     options: ["A) Normal operation", "B) Excessive voltage drop indicating high resistance", "C) An open circuit", "D) A short to ground"],
     answer: 1,
     explanation: "A voltage drop of 0.5 volts across a single cable connection during cranking is excessive. Maximum allowable voltage drop for a cable or connection in a high-current circuit is typically 0.2 volts. This high reading indicates corrosion, a loose connection, or damaged wiring causing unwanted resistance in the circuit.",
-    diagram: ""
+    diagram: "",
+    terms: ["voltage_drop_test", "starter_motor", "dmm"],
+    image: "https://upload.wikimedia.org/wikipedia/commons/thumb/b/b0/Automobile_starter.jpg/640px-Automobile_starter.jpg",
+    youtube: "https://www.youtube.com/watch?v=CBBh3ind-EU",
+    youtubeTitle: "Voltage Drop Testing Explained",
+    qChinese: "技师在起动过程中测量起动机电缆连接处的电压为0.5伏。这说明什么？",
+    optionsChinese: ["A) 正常工作","B) 电压降过大，表明电阻过高","C) 开路","D) 搭铁短路"],
+    explanationChinese: "在起动过程中，单个电缆连接处0.5伏的电压降是过大的。大电流电路中电缆或连接处的最大允许电压降通常为0.2伏。这个高读数表明存在腐蚀、松动连接或损坏的线路，导致电路中产生不必要的电阻。"
   },
   {
     id: 3,
@@ -24,7 +38,14 @@ const questionsA6 = [
     options: ["A) OL (over limit)", "B) Battery voltage", "C) Near zero ohms", "D) Infinite resistance"],
     answer: 2,
     explanation: "A good wire with no breaks should read near zero ohms (very low resistance) when checked for continuity with a DMM set to the ohms scale. An OL or infinite reading indicates an open circuit, meaning the wire is broken. The circuit must be de-energized before performing continuity tests to protect the meter.",
-    diagram: ""
+    diagram: "",
+    terms: ["dmm", "ohms_law", "wiring_diagram"],
+    image: "https://upload.wikimedia.org/wikipedia/commons/thumb/7/78/Fluke_87_multimeter.jpg/400px-Fluke_87_multimeter.jpg",
+    youtube: "https://www.youtube.com/watch?v=CBBh3ind-EU",
+    youtubeTitle: "Using a Multimeter for Automotive Testing",
+    qChinese: "使用数字万用表检查导线的通断时，如果导线完好，万用表应显示什么？",
+    optionsChinese: ["A) OL（超出范围）","B) 电池电压","C) 接近零欧姆","D) 无穷大电阻"],
+    explanationChinese: "一根没有断裂的完好导线在使用数字万用表的欧姆挡检查通断时应显示接近零欧姆（非常低的电阻）。OL或无穷大读数表示开路，意味着导线已断裂。在进行通断测试前，电路必须断电以保护万用表。"
   },
   {
     id: 4,
@@ -32,7 +53,14 @@ const questionsA6 = [
     options: ["A) 1.09 ohms", "B) 4 ohms", "C) 12 ohms", "D) 48 ohms"],
     answer: 2,
     explanation: "In a series circuit, total resistance is the sum of all individual resistances. Adding 4 ohms plus 6 ohms plus 2 ohms gives a total of 12 ohms. Series resistance always increases total circuit resistance, which reduces current flow. This is fundamental to understanding how automotive circuits with multiple loads behave.",
-    diagram: ""
+    diagram: "",
+    terms: ["series_circuit", "ohms_law", "dmm"],
+    image: "https://upload.wikimedia.org/wikipedia/commons/thumb/7/78/Fluke_87_multimeter.jpg/400px-Fluke_87_multimeter.jpg",
+    youtube: "https://www.youtube.com/watch?v=HsLLq6Rm5tU",
+    youtubeTitle: "Series and Parallel Circuits in Cars",
+    qChinese: "三个电阻分别为4欧姆、6欧姆和2欧姆，串联连接。电路的总电阻是多少？",
+    optionsChinese: ["A) 1.09欧姆","B) 4欧姆","C) 12欧姆","D) 48欧姆"],
+    explanationChinese: "在串联电路中，总电阻是所有单个电阻之和。4欧姆加6欧姆加2欧姆等于总共12欧姆。串联电阻总是增加电路总电阻，从而减少电流。这是理解具有多个负载的汽车电路行为的基础。"
   },
   {
     id: 5,
@@ -40,7 +68,14 @@ const questionsA6 = [
     options: ["A) Technician A only", "B) Technician B only", "C) Both Technician A and Technician B", "D) Neither Technician A nor Technician B"],
     answer: 2,
     explanation: "Both technicians are correct. In a parallel circuit, each branch receives the full source voltage, so voltage is equal across all branches. Additionally, according to Kirchhoff's current law, total circuit current is the sum of currents flowing through each individual branch. These are fundamental properties of parallel circuits.",
-    diagram: ""
+    diagram: "",
+    terms: ["parallel_circuit", "ohms_law", "series_circuit"],
+    image: "https://upload.wikimedia.org/wikipedia/commons/thumb/7/78/Fluke_87_multimeter.jpg/400px-Fluke_87_multimeter.jpg",
+    youtube: "https://www.youtube.com/watch?v=HsLLq6Rm5tU",
+    youtubeTitle: "Series and Parallel Circuits in Cars",
+    qChinese: "技师A说在并联电路中，各支路的电压相同。技师B说在并联电路中，总电流等于各支路电流之和。谁是正确的？",
+    optionsChinese: ["A) 仅技师A","B) 仅技师B","C) 技师A和技师B都正确","D) 技师A和技师B都不正确"],
+    explanationChinese: "两位技师都是正确的。在并联电路中，每个支路都获得全部电源电压，因此各支路电压相等。此外，根据基尔霍夫电流定律，电路总电流是流过每个单独支路的电流之和。这些是并联电路的基本特性。"
   },
   {
     id: 6,
@@ -48,7 +83,14 @@ const questionsA6 = [
     options: ["A) A ground connection", "B) A fuse link", "C) Components housed in the same assembly", "D) A high-voltage circuit"],
     answer: 2,
     explanation: "On most automotive wiring diagrams, a dashed or dotted line drawn around or connecting components indicates they are housed within the same physical assembly or module. This helps technicians locate related components during diagnosis. Understanding wiring diagram symbols is essential for efficient troubleshooting of electrical problems.",
-    diagram: ""
+    diagram: "",
+    terms: ["wiring_diagram", "scan_tool", "fuse"],
+    image: "https://upload.wikimedia.org/wikipedia/commons/thumb/c/cd/Automotive_fuse_box.jpg/640px-Automotive_fuse_box.jpg",
+    youtube: "https://www.youtube.com/watch?v=F2XaKqS4Fl4",
+    youtubeTitle: "How to Read Automotive Wiring Diagrams",
+    qChinese: "技师在阅读线路图时看到两个元件之间有虚线连接。这通常代表什么？",
+    optionsChinese: ["A) 接地连接","B) 熔断丝","C) 元件安装在同一个总成内","D) 高压电路"],
+    explanationChinese: "在大多数汽车线路图上，围绕或连接元件的虚线或点线表示它们安装在同一个物理总成或模块内。这有助于技师在诊断过程中定位相关元件。理解线路图符号对于高效排除电气故障至关重要。"
   },
   {
     id: 7,
@@ -56,7 +98,14 @@ const questionsA6 = [
     options: ["A) In parallel with the load", "B) In series with the load", "C) Across the battery terminals", "D) Across the ground connection"],
     answer: 1,
     explanation: "An ammeter or DMM set to measure current must be connected in series with the circuit so all current flows through the meter. Connecting it in parallel would create a short circuit through the meter's very low internal resistance, potentially damaging the meter or blowing its internal fuse. Always start on the highest range setting.",
-    diagram: ""
+    diagram: "",
+    terms: ["dmm", "series_circuit", "fuse"],
+    image: "https://upload.wikimedia.org/wikipedia/commons/thumb/7/78/Fluke_87_multimeter.jpg/400px-Fluke_87_multimeter.jpg",
+    youtube: "https://www.youtube.com/watch?v=CBBh3ind-EU",
+    youtubeTitle: "Using a Multimeter for Automotive Testing",
+    qChinese: "使用数字万用表测量电流时，万用表必须如何连接到电路中？",
+    optionsChinese: ["A) 与负载并联","B) 与负载串联","C) 跨接在电池两端","D) 跨接在接地连接处"],
+    explanationChinese: "电流表或设置为测量电流的数字万用表必须与电路串联连接，使所有电流流过万用表。将其并联连接会通过万用表极低的内阻形成短路，可能损坏万用表或烧断其内部保险丝。始终从最高量程开始测量。"
   },
   {
     id: 8,
@@ -64,7 +113,14 @@ const questionsA6 = [
     options: ["A) It can measure resistance more accurately", "B) It displays the signal waveform pattern over time", "C) It measures higher voltages", "D) It does not require a ground connection"],
     answer: 1,
     explanation: "An oscilloscope displays voltage changes over time as a waveform pattern, allowing the technician to see signal quality, frequency, amplitude, and anomalies in sensor output. A DMM only shows average or RMS values and cannot reveal intermittent glitches, signal dropouts, or waveform distortions that indicate failing sensors.",
-    diagram: ""
+    diagram: "",
+    terms: ["crankshaft_position_sensor", "dmm", "scan_tool"],
+    image: "https://upload.wikimedia.org/wikipedia/commons/thumb/7/78/Fluke_87_multimeter.jpg/400px-Fluke_87_multimeter.jpg",
+    youtube: "https://www.youtube.com/watch?v=CBBh3ind-EU",
+    youtubeTitle: "Using a Multimeter for Automotive Testing",
+    qChinese: "使用示波器测试曲轴位置传感器信号时，示波器相比数字万用表有什么优势？",
+    optionsChinese: ["A) 能更精确地测量电阻","B) 能显示信号随时间变化的波形","C) 能测量更高的电压","D) 不需要接地连接"],
+    explanationChinese: "示波器将电压随时间的变化显示为波形图案，使技师能够看到信号质量、频率、幅度以及传感器输出中的异常。数字万用表只显示平均值或有效值，无法揭示间歇性故障、信号中断或表明传感器即将失效的波形失真。"
   },
   {
     id: 9,
@@ -72,7 +128,14 @@ const questionsA6 = [
     options: ["A) Dim lights", "B) A blown fuse", "C) Flickering lights", "D) Lights that stay on constantly"],
     answer: 1,
     explanation: "A short to ground provides an unintended low-resistance path for current flow, bypassing the load. This causes excessive current that exceeds the fuse rating, blowing the fuse and disabling the circuit. Fuses are designed to protect wiring from overheating and potential fire caused by short circuits in the vehicle's electrical system.",
-    diagram: ""
+    diagram: "",
+    terms: ["fuse", "ground_circuit", "wiring_diagram"],
+    image: "https://upload.wikimedia.org/wikipedia/commons/thumb/c/cd/Automotive_fuse_box.jpg/640px-Automotive_fuse_box.jpg",
+    youtube: "https://www.youtube.com/watch?v=F2XaKqS4Fl4",
+    youtubeTitle: "Automotive Ground Circuit Diagnosis",
+    qChinese: "照明电路中的搭铁短路最可能导致什么症状？",
+    optionsChinese: ["A) 灯光变暗","B) 保险丝烧断","C) 灯光闪烁","D) 灯光持续亮着"],
+    explanationChinese: "搭铁短路提供了一条意外的低电阻电流通路，绕过了负载。这会导致过大的电流超过保险丝额定值，烧断保险丝并使电路失效。保险丝的设计目的是保护线路免受因车辆电气系统中的短路而导致的过热和潜在火灾。"
   },
   {
     id: 10,
@@ -80,7 +143,14 @@ const questionsA6 = [
     options: ["A) 5 milliamps", "B) 50 milliamps", "C) 500 milliamps", "D) 5 amps"],
     answer: 1,
     explanation: "Most manufacturers specify a maximum acceptable parasitic draw of approximately 50 milliamps (0.050 amps), though some vehicles with extensive electronic modules may allow slightly more. Excessive parasitic draw will discharge the battery overnight or within a few days. Technicians use an ammeter in series with the battery to measure this draw.",
-    diagram: ""
+    diagram: "",
+    terms: ["battery", "dmm", "fuse"],
+    image: "https://upload.wikimedia.org/wikipedia/commons/thumb/0/00/Battery_for_a_car.jpg/640px-Battery_for_a_car.jpg",
+    youtube: "https://www.youtube.com/watch?v=LGB6ZEjGm7E",
+    youtubeTitle: "Car Battery Testing and Diagnosis",
+    qChinese: "车辆存在寄生电池漏电。大多数车辆的最大允许寄生漏电流是多少？",
+    optionsChinese: ["A) 5毫安","B) 50毫安","C) 500毫安","D) 5安培"],
+    explanationChinese: "大多数制造商规定的最大允许寄生漏电流约为50毫安（0.050安培），尽管某些配备大量电子模块的车辆可能允许稍高一些。过大的寄生漏电流会在一夜之间或几天内耗尽电池。技师使用与电池串联的电流表来测量此漏电流。"
   },
   {
     id: 11,
@@ -88,7 +158,14 @@ const questionsA6 = [
     options: ["A) Technician A only", "B) Technician B only", "C) Both Technician A and Technician B", "D) Neither Technician A nor Technician B"],
     answer: 1,
     explanation: "Only Technician B is correct. An open circuit is a break in the current path that prevents current from flowing. Since no current flows, the fuse will not blow. A blown fuse is caused by excessive current from a short circuit, not an open. An open circuit results in a component that simply does not operate.",
-    diagram: ""
+    diagram: "",
+    terms: ["fuse", "series_circuit", "ohms_law"],
+    image: "https://upload.wikimedia.org/wikipedia/commons/thumb/c/cd/Automotive_fuse_box.jpg/640px-Automotive_fuse_box.jpg",
+    youtube: "https://www.youtube.com/watch?v=MHY2pjtS3LU",
+    youtubeTitle: "Automotive Relays and Fuses Explained",
+    qChinese: "技师A说开路会烧断保险丝。技师B说开路会阻止电流流动。谁是正确的？",
+    optionsChinese: ["A) 仅技师A","B) 仅技师B","C) 技师A和技师B都正确","D) 技师A和技师B都不正确"],
+    explanationChinese: "只有技师B是正确的。开路是电流通路中的断裂，阻止电流流动。由于没有电流流动，保险丝不会烧断。保险丝烧断是由短路引起的过大电流造成的，而不是开路。开路的结果是元件根本不工作。"
   },
   {
     id: 12,
@@ -96,7 +173,14 @@ const questionsA6 = [
     options: ["A) Battery positive and the component", "B) The component ground and battery negative", "C) Both battery terminals", "D) The fuse box and the component"],
     answer: 1,
     explanation: "To test voltage drop on a ground circuit, connect the DMM positive lead to the component ground connection and the negative lead to the battery negative terminal. The circuit must be energized and under load during this test. A reading above 0.1 volts on a ground circuit indicates excessive resistance needing repair.",
-    diagram: ""
+    diagram: "",
+    terms: ["voltage_drop_test", "ground_circuit", "dmm"],
+    image: "https://upload.wikimedia.org/wikipedia/commons/thumb/7/78/Fluke_87_multimeter.jpg/400px-Fluke_87_multimeter.jpg",
+    youtube: "https://www.youtube.com/watch?v=CBBh3ind-EU",
+    youtubeTitle: "Voltage Drop Testing Explained",
+    qChinese: "在接地电路上执行电压降测试时，万用表的测试线应连接在哪两点之间？",
+    optionsChinese: ["A) 电池正极和元件之间","B) 元件接地端和电池负极之间","C) 电池两端之间","D) 保险丝盒和元件之间"],
+    explanationChinese: "要测试接地电路的电压降，将数字万用表的正表笔连接到元件的接地连接处，负表笔连接到电池负极端子。测试期间电路必须通电并处于负载状态。接地电路上超过0.1伏的读数表示电阻过大，需要维修。"
   },
   {
     id: 13,
@@ -104,7 +188,14 @@ const questionsA6 = [
     options: ["A) One", "B) Two", "C) Three", "D) Four"],
     answer: 1,
     explanation: "The Controller Area Network (CAN) bus uses a twisted pair of two wires designated CAN High and CAN Low. Data is transmitted as differential voltage signals between these two wires. The twisted pair design helps cancel out electromagnetic interference. CAN bus significantly reduces vehicle wiring by allowing modules to share data over a common network.",
-    diagram: ""
+    diagram: "",
+    terms: ["can_bus", "wiring_diagram", "pcm"],
+    image: "https://upload.wikimedia.org/wikipedia/commons/thumb/c/cd/Automotive_fuse_box.jpg/640px-Automotive_fuse_box.jpg",
+    youtube: "https://www.youtube.com/watch?v=FqLDpHsxvR8",
+    youtubeTitle: "CAN Bus Communication Explained",
+    qChinese: "CAN总线通信系统使用多少根导线进行数据传输？",
+    optionsChinese: ["A) 一根","B) 两根","C) 三根","D) 四根"],
+    explanationChinese: "控制器局域网（CAN）总线使用一对双绞线，分别称为CAN高和CAN低。数据以这两根导线之间的差分电压信号进行传输。双绞线设计有助于消除电磁干扰。CAN总线通过允许模块在公共网络上共享数据，大大减少了车辆布线。"
   },
   {
     id: 14,
@@ -112,7 +203,14 @@ const questionsA6 = [
     options: ["A) Test light", "B) Digital multimeter", "C) Timing light", "D) Fused jumper wire"],
     answer: 2,
     explanation: "A timing light is used to check ignition timing and is not designed for general electrical circuit diagnosis. A test light, DMM, and fused jumper wire are all commonly used to locate open circuits. The test light checks for voltage presence, the DMM measures resistance, and the jumper wire bypasses suspected open sections.",
-    diagram: ""
+    diagram: "",
+    terms: ["dmm", "ignition_coil", "wiring_diagram"],
+    image: "https://upload.wikimedia.org/wikipedia/commons/thumb/7/78/Fluke_87_multimeter.jpg/400px-Fluke_87_multimeter.jpg",
+    youtube: "https://www.youtube.com/watch?v=CBBh3ind-EU",
+    youtubeTitle: "Using a Multimeter for Automotive Testing",
+    qChinese: "以下哪种工具最不可能用于诊断电气开路？",
+    optionsChinese: ["A) 试灯","B) 数字万用表","C) 正时灯","D) 带保险丝的跨接线"],
+    explanationChinese: "正时灯用于检查点火正时，不是为一般电路诊断而设计的。试灯、数字万用表和带保险丝的跨接线都常用于定位开路。试灯检查是否有电压存在，数字万用表测量电阻，跨接线绕过疑似开路部分。"
   },
   {
     id: 15,
@@ -120,7 +218,14 @@ const questionsA6 = [
     options: ["A) Technician A only", "B) Technician B only", "C) Both Technician A and Technician B", "D) Neither Technician A nor Technician B"],
     answer: 2,
     explanation: "Both technicians are correct. CAN bus networks require 120-ohm terminating resistors at each end of the bus to prevent signal reflections. A missing resistor causes communication errors. A short between CAN High and CAN Low eliminates the differential voltage signal, completely disabling communication on the network.",
-    diagram: ""
+    diagram: "",
+    terms: ["can_bus", "ohms_law", "pcm"],
+    image: "https://upload.wikimedia.org/wikipedia/commons/thumb/c/cd/Automotive_fuse_box.jpg/640px-Automotive_fuse_box.jpg",
+    youtube: "https://www.youtube.com/watch?v=FqLDpHsxvR8",
+    youtubeTitle: "CAN Bus Communication Explained",
+    qChinese: "车辆的CAN总线网络出现通信故障。技师A说缺少终端电阻可能导致此问题。技师B说CAN高和CAN低之间短路可能导致此问题。谁是正确的？",
+    optionsChinese: ["A) 仅技师A","B) 仅技师B","C) 技师A和技师B都正确","D) 技师A和技师B都不正确"],
+    explanationChinese: "两位技师都是正确的。CAN总线网络需要在总线两端各安装120欧姆的终端电阻以防止信号反射。缺少电阻会导致通信错误。CAN高和CAN低之间的短路会消除差分电压信号，完全禁用网络上的通信。"
   },
   {
     id: 16,
@@ -128,7 +233,14 @@ const questionsA6 = [
     options: ["A) 0 ohms", "B) 60 ohms", "C) 120 ohms", "D) 240 ohms"],
     answer: 1,
     explanation: "Each end of the CAN bus has a 120-ohm terminating resistor. When measured from the diagnostic connector with modules powered down, these two resistors are in parallel, yielding 60 ohms (120 times 120 divided by 240). This measurement is a quick way to verify CAN bus termination integrity during network troubleshooting.",
-    diagram: ""
+    diagram: "",
+    terms: ["can_bus", "parallel_circuit", "dmm", "obd2"],
+    image: "https://upload.wikimedia.org/wikipedia/commons/thumb/c/cd/Automotive_fuse_box.jpg/640px-Automotive_fuse_box.jpg",
+    youtube: "https://www.youtube.com/watch?v=FqLDpHsxvR8",
+    youtubeTitle: "CAN Bus Communication Explained",
+    qChinese: "在所有模块断电的情况下，在诊断接口处测量两个CAN总线终端电阻时，预期的电阻读数是多少？",
+    optionsChinese: ["A) 0欧姆","B) 60欧姆","C) 120欧姆","D) 240欧姆"],
+    explanationChinese: "CAN总线每端各有一个120欧姆的终端电阻。在模块断电的情况下从诊断接口测量时，这两个电阻并联，得到60欧姆（120乘以120除以240）。这一测量是在网络故障排除过程中快速验证CAN总线终端完整性的方法。"
   },
   {
     id: 17,
@@ -136,7 +248,14 @@ const questionsA6 = [
     options: ["A) 5 ohms", "B) 10 ohms", "C) 20 ohms", "D) 0.2 ohms"],
     answer: 0,
     explanation: "For two equal resistors in parallel, total resistance equals one resistor's value divided by the number of resistors. Two 10-ohm resistors in parallel yield 5 ohms. The formula is 1/Rt = 1/R1 + 1/R2. Parallel resistance is always less than the smallest individual resistor, which increases total current flow in the circuit.",
-    diagram: ""
+    diagram: "",
+    terms: ["parallel_circuit", "ohms_law", "dmm"],
+    image: "https://upload.wikimedia.org/wikipedia/commons/thumb/7/78/Fluke_87_multimeter.jpg/400px-Fluke_87_multimeter.jpg",
+    youtube: "https://www.youtube.com/watch?v=HsLLq6Rm5tU",
+    youtubeTitle: "Series and Parallel Circuits in Cars",
+    qChinese: "技师正在测试一个由两个10欧姆电阻并联连接的电路。总电阻是多少？",
+    optionsChinese: ["A) 5欧姆","B) 10欧姆","C) 20欧姆","D) 0.2欧姆"],
+    explanationChinese: "对于两个相等的并联电阻，总电阻等于单个电阻值除以电阻数量。两个10欧姆的电阻并联得到5欧姆。公式为1/Rt = 1/R1 + 1/R2。并联电阻总是小于最小的单个电阻，这增加了电路中的总电流。"
   },
   {
     id: 18,
@@ -144,7 +263,14 @@ const questionsA6 = [
     options: ["A) Replace the window motor", "B) Check for power and ground at the motor connector", "C) Replace both switches", "D) Replace the fuse panel"],
     answer: 1,
     explanation: "Before replacing any parts, the technician should verify that power and ground are reaching the motor connector. If both switches fail to operate the window, the problem is likely in the common wiring, ground connection, or the motor itself. Testing at the motor connector narrows down whether the fault is in the wiring or the motor.",
-    diagram: ""
+    diagram: "",
+    terms: ["ground_circuit", "fuse", "wiring_diagram"],
+    image: "https://upload.wikimedia.org/wikipedia/commons/thumb/c/cd/Automotive_fuse_box.jpg/640px-Automotive_fuse_box.jpg",
+    youtube: "https://www.youtube.com/watch?v=F2XaKqS4Fl4",
+    youtubeTitle: "How to Read Automotive Wiring Diagrams",
+    qChinese: "车辆的电动车窗无论从主控开关还是单独的车门开关都无法操作。保险丝完好。接下来应该检查什么？",
+    optionsChinese: ["A) 更换车窗电机","B) 检查电机接插件处的电源和搭铁","C) 更换两个开关","D) 更换保险丝盒"],
+    explanationChinese: "在更换任何零件之前，技师应验证电源和搭铁是否到达电机接插件。如果两个开关都无法操作车窗，问题很可能在公共线路、接地连接或电机本身。在电机接插件处测试可以缩小故障范围，确定是线路问题还是电机问题。"
   },
   {
     id: 19,
@@ -152,7 +278,14 @@ const questionsA6 = [
     options: ["A) Ohms", "B) DC volts", "C) Amps", "D) Continuity"],
     answer: 1,
     explanation: "When measuring voltage on an energized automotive circuit, the DMM should be set to DC volts since automotive electrical systems use direct current. Attempting to measure voltage while set to ohms or continuity can damage the meter. The amps setting requires series connection. Always verify the meter is on the correct setting before testing.",
-    diagram: ""
+    diagram: "",
+    terms: ["dmm", "battery", "ohms_law"],
+    image: "https://upload.wikimedia.org/wikipedia/commons/thumb/7/78/Fluke_87_multimeter.jpg/400px-Fluke_87_multimeter.jpg",
+    youtube: "https://www.youtube.com/watch?v=CBBh3ind-EU",
+    youtubeTitle: "Using a Multimeter for Automotive Testing",
+    qChinese: "在通电电路上测量电压时，数字万用表应设置为哪种模式？",
+    optionsChinese: ["A) 欧姆","B) 直流电压","C) 安培","D) 通断"],
+    explanationChinese: "在通电的汽车电路上测量电压时，数字万用表应设置为直流电压挡，因为汽车电气系统使用直流电。在设置为欧姆挡或通断挡时尝试测量电压可能损坏万用表。安培挡需要串联连接。测试前始终确认万用表设置在正确的挡位。"
   },
   {
     id: 20,
@@ -160,7 +293,14 @@ const questionsA6 = [
     options: ["A) A trunk light that stays on", "B) A module that fails to enter sleep mode", "C) A corroded battery terminal", "D) An aftermarket amplifier with constant power"],
     answer: 2,
     explanation: "A corroded battery terminal causes high resistance, which reduces current flow rather than causing a parasitic drain. A trunk light staying on, a module not entering sleep mode, and an aftermarket amplifier with constant power all draw current from the battery when the vehicle is off, leading to excessive parasitic drain and a dead battery.",
-    diagram: ""
+    diagram: "",
+    terms: ["battery", "fuse", "ground_circuit"],
+    image: "https://upload.wikimedia.org/wikipedia/commons/thumb/0/00/Battery_for_a_car.jpg/640px-Battery_for_a_car.jpg",
+    youtube: "https://www.youtube.com/watch?v=LGB6ZEjGm7E",
+    youtubeTitle: "Car Battery Testing and Diagnosis",
+    qChinese: "以下所有情况都可能导致过大的寄生电池漏电，除了：",
+    optionsChinese: ["A) 行李箱灯持续亮着","B) 模块未能进入休眠模式","C) 电池端子腐蚀","D) 售后安装的功放持续通电"],
+    explanationChinese: "腐蚀的电池端子会产生高电阻，减少电流流动，而不是造成寄生漏电。行李箱灯持续亮着、模块未进入休眠模式以及售后安装的功放持续通电，都会在车辆熄火时从电池中吸取电流，导致过大的寄生漏电和电池亏电。"
   },
   {
     id: 21,
@@ -168,7 +308,14 @@ const questionsA6 = [
     options: ["A) The wire is open", "B) The wire has a good ground path", "C) The wire is shorted to power", "D) The fuse is blown"],
     answer: 1,
     explanation: "When a test light is connected to battery positive and used to probe a ground wire, illumination confirms a complete path to ground exists. Current flows from the battery positive through the test light and through the ground wire to the battery negative. If the light does not illuminate, the ground path is open.",
-    diagram: ""
+    diagram: "",
+    terms: ["ground_circuit", "battery", "wiring_diagram"],
+    image: "https://upload.wikimedia.org/wikipedia/commons/thumb/7/78/Fluke_87_multimeter.jpg/400px-Fluke_87_multimeter.jpg",
+    youtube: "https://www.youtube.com/watch?v=F2XaKqS4Fl4",
+    youtubeTitle: "Automotive Ground Circuit Diagnosis",
+    qChinese: "技师将试灯连接到电池正极，探测一根接地线。试灯亮起。这说明什么？",
+    optionsChinese: ["A) 导线开路","B) 导线有良好的接地通路","C) 导线对电源短路","D) 保险丝烧断"],
+    explanationChinese: "当试灯连接到电池正极并用于探测接地线时，灯亮表明存在到搭铁的完整通路。电流从电池正极通过试灯，再通过接地线到电池负极。如果灯不亮，则接地通路开路。"
   },
   {
     id: 22,
@@ -176,7 +323,14 @@ const questionsA6 = [
     options: ["A) This cannot happen in a series circuit", "B) A short across that component", "C) An open in the power feed wire", "D) A blown fuse"],
     answer: 1,
     explanation: "If one component in a series circuit is shorted (bypassed), current will flow through the short path instead of through that component, so it will not operate. However, current still flows through the remaining components, so they continue working. An open or blown fuse would stop all components in the series circuit from functioning.",
-    diagram: ""
+    diagram: "",
+    terms: ["series_circuit", "fuse", "ohms_law"],
+    image: "https://upload.wikimedia.org/wikipedia/commons/thumb/7/78/Fluke_87_multimeter.jpg/400px-Fluke_87_multimeter.jpg",
+    youtube: "https://www.youtube.com/watch?v=HsLLq6Rm5tU",
+    youtubeTitle: "Series and Parallel Circuits in Cars",
+    qChinese: "哪种类型的电气缺陷会导致串联电路中只有一个元件停止工作而其他元件继续工作？",
+    optionsChinese: ["A) 在串联电路中这不可能发生","B) 该元件被短路","C) 电源线开路","D) 保险丝烧断"],
+    explanationChinese: "如果串联电路中的一个元件被短路（旁路），电流将通过短路路径而不是通过该元件，因此它不会工作。然而，电流仍然流过其余元件，所以它们继续工作。开路或保险丝烧断会使串联电路中的所有元件停止工作。"
   },
   {
     id: 23,
@@ -184,7 +338,14 @@ const questionsA6 = [
     options: ["A) A resistor", "B) A capacitor", "C) A battery", "D) A diode"],
     answer: 2,
     explanation: "The symbol with two parallel lines of unequal length represents a battery or cell in a wiring diagram. The longer line represents the positive terminal and the shorter line represents the negative terminal. Recognizing standard electrical symbols is critical for reading automotive wiring diagrams and locating components during troubleshooting.",
-    diagram: ""
+    diagram: "",
+    terms: ["wiring_diagram", "battery", "dmm"],
+    image: "https://upload.wikimedia.org/wikipedia/commons/thumb/c/cd/Automotive_fuse_box.jpg/640px-Automotive_fuse_box.jpg",
+    youtube: "https://www.youtube.com/watch?v=F2XaKqS4Fl4",
+    youtubeTitle: "How to Read Automotive Wiring Diagrams",
+    qChinese: "线路图上显示一个元件符号，看起来像两条长度不等的平行线。这代表什么元件？",
+    optionsChinese: ["A) 电阻器","B) 电容器","C) 电池","D) 二极管"],
+    explanationChinese: "在线路图中，两条长度不等的平行线符号代表电池或电池单元。较长的线代表正极端子，较短的线代表负极端子。识别标准电气符号对于阅读汽车线路图和在故障排除过程中定位元件至关重要。"
   },
   {
     id: 24,
@@ -192,7 +353,14 @@ const questionsA6 = [
     options: ["A) Visual inspection only", "B) Replacing the entire harness", "C) Wiggling the harness while monitoring the circuit with a DMM", "D) Checking fuse amperage ratings"],
     answer: 2,
     explanation: "Wiggling or flexing the wiring harness while monitoring the circuit with a DMM or test light is the most effective way to locate an intermittent open. The break will momentarily make and lose contact as the wiring is manipulated, causing voltage or resistance fluctuations on the meter that pinpoint the area of the fault.",
-    diagram: ""
+    diagram: "",
+    terms: ["dmm", "wiring_diagram", "series_circuit"],
+    image: "https://upload.wikimedia.org/wikipedia/commons/thumb/7/78/Fluke_87_multimeter.jpg/400px-Fluke_87_multimeter.jpg",
+    youtube: "https://www.youtube.com/watch?v=CBBh3ind-EU",
+    youtubeTitle: "Using a Multimeter for Automotive Testing",
+    qChinese: "技师需要在线束中找到一个间歇性开路。哪种方法最有效？",
+    optionsChinese: ["A) 仅目视检查","B) 更换整个线束","C) 在用数字万用表监测电路的同时摇动线束","D) 检查保险丝安培额定值"],
+    explanationChinese: "在用数字万用表或试灯监测电路的同时摇动或弯曲线束是定位间歇性开路最有效的方法。断裂处会在线束被操纵时瞬间接触和断开，在万用表上引起电压或电阻波动，从而精确定位故障区域。"
   },
   {
     id: 25,
@@ -200,7 +368,14 @@ const questionsA6 = [
     options: ["A) To increase current flow to the starter", "B) To protect high-current circuits from overload", "C) To regulate voltage to accessories", "D) To ground the alternator output"],
     answer: 1,
     explanation: "A fusible link is a short section of wire that is four gauge sizes smaller than the circuit it protects. It acts as a high-current fuse that melts and opens when current exceeds safe levels, protecting the wiring harness from fire damage. Fusible links protect critical circuits like the main battery feed and alternator output.",
-    diagram: ""
+    diagram: "",
+    terms: ["fuse", "battery", "alternator"],
+    image: "https://upload.wikimedia.org/wikipedia/commons/thumb/c/cd/Automotive_fuse_box.jpg/640px-Automotive_fuse_box.jpg",
+    youtube: "https://www.youtube.com/watch?v=MHY2pjtS3LU",
+    youtubeTitle: "Automotive Relays and Fuses Explained",
+    qChinese: "汽车电气系统中熔断丝的用途是什么？",
+    optionsChinese: ["A) 增加到起动机的电流","B) 保护大电流电路免受过载","C) 调节到附件的电压","D) 为发电机输出提供接地"],
+    explanationChinese: "熔断丝是一小段比其保护电路小四个线规的导线。当电流超过安全水平时，它像大电流保险丝一样熔化并断开，保护线束免受火灾损害。熔断丝保护关键电路，如主电池馈线和发电机输出。"
   },
   {
     id: 26,
@@ -208,7 +383,14 @@ const questionsA6 = [
     options: ["A) Technician A only", "B) Technician B only", "C) Both Technician A and Technician B", "D) Neither Technician A nor Technician B"],
     answer: 0,
     explanation: "Only Technician A is correct. A high-impedance digital multimeter (at least 10 megohms input impedance) draws minimal current and will not damage sensitive electronic circuits. A standard test light draws enough current to potentially damage electronic control modules and can give false readings on low-current electronic circuits.",
-    diagram: ""
+    diagram: "",
+    terms: ["dmm", "pcm", "wiring_diagram"],
+    image: "https://upload.wikimedia.org/wikipedia/commons/thumb/7/78/Fluke_87_multimeter.jpg/400px-Fluke_87_multimeter.jpg",
+    youtube: "https://www.youtube.com/watch?v=CBBh3ind-EU",
+    youtubeTitle: "Using a Multimeter for Automotive Testing",
+    qChinese: "技师A说测试电子电路时应使用高阻抗数字万用表。技师B说标准试灯可以用于测试电子控制模块电路。谁是正确的？",
+    optionsChinese: ["A) 仅技师A","B) 仅技师B","C) 技师A和技师B都正确","D) 技师A和技师B都不正确"],
+    explanationChinese: "只有技师A是正确的。高阻抗数字万用表（至少10兆欧姆输入阻抗）吸取的电流极小，不会损坏敏感的电子电路。标准试灯吸取的电流足以可能损坏电子控制模块，并且在低电流电子电路上可能给出错误读数。"
   },
 
   // =============================================
@@ -220,7 +402,14 @@ const questionsA6 = [
     options: ["A) 11.8 volts", "B) 12.0 volts", "C) 12.6 volts", "D) 13.2 volts"],
     answer: 2,
     explanation: "A fully charged 12-volt automotive battery has an open circuit voltage (OCV) of approximately 12.6 volts. Each of the six cells produces about 2.1 volts. A reading of 12.4 volts indicates about 75% charge, 12.2 volts about 50%, and 12.0 volts about 25%. Below 12.0 volts the battery is considered discharged.",
-    diagram: ""
+    diagram: "",
+    terms: ["battery", "dmm", "battery_service"],
+    image: "https://upload.wikimedia.org/wikipedia/commons/thumb/0/00/Battery_for_a_car.jpg/640px-Battery_for_a_car.jpg",
+    youtube: "https://www.youtube.com/watch?v=LGB6ZEjGm7E",
+    youtubeTitle: "Car Battery Testing and Diagnosis",
+    qChinese: "完全充电的12伏汽车电池的开路电压应大约为：",
+    optionsChinese: ["A) 11.8伏","B) 12.0伏","C) 12.6伏","D) 13.2伏"],
+    explanationChinese: "完全充电的12伏汽车电池的开路电压（OCV）约为12.6伏。六个单元格中每个产生约2.1伏。12.4伏的读数表示约75%的电量，12.2伏约50%，12.0伏约25%。低于12.0伏时电池被视为已放电。"
   },
   {
     id: 28,
@@ -228,7 +417,14 @@ const questionsA6 = [
     options: ["A) Battery voltage multiplied by 10", "B) One-half of the CCA rating", "C) The full CCA rating", "D) One-quarter of the reserve capacity"],
     answer: 1,
     explanation: "A standard battery load test applies a load equal to one-half of the battery's cold cranking amps (CCA) rating for 15 seconds. At the end of 15 seconds, the voltage should remain at or above 9.6 volts at 70 degrees Fahrenheit. If voltage drops below this threshold, the battery has failed the test and should be replaced.",
-    diagram: ""
+    diagram: "",
+    terms: ["battery", "battery_service", "dmm"],
+    image: "https://upload.wikimedia.org/wikipedia/commons/thumb/0/00/Battery_for_a_car.jpg/640px-Battery_for_a_car.jpg",
+    youtube: "https://www.youtube.com/watch?v=LGB6ZEjGm7E",
+    youtubeTitle: "Car Battery Testing and Diagnosis",
+    qChinese: "执行电池负载测试时，施加的负载应等于：",
+    optionsChinese: ["A) 电池电压乘以10","B) 冷起动电流（CCA）额定值的一半","C) 全部CCA额定值","D) 储备容量的四分之一"],
+    explanationChinese: "标准电池负载测试施加等于电池冷起动电流（CCA）额定值一半的负载，持续15秒。15秒结束时，在华氏70度条件下电压应保持在9.6伏或以上。如果电压降至此阈值以下，电池测试不合格，应予以更换。"
   },
   {
     id: 29,
@@ -236,7 +432,14 @@ const questionsA6 = [
     options: ["A) Bad ignition switch", "B) Defective battery with high internal resistance", "C) Open starter solenoid", "D) Faulty neutral safety switch"],
     answer: 1,
     explanation: "A battery that shows 12.6 volts at rest but drops to 4 volts under the cranking load has excessive internal resistance, indicating a defective battery. Good batteries maintain at least 9.6 volts during cranking. An open solenoid or faulty safety switch would prevent cranking entirely rather than causing a severe voltage drop.",
-    diagram: ""
+    diagram: "",
+    terms: ["battery", "starter_motor", "voltage_drop_test"],
+    image: "https://upload.wikimedia.org/wikipedia/commons/thumb/0/00/Battery_for_a_car.jpg/640px-Battery_for_a_car.jpg",
+    youtube: "https://www.youtube.com/watch?v=LGB6ZEjGm7E",
+    youtubeTitle: "Car Battery Testing and Diagnosis",
+    qChinese: "车辆无法起动。电池电压读数为12.6伏。转动钥匙到起动位置时，电压降至4伏。最可能的原因是什么？",
+    optionsChinese: ["A) 点火开关故障","B) 内阻过高的有缺陷电池","C) 起动机电磁开关开路","D) 空挡安全开关故障"],
+    explanationChinese: "一个静态电压显示12.6伏但在起动负载下降至4伏的电池具有过高的内阻，表明电池有缺陷。良好的电池在起动过程中应保持至少9.6伏。电磁开关开路或安全开关故障会完全阻止起动，而不是导致严重的电压降。"
   },
   {
     id: 30,
@@ -244,7 +447,14 @@ const questionsA6 = [
     options: ["A) Positive clamp to the dead battery", "B) Positive clamp to the good battery", "C) Negative clamp to engine ground on the dead vehicle", "D) Negative clamp to the dead battery"],
     answer: 2,
     explanation: "The last connection should be the negative clamp to an engine ground on the dead vehicle, away from the battery. This prevents sparks near the battery, which could ignite hydrogen gas emitted during charging. The correct order is: positive to dead, positive to good, negative to good, and finally negative to engine ground on dead vehicle.",
-    diagram: ""
+    diagram: "",
+    terms: ["battery", "ground_circuit", "battery_service"],
+    image: "https://upload.wikimedia.org/wikipedia/commons/thumb/0/00/Battery_for_a_car.jpg/640px-Battery_for_a_car.jpg",
+    youtube: "https://www.youtube.com/watch?v=LGB6ZEjGm7E",
+    youtubeTitle: "Car Battery Testing and Diagnosis",
+    qChinese: "搭电起动一辆电池没电的车辆时，哪个连接应该最后进行？",
+    optionsChinese: ["A) 正极夹连接到没电的电池","B) 正极夹连接到好的电池","C) 负极夹连接到没电车辆的发动机搭铁","D) 负极夹连接到没电的电池"],
+    explanationChinese: "最后一个连接应该是负极夹连接到没电车辆的发动机搭铁处，远离电池。这可以防止电池附近产生火花，因为火花可能点燃充电过程中释放的氢气。正确顺序是：正极到没电电池，正极到好电池，负极到好电池，最后负极到没电车辆的发动机搭铁。"
   },
   {
     id: 31,
@@ -252,7 +462,14 @@ const questionsA6 = [
     options: ["A) Technician A only", "B) Technician B only", "C) Both Technician A and Technician B", "D) Neither Technician A nor Technician B"],
     answer: 2,
     explanation: "Both technicians are correct. A high-resistance battery cable connection reduces the current reaching the starter motor, causing slow cranking. Engine oil that is too thick, especially in cold weather when incorrect viscosity is used, increases the mechanical load on the starter and causes slow cranking as the engine resists turning over.",
-    diagram: ""
+    diagram: "",
+    terms: ["starter_motor", "voltage_drop_test", "battery", "oil_change"],
+    image: "https://upload.wikimedia.org/wikipedia/commons/thumb/b/b0/Automobile_starter.jpg/640px-Automobile_starter.jpg",
+    youtube: "https://www.youtube.com/watch?v=ose_OT7OWFQ",
+    youtubeTitle: "How a Starter Motor Works",
+    qChinese: "技师A说高电阻电池电缆连接会导致起动缓慢。技师B说不正确的发动机机油粘度会导致起动缓慢。谁是正确的？",
+    optionsChinese: ["A) 仅技师A","B) 仅技师B","C) 技师A和技师B都正确","D) 技师A和技师B都不正确"],
+    explanationChinese: "两位技师都是正确的。高电阻电池电缆连接减少到达起动机的电流，导致起动缓慢。过于粘稠的发动机机油，特别是在寒冷天气使用了不正确粘度的机油时，增加了起动机的机械负载，导致发动机难以转动而起动缓慢。"
   },
   {
     id: 32,
@@ -260,7 +477,14 @@ const questionsA6 = [
     options: ["A) A weak battery", "B) High resistance in the starter circuit", "C) Excessive mechanical resistance or a faulty starter", "D) Normal operation for a V8 engine"],
     answer: 2,
     explanation: "A starter drawing significantly more current than specified indicates either excessive mechanical resistance in the engine (such as a seized component or incorrect timing) or an internal fault in the starter motor itself such as shorted windings. High resistance in cables would actually reduce current draw, and a weak battery cannot supply excessive current.",
-    diagram: ""
+    diagram: "",
+    terms: ["starter_motor", "battery", "dmm"],
+    image: "https://upload.wikimedia.org/wikipedia/commons/thumb/b/b0/Automobile_starter.jpg/640px-Automobile_starter.jpg",
+    youtube: "https://www.youtube.com/watch?v=ose_OT7OWFQ",
+    youtubeTitle: "How a Starter Motor Works",
+    qChinese: "对一台V8发动机进行起动机电流消耗测试，显示350安培。规格为150-200安培。这个高读数说明什么？",
+    optionsChinese: ["A) 电池电量不足","B) 起动机电路中电阻过高","C) 机械阻力过大或起动机故障","D) V8发动机的正常工作状态"],
+    explanationChinese: "起动机消耗的电流明显超过规定值，表明发动机存在过大的机械阻力（如零件卡死或正时不正确）或起动机本身存在内部故障如绕组短路。电缆中的高电阻实际上会减少电流消耗，而弱电池无法提供过大的电流。"
   },
   {
     id: 33,
@@ -268,7 +492,14 @@ const questionsA6 = [
     options: ["A) Normal cable condition", "B) Excessive resistance in the cable or connections", "C) A short to ground in the cable", "D) A fully charged battery"],
     answer: 1,
     explanation: "Maximum allowable voltage drop on the positive battery cable circuit during cranking is 0.5 volts. A reading of 0.8 volts indicates excessive resistance caused by corrosion, loose connections, or a damaged cable. This resistance reduces the voltage and current available to the starter motor, potentially causing slow cranking or no-crank conditions.",
-    diagram: ""
+    diagram: "",
+    terms: ["voltage_drop_test", "battery", "starter_motor"],
+    image: "https://upload.wikimedia.org/wikipedia/commons/thumb/0/00/Battery_for_a_car.jpg/640px-Battery_for_a_car.jpg",
+    youtube: "https://www.youtube.com/watch?v=CBBh3ind-EU",
+    youtubeTitle: "Voltage Drop Testing Explained",
+    qChinese: "起动过程中对正极电池电缆进行电压降测试，显示0.8伏。这说明：",
+    optionsChinese: ["A) 电缆状况正常","B) 电缆或连接处电阻过大","C) 电缆搭铁短路","D) 电池完全充电"],
+    explanationChinese: "起动过程中正极电池电缆电路的最大允许电压降为0.5伏。0.8伏的读数表明由腐蚀、松动连接或损坏电缆造成的电阻过大。这种电阻减少了提供给起动机的电压和电流，可能导致起动缓慢或无法起动的状况。"
   },
   {
     id: 34,
@@ -276,7 +507,14 @@ const questionsA6 = [
     options: ["A) Engages the flywheel and supplies ground to the motor", "B) Pushes the drive gear into the flywheel and closes the main power contacts", "C) Regulates voltage and controls current flow", "D) Disengages the drive gear and opens the main contacts"],
     answer: 1,
     explanation: "The starter solenoid performs two critical functions: it uses an electromagnetic plunger to push the starter drive gear into mesh with the engine flywheel ring gear, and it closes a set of heavy-duty internal contacts that connect battery voltage directly to the starter motor for cranking. Both actions occur simultaneously when energized.",
-    diagram: ""
+    diagram: "",
+    terms: ["starter_motor", "flywheel", "relay"],
+    image: "https://upload.wikimedia.org/wikipedia/commons/thumb/b/b0/Automobile_starter.jpg/640px-Automobile_starter.jpg",
+    youtube: "https://www.youtube.com/watch?v=ose_OT7OWFQ",
+    youtubeTitle: "How a Starter Motor Works",
+    qChinese: "起动机电磁开关执行哪两个功能？",
+    optionsChinese: ["A) 啮合飞轮并为电机提供搭铁","B) 将驱动齿轮推入飞轮并关闭主电源触点","C) 调节电压并控制电流","D) 脱开驱动齿轮并断开主触点"],
+    explanationChinese: "起动机电磁开关执行两个关键功能：它使用电磁柱塞将起动机驱动齿轮推入与发动机飞轮齿圈啮合，同时关闭一组重型内部触点，将电池电压直接连接到起动机电机进行起动。两个动作在通电时同时发生。"
   },
   {
     id: 35,
@@ -284,7 +522,14 @@ const questionsA6 = [
     options: ["A) Input, output, signal, ground", "B) 30, 85, 86, 87", "C) Positive, negative, coil, switch", "D) A, B, C, D"],
     answer: 1,
     explanation: "Standard automotive relays use terminal numbering 30 (common power input), 85 (coil ground), 86 (coil power/trigger), and 87 (normally open output). Terminal 87a, if present, is the normally closed contact. Understanding relay terminal numbers is essential for testing relays and interpreting wiring diagrams in automotive electrical systems.",
-    diagram: ""
+    diagram: "",
+    terms: ["relay", "starter_motor", "wiring_diagram"],
+    image: "https://upload.wikimedia.org/wikipedia/commons/thumb/c/cd/Automotive_fuse_box.jpg/640px-Automotive_fuse_box.jpg",
+    youtube: "https://www.youtube.com/watch?v=MHY2pjtS3LU",
+    youtubeTitle: "Automotive Relays and Fuses Explained",
+    qChinese: "起动机控制电路中的继电器有四个端子。这些端子通常如何标记？",
+    optionsChinese: ["A) 输入、输出、信号、搭铁","B) 30、85、86、87","C) 正极、负极、线圈、开关","D) A、B、C、D"],
+    explanationChinese: "标准汽车继电器使用端子编号30（公共电源输入）、85（线圈搭铁）、86（线圈电源/触发）和87（常开输出）。端子87a（如果有）是常闭触点。了解继电器端子编号对于测试继电器和理解汽车电气系统线路图至关重要。"
   },
   {
     id: 36,
@@ -292,7 +537,14 @@ const questionsA6 = [
     options: ["A) A stuck starter drive gear", "B) A discharged battery or poor battery connections", "C) A faulty ignition switch", "D) A seized engine"],
     answer: 1,
     explanation: "Rapid clicking when attempting to start indicates the starter solenoid is engaging and disengaging repeatedly because there is insufficient battery voltage to hold the solenoid in and power the starter motor. This is typically caused by a discharged battery or high-resistance battery cable connections that cannot deliver adequate cranking current.",
-    diagram: ""
+    diagram: "",
+    terms: ["battery", "starter_motor", "voltage_drop_test"],
+    image: "https://upload.wikimedia.org/wikipedia/commons/thumb/0/00/Battery_for_a_car.jpg/640px-Battery_for_a_car.jpg",
+    youtube: "https://www.youtube.com/watch?v=LGB6ZEjGm7E",
+    youtubeTitle: "Car Battery Testing and Diagnosis",
+    qChinese: "转动钥匙到起动位置时，车辆快速咔嗒响但发动机不起动。最可能的原因是什么？",
+    optionsChinese: ["A) 起动机驱动齿轮卡住","B) 电池电量不足或电池连接不良","C) 点火开关故障","D) 发动机卡死"],
+    explanationChinese: "尝试起动时快速咔嗒响表明起动机电磁开关在反复吸合和释放，因为电池电压不足以保持电磁开关吸合并驱动起动机电机。这通常是由电池电量不足或高电阻电池电缆连接无法提供足够的起动电流造成的。"
   },
   {
     id: 37,
@@ -300,7 +552,14 @@ const questionsA6 = [
     options: ["A) 5 minutes", "B) 12 to 24 hours or remove surface charge", "C) 1 minute", "D) No waiting is necessary"],
     answer: 1,
     explanation: "After charging, a surface charge exists on the battery plates that gives a falsely high voltage reading. The technician should wait 12 to 24 hours for the surface charge to dissipate, or remove it by applying a brief load such as turning on the headlights for two minutes. This ensures an accurate open circuit voltage measurement.",
-    diagram: ""
+    diagram: "",
+    terms: ["battery", "battery_service", "dmm"],
+    image: "https://upload.wikimedia.org/wikipedia/commons/thumb/0/00/Battery_for_a_car.jpg/640px-Battery_for_a_car.jpg",
+    youtube: "https://www.youtube.com/watch?v=LGB6ZEjGm7E",
+    youtubeTitle: "Car Battery Testing and Diagnosis",
+    qChinese: "对完全没电的电池充电后，技师在测试电池开路电压之前至少应等待多长时间？",
+    optionsChinese: ["A) 5分钟","B) 12到24小时或消除表面电荷","C) 1分钟","D) 无需等待"],
+    explanationChinese: "充电后，电池极板上存在表面电荷，会导致电压读数虚高。技师应等待12到24小时让表面电荷消散，或者通过施加短暂负载（如打开大灯两分钟）来消除它。这确保了准确的开路电压测量。"
   },
   {
     id: 38,
@@ -308,7 +567,14 @@ const questionsA6 = [
     options: ["A) A faulty neutral safety switch", "B) A blown starter fuse", "C) A worn serpentine belt", "D) An open circuit in the ignition switch start position"],
     answer: 2,
     explanation: "A worn serpentine belt drives the alternator and accessories but has no connection to the starter motor circuit. The starter is powered directly by the battery through the solenoid. A faulty neutral safety switch, a blown starter fuse, or an open in the ignition switch start circuit would all prevent the starter from receiving power to crank.",
-    diagram: ""
+    diagram: "",
+    terms: ["starter_motor", "serpentine_belt", "fuse", "relay"],
+    image: "https://upload.wikimedia.org/wikipedia/commons/thumb/b/b0/Automobile_starter.jpg/640px-Automobile_starter.jpg",
+    youtube: "https://www.youtube.com/watch?v=ose_OT7OWFQ",
+    youtubeTitle: "How a Starter Motor Works",
+    qChinese: "以下所有情况都可能导致无法起动，除了：",
+    optionsChinese: ["A) 空挡安全开关故障","B) 起动机保险丝烧断","C) 蛇形皮带磨损","D) 点火开关起动位置开路"],
+    explanationChinese: "磨损的蛇形皮带驱动发电机和附件，但与起动机电路无关。起动机直接通过电磁开关由电池供电。空挡安全开关故障、起动机保险丝烧断或点火开关起动电路开路都会阻止起动机接收电源进行起动。"
   },
   {
     id: 39,
@@ -316,7 +582,14 @@ const questionsA6 = [
     options: ["A) Technician A only", "B) Technician B only", "C) Both Technician A and Technician B", "D) Neither Technician A nor Technician B"],
     answer: 2,
     explanation: "Both technicians are correct. A conductance tester sends a small AC signal through the battery to measure plate surface area and can provide accurate results even on a discharged battery. A carbon pile load tester draws heavy current and requires the battery to be at least 75% charged to produce valid test results.",
-    diagram: ""
+    diagram: "",
+    terms: ["battery", "battery_service", "dmm"],
+    image: "https://upload.wikimedia.org/wikipedia/commons/thumb/0/00/Battery_for_a_car.jpg/640px-Battery_for_a_car.jpg",
+    youtube: "https://www.youtube.com/watch?v=LGB6ZEjGm7E",
+    youtubeTitle: "Car Battery Testing and Diagnosis",
+    qChinese: "技师A说电池电导测试仪可以准确测试放电的电池。技师B说碳堆负载测试仪要求电池在测试前至少充电到75%。谁是正确的？",
+    optionsChinese: ["A) 仅技师A","B) 仅技师B","C) 技师A和技师B都正确","D) 技师A和技师B都不正确"],
+    explanationChinese: "两位技师都是正确的。电导测试仪通过电池发送小交流信号来测量极板表面积，即使在电池放电状态下也能提供准确结果。碳堆负载测试仪消耗大电流，要求电池至少充电到75%才能产生有效的测试结果。"
   },
   {
     id: 40,
@@ -324,7 +597,14 @@ const questionsA6 = [
     options: ["A) The amps the battery can deliver at 80°F for 30 seconds", "B) The amps the battery can deliver at 0°F for 30 seconds maintaining at least 7.2 volts", "C) The total amp-hours the battery can store", "D) The charging amperage required"],
     answer: 1,
     explanation: "Cold Cranking Amps is the number of amperes a battery can deliver at 0 degrees Fahrenheit for 30 seconds while maintaining a terminal voltage of at least 7.2 volts. This rating is critical for cold weather starting performance and is the primary specification used to select the correct replacement battery for a vehicle.",
-    diagram: ""
+    diagram: "",
+    terms: ["battery", "starter_motor", "battery_service"],
+    image: "https://upload.wikimedia.org/wikipedia/commons/thumb/0/00/Battery_for_a_car.jpg/640px-Battery_for_a_car.jpg",
+    youtube: "https://www.youtube.com/watch?v=LGB6ZEjGm7E",
+    youtubeTitle: "Car Battery Testing and Diagnosis",
+    qChinese: "电池的冷起动电流（CCA）额定值表示：",
+    optionsChinese: ["A) 电池在华氏80度下能持续输出30秒的安培数","B) 电池在华氏0度下能持续输出30秒且保持至少7.2伏电压的安培数","C) 电池能存储的总安时数","D) 所需的充电安培数"],
+    explanationChinese: "冷起动电流是电池在华氏0度下能持续输出30秒且保持端子电压至少7.2伏的安培数。该额定值对于寒冷天气的起动性能至关重要，是选择正确替换电池的主要规格参数。"
   },
   {
     id: 41,
@@ -332,7 +612,14 @@ const questionsA6 = [
     options: ["A) A standard test light", "B) An inductive amp clamp", "C) A voltmeter connected in parallel", "D) An ohmmeter"],
     answer: 1,
     explanation: "An inductive amp clamp (current clamp) measures current by detecting the magnetic field around the cable without disconnecting or breaking the circuit. This is essential for starter current draw tests since the high current would exceed the capacity of most inline ammeters. The clamp simply goes around the battery cable during cranking.",
-    diagram: ""
+    diagram: "",
+    terms: ["starter_motor", "dmm", "battery"],
+    image: "https://upload.wikimedia.org/wikipedia/commons/thumb/b/b0/Automobile_starter.jpg/640px-Automobile_starter.jpg",
+    youtube: "https://www.youtube.com/watch?v=ose_OT7OWFQ",
+    youtubeTitle: "How a Starter Motor Works",
+    qChinese: "在起动机电流消耗测试中，使用什么仪器可以在不断开电路的情况下测量电流？",
+    optionsChinese: ["A) 标准试灯","B) 感应式电流钳","C) 并联连接的电压表","D) 欧姆表"],
+    explanationChinese: "感应式电流钳（电流钳形表）通过检测电缆周围的磁场来测量电流，无需断开或切断电路。这对起动机电流消耗测试至关重要，因为大电流会超过大多数串联电流表的容量。钳形表只需在起动过程中夹在电池电缆上即可。"
   },
   {
     id: 42,
@@ -340,7 +627,14 @@ const questionsA6 = [
     options: ["A) Jump start the vehicle from another battery", "B) Hold the key fob against the start button and press it", "C) The vehicle cannot be started without a working fob battery", "D) Replace the ignition switch"],
     answer: 1,
     explanation: "Most push-button start systems have a backup transponder reader near the start button. Placing the key fob directly against or very near the start button allows the passive RFID transponder chip inside the fob to be read at close range without battery power. This emergency procedure lets the vehicle start normally.",
-    diagram: ""
+    diagram: "",
+    terms: ["starter_motor", "battery", "pcm"],
+    image: "https://upload.wikimedia.org/wikipedia/commons/thumb/b/b0/Automobile_starter.jpg/640px-Automobile_starter.jpg",
+    youtube: "https://www.youtube.com/watch?v=ose_OT7OWFQ",
+    youtubeTitle: "How a Starter Motor Works",
+    qChinese: "配备一键启动系统的车辆可以起动但无法着车。钥匙遥控器电池没电。驾驶员如何启动车辆？",
+    optionsChinese: ["A) 用另一个电池搭电起动","B) 将钥匙遥控器靠近启动按钮并按下","C) 没有正常的遥控器电池无法启动车辆","D) 更换点火开关"],
+    explanationChinese: "大多数一键启动系统在启动按钮附近有一个备用应答器读取器。将钥匙遥控器直接贴近启动按钮，可以在近距离内读取遥控器内部的无源RFID应答器芯片，无需电池供电。这个应急程序可以让车辆正常启动。"
   },
   {
     id: 43,
@@ -348,7 +642,14 @@ const questionsA6 = [
     options: ["A) Dead battery", "B) Faulty starter drive (Bendix) mechanism", "C) Open in the solenoid coil", "D) Corroded battery terminals"],
     answer: 1,
     explanation: "If the starter motor spins freely without engaging the flywheel, the starter drive mechanism (Bendix or overrunning clutch) is faulty. It is not extending the pinion gear into the flywheel ring gear, or the overrunning clutch is slipping. A dead battery or open solenoid coil would prevent the motor from spinning at all.",
-    diagram: ""
+    diagram: "",
+    terms: ["starter_motor", "flywheel", "battery"],
+    image: "https://upload.wikimedia.org/wikipedia/commons/thumb/b/b0/Automobile_starter.jpg/640px-Automobile_starter.jpg",
+    youtube: "https://www.youtube.com/watch?v=ose_OT7OWFQ",
+    youtubeTitle: "How a Starter Motor Works",
+    qChinese: "起动机电机转动但不与飞轮啮合。最可能的原因是什么？",
+    optionsChinese: ["A) 电池没电","B) 起动机驱动机构（单向离合器）故障","C) 电磁开关线圈开路","D) 电池端子腐蚀"],
+    explanationChinese: "如果起动机电机空转而不与飞轮啮合，则起动机驱动机构（单向离合器或超越离合器）出现故障。它没有将小齿轮伸出与飞轮齿圈啮合，或超越离合器在打滑。电池没电或电磁开关线圈开路会完全阻止电机转动。"
   },
   {
     id: 44,
@@ -356,7 +657,14 @@ const questionsA6 = [
     options: ["A) Charge in an enclosed space to keep warm", "B) Ensure adequate ventilation to prevent hydrogen gas accumulation", "C) Charge at the highest amperage to reduce time", "D) Remove only the positive terminal before charging"],
     answer: 1,
     explanation: "Lead-acid batteries produce hydrogen gas during charging, which is highly explosive. Adequate ventilation is essential to prevent gas accumulation that could be ignited by a spark or flame. Charging should be done in a well-ventilated area, and sparks should be kept away from the battery. Slow charging rates are also safer for battery longevity.",
-    diagram: ""
+    diagram: "",
+    terms: ["battery", "battery_service"],
+    image: "https://upload.wikimedia.org/wikipedia/commons/thumb/0/00/Battery_for_a_car.jpg/640px-Battery_for_a_car.jpg",
+    youtube: "https://www.youtube.com/watch?v=LGB6ZEjGm7E",
+    youtubeTitle: "Car Battery Testing and Diagnosis",
+    qChinese: "充电传统铅酸电池时，最重要的安全预防措施是什么？",
+    optionsChinese: ["A) 在封闭空间充电以保暖","B) 确保充分通风以防止氢气积聚","C) 以最高安培数充电以减少时间","D) 充电前只拆除正极端子"],
+    explanationChinese: "铅酸电池在充电过程中产生氢气，氢气具有高度易爆性。充分通风对于防止气体积聚至关重要，因为气体可能被火花或明火点燃。充电应在通风良好的区域进行，并应远离电池附近的火花。较慢的充电速率对电池寿命也更安全。"
   },
 
   // =============================================
@@ -368,7 +676,14 @@ const questionsA6 = [
     options: ["A) 11.5 to 12.0 volts", "B) 12.6 to 13.0 volts", "C) 13.5 to 14.5 volts", "D) 15.0 to 16.0 volts"],
     answer: 2,
     explanation: "A properly functioning charging system should produce between 13.5 and 14.5 volts with the engine running at approximately 2000 RPM. This voltage range is necessary to charge the battery and power electrical loads. Voltage below 13.5 indicates undercharging, while voltage above 14.8 to 15.0 indicates overcharging and a likely voltage regulator fault.",
-    diagram: ""
+    diagram: "",
+    terms: ["alternator", "battery", "dmm"],
+    image: "https://upload.wikimedia.org/wikipedia/commons/thumb/8/8b/Alternator_1.jpg/640px-Alternator_1.jpg",
+    youtube: "https://www.youtube.com/watch?v=jFnniGAjVoM",
+    youtubeTitle: "How an Alternator Works",
+    qChinese: "发动机运转时正常的发电机输出电压应大约为：",
+    optionsChinese: ["A) 11.5至12.0伏","B) 12.6至13.0伏","C) 13.5至14.5伏","D) 15.0至16.0伏"],
+    explanationChinese: "正常工作的充电系统在发动机转速约2000 RPM时应产生13.5至14.5伏的电压。该电压范围是为电池充电和为电气负载供电所必需的。低于13.5伏表示充电不足，而高于14.8至15.0伏表示过度充电，可能是电压调节器故障。"
   },
   {
     id: 46,
@@ -376,7 +691,14 @@ const questionsA6 = [
     options: ["A) Technician A only", "B) Technician B only", "C) Both Technician A and Technician B", "D) Neither Technician A nor Technician B"],
     answer: 0,
     explanation: "Only Technician A is correct. The voltage regulator controls alternator output by varying the current flowing through the rotor field winding, which changes the magnetic field strength and thus the output voltage. Technician B is incorrect because most modern vehicles have the voltage regulator built into the alternator, not as a separate component.",
-    diagram: ""
+    diagram: "",
+    terms: ["alternator", "battery", "ohms_law"],
+    image: "https://upload.wikimedia.org/wikipedia/commons/thumb/8/8b/Alternator_1.jpg/640px-Alternator_1.jpg",
+    youtube: "https://www.youtube.com/watch?v=jFnniGAjVoM",
+    youtubeTitle: "How an Alternator Works",
+    qChinese: "技师A说电压调节器通过改变励磁电流来控制发电机输出。技师B说电压调节器始终是独立于发电机的部件。谁是正确的？",
+    optionsChinese: ["A) 仅技师A","B) 仅技师B","C) 技师A和技师B都正确","D) 技师A和技师B都不正确"],
+    explanationChinese: "只有技师A是正确的。电压调节器通过改变流过转子励磁绕组的电流来控制发电机输出，从而改变磁场强度和输出电压。技师B是错误的，因为大多数现代车辆的电压调节器内置在发电机内，而不是作为独立部件。"
   },
   {
     id: 47,
@@ -384,7 +706,14 @@ const questionsA6 = [
     options: ["A) Engine overheating only", "B) Intermittent low charging voltage and a squealing noise", "C) Starter motor failure", "D) Transmission shifting problems"],
     answer: 1,
     explanation: "A slipping serpentine belt cannot spin the alternator rotor at the required speed, resulting in low or intermittent charging voltage. The slippage also creates a characteristic high-pitched squealing noise, especially during acceleration or when electrical loads are turned on. A worn, glazed, or improperly tensioned belt should be replaced.",
-    diagram: ""
+    diagram: "",
+    terms: ["serpentine_belt", "alternator", "battery"],
+    image: "https://upload.wikimedia.org/wikipedia/commons/thumb/8/8b/Alternator_1.jpg/640px-Alternator_1.jpg",
+    youtube: "https://www.youtube.com/watch?v=jFnniGAjVoM",
+    youtubeTitle: "How an Alternator Works",
+    qChinese: "蛇形驱动皮带在发电机皮带轮上打滑。最可能出现什么症状？",
+    optionsChinese: ["A) 仅发动机过热","B) 间歇性低充电电压和尖叫噪音","C) 起动机故障","D) 变速箱换挡问题"],
+    explanationChinese: "打滑的蛇形皮带无法以所需的速度旋转发电机转子，导致充电电压低或不稳定。打滑还会产生特征性的高音尖叫声，特别是在加速或电气负载打开时。磨损、光滑或张紧不当的皮带应予以更换。"
   },
   {
     id: 48,
@@ -392,7 +721,14 @@ const questionsA6 = [
     options: ["A) A fully charged battery", "B) An open in one phase of the stator winding", "C) A slipping drive belt", "D) A faulty ignition switch"],
     answer: 1,
     explanation: "An alternator producing approximately one-third of its rated output strongly suggests one of the three stator phase windings is open. Since a three-phase alternator produces power from three windings, losing one phase reduces output by roughly one-third. A diode failure in one phase can cause a similar reduction in maximum output capacity.",
-    diagram: ""
+    diagram: "",
+    terms: ["alternator", "dmm", "battery"],
+    image: "https://upload.wikimedia.org/wikipedia/commons/thumb/8/8b/Alternator_1.jpg/640px-Alternator_1.jpg",
+    youtube: "https://www.youtube.com/watch?v=jFnniGAjVoM",
+    youtubeTitle: "How an Alternator Works",
+    qChinese: "在发电机输出测试中，额定120安培的发电机仅产生40安培。最可能的原因是什么？",
+    optionsChinese: ["A) 电池完全充电","B) 定子绕组中一相开路","C) 驱动皮带打滑","D) 点火开关故障"],
+    explanationChinese: "发电机产生约其额定输出三分之一的电流，强烈表明三相定子绕组中有一相开路。由于三相发电机从三个绕组产生电力，失去一相会使输出减少约三分之一。一相中的二极管故障也可能导致类似的最大输出容量降低。"
   },
   {
     id: 49,
@@ -400,7 +736,14 @@ const questionsA6 = [
     options: ["A) Normal alternator operation", "B) One or more faulty diodes in the rectifier bridge", "C) A loose drive belt", "D) Low battery voltage"],
     answer: 1,
     explanation: "Excessive AC ripple in the alternator output indicates faulty diodes in the rectifier bridge. Diodes convert AC to DC, and when one or more fail, they allow AC voltage to pass through. Normal ripple should be less than 0.5 volts AC. Excessive ripple can cause electrical system malfunctions and premature battery failure.",
-    diagram: ""
+    diagram: "",
+    terms: ["alternator", "dmm", "battery"],
+    image: "https://upload.wikimedia.org/wikipedia/commons/thumb/8/8b/Alternator_1.jpg/640px-Alternator_1.jpg",
+    youtube: "https://www.youtube.com/watch?v=jFnniGAjVoM",
+    youtubeTitle: "How an Alternator Works",
+    qChinese: "使用示波器对发电机进行纹波电压测试，显示交流分量有大幅波动。这说明什么？",
+    optionsChinese: ["A) 发电机正常工作","B) 整流桥中一个或多个二极管故障","C) 驱动皮带松动","D) 电池电压低"],
+    explanationChinese: "发电机输出中过大的交流纹波表明整流桥中的二极管故障。二极管将交流电转换为直流电，当一个或多个二极管失效时，会让交流电压通过。正常纹波应小于0.5伏交流电。过大的纹波会导致电气系统故障和电池过早失效。"
   },
   {
     id: 50,
@@ -408,7 +751,14 @@ const questionsA6 = [
     options: ["A) The battery state of charge", "B) The alternator drive belt and connections", "C) The starter motor", "D) The headlight switch"],
     answer: 1,
     explanation: "A charging voltage of only 12.2 volts with the engine running indicates the alternator is not charging. The first check should be the drive belt and electrical connections, as these are the most common and easily verified causes. A broken, loose, or missing belt will prevent the alternator from spinning and generating any output.",
-    diagram: ""
+    diagram: "",
+    terms: ["alternator", "serpentine_belt", "battery"],
+    image: "https://upload.wikimedia.org/wikipedia/commons/thumb/8/8b/Alternator_1.jpg/640px-Alternator_1.jpg",
+    youtube: "https://www.youtube.com/watch?v=jFnniGAjVoM",
+    youtubeTitle: "How an Alternator Works",
+    qChinese: "发动机启动后电池警告灯持续亮着。发动机转速2000 RPM时电池处充电电压测量为12.2伏。应该首先检查什么？",
+    optionsChinese: ["A) 电池充电状态","B) 发电机驱动皮带和连接","C) 起动机","D) 大灯开关"],
+    explanationChinese: "发动机运转时充电电压仅为12.2伏表明发电机没有充电。首先应检查驱动皮带和电气连接，因为这些是最常见且最容易验证的原因。断裂、松动或缺失的皮带将阻止发电机旋转并产生任何输出。"
   },
   {
     id: 51,
@@ -416,7 +766,14 @@ const questionsA6 = [
     options: ["A) To convert AC to DC for the vehicle's electrical system", "B) To supply DC current to the rotor field winding from the stator", "C) To protect the battery from overcharging", "D) To increase alternator output at idle"],
     answer: 1,
     explanation: "The diode trio in certain alternator designs rectifies a portion of the stator AC output to provide DC current for the rotor field winding. This makes the alternator self-exciting after initial startup. Once running, the alternator no longer needs external field current from the battery, allowing it to maintain its own field excitation.",
-    diagram: ""
+    diagram: "",
+    terms: ["alternator", "battery", "ohms_law"],
+    image: "https://upload.wikimedia.org/wikipedia/commons/thumb/8/8b/Alternator_1.jpg/640px-Alternator_1.jpg",
+    youtube: "https://www.youtube.com/watch?v=jFnniGAjVoM",
+    youtubeTitle: "How an Alternator Works",
+    qChinese: "某些发电机中二极管组的用途是什么？",
+    optionsChinese: ["A) 将交流电转换为直流电供车辆电气系统使用","B) 从定子向转子励磁绕组提供直流电流","C) 保护电池免受过度充电","D) 提高发电机怠速时的输出"],
+    explanationChinese: "某些发电机设计中的二极管组将定子交流输出的一部分整流为直流电流，以提供给转子励磁绕组。这使发电机在初始启动后能够自激。一旦运行，发电机不再需要来自电池的外部励磁电流，可以维持自身的励磁。"
   },
   {
     id: 52,
@@ -424,7 +781,14 @@ const questionsA6 = [
     options: ["A) Premature battery failure from electrolyte boiling", "B) Burned-out light bulbs", "C) Slow engine cranking", "D) Damage to electronic control modules"],
     answer: 2,
     explanation: "Slow engine cranking is caused by low battery voltage or high resistance, not overcharging. An overcharging alternator producing excessive voltage can boil battery electrolyte causing premature failure, burn out light bulbs designed for lower voltage, and damage sensitive electronic control modules that cannot tolerate voltages above their rated specifications.",
-    diagram: ""
+    diagram: "",
+    terms: ["alternator", "battery", "pcm", "starter_motor"],
+    image: "https://upload.wikimedia.org/wikipedia/commons/thumb/8/8b/Alternator_1.jpg/640px-Alternator_1.jpg",
+    youtube: "https://www.youtube.com/watch?v=jFnniGAjVoM",
+    youtubeTitle: "How an Alternator Works",
+    qChinese: "过度充电的发电机可能导致以下所有问题，除了：",
+    optionsChinese: ["A) 电解液沸腾导致电池过早失效","B) 灯泡烧毁","C) 发动机起动缓慢","D) 电子控制模块损坏"],
+    explanationChinese: "发动机起动缓慢是由低电池电压或高电阻引起的，而不是过度充电。产生过高电压的过度充电发电机会使电池电解液沸腾导致过早失效，烧毁设计用于较低电压的灯泡，并损坏无法承受超过其额定电压的敏感电子控制模块。"
   },
   {
     id: 53,
@@ -432,7 +796,14 @@ const questionsA6 = [
     options: ["A) Technician A only", "B) Technician B only", "C) Both Technician A and Technician B", "D) Neither Technician A nor Technician B"],
     answer: 2,
     explanation: "Both technicians are correct. A shorted diode can create a path for battery current to flow back through the alternator when the engine is off, draining the battery. A leaky or failed diode also allows AC ripple into the electrical system, which can cause an audible whining noise that changes pitch with engine speed through the audio speakers.",
-    diagram: ""
+    diagram: "",
+    terms: ["alternator", "battery", "dmm"],
+    image: "https://upload.wikimedia.org/wikipedia/commons/thumb/8/8b/Alternator_1.jpg/640px-Alternator_1.jpg",
+    youtube: "https://www.youtube.com/watch?v=jFnniGAjVoM",
+    youtubeTitle: "How an Alternator Works",
+    qChinese: "技师A说发电机二极管故障会在发动机熄火时漏电导致电池放电。技师B说二极管故障会导致发电机产生嗡鸣噪音。谁是正确的？",
+    optionsChinese: ["A) 仅技师A","B) 仅技师B","C) 技师A和技师B都正确","D) 技师A和技师B都不正确"],
+    explanationChinese: "两位技师都是正确的。短路的二极管会在发动机熄火时为电池电流通过发电机回流创造通路，导致电池放电。漏电或失效的二极管还会让交流纹波进入电气系统，通过音频扬声器产生随发动机转速变化的可听到的嗡鸣声。"
   },
   {
     id: 54,
@@ -440,7 +811,14 @@ const questionsA6 = [
     options: ["A) Output voltage continuously increases", "B) Output voltage is regulated to remain within specification", "C) Output voltage decreases", "D) Output voltage fluctuates randomly"],
     answer: 1,
     explanation: "The voltage regulator maintains alternator output voltage within a specified range regardless of engine speed by adjusting rotor field current. As RPM increases, the regulator reduces field current to keep voltage constant. Without the regulator, output would increase with speed and damage the electrical system. The regulator ensures consistent voltage at all engine speeds.",
-    diagram: ""
+    diagram: "",
+    terms: ["alternator", "battery", "ohms_law"],
+    image: "https://upload.wikimedia.org/wikipedia/commons/thumb/8/8b/Alternator_1.jpg/640px-Alternator_1.jpg",
+    youtube: "https://www.youtube.com/watch?v=jFnniGAjVoM",
+    youtubeTitle: "How an Alternator Works",
+    qChinese: "当发动机转速从怠速升高到公路行驶速度时，发电机输出会发生什么变化？",
+    optionsChinese: ["A) 输出电压持续升高","B) 输出电压被调节保持在规定范围内","C) 输出电压降低","D) 输出电压随机波动"],
+    explanationChinese: "电压调节器通过调节转子励磁电流，使发电机输出电压保持在规定范围内，不受发动机转速影响。随着转速增加，调节器减少励磁电流以保持电压恒定。没有调节器，输出会随转速增加并损坏电气系统。调节器确保在所有发动机转速下提供一致的电压。"
   },
 
   // =============================================
@@ -452,7 +830,14 @@ const questionsA6 = [
     options: ["A) A faulty headlight switch", "B) A poor ground connection at the left headlight", "C) A weak battery", "D) A bad alternator"],
     answer: 1,
     explanation: "When one headlight is dim while the other is bright, a poor ground connection at the dim headlight is the most likely cause. The high resistance ground reduces current flow through that bulb, dimming it. A faulty switch, weak battery, or bad alternator would typically affect both headlights equally since they share the same power supply circuit.",
-    diagram: ""
+    diagram: "",
+    terms: ["ground_circuit", "voltage_drop_test", "wiring_diagram"],
+    image: "https://upload.wikimedia.org/wikipedia/commons/thumb/c/cd/Automotive_fuse_box.jpg/640px-Automotive_fuse_box.jpg",
+    youtube: "https://www.youtube.com/watch?v=F2XaKqS4Fl4",
+    youtubeTitle: "Automotive Ground Circuit Diagnosis",
+    qChinese: "车辆的左前大灯暗淡而右前大灯明亮。最可能的原因是什么？",
+    optionsChinese: ["A) 大灯开关故障","B) 左大灯接地连接不良","C) 电池电量不足","D) 发电机故障"],
+    explanationChinese: "当一个大灯暗淡而另一个明亮时，暗淡大灯处的接地连接不良是最可能的原因。高电阻的搭铁减少了通过该灯泡的电流，使其变暗。开关故障、电池电量不足或发电机故障通常会同等地影响两个大灯，因为它们共享相同的电源电路。"
   },
   {
     id: 56,
@@ -460,7 +845,14 @@ const questionsA6 = [
     options: ["A) A fuse", "B) A ballast/igniter module", "C) A headlight switch", "D) A ground wire"],
     answer: 1,
     explanation: "HID headlights require a ballast and igniter module to create the initial high-voltage pulse (up to 25,000 volts) needed to ionize the xenon gas and start the arc, then regulate the operating voltage at about 85 volts. Halogen bulbs operate directly on 12-volt vehicle power and do not require this additional high-voltage starting equipment.",
-    diagram: ""
+    diagram: "",
+    terms: ["relay", "fuse", "wiring_diagram"],
+    image: "https://upload.wikimedia.org/wikipedia/commons/thumb/c/cd/Automotive_fuse_box.jpg/640px-Automotive_fuse_box.jpg",
+    youtube: "https://www.youtube.com/watch?v=F2XaKqS4Fl4",
+    youtubeTitle: "How to Read Automotive Wiring Diagrams",
+    qChinese: "HID（高强度放电）大灯需要哪个卤素大灯不需要的额外部件？",
+    optionsChinese: ["A) 保险丝","B) 镇流器/点火器模块","C) 大灯开关","D) 接地线"],
+    explanationChinese: "HID大灯需要镇流器和点火器模块来产生电离氙气并启动电弧所需的初始高压脉冲（高达25,000伏），然后将工作电压调节在约85伏。卤素灯泡直接使用12伏车辆电源工作，不需要这种额外的高压启动设备。"
   },
   {
     id: 57,
@@ -468,7 +860,14 @@ const questionsA6 = [
     options: ["A) Technician A only", "B) Technician B only", "C) Both Technician A and Technician B", "D) Neither Technician A nor Technician B"],
     answer: 2,
     explanation: "Both technicians are correct. LED headlights have a much longer lifespan than halogen bulbs, often lasting the life of the vehicle. While LEDs produce less infrared heat projected forward at the lens compared to halogens, they generate significant heat at the semiconductor junction that must be managed with heat sinks or cooling fans at the bulb base.",
-    diagram: ""
+    diagram: "",
+    terms: ["fuse", "relay", "wiring_diagram"],
+    image: "https://upload.wikimedia.org/wikipedia/commons/thumb/c/cd/Automotive_fuse_box.jpg/640px-Automotive_fuse_box.jpg",
+    youtube: "https://www.youtube.com/watch?v=F2XaKqS4Fl4",
+    youtubeTitle: "How to Read Automotive Wiring Diagrams",
+    qChinese: "技师A说LED大灯通常比卤素灯泡寿命更长。技师B说LED大灯在透镜处产生的热量较少，但需要在基座处进行散热管理。谁是正确的？",
+    optionsChinese: ["A) 仅技师A","B) 仅技师B","C) 技师A和技师B都正确","D) 技师A和技师B都不正确"],
+    explanationChinese: "两位技师都是正确的。LED大灯的使用寿命比卤素灯泡长得多，通常可以使用整个车辆的生命周期。虽然LED与卤素灯相比，向前投射到透镜的红外热量较少，但它们在半导体结处产生大量热量，需要在灯泡基座处使用散热片或冷却风扇进行管理。"
   },
   {
     id: 58,
@@ -476,7 +875,14 @@ const questionsA6 = [
     options: ["A) A faulty turn signal switch", "B) A burned-out turn signal bulb", "C) A weak battery", "D) A short in the turn signal wiring"],
     answer: 1,
     explanation: "Rapid or hyper-flashing of turn signals indicates a burned-out bulb on that side of the vehicle. The thermal or electronic flasher module detects reduced current draw from the missing bulb and flashes at a faster rate. This serves as a built-in diagnostic feature alerting the driver that a turn signal bulb needs replacement.",
-    diagram: ""
+    diagram: "",
+    terms: ["relay", "fuse", "parallel_circuit"],
+    image: "https://upload.wikimedia.org/wikipedia/commons/thumb/c/cd/Automotive_fuse_box.jpg/640px-Automotive_fuse_box.jpg",
+    youtube: "https://www.youtube.com/watch?v=MHY2pjtS3LU",
+    youtubeTitle: "Automotive Relays and Fuses Explained",
+    qChinese: "车辆的转向灯以正常速度的两倍闪烁。最可能的原因是什么？",
+    optionsChinese: ["A) 转向灯开关故障","B) 转向灯灯泡烧毁","C) 电池电量不足","D) 转向灯线路短路"],
+    explanationChinese: "转向灯快速或超快闪烁表明该侧有一个灯泡烧毁。热敏式或电子式闪光器模块检测到缺少灯泡导致的电流消耗减少，并以更快的速率闪烁。这是一个内置的诊断功能，提醒驾驶员需要更换转向灯灯泡。"
   },
   {
     id: 59,
@@ -484,7 +890,14 @@ const questionsA6 = [
     options: ["A) Engine RPM", "B) Battery voltage", "C) Current flow through the circuit", "D) Vehicle speed"],
     answer: 2,
     explanation: "Electronic flasher modules monitor the current flow in the turn signal circuit to determine the flash rate. Normal current draw from functioning bulbs produces the standard flash rate. When a bulb burns out, the reduced current draw causes the flasher to increase the flash rate, alerting the driver to the bulb failure.",
-    diagram: ""
+    diagram: "",
+    terms: ["relay", "ohms_law", "parallel_circuit"],
+    image: "https://upload.wikimedia.org/wikipedia/commons/thumb/c/cd/Automotive_fuse_box.jpg/640px-Automotive_fuse_box.jpg",
+    youtube: "https://www.youtube.com/watch?v=MHY2pjtS3LU",
+    youtubeTitle: "Automotive Relays and Fuses Explained",
+    qChinese: "电子闪光器模块通过监测什么来控制转向灯闪烁速率？",
+    optionsChinese: ["A) 发动机转速","B) 电池电压","C) 通过电路的电流","D) 车速"],
+    explanationChinese: "电子闪光器模块监测转向灯电路中的电流来确定闪烁速率。正常工作灯泡的正常电流消耗产生标准闪烁速率。当灯泡烧毁时，减少的电流消耗使闪光器增加闪烁速率，提醒驾驶员灯泡故障。"
   },
   {
     id: 60,
@@ -492,7 +905,14 @@ const questionsA6 = [
     options: ["A) The dome light bulb", "B) The dome light fuse", "C) The door jamb switches or body control module", "D) The headlight switch"],
     answer: 2,
     explanation: "Since the dome light works with the manual switch, the bulb, fuse, and power supply are good. The fault is in the door-triggered circuit. The door jamb switches (or the body control module that processes the door ajar inputs) should be checked. A disconnected, stuck, or misadjusted door switch will prevent the dome light from activating on door opening.",
-    diagram: ""
+    diagram: "",
+    terms: ["ground_circuit", "wiring_diagram", "fuse"],
+    image: "https://upload.wikimedia.org/wikipedia/commons/thumb/c/cd/Automotive_fuse_box.jpg/640px-Automotive_fuse_box.jpg",
+    youtube: "https://www.youtube.com/watch?v=F2XaKqS4Fl4",
+    youtubeTitle: "How to Read Automotive Wiring Diagrams",
+    qChinese: "车辆的室内顶灯在任何车门打开时都不亮，但手动开关可以正常工作。应该检查什么？",
+    optionsChinese: ["A) 顶灯灯泡","B) 顶灯保险丝","C) 门边开关或车身控制模块","D) 大灯开关"],
+    explanationChinese: "由于顶灯可以通过手动开关工作，灯泡、保险丝和电源供应都是正常的。故障在于门触发电路。应检查门边开关（或处理门开信号的车身控制模块）。断开、卡住或调整不当的门开关会阻止顶灯在开门时激活。"
   },
   {
     id: 61,
@@ -500,7 +920,14 @@ const questionsA6 = [
     options: ["A) The tow vehicle's flasher module", "B) The trailer wiring connector and ground connection", "C) The tow vehicle's headlight switch", "D) The tow vehicle's fuse panel"],
     answer: 1,
     explanation: "Since the tow vehicle's signals work correctly, the problem is in the trailer circuit. The trailer wiring connector and ground should be checked first, as corrosion at the plug connection and poor trailer ground are the most common causes of trailer lighting failures. A loose or corroded pin in the connector interrupts current to the affected circuit.",
-    diagram: ""
+    diagram: "",
+    terms: ["ground_circuit", "wiring_diagram", "voltage_drop_test"],
+    image: "https://upload.wikimedia.org/wikipedia/commons/thumb/c/cd/Automotive_fuse_box.jpg/640px-Automotive_fuse_box.jpg",
+    youtube: "https://www.youtube.com/watch?v=F2XaKqS4Fl4",
+    youtubeTitle: "How to Read Automotive Wiring Diagrams",
+    qChinese: "拖车连接到牵引车后，拖车左转向灯不工作。牵引车的转向灯工作正常。应该首先检查什么？",
+    optionsChinese: ["A) 牵引车的闪光器模块","B) 拖车线束接头和接地连接","C) 牵引车的大灯开关","D) 牵引车的保险丝盒"],
+    explanationChinese: "由于牵引车的信号灯工作正常，问题在拖车电路中。应首先检查拖车线束接头和接地，因为插头连接处的腐蚀和拖车接地不良是拖车照明故障最常见的原因。接头中松动或腐蚀的插针会中断到受影响电路的电流。"
   },
   {
     id: 62,
@@ -508,7 +935,14 @@ const questionsA6 = [
     options: ["A) Left turn/brake", "B) Right turn/brake", "C) Tail/running lights", "D) Reverse/backup lights"],
     answer: 3,
     explanation: "A standard four-pin trailer connector provides left turn/brake, right turn/brake, tail/running lights, and a ground connection. Reverse lights require a fifth or additional pin found on five-pin, six-pin, or seven-pin connectors used for trailers with electric brakes, backup lights, or auxiliary power circuits.",
-    diagram: ""
+    diagram: "",
+    terms: ["wiring_diagram", "ground_circuit", "fuse"],
+    image: "https://upload.wikimedia.org/wikipedia/commons/thumb/c/cd/Automotive_fuse_box.jpg/640px-Automotive_fuse_box.jpg",
+    youtube: "https://www.youtube.com/watch?v=F2XaKqS4Fl4",
+    youtubeTitle: "How to Read Automotive Wiring Diagrams",
+    qChinese: "标准的四针拖车灯光接头提供以下所有电路，除了：",
+    optionsChinese: ["A) 左转向/制动灯","B) 右转向/制动灯","C) 尾灯/示廓灯","D) 倒车灯"],
+    explanationChinese: "标准四针拖车接头提供左转向/制动灯、右转向/制动灯、尾灯/示廓灯和接地连接。倒车灯需要五针、六针或七针接头中的第五个或额外的插针，这些接头用于配备电子制动器、倒车灯或辅助电源电路的拖车。"
   },
   {
     id: 63,
@@ -516,7 +950,14 @@ const questionsA6 = [
     options: ["A) Using a separate set of high-power bulbs", "B) Running the headlights or dedicated LEDs at reduced intensity", "C) Illuminating only the fog lights", "D) Flashing the turn signals continuously"],
     answer: 1,
     explanation: "Daytime running lights typically operate the headlamps at reduced voltage or intensity, or use dedicated LED modules. The body control module or DRL module controls their activation when the engine is running and the headlight switch is off. DRLs improve vehicle visibility to other drivers during daylight hours and are required in many jurisdictions.",
-    diagram: ""
+    diagram: "",
+    terms: ["relay", "fuse", "wiring_diagram"],
+    image: "https://upload.wikimedia.org/wikipedia/commons/thumb/c/cd/Automotive_fuse_box.jpg/640px-Automotive_fuse_box.jpg",
+    youtube: "https://www.youtube.com/watch?v=F2XaKqS4Fl4",
+    youtubeTitle: "How to Read Automotive Wiring Diagrams",
+    qChinese: "大多数车辆上的日间行车灯（DRL）通过以下方式工作：",
+    optionsChinese: ["A) 使用一组单独的大功率灯泡","B) 以降低的亮度运行大灯或专用LED","C) 仅点亮雾灯","D) 持续闪烁转向灯"],
+    explanationChinese: "日间行车灯通常以降低的电压或亮度运行大灯，或使用专用LED模块。车身控制模块或DRL模块在发动机运转且大灯开关关闭时控制其激活。DRL提高了白天车辆对其他驾驶员的可见性，在许多地区是强制要求的。"
   },
   {
     id: 64,
@@ -524,7 +965,14 @@ const questionsA6 = [
     options: ["A) Burned-out dual-filament bulbs", "B) A faulty brake light switch", "C) A bad turn signal switch", "D) A blown turn signal fuse"],
     answer: 1,
     explanation: "When turn signals work but brake lights do not using the same dual-filament bulbs, the bulbs are not the problem. The brake light switch mounted on the brake pedal is the most likely cause. This switch sends power to the brake light filament when the pedal is pressed. A faulty, misadjusted, or disconnected switch prevents brake light operation.",
-    diagram: ""
+    diagram: "",
+    terms: ["fuse", "wiring_diagram", "brake_inspection"],
+    image: "https://upload.wikimedia.org/wikipedia/commons/thumb/c/cd/Automotive_fuse_box.jpg/640px-Automotive_fuse_box.jpg",
+    youtube: "https://www.youtube.com/watch?v=F2XaKqS4Fl4",
+    youtubeTitle: "How to Read Automotive Wiring Diagrams",
+    qChinese: "车辆的制动灯不工作，但使用相同灯泡的转向灯工作正常。最可能的原因是什么？",
+    optionsChinese: ["A) 双丝灯泡烧毁","B) 制动灯开关故障","C) 转向灯开关故障","D) 转向灯保险丝烧断"],
+    explanationChinese: "当使用相同双丝灯泡的转向灯工作但制动灯不工作时，灯泡不是问题。安装在制动踏板上的制动灯开关是最可能的原因。这个开关在踩下踏板时向制动灯丝供电。故障、调整不当或断开的开关会阻止制动灯工作。"
   },
   {
     id: 65,
@@ -532,7 +980,14 @@ const questionsA6 = [
     options: ["A) Engine RPM only", "B) Steering angle and vehicle speed", "C) Outside temperature", "D) Battery voltage level"],
     answer: 1,
     explanation: "Adaptive headlight systems use steering angle sensor data and vehicle speed information to pivot the headlight beams in the direction the vehicle is turning. This improves nighttime visibility around curves and corners. Some advanced systems also use camera data and GPS to adjust beam patterns based on road conditions and oncoming traffic.",
-    diagram: ""
+    diagram: "",
+    terms: ["speed_sensor", "pcm", "wiring_diagram"],
+    image: "https://upload.wikimedia.org/wikipedia/commons/thumb/c/cd/Automotive_fuse_box.jpg/640px-Automotive_fuse_box.jpg",
+    youtube: "https://www.youtube.com/watch?v=F2XaKqS4Fl4",
+    youtubeTitle: "How to Read Automotive Wiring Diagrams",
+    qChinese: "现代车辆上的自适应大灯根据什么调整光束方向？",
+    optionsChinese: ["A) 仅发动机转速","B) 转向角度和车速","C) 外部温度","D) 电池电压水平"],
+    explanationChinese: "自适应大灯系统使用转向角传感器数据和车速信息将大灯光束向车辆转弯方向偏转。这改善了夜间在弯道和转角处的可见性。一些先进系统还使用摄像头数据和GPS根据道路条件和对面来车调整光束模式。"
   },
   {
     id: 66,
@@ -540,7 +995,14 @@ const questionsA6 = [
     options: ["A) Oxygen sensor", "B) Ambient light sensor (photoelectric cell)", "C) Throttle position sensor", "D) Coolant temperature sensor"],
     answer: 1,
     explanation: "An ambient light sensor, also called a photoelectric cell or photo sensor, is mounted on the dashboard and detects the level of outside light. When light levels drop below a calibrated threshold, the body control module automatically turns on the headlights and taillights. This same sensor may also control automatic dimming of the instrument panel.",
-    diagram: ""
+    diagram: "",
+    terms: ["pcm", "relay", "wiring_diagram"],
+    image: "https://upload.wikimedia.org/wikipedia/commons/thumb/c/cd/Automotive_fuse_box.jpg/640px-Automotive_fuse_box.jpg",
+    youtube: "https://www.youtube.com/watch?v=F2XaKqS4Fl4",
+    youtubeTitle: "How to Read Automotive Wiring Diagrams",
+    qChinese: "车辆的大灯在天黑时自动开启。哪个传感器实现了这一功能？",
+    optionsChinese: ["A) 氧传感器","B) 环境光传感器（光电池）","C) 节气门位置传感器","D) 冷却液温度传感器"],
+    explanationChinese: "环境光传感器，也称为光电池或光传感器，安装在仪表板上，检测外部光线水平。当光线水平降至校准阈值以下时，车身控制模块自动打开大灯和尾灯。同一传感器还可以控制仪表板的自动调光。"
   },
 
   // =============================================
@@ -552,7 +1014,14 @@ const questionsA6 = [
     options: ["A) A blown fuse", "B) Binding or friction in the window track or regulator", "C) A bad master switch", "D) A dead battery"],
     answer: 1,
     explanation: "A power window that is slow in only one direction is typically caused by mechanical binding in the window track, worn window regulator components, or a dry/damaged window channel seal creating excessive friction. Electrical problems such as a blown fuse, bad switch, or dead battery would affect operation in both directions equally.",
-    diagram: ""
+    diagram: "",
+    terms: ["relay", "fuse", "ground_circuit"],
+    image: "https://upload.wikimedia.org/wikipedia/commons/thumb/c/cd/Automotive_fuse_box.jpg/640px-Automotive_fuse_box.jpg",
+    youtube: "https://www.youtube.com/watch?v=F2XaKqS4Fl4",
+    youtubeTitle: "How to Read Automotive Wiring Diagrams",
+    qChinese: "电动车窗仅在一个方向上运行缓慢。最可能的原因是什么？",
+    optionsChinese: ["A) 保险丝烧断","B) 车窗导轨或升降器中存在卡滞或摩擦","C) 主控开关故障","D) 电池没电"],
+    explanationChinese: "电动车窗仅在一个方向上运行缓慢通常是由于车窗导轨中的机械卡滞、磨损的车窗升降器部件或干燥/损坏的车窗密封条造成过大摩擦。保险丝烧断、开关故障或电池没电等电气问题会同等地影响两个方向的运行。"
   },
   {
     id: 68,
@@ -560,7 +1029,14 @@ const questionsA6 = [
     options: ["A) Technician A only", "B) Technician B only", "C) Both Technician A and Technician B", "D) Neither Technician A nor Technician B"],
     answer: 2,
     explanation: "Both technicians are correct. Power door lock actuators use a reversible DC motor that changes direction based on polarity reversal to lock or unlock. On modern vehicles, the body control module controls the actuators by sending polarity-reversed signals through relay circuits or directly through integrated driver circuits based on input from switches or remote signals.",
-    diagram: ""
+    diagram: "",
+    terms: ["relay", "pcm", "wiring_diagram"],
+    image: "https://upload.wikimedia.org/wikipedia/commons/thumb/c/cd/Automotive_fuse_box.jpg/640px-Automotive_fuse_box.jpg",
+    youtube: "https://www.youtube.com/watch?v=MHY2pjtS3LU",
+    youtubeTitle: "Automotive Relays and Fuses Explained",
+    qChinese: "技师A说电动门锁执行器通过反转极性来锁定和解锁。技师B说在现代车辆上，车身控制模块控制门锁执行器。谁是正确的？",
+    optionsChinese: ["A) 仅技师A","B) 仅技师B","C) 技师A和技师B都正确","D) 技师A和技师B都不正确"],
+    explanationChinese: "两位技师都是正确的。电动门锁执行器使用可逆直流电机，通过极性反转改变方向来锁定或解锁。在现代车辆上，车身控制模块通过继电器电路或直接通过集成驱动电路发送极性反转信号来控制执行器，基于来自开关或遥控信号的输入。"
   },
   {
     id: 69,
@@ -568,7 +1044,14 @@ const questionsA6 = [
     options: ["A) A faulty seat switch assembly", "B) A blown seat fuse", "C) A faulty tilt/recline motor or its circuit", "D) A dead battery"],
     answer: 2,
     explanation: "Since the seat moves forward and backward, the fuse, main power supply, and common ground are functional. The fault is isolated to the tilt/recline circuit, which typically has its own motor and switch contacts. A faulty tilt/recline motor, a broken wire in that specific circuit, or worn switch contacts for that function are the most likely causes.",
-    diagram: ""
+    diagram: "",
+    terms: ["fuse", "wiring_diagram", "ground_circuit"],
+    image: "https://upload.wikimedia.org/wikipedia/commons/thumb/c/cd/Automotive_fuse_box.jpg/640px-Automotive_fuse_box.jpg",
+    youtube: "https://www.youtube.com/watch?v=F2XaKqS4Fl4",
+    youtubeTitle: "How to Read Automotive Wiring Diagrams",
+    qChinese: "电动座椅可以前后移动，但无法倾斜或调节靠背。最可能的原因是什么？",
+    optionsChinese: ["A) 座椅开关总成故障","B) 座椅保险丝烧断","C) 倾斜/靠背电机或其电路故障","D) 电池没电"],
+    explanationChinese: "由于座椅可以前后移动，保险丝、主电源和公共搭铁都是正常的。故障被隔离到倾斜/靠背电路，该电路通常有自己的电机和开关触点。倾斜/靠背电机故障、该特定电路中的断线或磨损的开关触点是最可能的原因。"
   },
   {
     id: 70,
@@ -576,7 +1059,14 @@ const questionsA6 = [
     options: ["A) A corroded horn ground connection", "B) A worn horn relay", "C) A faulty radio antenna", "D) A cracked horn diaphragm"],
     answer: 2,
     explanation: "A faulty radio antenna is part of the entertainment system and has no connection to the horn circuit. A corroded ground connection adds resistance reducing current to the horn. A worn relay may not pass full current. A cracked horn diaphragm directly affects the horn's ability to produce full sound volume and tone.",
-    diagram: ""
+    diagram: "",
+    terms: ["relay", "ground_circuit", "voltage_drop_test"],
+    image: "https://upload.wikimedia.org/wikipedia/commons/thumb/c/cd/Automotive_fuse_box.jpg/640px-Automotive_fuse_box.jpg",
+    youtube: "https://www.youtube.com/watch?v=MHY2pjtS3LU",
+    youtubeTitle: "Automotive Relays and Fuses Explained",
+    qChinese: "车辆的喇叭声音微弱。以下所有情况都可能是原因，除了：",
+    optionsChinese: ["A) 喇叭接地连接腐蚀","B) 喇叭继电器磨损","C) 收音机天线故障","D) 喇叭膜片破裂"],
+    explanationChinese: "收音机天线故障属于娱乐系统，与喇叭电路无关。腐蚀的接地连接增加电阻，减少到喇叭的电流。磨损的继电器可能无法传递全部电流。破裂的喇叭膜片直接影响喇叭产生完整音量和音调的能力。"
   },
   {
     id: 71,
@@ -584,7 +1074,14 @@ const questionsA6 = [
     options: ["A) A faulty wiper motor", "B) A faulty wiper switch or resistor pack in the motor circuit", "C) A blown wiper fuse", "D) A broken wiper arm"],
     answer: 1,
     explanation: "Multi-speed wiper motors use internal brushes, external resistors, or electronic module control for different speeds. If high speed works but low and intermittent do not, the fault is in the speed control circuit, typically the wiper switch, the resistor pack, or the electronic control module. The motor itself and the fuse are functional since high speed works.",
-    diagram: ""
+    diagram: "",
+    terms: ["relay", "fuse", "wiring_diagram"],
+    image: "https://upload.wikimedia.org/wikipedia/commons/thumb/c/cd/Automotive_fuse_box.jpg/640px-Automotive_fuse_box.jpg",
+    youtube: "https://www.youtube.com/watch?v=MHY2pjtS3LU",
+    youtubeTitle: "Automotive Relays and Fuses Explained",
+    qChinese: "雨刮器仅在高速挡工作，低速和间歇模式不工作。最可能的原因是什么？",
+    optionsChinese: ["A) 雨刮电机故障","B) 雨刮开关或电机电路中的电阻组件故障","C) 雨刮保险丝烧断","D) 雨刮臂断裂"],
+    explanationChinese: "多速雨刮电机使用内部电刷、外部电阻器或电子模块控制不同速度。如果高速工作但低速和间歇不工作，故障在于速度控制电路，通常是雨刮开关、电阻组件或电子控制模块。由于高速工作，电机本身和保险丝是正常的。"
   },
   {
     id: 72,
@@ -592,7 +1089,14 @@ const questionsA6 = [
     options: ["A) A vacuum leak in the servo diaphragm", "B) A faulty vehicle speed sensor", "C) A misadjusted throttle cable", "D) A worn tire"],
     answer: 3,
     explanation: "A worn tire would slightly affect speedometer accuracy but would not cause cruise control to disengage on hills. A vacuum leak prevents the servo from maintaining throttle position under load. A faulty speed sensor provides incorrect speed data. A misadjusted throttle cable prevents the servo from applying enough throttle to maintain speed uphill.",
-    diagram: ""
+    diagram: "",
+    terms: ["speed_sensor", "throttle_position_sensor", "pcm"],
+    image: "https://upload.wikimedia.org/wikipedia/commons/thumb/c/cd/Automotive_fuse_box.jpg/640px-Automotive_fuse_box.jpg",
+    youtube: "https://www.youtube.com/watch?v=F2XaKqS4Fl4",
+    youtubeTitle: "How to Read Automotive Wiring Diagrams",
+    qChinese: "巡航控制系统在上坡时脱离。以下所有情况都可能导致此问题，除了：",
+    optionsChinese: ["A) 伺服膜片真空泄漏","B) 车速传感器故障","C) 节气门拉线调整不当","D) 轮胎磨损"],
+    explanationChinese: "磨损的轮胎会略微影响车速表精度，但不会导致巡航控制在上坡时脱离。真空泄漏阻止伺服在负载下保持节气门位置。车速传感器故障提供不正确的速度数据。节气门拉线调整不当阻止伺服施加足够的节气门以在上坡时保持速度。"
   },
   {
     id: 73,
@@ -600,7 +1104,14 @@ const questionsA6 = [
     options: ["A) A faulty door lock actuator", "B) A weak key fob battery", "C) A blown fuse in the vehicle", "D) A defective ignition switch"],
     answer: 1,
     explanation: "A keyless entry remote that only works at very close range almost always has a weak or dying battery. The remote transmits a radio frequency signal, and as the battery weakens, the signal strength decreases, reducing effective range. Replacing the key fob battery typically restores full operating range. This is the most common remote entry complaint.",
-    diagram: ""
+    diagram: "",
+    terms: ["battery", "relay", "pcm"],
+    image: "https://upload.wikimedia.org/wikipedia/commons/thumb/0/00/Battery_for_a_car.jpg/640px-Battery_for_a_car.jpg",
+    youtube: "https://www.youtube.com/watch?v=LGB6ZEjGm7E",
+    youtubeTitle: "Car Battery Testing and Diagnosis",
+    qChinese: "无钥匙进入遥控器仅在非常近的距离才工作。最可能的原因是什么？",
+    optionsChinese: ["A) 门锁执行器故障","B) 钥匙遥控器电池电量不足","C) 车辆保险丝烧断","D) 点火开关故障"],
+    explanationChinese: "无钥匙进入遥控器仅在非常近的距离才工作几乎总是电池电量不足或即将耗尽。遥控器发射无线电频率信号，随着电池电量减弱，信号强度降低，有效范围缩小。更换钥匙遥控器电池通常可以恢复完整的工作范围。这是最常见的遥控进入投诉。"
   },
   {
     id: 74,
@@ -608,7 +1119,14 @@ const questionsA6 = [
     options: ["A) The engine oil level", "B) The hood pin switch and system status conditions", "C) The alternator", "D) The exhaust system"],
     answer: 1,
     explanation: "Remote start systems have multiple safety interlocks that prevent engine starting. The hood pin switch is a common failure point; if it is stuck, disconnected, or misadjusted, the system will not start the engine as a safety precaution. Other conditions such as check engine light, low fuel, or an open door can also inhibit remote start.",
-    diagram: ""
+    diagram: "",
+    terms: ["starter_motor", "pcm", "relay"],
+    image: "https://upload.wikimedia.org/wikipedia/commons/thumb/b/b0/Automobile_starter.jpg/640px-Automobile_starter.jpg",
+    youtube: "https://www.youtube.com/watch?v=ose_OT7OWFQ",
+    youtubeTitle: "How a Starter Motor Works",
+    qChinese: "远程启动系统无法启动发动机。遥控器似乎已发送信号（指示灯闪烁）。应该首先检查什么？",
+    optionsChinese: ["A) 发动机机油液位","B) 引擎盖销开关和系统状态条件","C) 发电机","D) 排气系统"],
+    explanationChinese: "远程启动系统有多个安全联锁装置防止发动机启动。引擎盖销开关是常见的故障点；如果它卡住、断开或调整不当，系统出于安全考虑不会启动发动机。其他条件如发动机故障灯、燃油不足或车门打开也可能阻止远程启动。"
   },
   {
     id: 75,
@@ -616,7 +1134,14 @@ const questionsA6 = [
     options: ["A) A blown display fuse", "B) A faulty touchscreen digitizer layer", "C) A dead battery", "D) A disconnected antenna"],
     answer: 1,
     explanation: "The HMI touchscreen has two main layers: the display (LCD) and the touch-sensing digitizer layer on top. If the screen displays correctly but does not respond to touch, the digitizer or its connection is faulty. A fuse problem or dead battery would affect the entire display. An antenna issue would only affect radio or navigation reception.",
-    diagram: ""
+    diagram: "",
+    terms: ["fuse", "wiring_diagram", "can_bus"],
+    image: "https://upload.wikimedia.org/wikipedia/commons/thumb/c/cd/Automotive_fuse_box.jpg/640px-Automotive_fuse_box.jpg",
+    youtube: "https://www.youtube.com/watch?v=FqLDpHsxvR8",
+    youtubeTitle: "CAN Bus Communication Explained",
+    qChinese: "车辆的HMI（人机界面）触摸屏不响应触摸输入，但正常显示信息。最可能的原因是什么？",
+    optionsChinese: ["A) 显示屏保险丝烧断","B) 触摸屏数字化层故障","C) 电池没电","D) 天线断开"],
+    explanationChinese: "HMI触摸屏有两个主要层：显示层（LCD）和上面的触摸感应数字化层。如果屏幕显示正常但不响应触摸，则数字化层或其连接有故障。保险丝问题或电池没电会影响整个显示。天线问题只会影响收音机或导航接收。"
   },
   {
     id: 76,
@@ -624,7 +1149,14 @@ const questionsA6 = [
     options: ["A) The vehicle's main fuse box only", "B) The driver's seat heating element, switch, and dedicated wiring", "C) The alternator output", "D) The coolant temperature sensor"],
     answer: 1,
     explanation: "Since the passenger heated seat works, the system power supply and general fusing are functional. The fault is isolated to the driver's side circuit. The driver's seat heating element, its dedicated control switch, wiring connections under the seat, and the specific fuse for that circuit should be checked. Heating elements can develop open circuits from wear.",
-    diagram: ""
+    diagram: "",
+    terms: ["fuse", "wiring_diagram", "ground_circuit"],
+    image: "https://upload.wikimedia.org/wikipedia/commons/thumb/c/cd/Automotive_fuse_box.jpg/640px-Automotive_fuse_box.jpg",
+    youtube: "https://www.youtube.com/watch?v=F2XaKqS4Fl4",
+    youtubeTitle: "How to Read Automotive Wiring Diagrams",
+    qChinese: "驾驶员侧的座椅加热不工作，但乘客侧的座椅加热工作正常。应该检查什么？",
+    optionsChinese: ["A) 仅检查车辆主保险丝盒","B) 驾驶员座椅加热元件、开关和专用线路","C) 发电机输出","D) 冷却液温度传感器"],
+    explanationChinese: "由于乘客侧座椅加热工作正常，系统电源和总保险丝是正常的。故障被隔离到驾驶员侧电路。应检查驾驶员座椅加热元件、专用控制开关、座椅下方的线路连接以及该电路的专用保险丝。加热元件可能因磨损而产生开路。"
   },
   {
     id: 77,
@@ -632,7 +1164,14 @@ const questionsA6 = [
     options: ["A) Technician A only", "B) Technician B only", "C) Both Technician A and Technician B", "D) Neither Technician A nor Technician B"],
     answer: 0,
     explanation: "Only Technician A is correct. The immobilizer system disables the fuel injection, ignition system, or starter to prevent unauthorized starting. Technician B is incorrect because a flashing security light while driving indicates a system fault. During normal operation, the security light should illuminate briefly at startup and then turn off once the engine is running.",
-    diagram: ""
+    diagram: "",
+    terms: ["pcm", "fuel_injector", "ignition_coil", "starter_motor"],
+    image: "https://upload.wikimedia.org/wikipedia/commons/thumb/c/cd/Automotive_fuse_box.jpg/640px-Automotive_fuse_box.jpg",
+    youtube: "https://www.youtube.com/watch?v=F2XaKqS4Fl4",
+    youtubeTitle: "How to Read Automotive Wiring Diagrams",
+    qChinese: "技师A说防盗系统防盗锁止器通过禁用燃油或点火系统来阻止发动机启动。技师B说行驶中仪表板上安全指示灯闪烁表示系统正常工作。谁是正确的？",
+    optionsChinese: ["A) 仅技师A","B) 仅技师B","C) 技师A和技师B都正确","D) 技师A和技师B都不正确"],
+    explanationChinese: "只有技师A是正确的。防盗锁止系统通过禁用燃油喷射、点火系统或起动机来防止未经授权的启动。技师B是错误的，因为行驶中安全指示灯闪烁表示系统故障。在正常工作中，安全指示灯应在启动时短暂亮起，然后在发动机运转后熄灭。"
   },
   {
     id: 78,
@@ -640,7 +1179,14 @@ const questionsA6 = [
     options: ["A) Normal system operation", "B) The airbag system has a fault and may not deploy in a crash", "C) The airbags are about to deploy", "D) The seat belts need replacement"],
     answer: 1,
     explanation: "A continuously illuminated SRS warning light indicates a fault in the airbag system. The system has detected a problem and the airbags may not deploy properly in a crash. The vehicle should be diagnosed immediately with a scan tool capable of reading SRS codes. Common causes include faulty clock spring, sensor issues, or wiring problems.",
-    diagram: ""
+    diagram: "",
+    terms: ["scan_tool", "dtc", "wiring_diagram"],
+    image: "https://upload.wikimedia.org/wikipedia/commons/thumb/c/cd/Automotive_fuse_box.jpg/640px-Automotive_fuse_box.jpg",
+    youtube: "https://www.youtube.com/watch?v=F2XaKqS4Fl4",
+    youtubeTitle: "How to Read Automotive Wiring Diagrams",
+    qChinese: "SRS（辅助约束系统）安全气囊警告灯持续亮着。这说明什么？",
+    optionsChinese: ["A) 系统正常工作","B) 安全气囊系统有故障，在碰撞中可能无法展开","C) 安全气囊即将展开","D) 安全带需要更换"],
+    explanationChinese: "持续亮着的SRS警告灯表明安全气囊系统存在故障。系统已检测到问题，安全气囊在碰撞中可能无法正常展开。应立即使用能够读取SRS故障码的诊断仪进行诊断。常见原因包括游丝故障、传感器问题或线路问题。"
   },
   {
     id: 79,
@@ -648,7 +1194,14 @@ const questionsA6 = [
     options: ["A) A blown fuse for the display", "B) A dirty camera lens or faulty camera", "C) A defective transmission range sensor", "D) Low battery voltage"],
     answer: 1,
     explanation: "A dark but visible backup camera image most commonly indicates a dirty camera lens covered with mud, ice, or road grime. If cleaning the lens does not resolve the issue, the camera itself may have a failing image sensor or a damaged lens assembly. Since the image displays, the screen, fuse, and signal wiring are functioning correctly.",
-    diagram: ""
+    diagram: "",
+    terms: ["wiring_diagram", "fuse", "can_bus"],
+    image: "https://upload.wikimedia.org/wikipedia/commons/thumb/c/cd/Automotive_fuse_box.jpg/640px-Automotive_fuse_box.jpg",
+    youtube: "https://www.youtube.com/watch?v=FqLDpHsxvR8",
+    youtubeTitle: "CAN Bus Communication Explained",
+    qChinese: "倒车摄像头图像出现在屏幕上但非常暗。最可能的原因是什么？",
+    optionsChinese: ["A) 显示屏保险丝烧断","B) 摄像头镜头脏污或摄像头故障","C) 变速器档位传感器故障","D) 电池电压低"],
+    explanationChinese: "倒车摄像头图像暗淡但可见，最常见的原因是摄像头镜头被泥土、冰或路面污垢覆盖。如果清洁镜头不能解决问题，摄像头本身可能存在图像传感器故障或镜头组件损坏。由于图像可以显示，屏幕、保险丝和信号线路都工作正常。"
   },
   {
     id: 80,
@@ -656,7 +1209,14 @@ const questionsA6 = [
     options: ["A) Replace the window motor", "B) Perform an auto-down initialization or calibration procedure", "C) Replace the window fuse", "D) Replace the master window switch"],
     answer: 1,
     explanation: "Many vehicles require a window auto-up/auto-down initialization procedure after battery disconnection. The body control module loses its learned window travel endpoints when power is lost. The procedure typically involves holding the window switch in the full down position for several seconds, then holding it in the full up position until the calibration completes.",
-    diagram: ""
+    diagram: "",
+    terms: ["battery", "pcm", "scan_tool"],
+    image: "https://upload.wikimedia.org/wikipedia/commons/thumb/0/00/Battery_for_a_car.jpg/640px-Battery_for_a_car.jpg",
+    youtube: "https://www.youtube.com/watch?v=LGB6ZEjGm7E",
+    youtubeTitle: "Car Battery Testing and Diagnosis",
+    qChinese: "更换电池后，电动车窗一键下降功能停止工作。可能需要什么操作？",
+    optionsChinese: ["A) 更换车窗电机","B) 执行自动下降初始化或校准程序","C) 更换车窗保险丝","D) 更换主控车窗开关"],
+    explanationChinese: "许多车辆在断开电池后需要执行车窗自动上升/自动下降初始化程序。车身控制模块在断电时丢失了学习到的车窗行程端点。该程序通常包括按住车窗开关在完全下降位置数秒钟，然后按住在完全上升位置直到校准完成。"
   },
   {
     id: 81,
@@ -664,7 +1224,14 @@ const questionsA6 = [
     options: ["A) A blown fuse", "B) A faulty driver's door lock switch (unlock contact)", "C) A bad body control module", "D) A defective door lock actuator"],
     answer: 1,
     explanation: "Since locking works from the driver's switch and unlocking works from all other switches, the fuse, actuators, and body control module are functional. The fault is isolated to the unlock contact within the driver's door lock switch. The lock contact in the same switch works properly, but the unlock side has an internal open or poor contact.",
-    diagram: ""
+    diagram: "",
+    terms: ["relay", "wiring_diagram", "ground_circuit"],
+    image: "https://upload.wikimedia.org/wikipedia/commons/thumb/c/cd/Automotive_fuse_box.jpg/640px-Automotive_fuse_box.jpg",
+    youtube: "https://www.youtube.com/watch?v=MHY2pjtS3LU",
+    youtubeTitle: "Automotive Relays and Fuses Explained",
+    qChinese: "车辆的电动门锁可以锁定但无法从驾驶员车门开关解锁。所有其他开关都可以正常解锁。最可能的原因是什么？",
+    optionsChinese: ["A) 保险丝烧断","B) 驾驶员车门锁开关（解锁触点）故障","C) 车身控制模块故障","D) 门锁执行器故障"],
+    explanationChinese: "由于从驾驶员开关可以锁定，且从所有其他开关可以解锁，保险丝、执行器和车身控制模块都是正常的。故障被隔离到驾驶员车门锁开关内的解锁触点。同一开关中的锁定触点工作正常，但解锁侧存在内部开路或接触不良。"
   },
   {
     id: 82,
@@ -672,7 +1239,14 @@ const questionsA6 = [
     options: ["A) Technician A only", "B) Technician B only", "C) Both Technician A and Technician B", "D) Neither Technician A nor Technician B"],
     answer: 2,
     explanation: "Both technicians are correct. The airbag system must be disabled by disconnecting the battery and waiting the specified time (usually two or more minutes) before working on any SRS component to prevent accidental deployment. The steering wheel must be centered before installing the clock spring to ensure proper ribbon cable alignment and prevent damage during full steering rotation.",
-    diagram: ""
+    diagram: "",
+    terms: ["battery", "wiring_diagram", "scan_tool"],
+    image: "https://upload.wikimedia.org/wikipedia/commons/thumb/c/cd/Automotive_fuse_box.jpg/640px-Automotive_fuse_box.jpg",
+    youtube: "https://www.youtube.com/watch?v=F2XaKqS4Fl4",
+    youtubeTitle: "How to Read Automotive Wiring Diagrams",
+    qChinese: "技师A说更换SRS游丝需要先禁用安全气囊系统。技师B说安装新游丝前方向盘必须居中。谁是正确的？",
+    optionsChinese: ["A) 仅技师A","B) 仅技师B","C) 技师A和技师B都正确","D) 技师A和技师B都不正确"],
+    explanationChinese: "两位技师都是正确的。在处理任何SRS部件之前，必须通过断开电池并等待规定时间（通常两分钟或更长）来禁用安全气囊系统，以防止意外展开。安装游丝前方向盘必须居中，以确保带状电缆正确对齐，防止在方向盘完全旋转时损坏。"
   },
   {
     id: 83,
@@ -680,7 +1254,14 @@ const questionsA6 = [
     options: ["A) Lane departure warning", "B) Automatic high beam control", "C) Tire pressure monitoring", "D) Forward collision warning"],
     answer: 2,
     explanation: "Tire pressure monitoring uses dedicated pressure sensors inside each wheel, not a forward-facing camera. Forward-facing cameras are used for lane departure warning by detecting lane markings, automatic high beam control by detecting oncoming headlights, and forward collision warning by identifying vehicles and obstacles ahead of the vehicle.",
-    diagram: ""
+    diagram: "",
+    terms: ["tire_pressure", "pcm", "can_bus"],
+    image: "https://upload.wikimedia.org/wikipedia/commons/thumb/c/cd/Automotive_fuse_box.jpg/640px-Automotive_fuse_box.jpg",
+    youtube: "https://www.youtube.com/watch?v=FqLDpHsxvR8",
+    youtubeTitle: "CAN Bus Communication Explained",
+    qChinese: "配备自动大灯的车辆有一个前置摄像头，用于以下所有功能，除了：",
+    optionsChinese: ["A) 车道偏离警告","B) 自动远光灯控制","C) 胎压监测","D) 前方碰撞警告"],
+    explanationChinese: "胎压监测使用安装在每个车轮内的专用压力传感器，而不是前置摄像头。前置摄像头用于车道偏离警告（通过检测车道标线）、自动远光灯控制（通过检测对面来车的大灯）以及前方碰撞警告（通过识别前方车辆和障碍物）。"
   },
   {
     id: 84,
@@ -688,7 +1269,14 @@ const questionsA6 = [
     options: ["A) The alternator output", "B) The heated steering wheel fuse and clock spring circuit", "C) The battery state of charge", "D) The engine coolant temperature"],
     answer: 1,
     explanation: "Since all other electrical accessories work, general power supply is fine. The heated steering wheel has its own fuse and receives power through the clock spring assembly that connects rotating steering wheel components to stationary vehicle wiring. A blown dedicated fuse or an open circuit in the clock spring can disable only the heated steering wheel function.",
-    diagram: ""
+    diagram: "",
+    terms: ["fuse", "wiring_diagram", "ground_circuit"],
+    image: "https://upload.wikimedia.org/wikipedia/commons/thumb/c/cd/Automotive_fuse_box.jpg/640px-Automotive_fuse_box.jpg",
+    youtube: "https://www.youtube.com/watch?v=MHY2pjtS3LU",
+    youtubeTitle: "Automotive Relays and Fuses Explained",
+    qChinese: "加热方向盘不工作。座椅加热和所有其他电气附件功能正常。应该首先检查什么？",
+    optionsChinese: ["A) 发电机输出","B) 加热方向盘保险丝和游丝电路","C) 电池充电状态","D) 发动机冷却液温度"],
+    explanationChinese: "由于所有其他电气附件工作正常，总电源供应没有问题。加热方向盘有自己的保险丝，并通过游丝总成接收电源，游丝将旋转的方向盘部件连接到固定的车辆线路。专用保险丝烧断或游丝电路开路可以仅禁用加热方向盘功能。"
   },
   {
     id: 85,
@@ -696,7 +1284,14 @@ const questionsA6 = [
     options: ["A) A dead battery", "B) A faulty sunroof switch, motor, or track obstruction", "C) A blown engine fuse", "D) A defective alternator"],
     answer: 1,
     explanation: "Since the sunroof opens, the fuse and power supply are working. A fault in the close direction could be caused by a defective switch contact for the close function, a motor that only runs in one direction due to a worn brush, or a mechanical obstruction or binding in the track that prevents closing. The track and drain system should also be inspected.",
-    diagram: ""
+    diagram: "",
+    terms: ["relay", "fuse", "wiring_diagram"],
+    image: "https://upload.wikimedia.org/wikipedia/commons/thumb/c/cd/Automotive_fuse_box.jpg/640px-Automotive_fuse_box.jpg",
+    youtube: "https://www.youtube.com/watch?v=MHY2pjtS3LU",
+    youtubeTitle: "Automotive Relays and Fuses Explained",
+    qChinese: "车辆的电动天窗可以打开但无法关闭。最可能的原因是什么？",
+    optionsChinese: ["A) 电池没电","B) 天窗开关、电机或导轨阻碍故障","C) 发动机保险丝烧断","D) 发电机故障"],
+    explanationChinese: "由于天窗可以打开，保险丝和电源供应正常工作。关闭方向的故障可能是由关闭功能的开关触点故障、由于电刷磨损仅能单向运转的电机或导轨中的机械阻碍或卡滞导致无法关闭。还应检查导轨和排水系统。"
   },
   {
     id: 86,
@@ -704,7 +1299,14 @@ const questionsA6 = [
     options: ["A) Time the airbag deployment", "B) Maintain electrical connections to the steering wheel while it rotates", "C) Wind the horn spring mechanism", "D) Adjust steering wheel height"],
     answer: 1,
     explanation: "The clock spring is a coiled flat ribbon cable assembly that maintains continuous electrical connections between the steering column wiring and components on the rotating steering wheel, including the driver airbag, horn, and steering wheel controls. It coils and uncoils as the wheel turns, allowing full rotation without breaking connections.",
-    diagram: ""
+    diagram: "",
+    terms: ["wiring_diagram", "scan_tool", "dtc"],
+    image: "https://upload.wikimedia.org/wikipedia/commons/thumb/c/cd/Automotive_fuse_box.jpg/640px-Automotive_fuse_box.jpg",
+    youtube: "https://www.youtube.com/watch?v=F2XaKqS4Fl4",
+    youtubeTitle: "How to Read Automotive Wiring Diagrams",
+    qChinese: "SRS系统使用位于转向柱中的游丝来：",
+    optionsChinese: ["A) 控制安全气囊展开时间","B) 在方向盘旋转时保持与方向盘的电气连接","C) 缠绕喇叭弹簧机构","D) 调节方向盘高度"],
+    explanationChinese: "游丝是一个卷绕的扁平带状电缆组件，在转向柱线路和旋转方向盘上的部件（包括驾驶员安全气囊、喇叭和方向盘控制开关）之间保持持续的电气连接。它随方向盘旋转而卷绕和展开，允许完全旋转而不中断连接。"
   },
   {
     id: 87,
@@ -712,7 +1314,14 @@ const questionsA6 = [
     options: ["A) A weak battery", "B) One or more broken heating grid lines", "C) A faulty defroster switch", "D) A blown defroster fuse"],
     answer: 1,
     explanation: "Rear window defrosters use thin conductive heating grid lines printed on the glass. If one or more lines are broken, those sections will not heat and the window clears only partially. Broken grid lines can be repaired with conductive paint. A bad switch, blown fuse, or weak battery would affect the entire defroster, not just portions.",
-    diagram: ""
+    diagram: "",
+    terms: ["series_circuit", "dmm", "ground_circuit"],
+    image: "https://upload.wikimedia.org/wikipedia/commons/thumb/7/78/Fluke_87_multimeter.jpg/400px-Fluke_87_multimeter.jpg",
+    youtube: "https://www.youtube.com/watch?v=CBBh3ind-EU",
+    youtubeTitle: "Using a Multimeter for Automotive Testing",
+    qChinese: "车辆的后窗除霜器只能清除部分车窗。最可能的原因是什么？",
+    optionsChinese: ["A) 电池电量不足","B) 一条或多条加热栅格线断裂","C) 除霜器开关故障","D) 除霜器保险丝烧断"],
+    explanationChinese: "后窗除霜器使用印刷在玻璃上的细导电加热栅格线。如果一条或多条线断裂，那些部分将不会加热，车窗只能部分清除。断裂的栅格线可以用导电漆修复。开关故障、保险丝烧断或电池电量不足会影响整个除霜器，而不仅仅是部分区域。"
   },
   {
     id: 88,
@@ -720,7 +1329,14 @@ const questionsA6 = [
     options: ["A) Technician A only", "B) Technician B only", "C) Both Technician A and Technician B", "D) Neither Technician A nor Technician B"],
     answer: 2,
     explanation: "Both technicians are correct. A scan tool is essential for reading diagnostic trouble codes, viewing data parameters, and performing module resets on the body control module. Modern BCMs are central controllers that manage numerous vehicle systems including interior and exterior lighting, power locks, power windows, keyless entry, and many other convenience features.",
-    diagram: ""
+    diagram: "",
+    terms: ["scan_tool", "dtc", "can_bus", "pcm"],
+    image: "https://upload.wikimedia.org/wikipedia/commons/thumb/c/cd/Automotive_fuse_box.jpg/640px-Automotive_fuse_box.jpg",
+    youtube: "https://www.youtube.com/watch?v=FqLDpHsxvR8",
+    youtubeTitle: "CAN Bus Communication Explained",
+    qChinese: "技师A说需要诊断仪来诊断车身控制模块通信故障。技师B说车身控制模块可以控制多个系统，包括照明、门锁和车窗。谁是正确的？",
+    optionsChinese: ["A) 仅技师A","B) 仅技师B","C) 技师A和技师B都正确","D) 技师A和技师B都不正确"],
+    explanationChinese: "两位技师都是正确的。诊断仪对于读取故障码、查看数据参数和执行车身控制模块复位至关重要。现代BCM是中央控制器，管理众多车辆系统，包括内部和外部照明、电动门锁、电动车窗、无钥匙进入以及许多其他便利功能。"
   },
   {
     id: 89,
@@ -728,7 +1344,14 @@ const questionsA6 = [
     options: ["A) A stuck horn relay or a shorted horn switch", "B) A blown horn fuse", "C) A disconnected horn ground wire", "D) A weak battery"],
     answer: 0,
     explanation: "A continuously sounding horn is caused by a stuck horn relay that remains closed, or a shorted horn switch providing constant ground to the relay coil. The relay contacts are stuck in the closed position, allowing continuous power to the horn. A blown fuse would silence the horn, and a disconnected ground would prevent the horn from sounding.",
-    diagram: ""
+    diagram: "",
+    terms: ["relay", "ground_circuit", "fuse"],
+    image: "https://upload.wikimedia.org/wikipedia/commons/thumb/c/cd/Automotive_fuse_box.jpg/640px-Automotive_fuse_box.jpg",
+    youtube: "https://www.youtube.com/watch?v=MHY2pjtS3LU",
+    youtubeTitle: "Automotive Relays and Fuses Explained",
+    qChinese: "车辆的喇叭在未按喇叭按钮的情况下持续响。最可能的原因是什么？",
+    optionsChinese: ["A) 喇叭继电器卡住或喇叭开关短路","B) 喇叭保险丝烧断","C) 喇叭接地线断开","D) 电池电量不足"],
+    explanationChinese: "持续响的喇叭是由卡住的喇叭继电器保持闭合，或短路的喇叭开关向继电器线圈提供持续搭铁引起的。继电器触点卡在闭合位置，允许持续向喇叭供电。保险丝烧断会使喇叭静音，接地线断开会阻止喇叭发声。"
   },
   {
     id: 90,
@@ -736,7 +1359,14 @@ const questionsA6 = [
     options: ["A) The wiper motor", "B) The washer pump fuse, switch, and pump motor", "C) The wiper arm alignment", "D) The transmission fluid level"],
     answer: 1,
     explanation: "Since wipers work, the general wiper system power is functional. The washer pump circuit is separate and includes its own fuse, the washer switch or stalk contact, and the pump motor. Check for power and ground at the pump connector. Common failures include a burned-out pump motor, a blown washer pump fuse, or a faulty switch contact.",
-    diagram: ""
+    diagram: "",
+    terms: ["fuse", "relay", "ground_circuit"],
+    image: "https://upload.wikimedia.org/wikipedia/commons/thumb/c/cd/Automotive_fuse_box.jpg/640px-Automotive_fuse_box.jpg",
+    youtube: "https://www.youtube.com/watch?v=MHY2pjtS3LU",
+    youtubeTitle: "Automotive Relays and Fuses Explained",
+    qChinese: "车辆的挡风玻璃清洗泵不工作，但雨刮器工作正常。清洗液储液罐已满。应该检查什么？",
+    optionsChinese: ["A) 雨刮电机","B) 清洗泵保险丝、开关和泵电机","C) 雨刮臂对准","D) 变速箱油液位"],
+    explanationChinese: "由于雨刮器工作正常，一般雨刮系统的电源是正常的。清洗泵电路是独立的，包括自己的保险丝、清洗开关或拨杆触点以及泵电机。检查泵接插件处的电源和搭铁。常见故障包括泵电机烧毁、清洗泵保险丝烧断或开关触点故障。"
   },
   {
     id: 91,
@@ -744,7 +1374,14 @@ const questionsA6 = [
     options: ["A) The engine oil level", "B) The rear bumper-mounted radar sensors for damage or obstruction", "C) The brake pad thickness", "D) The spark plugs"],
     answer: 1,
     explanation: "Blind spot monitoring systems use radar sensors typically mounted behind the rear bumper fascia. Physical damage from a minor rear impact, accumulated mud, ice, or aftermarket bumper accessories can obstruct or damage these sensors. A visual inspection and scan tool check for fault codes related to the blind spot monitoring sensors should be performed first.",
-    diagram: ""
+    diagram: "",
+    terms: ["scan_tool", "dtc", "pcm"],
+    image: "https://upload.wikimedia.org/wikipedia/commons/thumb/c/cd/Automotive_fuse_box.jpg/640px-Automotive_fuse_box.jpg",
+    youtube: "https://www.youtube.com/watch?v=FqLDpHsxvR8",
+    youtubeTitle: "CAN Bus Communication Explained",
+    qChinese: "盲区监测系统警告灯持续亮着且系统不工作。应该首先检查什么？",
+    optionsChinese: ["A) 发动机机油液位","B) 后保险杠安装的雷达传感器是否损坏或被遮挡","C) 刹车片厚度","D) 火花塞"],
+    explanationChinese: "盲区监测系统使用通常安装在后保险杠饰板后面的雷达传感器。来自轻微后碰撞的物理损坏、积聚的泥土、冰或售后保险杠附件可能遮挡或损坏这些传感器。应首先进行目视检查和诊断仪检查与盲区监测传感器相关的故障码。"
   },
   {
     id: 92,
@@ -752,7 +1389,14 @@ const questionsA6 = [
     options: ["A) A faulty mirror select switch set to the wrong position", "B) A faulty mirror motor assembly or wiring to that mirror", "C) A dead battery", "D) A bad body control module"],
     answer: 1,
     explanation: "Since the other mirror works normally, the fuse, switch, and common wiring are functional. The fault is isolated to the non-working mirror. The most likely cause is a faulty mirror motor assembly or a wiring problem in the harness going to that specific mirror. However, the mirror select switch position should also be verified before further diagnosis.",
-    diagram: ""
+    diagram: "",
+    terms: ["wiring_diagram", "ground_circuit", "fuse"],
+    image: "https://upload.wikimedia.org/wikipedia/commons/thumb/c/cd/Automotive_fuse_box.jpg/640px-Automotive_fuse_box.jpg",
+    youtube: "https://www.youtube.com/watch?v=F2XaKqS4Fl4",
+    youtubeTitle: "How to Read Automotive Wiring Diagrams",
+    qChinese: "一个电动后视镜无法在任何方向调节。另一个后视镜工作正常。最可能的原因是什么？",
+    optionsChinese: ["A) 后视镜选择开关设置在错误位置","B) 后视镜电机总成或到该后视镜的线路故障","C) 电池没电","D) 车身控制模块故障"],
+    explanationChinese: "由于另一个后视镜工作正常，保险丝、开关和公共线路都是正常的。故障被隔离到不工作的后视镜。最可能的原因是后视镜电机总成故障或通往该特定后视镜的线束中的线路问题。但是，在进一步诊断前还应验证后视镜选择开关的位置。"
   },
   {
     id: 93,
@@ -760,7 +1404,14 @@ const questionsA6 = [
     options: ["A) Technician A only", "B) Technician B only", "C) Both Technician A and Technician B", "D) Neither Technician A nor Technician B"],
     answer: 2,
     explanation: "Both technicians are correct. Memory seat systems store the driver's preferred seat positions in the body control module or a dedicated seat memory module. Position feedback sensors on each seat adjustment motor track the exact seat position so the module can accurately return the seat to the stored settings when a memory button or key fob is activated.",
-    diagram: ""
+    diagram: "",
+    terms: ["pcm", "can_bus", "wiring_diagram"],
+    image: "https://upload.wikimedia.org/wikipedia/commons/thumb/c/cd/Automotive_fuse_box.jpg/640px-Automotive_fuse_box.jpg",
+    youtube: "https://www.youtube.com/watch?v=FqLDpHsxvR8",
+    youtubeTitle: "CAN Bus Communication Explained",
+    qChinese: "技师A说车辆的记忆座椅系统将位置数据存储在车身控制模块或座椅模块中。技师B说记忆座椅使用位置传感器来跟踪座椅调节。谁是正确的？",
+    optionsChinese: ["A) 仅技师A","B) 仅技师B","C) 技师A和技师B都正确","D) 技师A和技师B都不正确"],
+    explanationChinese: "两位技师都是正确的。记忆座椅系统将驾驶员的首选座椅位置存储在车身控制模块或专用座椅记忆模块中。每个座椅调节电机上的位置反馈传感器跟踪精确的座椅位置，以便模块在按下记忆按钮或使用钥匙遥控器时能够准确地将座椅恢复到存储的设置。"
   },
   {
     id: 94,
@@ -768,7 +1419,14 @@ const questionsA6 = [
     options: ["A) Applying the brakes fully", "B) Vibrating the steering wheel, sounding an audible chime, or both", "C) Shutting off the engine", "D) Turning on the hazard lights"],
     answer: 1,
     explanation: "Lane departure warning systems alert the driver through haptic feedback such as steering wheel vibration, audible chimes or tones, and sometimes visual warnings on the instrument cluster or HMI display. Some advanced systems also provide gentle corrective steering input. The system does not shut off the engine, fully apply brakes, or activate hazard lights.",
-    diagram: ""
+    diagram: "",
+    terms: ["pcm", "speed_sensor", "can_bus"],
+    image: "https://upload.wikimedia.org/wikipedia/commons/thumb/c/cd/Automotive_fuse_box.jpg/640px-Automotive_fuse_box.jpg",
+    youtube: "https://www.youtube.com/watch?v=FqLDpHsxvR8",
+    youtubeTitle: "CAN Bus Communication Explained",
+    qChinese: "车道偏离警告系统通过以下方式发出警报：",
+    optionsChinese: ["A) 完全踩下制动","B) 方向盘振动、发出提示音或两者兼有","C) 关闭发动机","D) 打开危险警示灯"],
+    explanationChinese: "车道偏离警告系统通过触觉反馈（如方向盘振动）、声音提示或音调以及有时在仪表盘或HMI显示屏上的视觉警告来提醒驾驶员。一些先进系统还提供轻微的纠正转向输入。该系统不会关闭发动机、完全踩下制动或激活危险警示灯。"
   },
   {
     id: 95,
@@ -776,7 +1434,14 @@ const questionsA6 = [
     options: ["A) A faulty compressor", "B) A failed blower motor resistor or control module", "C) Low refrigerant charge", "D) A clogged cabin air filter"],
     answer: 1,
     explanation: "The blower motor resistor block or electronic control module regulates blower speed by varying voltage or using pulse-width modulation. When this component fails, the blower often defaults to full speed because the full-speed circuit typically bypasses the resistor. A faulty compressor or low refrigerant affects cooling, not blower speed. A clogged filter reduces airflow but not motor speed.",
-    diagram: ""
+    diagram: "",
+    terms: ["blower_motor", "series_circuit", "fuse"],
+    image: "https://upload.wikimedia.org/wikipedia/commons/thumb/c/cd/Automotive_fuse_box.jpg/640px-Automotive_fuse_box.jpg",
+    youtube: "https://www.youtube.com/watch?v=MHY2pjtS3LU",
+    youtubeTitle: "Automotive Relays and Fuses Explained",
+    qChinese: "车辆的自动空调鼓风机电机仅在最高速运行。最可能的原因是什么？",
+    optionsChinese: ["A) 压缩机故障","B) 鼓风机电阻或控制模块失效","C) 制冷剂不足","D) 空调滤清器堵塞"],
+    explanationChinese: "鼓风机电阻组或电子控制模块通过改变电压或使用脉宽调制来调节鼓风机转速。当该部件失效时，鼓风机通常默认为最高速，因为最高速电路通常绕过电阻器。压缩机故障或制冷剂不足影响制冷，而不是鼓风机转速。滤清器堵塞减少气流但不影响电机转速。"
   },
   {
     id: 96,
@@ -784,7 +1449,14 @@ const questionsA6 = [
     options: ["A) A defective display screen", "B) A damaged or misaligned individual camera", "C) A bad alternator", "D) Low tire pressure"],
     answer: 1,
     explanation: "The 360-degree surround view system uses multiple cameras (typically four) and stitches their images together. If only one view is distorted while others are clear, the individual camera is damaged, misaligned, or has a dirty lens. Water intrusion, physical impact, or a loose mounting can cause individual camera distortion without affecting the rest of the system.",
-    diagram: ""
+    diagram: "",
+    terms: ["wiring_diagram", "can_bus", "pcm"],
+    image: "https://upload.wikimedia.org/wikipedia/commons/thumb/c/cd/Automotive_fuse_box.jpg/640px-Automotive_fuse_box.jpg",
+    youtube: "https://www.youtube.com/watch?v=FqLDpHsxvR8",
+    youtubeTitle: "CAN Bus Communication Explained",
+    qChinese: "360度全景摄像系统中一个摄像头显示变形的图像。其他摄像头工作正常。最可能的原因是什么？",
+    optionsChinese: ["A) 显示屏故障","B) 单个摄像头损坏或未对准","C) 发电机故障","D) 胎压不足"],
+    explanationChinese: "360度全景系统使用多个摄像头（通常四个）并将其图像拼接在一起。如果只有一个视角变形而其他视角清晰，则单个摄像头损坏、未对准或镜头脏污。进水、物理撞击或安装松动可能导致单个摄像头失真而不影响系统其余部分。"
   },
   {
     id: 97,
@@ -792,7 +1464,14 @@ const questionsA6 = [
     options: ["A) The tires are overinflated", "B) A faulty TPMS sensor or the system needs to be reset", "C) The brake pads are worn", "D) The alternator is overcharging"],
     answer: 1,
     explanation: "If the TPMS light remains on after proper tire inflation, a faulty pressure sensor in one of the wheels may not be transmitting correctly, or the system requires a relearn or reset procedure. TPMS sensor batteries can fail after several years. Some vehicles require a reset procedure after tire inflation changes using a scan tool or specific driving routine.",
-    diagram: ""
+    diagram: "",
+    terms: ["tire_pressure", "scan_tool", "battery"],
+    image: "https://upload.wikimedia.org/wikipedia/commons/thumb/c/cd/Automotive_fuse_box.jpg/640px-Automotive_fuse_box.jpg",
+    youtube: "https://www.youtube.com/watch?v=F2XaKqS4Fl4",
+    youtubeTitle: "How to Read Automotive Wiring Diagrams",
+    qChinese: "配备胎压监测系统（TPMS）的车辆显示警告灯。将所有轮胎充气到正确压力后，警告灯仍然亮着。最可能的原因是什么？",
+    optionsChinese: ["A) 轮胎充气过度","B) TPMS传感器故障或系统需要复位","C) 刹车片磨损","D) 发电机过度充电"],
+    explanationChinese: "如果TPMS灯在正确充气后仍然亮着，可能是某个车轮中的压力传感器无法正确传输信号，或者系统需要重新学习或复位程序。TPMS传感器电池在使用数年后可能会失效。某些车辆在轮胎充气压力变化后需要使用诊断仪或特定驾驶程序进行复位。"
   },
   {
     id: 98,
@@ -800,7 +1479,14 @@ const questionsA6 = [
     options: ["A) The alternator output", "B) The ambient lighting module wiring connections and ground", "C) The engine spark plugs", "D) The brake fluid level"],
     answer: 1,
     explanation: "Intermittent LED flickering isolated to the ambient lighting system with all other systems working normally points to a wiring or connection problem specific to that circuit. Loose connectors, poor ground connections, or a failing ambient lighting control module are the most likely causes. The alternator and general electrical system are ruled out since everything else works fine.",
-    diagram: ""
+    diagram: "",
+    terms: ["ground_circuit", "wiring_diagram", "fuse"],
+    image: "https://upload.wikimedia.org/wikipedia/commons/thumb/c/cd/Automotive_fuse_box.jpg/640px-Automotive_fuse_box.jpg",
+    youtube: "https://www.youtube.com/watch?v=F2XaKqS4Fl4",
+    youtubeTitle: "Automotive Ground Circuit Diagnosis",
+    qChinese: "车辆的氛围灯LED间歇性闪烁。所有其他电气系统工作正常。应该检查什么？",
+    optionsChinese: ["A) 发电机输出","B) 氛围灯模块线路连接和搭铁","C) 发动机火花塞","D) 制动液液位"],
+    explanationChinese: "在所有其他系统正常工作的情况下，氛围灯系统孤立的间歇性LED闪烁指向该电路特定的线路或连接问题。松动的接插件、接地连接不良或氛围灯控制模块即将失效是最可能的原因。由于其他所有设备都正常工作，发电机和总电气系统可以排除。"
   },
   {
     id: 99,
@@ -808,7 +1494,14 @@ const questionsA6 = [
     options: ["A) Technician A only", "B) Technician B only", "C) Both Technician A and Technician B", "D) Neither Technician A nor Technician B"],
     answer: 2,
     explanation: "Both technicians are correct. Parking assist systems typically use ultrasonic sensors embedded in the bumper to detect nearby objects by emitting sound waves and measuring return time. Excessive paint thickness, aftermarket coatings, or metallic paints applied over the sensors can dampen the ultrasonic signal and affect detection accuracy or range.",
-    diagram: ""
+    diagram: "",
+    terms: ["pcm", "scan_tool", "can_bus"],
+    image: "https://upload.wikimedia.org/wikipedia/commons/thumb/c/cd/Automotive_fuse_box.jpg/640px-Automotive_fuse_box.jpg",
+    youtube: "https://www.youtube.com/watch?v=FqLDpHsxvR8",
+    youtubeTitle: "CAN Bus Communication Explained",
+    qChinese: "技师A说泊车辅助系统使用超声波传感器来检测物体。技师B说保险杠上的油漆或售后涂层会影响泊车传感器的工作。谁是正确的？",
+    optionsChinese: ["A) 仅技师A","B) 仅技师B","C) 技师A和技师B都正确","D) 技师A和技师B都不正确"],
+    explanationChinese: "两位技师都是正确的。泊车辅助系统通常使用嵌入保险杠中的超声波传感器，通过发射声波并测量返回时间来检测附近物体。传感器上过厚的油漆、售后涂层或金属漆会削弱超声波信号，影响检测精度或范围。"
   },
   {
     id: 100,
@@ -816,6 +1509,13 @@ const questionsA6 = [
     options: ["A) Replace the brake master cylinder", "B) Recalibrate or replace the steering angle sensor", "C) Replace the alternator", "D) Adjust the headlight aim"],
     answer: 1,
     explanation: "The steering angle sensor provides critical input to the ESC system about the direction the driver intends to steer. A fault code for this sensor requires recalibration, which is often needed after wheel alignment, steering component replacement, or battery disconnection. If recalibration fails, the sensor may need replacement to restore full ESC functionality.",
-    diagram: ""
+    diagram: "",
+    terms: ["scan_tool", "dtc", "wheel_alignment", "abs"],
+    image: "https://upload.wikimedia.org/wikipedia/commons/thumb/c/cd/Automotive_fuse_box.jpg/640px-Automotive_fuse_box.jpg",
+    youtube: "https://www.youtube.com/watch?v=F2XaKqS4Fl4",
+    youtubeTitle: "How to Read Automotive Wiring Diagrams",
+    qChinese: "车辆的电子稳定控制（ESC）警告灯亮起且系统被禁用。诊断仪显示转向角传感器故障码。最可能的维修方法是什么？",
+    optionsChinese: ["A) 更换制动主缸","B) 重新校准或更换转向角传感器","C) 更换发电机","D) 调整大灯照射角度"],
+    explanationChinese: "转向角传感器为ESC系统提供关于驾驶员预期转向方向的关键输入。该传感器的故障码需要重新校准，这通常在四轮定位、转向部件更换或电池断开后需要进行。如果重新校准失败，可能需要更换传感器以恢复完整的ESC功能。"
   }
 ];

@@ -212,3 +212,42 @@ task {
   }
   status: "completed"
 }
+
+task {
+  in ./ase_study_qa {
+    along with the answer, please also give me a knowledge or terms links showing me the related terms, when click on term {
+      show a modal containing 50-60 words explanation on the meaning of the term
+    }
+  }
+  status: "completed"
+}
+
+task {
+  in ./ase_study_qa {
+    for the explanation of each question, please include an image and a related youtube video link
+    same when click open a term
+  }
+  status: "completed"
+}
+
+task {
+  in ./ase_study_qa/terms_glossary.js {
+    fix all youtube videos that do not exist
+    fix all images that do not exist
+  }
+  status: "completed"
+}
+
+task {
+  in ./ase_study_qa/terms_glossary.js {
+    for the term and definition {
+      add chinese simplified translation
+    }
+  }
+  status: "completed"
+}
+
+task {
+  for each question and answers and the related terms, also include the chinese translation
+  status: "completed"
+}
