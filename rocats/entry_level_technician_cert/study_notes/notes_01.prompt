@@ -29,3 +29,33 @@ a {
 
   Aerospace: Managing flight control systems.
 }
+
+q-A6-77 {
+  Seeing a flashing security light while you’re already moving can be a bit unnerving, but the good news is that it usually doesn’t mean your car is about to stall or explode. It typically points to a glitch in the Engine Immobilizer or the Anti-Theft System.
+
+  Here is what is likely happening and what you should do:
+
+  1. The Most Common Culprit: Sensor Confusion
+  The security system (often represented by a key icon or a car with a padlock) is designed to check if the correct key is in the ignition. Sometimes, a bump in the road or a weak battery in your key fob can cause the system to "lose its place" and think it’s being stolen, even though the engine is already running.
+
+  2. Is it Dangerous?
+  While Driving: Generally, no. Most modern cars are designed with a "fail-safe" so that the security system will not shut off the engine while the vehicle is in motion for safety reasons.
+
+  After You Park: This is the real risk. If the system thinks the key is invalid, it may prevent you from restarting the car once you turn it off.
+
+  3. Immediate Steps to Take
+  Don't Panic: Continue driving to your destination or, ideally, a safe place like your home or a mechanic.
+
+  Check Your Key Fob: If you have a push-to-start car, try holding the key fob closer to the start button or the steering column.
+
+  Look for Other Lights: If the "Check Engine" light or "Battery" light is also on, the issue might be a failing alternator or a low 12V battery, which provides inconsistent power to the security sensors.
+
+  4. How to Reset It
+  Once you are safely parked, you can try these quick fixes:
+
+  Cycle the Ignition: Turn the car off, wait a full minute, and try to restart it.
+
+  Lock/Unlock: Use the physical key (if available) to lock and unlock the driver's door manually. This often "re-arms" and resets the anti-theft sequence.
+
+  Check the Fob Battery: Replace the battery in your key remote. A weak signal is the #1 cause of "ghost" security lights.
+}
