@@ -1194,5 +1194,1253 @@ const termsGlossary = {
     image: "https://upload.wikimedia.org/wikipedia/commons/1/1e/Tire_Valve_Stem.jpg",
     youtube: "https://www.youtube.com/watch?v=K9Gu0f64NWU",
     youtubeTitle: "How to Replace Your Windshield Wiper Blades"
+  },
+
+  // ===== ADDITIONAL TERMS BATCH 1: ENGINE COMPONENTS =====
+  "intake_manifold": {
+    term: "Intake Manifold",
+    termChinese: "进气歧管",
+    section: "A1",
+    definition: "A set of tubes that distributes the air-fuel mixture or air (in fuel-injected engines) from the throttle body to each cylinder's intake port. It must provide equal-length runners for balanced airflow. Leaks cause vacuum loss, rough idle, and lean conditions. Plastic manifolds are common on modern engines for weight savings.",
+    definitionChinese: "一组管道，将空气燃油混合物或空气（在燃油喷射发动机中）从节气门体分配到每个气缸的进气口。它必须提供等长的进气道以实现均衡的气流。泄漏会导致真空损失、怠速不稳和混合气偏稀。现代发动机常用塑料歧管以减轻重量。",
+    image: "https://upload.wikimedia.org/wikipedia/commons/2/2b/Carburetor.svg",
+    youtube: "https://www.youtube.com/watch?v=aMVfMFJqb8o",
+    youtubeTitle: "Intake Manifold Function and Common Problems"
+  },
+  "exhaust_manifold": {
+    term: "Exhaust Manifold",
+    termChinese: "排气歧管",
+    section: "A1",
+    definition: "A cast iron or tubular steel component bolted to the cylinder head that collects exhaust gases from all cylinders and directs them into the exhaust pipe. It operates at extremely high temperatures. Cracked manifolds cause exhaust leaks heard as a ticking noise on cold start. Warpage can occur from repeated heat cycles.",
+    definitionChinese: "用螺栓固定在气缸盖上的铸铁或管状钢部件，收集所有气缸的废气并引导到排气管。在极高温度下工作。开裂的歧管导致冷启动时听到滴答声的排气泄漏。反复的热循环可导致翘曲变形。",
+    image: "https://upload.wikimedia.org/wikipedia/commons/e/e5/Cylinder_head_of_1KD-FTV.JPG",
+    youtube: "https://www.youtube.com/watch?v=aMVfMFJqb8o",
+    youtubeTitle: "Exhaust Manifold Leak Symptoms and Repair"
+  },
+  "fuel_pump": {
+    term: "Fuel Pump",
+    termChinese: "燃油泵",
+    section: "A8",
+    definition: "An electric pump typically located inside the fuel tank that pressurizes fuel and delivers it to the fuel injectors. Modern fuel-injected engines require 30-65 psi fuel pressure depending on the system. A failing pump causes low pressure, hard starting, stalling under load, and engine misfires. Fuel level should not run too low as fuel cools the pump.",
+    definitionChinese: "通常位于油箱内的电动泵，对燃油加压并输送到喷油器。现代燃油喷射发动机根据系统需要30-65 psi的燃油压力。泵故障导致压力低、启动困难、负荷下熄火和发动机失火。油位不应过低，因为燃油可冷却泵。",
+    image: "https://upload.wikimedia.org/wikipedia/commons/4/47/Four_stroke_engine_diagram.jpg",
+    youtube: "https://www.youtube.com/watch?v=i70X4-RCBKs",
+    youtubeTitle: "Fuel Pump Testing and Diagnosis"
+  },
+  "fuel_pressure_regulator": {
+    term: "Fuel Pressure Regulator",
+    termChinese: "燃油压力调节器",
+    section: "A8",
+    definition: "A spring-loaded diaphragm valve that maintains consistent fuel pressure at the injectors by returning excess fuel to the tank. It uses manifold vacuum as a reference to adjust pressure based on engine load. A leaking diaphragm allows fuel into the vacuum line causing rich running. Stuck regulators cause either high or low fuel pressure.",
+    definitionChinese: "弹簧加载的膜片阀，通过将多余燃油回流油箱来保持喷油器处的燃油压力一致。它以进气歧管真空为参考，根据发动机负荷调整压力。膜片泄漏会使燃油进入真空管导致混合气偏浓。调节器卡住会导致燃油压力过高或过低。",
+    image: "https://upload.wikimedia.org/wikipedia/commons/4/47/Four_stroke_engine_diagram.jpg",
+    youtube: "https://www.youtube.com/watch?v=i70X4-RCBKs",
+    youtubeTitle: "Fuel Pressure Regulator Function and Testing"
+  },
+  "voltage_regulator": {
+    term: "Voltage Regulator",
+    termChinese: "电压调节器",
+    section: "A6",
+    definition: "A device that controls the alternator's output voltage to maintain the charging system between 13.5 and 14.5 volts. It does this by varying the current flowing through the alternator's field winding (rotor). Overcharging damages the battery and electrical components; undercharging leads to a dead battery. Modern regulators are built into the alternator.",
+    definitionChinese: "控制发电机输出电压以将充电系统维持在13.5到14.5伏之间的装置。它通过改变流过发电机励磁绕组（转子）的电流来实现。过充会损坏电池和电气部件；充电不足导致电池耗尽。现代调节器内置在发电机中。",
+    image: "https://upload.wikimedia.org/wikipedia/commons/2/2b/Carburetor.svg",
+    youtube: "https://www.youtube.com/watch?v=9n7eVsEmhMk",
+    youtubeTitle: "How Voltage Regulators Work in Automotive Charging Systems"
+  },
+  "steering_wheel": {
+    term: "Steering Wheel",
+    termChinese: "方向盘",
+    section: "A4",
+    definition: "The circular wheel inside the vehicle cabin that the driver rotates to control the direction of the front wheels. Connected to the steering column, which links to the steering gear. Modern steering wheels contain the airbag module, horn switch, and various controls. Free play (excessive looseness) indicates worn steering components.",
+    definitionChinese: "车辆驾驶室内的圆形方向盘，驾驶员转动它来控制前轮方向。连接到转向柱，转向柱连接到转向器。现代方向盘包含安全气囊模块、喇叭开关和各种控制装置。自由间隙（过度松动）表明转向部件磨损。",
+    image: "https://upload.wikimedia.org/wikipedia/commons/4/47/Four_stroke_engine_diagram.jpg",
+    youtube: "https://www.youtube.com/watch?v=XMa2FH6D07o",
+    youtubeTitle: "Steering System Components Explained"
+  },
+  "steering_column": {
+    term: "Steering Column",
+    termChinese: "转向柱",
+    section: "A4",
+    definition: "The shaft assembly connecting the steering wheel to the steering gear. It includes a collapsible section for crash safety, universal joints for angle changes, and may house the ignition lock cylinder and multifunction switch. Tilt and telescoping features allow driver adjustment. Clock spring inside provides electrical connection to steering wheel controls.",
+    definitionChinese: "连接方向盘和转向器的轴组件。包括碰撞安全的可折叠部分、角度变化的万向节，可能装有点火锁芯和多功能开关。倾斜和伸缩功能允许驾驶员调节。内部的时钟弹簧为方向盘控制装置提供电气连接。",
+    image: "https://upload.wikimedia.org/wikipedia/commons/4/47/Four_stroke_engine_diagram.jpg",
+    youtube: "https://www.youtube.com/watch?v=XMa2FH6D07o",
+    youtubeTitle: "Steering Column Components and Function"
+  },
+  "rocker_arm": {
+    term: "Rocker Arm",
+    termChinese: "摇臂",
+    section: "A1",
+    definition: "A pivoting lever in the valve train that transfers camshaft motion to the valve. In pushrod engines, the rocker arm sits atop the cylinder head and is actuated by the pushrod from below. Worn rocker arms cause valve train noise, reduced valve lift, and can lead to misfires. Hydraulic lash adjusters eliminate the need for manual adjustment.",
+    definitionChinese: "气门机构中的枢轴杠杆，将凸轮轴运动传递给气门。在推杆式发动机中，摇臂位于气缸盖顶部，由下方的推杆驱动。磨损的摇臂导致气门机构噪音、气门升程降低，可能导致失火。液压间隙调节器无需手动调整。",
+    image: "https://upload.wikimedia.org/wikipedia/commons/d/d2/Camshaft.JPG",
+    youtube: "https://www.youtube.com/watch?v=XMa2FH6D07o",
+    youtubeTitle: "Rocker Arm Function and Valve Train Operation"
+  },
+  "connecting_rod": {
+    term: "Connecting Rod",
+    termChinese: "连杆",
+    section: "A1",
+    definition: "A forged or powdered metal rod that connects the piston to the crankshaft, converting the piston's linear motion into rotational motion. The small end attaches to the piston via a wrist pin, and the big end wraps around the crankshaft journal with a bearing insert. A spun bearing causes a distinct knocking noise.",
+    definitionChinese: "锻造或粉末冶金的连杆，连接活塞和曲轴，将活塞的直线运动转换为旋转运动。小端通过活塞销连接到活塞，大端通过轴承衬套包裹曲轴轴颈。轴承旋转会产生明显的敲击声。",
+    image: "https://upload.wikimedia.org/wikipedia/commons/e/ee/Crankshaft.jpg",
+    youtube: "https://www.youtube.com/watch?v=XMa2FH6D07o",
+    youtubeTitle: "Connecting Rod and Crankshaft Assembly"
+  },
+  "main_bearing": {
+    term: "Main Bearing",
+    termChinese: "主轴承",
+    section: "A1",
+    definition: "Split-shell bearings that support the crankshaft in the engine block. They are precision-fit with specific oil clearances to allow an oil film between the bearing and journal. Worn main bearings cause a deep knocking sound at idle that may lessen with RPM increase. Plastigage is used to measure bearing clearance during assembly.",
+    definitionChinese: "支撑曲轴在发动机缸体中的对开式轴承。它们精密配合，具有特定的油隙，允许轴承和轴颈之间形成油膜。磨损的主轴承在怠速时产生低沉的敲击声，可能随转速升高而减弱。组装时使用塑性间隙规测量轴承间隙。",
+    image: "https://upload.wikimedia.org/wikipedia/commons/e/ee/Crankshaft.jpg",
+    youtube: "https://www.youtube.com/watch?v=XMa2FH6D07o",
+    youtubeTitle: "Main Bearing Inspection and Clearance Measurement"
+  },
+  "pushrod": {
+    term: "Pushrod",
+    termChinese: "推杆",
+    section: "A1",
+    definition: "A slender metal rod in overhead valve (OHV) engines that transfers the lifting motion of the camshaft lobe (via the lifter) up to the rocker arm to open the valve. Bent pushrods cause valve train noise and misfires. They must be checked for straightness during engine diagnosis. OHC engines do not use pushrods.",
+    definitionChinese: "顶置气门（OHV）发动机中的细长金属杆，将凸轮轴凸轮（通过挺柱）的升程运动向上传递到摇臂以打开气门。弯曲的推杆导致气门机构噪音和失火。诊断发动机时必须检查其直线度。顶置凸轮轴发动机不使用推杆。",
+    image: "https://upload.wikimedia.org/wikipedia/commons/d/d2/Camshaft.JPG",
+    youtube: "https://www.youtube.com/watch?v=XMa2FH6D07o",
+    youtubeTitle: "Pushrod Engine Valve Train Operation"
+  },
+  "valve_spring": {
+    term: "Valve Spring",
+    termChinese: "气门弹簧",
+    section: "A1",
+    definition: "A coil spring that closes the valve after the camshaft lobe has opened it. Spring tension must be correct: too weak causes valve float at high RPM, too strong increases wear. Broken springs cause misfires and loss of compression on the affected cylinder. Springs are tested with a valve spring tester for installed height and pressure.",
+    definitionChinese: "凸轮轴凸轮打开气门后使其关闭的螺旋弹簧。弹簧张力必须正确：太弱在高转速时导致气门浮动，太强增加磨损。断裂的弹簧导致受影响气缸失火和压缩损失。使用气门弹簧测试仪测试安装高度和压力。",
+    image: "https://upload.wikimedia.org/wikipedia/commons/e/e5/Cylinder_head_of_1KD-FTV.JPG",
+    youtube: "https://www.youtube.com/watch?v=_addEj_vCro",
+    youtubeTitle: "Valve Spring Testing and Replacement"
+  },
+  "valve_guide": {
+    term: "Valve Guide",
+    termChinese: "气门导管",
+    section: "A1",
+    definition: "A cylindrical sleeve pressed into the cylinder head that guides the valve stem as it opens and closes. Worn guides allow excessive oil consumption as oil leaks past the stem seal into the combustion chamber, and can cause the valve to seat improperly. Guides can be replaced or repaired using oversized valve stems or guide liners.",
+    definitionChinese: "压入气缸盖的圆柱形套管，在气门开关时引导气门杆。磨损的导管允许机油从气门杆油封泄漏到燃烧室导致机油消耗过多，还可能导致气门密封不良。可以使用加大尺寸的气门杆或导管衬套进行更换或修复。",
+    image: "https://upload.wikimedia.org/wikipedia/commons/e/e5/Cylinder_head_of_1KD-FTV.JPG",
+    youtube: "https://www.youtube.com/watch?v=_addEj_vCro",
+    youtubeTitle: "Valve Guide Wear and Repair"
+  },
+  "intake_valve": {
+    term: "Intake Valve",
+    termChinese: "进气门",
+    section: "A1",
+    definition: "A poppet valve that opens to allow the air-fuel mixture (or just air in direct injection) into the combustion chamber during the intake stroke. Intake valves are larger than exhaust valves to maximize airflow. Carbon buildup on the back of intake valves in direct-injection engines restricts airflow and causes misfires and rough idle.",
+    definitionChinese: "在进气冲程中打开以允许空气燃油混合物（或直喷发动机中仅空气）进入燃烧室的提升阀。进气门比排气门大以最大化气流。直喷发动机中进气门背面的积碳限制气流，导致失火和怠速不稳。",
+    image: "https://upload.wikimedia.org/wikipedia/commons/e/e5/Cylinder_head_of_1KD-FTV.JPG",
+    youtube: "https://www.youtube.com/watch?v=_addEj_vCro",
+    youtubeTitle: "Intake and Exhaust Valve Operation"
+  },
+  "exhaust_valve": {
+    term: "Exhaust Valve",
+    termChinese: "排气门",
+    section: "A1",
+    definition: "A poppet valve that opens during the exhaust stroke to release burned combustion gases from the cylinder. Exhaust valves endure extreme heat and are typically made from more heat-resistant materials than intake valves. A burned exhaust valve causes compression loss, misfires, and a regular dropping pattern on a vacuum gauge reading.",
+    definitionChinese: "在排气冲程中打开以释放气缸中燃烧废气的提升阀。排气门承受极高温度，通常由比进气门更耐热的材料制成。烧蚀的排气门导致压缩损失、失火，真空表读数出现有规律的下降。",
+    image: "https://upload.wikimedia.org/wikipedia/commons/e/e5/Cylinder_head_of_1KD-FTV.JPG",
+    youtube: "https://www.youtube.com/watch?v=_addEj_vCro",
+    youtubeTitle: "Burned Exhaust Valve Symptoms and Testing"
+  },
+  "valve_seat": {
+    term: "Valve Seat",
+    termChinese: "气门座",
+    section: "A1",
+    definition: "A hardened ring pressed into the cylinder head that provides the sealing surface for the valve face. Proper contact between the valve face and seat is critical for compression and combustion sealing. Seats can be machined with specific angles (typically 45 degrees) during a valve job. Recessed seats reduce valve lift and affect performance.",
+    definitionChinese: "压入气缸盖的硬化环，为气门面提供密封面。气门面与气门座之间的正确接触对压缩和燃烧密封至关重要。在气门维修中可按特定角度（通常45度）加工气门座。凹陷的气门座降低气门升程并影响性能。",
+    image: "https://upload.wikimedia.org/wikipedia/commons/e/e5/Cylinder_head_of_1KD-FTV.JPG",
+    youtube: "https://www.youtube.com/watch?v=_addEj_vCro",
+    youtubeTitle: "Valve Seat and Face Reconditioning"
+  },
+  "knock_sensor": {
+    term: "Knock Sensor",
+    termChinese: "爆震传感器",
+    section: "A8",
+    definition: "A piezoelectric sensor mounted on the engine block that detects engine knock (detonation). When knock is detected, it sends a signal to the PCM which retards ignition timing to prevent engine damage. A faulty knock sensor can cause the PCM to either allow damaging knock or retard timing excessively, reducing power and fuel economy.",
+    definitionChinese: "安装在发动机缸体上的压电传感器，检测发动机爆震（爆燃）。检测到爆震时，向PCM发送信号，PCM推迟点火正时以防止发动机损坏。故障的爆震传感器可能导致PCM允许破坏性爆震或过度推迟正时，降低功率和燃油经济性。",
+    image: "https://upload.wikimedia.org/wikipedia/commons/4/47/Four_stroke_engine_diagram.jpg",
+    youtube: "https://www.youtube.com/watch?v=9n7eVsEmhMk",
+    youtubeTitle: "Knock Sensor Function and Testing"
+  },
+  "crankshaft": {
+    term: "Crankshaft",
+    termChinese: "曲轴",
+    section: "A1",
+    definition: "The main rotating shaft in the engine that converts the linear reciprocating motion of the pistons into rotational motion to drive the transmission. It has precisely machined main journals supported by main bearings and rod journals connecting to the connecting rods. Crankshaft endplay is measured to check thrust bearing wear.",
+    definitionChinese: "发动机中的主旋转轴，将活塞的直线往复运动转换为旋转运动以驱动变速箱。具有由主轴承支撑的精密加工主轴颈和连接连杆的连杆轴颈。测量曲轴轴向间隙以检查止推轴承磨损。",
+    image: "https://upload.wikimedia.org/wikipedia/commons/e/ee/Crankshaft.jpg",
+    youtube: "https://www.youtube.com/watch?v=9n7eVsEmhMk",
+    youtubeTitle: "Crankshaft Design and Function"
+  },
+  "piston": {
+    term: "Piston",
+    termChinese: "活塞",
+    section: "A1",
+    definition: "A cylindrical component that moves up and down inside the cylinder bore, driven by combustion pressure and connected to the crankshaft via the connecting rod. It carries piston rings for sealing and oil control. Piston slap (knocking on cold start) indicates excessive piston-to-wall clearance. Pistons expand as they heat up.",
+    definitionChinese: "在气缸孔内上下运动的圆柱形部件，由燃烧压力驱动并通过连杆连接到曲轴。带有活塞环用于密封和油量控制。活塞敲缸（冷启动时的敲击声）表明活塞与缸壁间隙过大。活塞受热会膨胀。",
+    image: "https://upload.wikimedia.org/wikipedia/commons/1/12/47mm_piston_rings.jpg",
+    youtube: "https://www.youtube.com/watch?v=XMa2FH6D07o",
+    youtubeTitle: "Piston Design and Function"
+  },
+  "oil_pan": {
+    term: "Oil Pan",
+    termChinese: "油底壳",
+    section: "A1",
+    definition: "A stamped steel or cast aluminum container bolted to the bottom of the engine block that serves as the reservoir for engine oil. It contains the oil pickup tube and screen. A damaged oil pan or worn gasket causes oil leaks. The drain plug at the bottom is removed during oil changes. Proper torque on drain plug prevents stripping.",
+    definitionChinese: "用螺栓固定在发动机缸体底部的冲压钢或铸铝容器，用作发动机机油的储存器。内含机油吸油管和滤网。损坏的油底壳或磨损的垫片导致漏油。底部的放油塞在换油时拆除。放油塞的正确扭矩可防止滑丝。",
+    image: "https://upload.wikimedia.org/wikipedia/commons/4/47/Four_stroke_engine_diagram.jpg",
+    youtube: "https://www.youtube.com/watch?v=XMa2FH6D07o",
+    youtubeTitle: "Oil Pan Gasket Replacement"
+  },
+  "oil_pump": {
+    term: "Oil Pump",
+    termChinese: "机油泵",
+    section: "A1",
+    definition: "A gear-type or gerotor pump driven by the crankshaft that pressurizes and circulates engine oil throughout the engine. It draws oil from the pan through a pickup tube and screen, then forces it through the oil filter and into the oil galleries. Low oil pump output causes low oil pressure, bearing wear, and potential engine failure.",
+    definitionChinese: "由曲轴驱动的齿轮式或转子式泵，对发动机机油加压并在整个发动机中循环。从油底壳通过吸油管和滤网吸油，然后通过机油滤清器压入油道。机油泵输出低导致油压低、轴承磨损和潜在的发动机故障。",
+    image: "https://upload.wikimedia.org/wikipedia/commons/4/47/Four_stroke_engine_diagram.jpg",
+    youtube: "https://www.youtube.com/watch?v=XMa2FH6D07o",
+    youtubeTitle: "Oil Pump Function and Oil Pressure"
+  },
+
+  // ===== ADDITIONAL TERMS BATCH 2: DRIVETRAIN, BRAKES, STEERING =====
+  "wheel_bearing": {
+    term: "Wheel Bearing",
+    termChinese: "车轮轴承",
+    section: "A4",
+    definition: "Bearings that allow the wheel hub to rotate smoothly on the spindle or knuckle. They can be tapered roller, ball, or sealed hub unit types. Worn wheel bearings produce a humming or growling noise that changes with vehicle speed and may vary during turns. Excessive play is checked by grabbing the tire at 12 and 6 o'clock and rocking it.",
+    definitionChinese: "允许轮毂在主轴或转向节上平稳旋转的轴承。可以是锥形滚子、滚珠或密封轮毂单元类型。磨损的车轮轴承产生随车速变化的嗡嗡声或咆哮声，转弯时可能变化。通过抓住轮胎12点和6点钟位置摇动来检查过大间隙。",
+    image: "https://upload.wikimedia.org/wikipedia/commons/4/47/Four_stroke_engine_diagram.jpg",
+    youtube: "https://www.youtube.com/watch?v=XMa2FH6D07o",
+    youtubeTitle: "Wheel Bearing Noise Diagnosis"
+  },
+  "wheel_hub": {
+    term: "Wheel Hub Assembly",
+    termChinese: "轮毂总成",
+    section: "A4",
+    definition: "The assembly that connects the wheel to the vehicle and contains the wheel bearings. Modern hub assemblies are often sealed units with integrated ABS wheel speed sensors. The wheel studs press into the hub flange. A failing hub assembly causes noise, ABS warning lights, and wheel wobble. Hub bearing replacement is a common repair.",
+    definitionChinese: "连接车轮和车辆的总成，包含车轮轴承。现代轮毂总成通常是集成ABS轮速传感器的密封单元。轮螺栓压入轮毂法兰。故障的轮毂总成导致噪音、ABS警告灯和车轮晃动。轮毂轴承更换是常见维修。",
+    image: "https://upload.wikimedia.org/wikipedia/commons/4/47/Four_stroke_engine_diagram.jpg",
+    youtube: "https://www.youtube.com/watch?v=XMa2FH6D07o",
+    youtubeTitle: "Wheel Hub Assembly Replacement"
+  },
+  "coil_spring": {
+    term: "Coil Spring",
+    termChinese: "螺旋弹簧",
+    section: "A4",
+    definition: "A helical spring used in the suspension system to absorb road shocks and support the vehicle's weight. Coil springs are rated by their spring rate (stiffness). Sagging springs lower ride height and affect wheel alignment. Springs must be compressed carefully during strut replacement using a spring compressor tool due to extreme stored energy.",
+    definitionChinese: "悬架系统中用于吸收路面冲击和支撑车辆重量的螺旋弹簧。螺旋弹簧按弹簧刚度额定。下沉的弹簧降低车身高度并影响车轮定位。由于储存的极大能量，更换减震器支柱时必须使用弹簧压缩器小心压缩弹簧。",
+    image: "https://upload.wikimedia.org/wikipedia/commons/4/47/Four_stroke_engine_diagram.jpg",
+    youtube: "https://www.youtube.com/watch?v=XMa2FH6D07o",
+    youtubeTitle: "Coil Spring Suspension Function"
+  },
+  "leaf_spring": {
+    term: "Leaf Spring",
+    termChinese: "钢板弹簧",
+    section: "A4",
+    definition: "A suspension spring made of stacked curved metal strips (leaves) commonly used on truck rear axles. The main leaf has eyes at each end for mounting. Leaf springs serve as both the spring and the locating member for the axle. Broken leaves cause sagging, uneven ride height, and clunking noises. U-bolts secure the axle to the spring.",
+    definitionChinese: "由堆叠的弯曲金属条（弹簧片）制成的悬架弹簧，常用于卡车后桥。主弹簧片两端有安装用的卷耳。钢板弹簧既是弹簧又是车桥的定位件。断裂的弹簧片导致下沉、不均匀的车身高度和咔嗒声。U形螺栓将车桥固定在弹簧上。",
+    image: "https://upload.wikimedia.org/wikipedia/commons/4/47/Four_stroke_engine_diagram.jpg",
+    youtube: "https://www.youtube.com/watch?v=XMa2FH6D07o",
+    youtubeTitle: "Leaf Spring Suspension Explained"
+  },
+  "torsion_bar": {
+    term: "Torsion Bar",
+    termChinese: "扭力杆",
+    section: "A4",
+    definition: "A straight steel bar used as a spring element in some suspension systems. One end is anchored to the frame and the other to the lower control arm. As the wheel hits a bump, the bar twists to absorb the force. Ride height is adjustable by turning a bolt on the anchor end. Common on older trucks and some SUVs.",
+    definitionChinese: "某些悬架系统中用作弹簧元件的直钢杆。一端固定在车架上，另一端固定在下控制臂上。车轮遇到颠簸时，杆扭转吸收力。通过转动固定端的螺栓可调节车身高度。常见于老式卡车和某些SUV。",
+    image: "https://upload.wikimedia.org/wikipedia/commons/4/47/Four_stroke_engine_diagram.jpg",
+    youtube: "https://www.youtube.com/watch?v=XMa2FH6D07o",
+    youtubeTitle: "Torsion Bar Suspension System"
+  },
+  "brake_pad": {
+    term: "Brake Pad",
+    termChinese: "刹车片",
+    section: "A5",
+    definition: "A friction material bonded or riveted to a steel backing plate that presses against the brake rotor to create stopping force in disc brake systems. Pads wear with use and have minimum thickness specifications. Wear indicators (metal tabs) create a squealing noise when pads need replacement. Different compounds suit different driving conditions.",
+    definitionChinese: "粘合或铆接在钢背板上的摩擦材料，在盘式制动系统中压紧制动盘以产生制动力。刹车片随使用磨损，有最小厚度规格。磨损指示器（金属片）在需要更换时产生尖叫声。不同的配方适合不同的驾驶条件。",
+    image: "https://upload.wikimedia.org/wikipedia/commons/4/47/Four_stroke_engine_diagram.jpg",
+    youtube: "https://www.youtube.com/watch?v=XMa2FH6D07o",
+    youtubeTitle: "Brake Pad Replacement Guide"
+  },
+  "brake_line": {
+    term: "Brake Line",
+    termChinese: "制动管路",
+    section: "A5",
+    definition: "Steel tubing and flexible rubber hoses that carry brake fluid under high pressure from the master cylinder to the wheel brake assemblies. Steel lines must be double-flare or ISO-flare type for safety. Rubber hoses flex with suspension movement but deteriorate over time, potentially swelling internally and restricting fluid flow, causing brake pull.",
+    definitionChinese: "将制动液在高压下从主缸输送到车轮制动总成的钢管和柔性橡胶软管。钢管必须是双喇叭口或ISO喇叭口类型以确保安全。橡胶软管随悬架运动弯曲但随时间劣化，可能内部膨胀限制液体流动，导致制动偏移。",
+    image: "https://upload.wikimedia.org/wikipedia/commons/4/47/Four_stroke_engine_diagram.jpg",
+    youtube: "https://www.youtube.com/watch?v=XMa2FH6D07o",
+    youtubeTitle: "Brake Line Types and Replacement"
+  },
+  "rotor_runout": {
+    term: "Rotor Runout",
+    termChinese: "制动盘径向跳动",
+    section: "A5",
+    definition: "The measurement of how much a brake rotor wobbles as it rotates, checked with a dial indicator. Excessive lateral runout (typically more than 0.002-0.003 inches) causes brake pulsation felt in the pedal during braking. Runout can be caused by improper lug nut torque, hub face contamination, or a warped rotor. Resurfacing or replacement corrects this.",
+    definitionChinese: "测量制动盘旋转时摆动幅度的数值，用百分表检查。过大的横向跳动（通常超过0.002-0.003英寸）导致制动时踏板脉动。跳动可由不正确的螺母扭矩、轮毂表面污染或变形的制动盘引起。重新修面或更换可纠正此问题。",
+    image: "https://upload.wikimedia.org/wikipedia/commons/4/47/Four_stroke_engine_diagram.jpg",
+    youtube: "https://www.youtube.com/watch?v=XMa2FH6D07o",
+    youtubeTitle: "Measuring Brake Rotor Runout"
+  },
+  "brake_shoe": {
+    term: "Brake Shoe",
+    termChinese: "制动蹄",
+    section: "A5",
+    definition: "A curved metal platform with friction material bonded or riveted to it, used in drum brake systems. When the wheel cylinder pushes the shoes outward against the drum, friction slows the wheel. Self-adjusting mechanisms compensate for wear. The leading shoe does more work than the trailing shoe due to servo action.",
+    definitionChinese: "带有粘合或铆接摩擦材料的弯曲金属平台，用于鼓式制动系统。当轮缸向外推动制动蹄抵住制动鼓时，摩擦使车轮减速。自调整机构补偿磨损。由于伺服作用，前蹄比后蹄做更多的工作。",
+    image: "https://upload.wikimedia.org/wikipedia/commons/4/47/Four_stroke_engine_diagram.jpg",
+    youtube: "https://www.youtube.com/watch?v=XMa2FH6D07o",
+    youtubeTitle: "Drum Brake Shoe Replacement"
+  },
+  "power_steering_fluid": {
+    term: "Power Steering Fluid",
+    termChinese: "助力转向液",
+    section: "A4",
+    definition: "A hydraulic fluid used in power steering systems to transmit force from the pump to the steering gear. It must meet specific viscosity and additive requirements. Low fluid causes whining noise from the pump and heavy steering. Contaminated fluid accelerates pump and rack wear. Some systems use ATF while others require specific PS fluid.",
+    definitionChinese: "在助力转向系统中用于将力从泵传递到转向器的液压油。必须满足特定的粘度和添加剂要求。液位低导致泵发出呜呜声和转向沉重。污染的油液加速泵和齿条磨损。某些系统使用ATF，而其他系统需要特定的PS液。",
+    image: "https://upload.wikimedia.org/wikipedia/commons/4/47/Four_stroke_engine_diagram.jpg",
+    youtube: "https://www.youtube.com/watch?v=XMa2FH6D07o",
+    youtubeTitle: "Power Steering Fluid Check and Replacement"
+  },
+  "idler_arm": {
+    term: "Idler Arm",
+    termChinese: "惰臂",
+    section: "A4",
+    definition: "A pivoting arm on the passenger side of a parallelogram steering system that supports the center link and mirrors the motion of the pitman arm. A worn idler arm causes play in the steering, wandering, and uneven tire wear. It is checked by lifting the tire and pushing the center link up and down to feel for looseness.",
+    definitionChinese: "平行四边形转向系统中副驾驶侧的枢轴臂，支撑中心拉杆并反映摇臂的运动。磨损的惰臂导致转向间隙、跑偏和不均匀的轮胎磨损。通过抬起轮胎并上下推动中心拉杆来感觉松动进行检查。",
+    image: "https://upload.wikimedia.org/wikipedia/commons/4/47/Four_stroke_engine_diagram.jpg",
+    youtube: "https://www.youtube.com/watch?v=XMa2FH6D07o",
+    youtubeTitle: "Idler Arm and Pitman Arm Function"
+  },
+  "pitman_arm": {
+    term: "Pitman Arm",
+    termChinese: "摇臂",
+    section: "A4",
+    definition: "The arm connecting the steering gear output shaft to the center link in a parallelogram steering system. It converts the rotational output of the steering gear into lateral motion to steer the wheels. A worn pitman arm causes excessive steering play. It is splined to the sector shaft and secured with a nut.",
+    definitionChinese: "在平行四边形转向系统中连接转向器输出轴和中心拉杆的臂。将转向器的旋转输出转换为横向运动来转向车轮。磨损的摇臂导致转向间隙过大。通过花键连接到扇形轴并用螺母固定。",
+    image: "https://upload.wikimedia.org/wikipedia/commons/4/47/Four_stroke_engine_diagram.jpg",
+    youtube: "https://www.youtube.com/watch?v=XMa2FH6D07o",
+    youtubeTitle: "Pitman Arm and Steering Gear"
+  },
+  "cv_boot": {
+    term: "CV Boot",
+    termChinese: "CV接头防尘套",
+    section: "A3",
+    definition: "A flexible rubber or thermoplastic boot that covers and protects the CV (constant velocity) joint, keeping grease in and contaminants out. A torn CV boot allows grease to escape and dirt to enter, quickly destroying the joint. A clicking noise during turns is a classic sign of a worn CV joint from a torn boot.",
+    definitionChinese: "覆盖和保护CV（等速）接头的柔性橡胶或热塑性防尘套，保持润滑脂并阻挡污染物。破裂的CV防尘套允许润滑脂流出和灰尘进入，迅速损坏接头。转弯时的咔哒声是CV接头因防尘套破裂而磨损的典型标志。",
+    image: "https://upload.wikimedia.org/wikipedia/commons/4/47/Four_stroke_engine_diagram.jpg",
+    youtube: "https://www.youtube.com/watch?v=XMa2FH6D07o",
+    youtubeTitle: "CV Boot and CV Joint Replacement"
+  },
+  "driveshaft": {
+    term: "Driveshaft",
+    termChinese: "传动轴",
+    section: "A3",
+    definition: "A rotating shaft that transmits torque from the transmission to the rear differential in RWD vehicles, or from the transfer case to the front and rear axles in 4WD/AWD vehicles. It uses universal joints or CV joints to accommodate suspension movement. An out-of-balance driveshaft causes vibration at highway speeds.",
+    definitionChinese: "在后驱车辆中从变速箱到后差速器传递扭矩的旋转轴，或在四驱/全驱车辆中从分动箱到前后车桥的旋转轴。使用万向节或CV接头适应悬架运动。失衡的传动轴在高速行驶时导致振动。",
+    image: "https://upload.wikimedia.org/wikipedia/commons/4/47/Four_stroke_engine_diagram.jpg",
+    youtube: "https://www.youtube.com/watch?v=XMa2FH6D07o",
+    youtubeTitle: "Driveshaft and U-Joint Operation"
+  },
+  "axle_shaft": {
+    term: "Axle Shaft",
+    termChinese: "半轴",
+    section: "A3",
+    definition: "A rotating shaft that transmits torque from the differential to the drive wheels. In semi-floating axles (most passenger cars), it also supports the vehicle weight. In full-floating axles (heavy-duty trucks), the hub bearings carry the weight. Broken axle shafts cause complete loss of drive to the affected wheel.",
+    definitionChinese: "从差速器向驱动轮传递扭矩的旋转轴。在半浮式车桥（大多数乘用车）中，它还支撑车辆重量。在全浮式车桥（重型卡车）中，轮毂轴承承载重量。断裂的半轴导致受影响车轮完全丧失驱动力。",
+    image: "https://upload.wikimedia.org/wikipedia/commons/4/47/Four_stroke_engine_diagram.jpg",
+    youtube: "https://www.youtube.com/watch?v=XMa2FH6D07o",
+    youtubeTitle: "Axle Shaft Types and Replacement"
+  },
+  "limited_slip_differential": {
+    term: "Limited-Slip Differential (LSD)",
+    termChinese: "限滑差速器",
+    section: "A3",
+    definition: "A differential that uses clutch packs or other mechanisms to limit the speed difference between the two axle shafts, providing better traction when one wheel slips. Unlike an open differential, it transfers some torque to the wheel with grip. Requires special friction modifier additive in the gear oil to prevent chatter during turns.",
+    definitionChinese: "使用离合器片组或其他机构限制两个半轴之间速度差的差速器，在一个车轮打滑时提供更好的牵引力。与开放式差速器不同，它将部分扭矩传递到有抓地力的车轮。齿轮油中需要特殊的摩擦改进剂添加剂以防止转弯时的颤动。",
+    image: "https://upload.wikimedia.org/wikipedia/commons/4/47/Four_stroke_engine_diagram.jpg",
+    youtube: "https://www.youtube.com/watch?v=XMa2FH6D07o",
+    youtubeTitle: "Limited-Slip Differential Explained"
+  },
+  "neutral_safety_switch": {
+    term: "Neutral Safety Switch",
+    termChinese: "空挡安全开关",
+    section: "A6",
+    definition: "A switch on the transmission that prevents the starter from engaging unless the transmission is in Park or Neutral. It also activates the backup lights in Reverse. A misadjusted or faulty switch can prevent starting, allow starting in gear (dangerous), or cause incorrect backup light operation. Also called the transmission range sensor.",
+    definitionChinese: "变速箱上的开关，防止起动机在变速箱不在停车挡或空挡时啮合。还在倒车挡时激活倒车灯。调整不当或故障的开关可能阻止启动、允许在挂挡状态下启动（危险）或导致倒车灯工作不正常。也称为变速箱挡位传感器。",
+    image: "https://upload.wikimedia.org/wikipedia/commons/4/47/Four_stroke_engine_diagram.jpg",
+    youtube: "https://www.youtube.com/watch?v=XMa2FH6D07o",
+    youtubeTitle: "Neutral Safety Switch Testing"
+  },
+  "compressor_clutch": {
+    term: "A/C Compressor Clutch",
+    termChinese: "空调压缩机离合器",
+    section: "A7",
+    definition: "An electromagnetic clutch on the front of the A/C compressor that engages and disengages the compressor from the serpentine belt. When current flows to the clutch coil, it magnetizes and pulls the clutch plate against the pulley to drive the compressor. Clutch cycling is controlled by the PCM based on pressure and temperature inputs.",
+    definitionChinese: "空调压缩机前端的电磁离合器，使压缩机与蛇形皮带啮合和脱离。当电流流过离合器线圈时，磁化并将离合器片拉向皮带轮以驱动压缩机。离合器循环由PCM根据压力和温度输入控制。",
+    image: "https://upload.wikimedia.org/wikipedia/commons/4/47/Four_stroke_engine_diagram.jpg",
+    youtube: "https://www.youtube.com/watch?v=XMa2FH6D07o",
+    youtubeTitle: "A/C Compressor Clutch Testing"
+  },
+  "orifice_tube": {
+    term: "Orifice Tube",
+    termChinese: "节流管",
+    section: "A7",
+    definition: "A fixed metering device in A/C systems that restricts refrigerant flow between the condenser and evaporator, causing a pressure and temperature drop. Unlike a TXV, it has no moving parts and cannot vary refrigerant flow. Systems with orifice tubes use an accumulator on the low side. A clogged orifice tube reduces cooling capacity.",
+    definitionChinese: "空调系统中的固定计量装置，限制冷凝器和蒸发器之间的制冷剂流量，导致压力和温度下降。与TXV不同，它没有运动部件，不能改变制冷剂流量。使用节流管的系统在低压侧使用储液器。堵塞的节流管降低制冷能力。",
+    image: "https://upload.wikimedia.org/wikipedia/commons/4/47/Four_stroke_engine_diagram.jpg",
+    youtube: "https://www.youtube.com/watch?v=XMa2FH6D07o",
+    youtubeTitle: "Orifice Tube vs TXV in A/C Systems"
+  },
+  "refrigerant_oil": {
+    term: "Refrigerant Oil (PAG/POE)",
+    termChinese: "制冷剂油",
+    section: "A7",
+    definition: "Special lubricating oil that circulates with the refrigerant to lubricate the compressor's internal components. PAG (Polyalkylene Glycol) oil is used in most R-134a systems, while POE (Polyol Ester) oil is used in hybrid/electric vehicles. Using the wrong oil type damages the compressor. The correct viscosity must match the compressor specification.",
+    definitionChinese: "与制冷剂一起循环以润滑压缩机内部部件的特殊润滑油。PAG（聚烷撑二醇）油用于大多数R-134a系统，而POE（多元醇酯）油用于混合动力/电动车辆。使用错误的油类型会损坏压缩机。正确的粘度必须与压缩机规格匹配。",
+    image: "https://upload.wikimedia.org/wikipedia/commons/4/47/Four_stroke_engine_diagram.jpg",
+    youtube: "https://www.youtube.com/watch?v=XMa2FH6D07o",
+    youtubeTitle: "A/C Refrigerant Oil Types"
+  },
+
+  // ===== ADDITIONAL TERMS BATCH 3: ELECTRICAL & ENGINE PERFORMANCE =====
+  "ignition_switch": {
+    term: "Ignition Switch",
+    termChinese: "点火开关",
+    section: "A6",
+    definition: "The electrical switch operated by the ignition key or push button that controls power to the vehicle's electrical systems. It has multiple positions: Off, Accessory, Run, and Start. A faulty ignition switch can cause no-start, intermittent stalling, or loss of electrical accessories. The lock cylinder is a separate mechanical component.",
+    definitionChinese: "由点火钥匙或按钮操作的电气开关，控制车辆电气系统的供电。有多个位置：关闭、附件、运行和启动。故障的点火开关可导致无法启动、间歇性熄火或电气附件失效。锁芯是单独的机械部件。",
+    image: "https://upload.wikimedia.org/wikipedia/commons/4/47/Four_stroke_engine_diagram.jpg",
+    youtube: "https://www.youtube.com/watch?v=9n7eVsEmhMk",
+    youtubeTitle: "Ignition Switch Testing and Replacement"
+  },
+  "spark_plug_wire": {
+    term: "Spark Plug Wire",
+    termChinese: "火花塞线",
+    section: "A8",
+    definition: "High-voltage cables that carry the ignition coil's output to the spark plugs. They use carbon or spiral-wound conductors with thick silicone insulation. Worn or damaged wires cause misfires, rough idle, and increased emissions due to weak or no spark. Wire resistance should be checked with an ohmmeter; typical specification is under 10,000 ohms per foot.",
+    definitionChinese: "将点火线圈输出传送到火花塞的高压电缆。使用碳导体或螺旋绕制导体配合厚硅胶绝缘。磨损或损坏的导线因火花弱或无火花导致失火、怠速不稳和排放增加。应用欧姆表检查导线电阻；典型规格为每英尺低于10,000欧姆。",
+    image: "https://upload.wikimedia.org/wikipedia/commons/4/47/Four_stroke_engine_diagram.jpg",
+    youtube: "https://www.youtube.com/watch?v=9n7eVsEmhMk",
+    youtubeTitle: "Spark Plug Wire Testing"
+  },
+  "distributor": {
+    term: "Distributor",
+    termChinese: "分电器",
+    section: "A8",
+    definition: "A rotating device that directs high-voltage spark from the ignition coil to each spark plug in firing order via the distributor cap and rotor. Contains the pickup coil or Hall-effect sensor for timing. Modern engines use distributorless ignition (DIS) or coil-on-plug systems instead. A worn distributor cap causes crossfire and misfires.",
+    definitionChinese: "旋转装置，通过分电器盖和转子按点火顺序将点火线圈的高压火花引导到每个火花塞。包含用于正时的拾取线圈或霍尔效应传感器。现代发动机使用无分电器点火（DIS）或缸上线圈系统。磨损的分电器盖导致串火和失火。",
+    image: "https://upload.wikimedia.org/wikipedia/commons/4/47/Four_stroke_engine_diagram.jpg",
+    youtube: "https://www.youtube.com/watch?v=9n7eVsEmhMk",
+    youtubeTitle: "Distributor Ignition System Explained"
+  },
+  "throttle_body": {
+    term: "Throttle Body",
+    termChinese: "节气门体",
+    section: "A8",
+    definition: "A valve assembly that controls the amount of air entering the engine based on accelerator pedal input. Modern electronic throttle bodies use a motor controlled by the PCM (drive-by-wire). Carbon buildup on the throttle plate can cause rough idle and stalling. The throttle position sensor monitors the plate angle for the PCM.",
+    definitionChinese: "根据油门踏板输入控制进入发动机空气量的阀门总成。现代电子节气门体使用由PCM控制的电机（线控驱动）。节气门板上的积碳可导致怠速不稳和熄火。节气门位置传感器监测板的角度供PCM使用。",
+    image: "https://upload.wikimedia.org/wikipedia/commons/2/2b/Carburetor.svg",
+    youtube: "https://www.youtube.com/watch?v=9n7eVsEmhMk",
+    youtubeTitle: "Throttle Body Cleaning and Function"
+  },
+  "idle_air_control": {
+    term: "Idle Air Control (IAC) Valve",
+    termChinese: "怠速空气控制阀",
+    section: "A8",
+    definition: "A PCM-controlled valve that regulates airflow bypassing the throttle plate to control idle speed. It opens or closes a small air passage to maintain target idle RPM under varying loads (A/C, power steering, electrical loads). A stuck or dirty IAC causes erratic idle, stalling, or high idle. Cleaning or replacement resolves most IAC issues.",
+    definitionChinese: "PCM控制的阀门，调节绕过节气门板的气流以控制怠速。打开或关闭小型气道以在不同负荷下（空调、助力转向、电气负荷）维持目标怠速转速。卡住或脏污的IAC导致怠速不稳、熄火或高怠速。清洁或更换可解决大多数IAC问题。",
+    image: "https://upload.wikimedia.org/wikipedia/commons/2/2b/Carburetor.svg",
+    youtube: "https://www.youtube.com/watch?v=9n7eVsEmhMk",
+    youtubeTitle: "IAC Valve Function and Testing"
+  },
+  "coolant": {
+    term: "Coolant (Antifreeze)",
+    termChinese: "冷却液（防冻液）",
+    section: "A1",
+    definition: "A mixture of ethylene glycol or propylene glycol with water that circulates through the engine to regulate temperature. It prevents freezing in winter and boiling in summer while also providing corrosion protection. Different types (green IAT, orange OAT, yellow HOAT) must not be mixed. Coolant concentration is tested with a refractometer or hydrometer.",
+    definitionChinese: "乙二醇或丙二醇与水的混合液，在发动机中循环以调节温度。冬季防冻，夏季防沸，同时提供防腐保护。不同类型（绿色IAT、橙色OAT、黄色HOAT）不得混合。用折光仪或比重计测试冷却液浓度。",
+    image: "https://upload.wikimedia.org/wikipedia/commons/a/ad/Automobile_radiator.jpg",
+    youtube: "https://www.youtube.com/watch?v=aOXz5hlKO9s",
+    youtubeTitle: "Coolant Types and Mixing Guide"
+  },
+  "engine_oil": {
+    term: "Engine Oil",
+    termChinese: "发动机机油",
+    section: "A1",
+    definition: "Lubricant that reduces friction between moving engine parts, carries away heat, suspends contaminants, and provides a sealing film for pistons and rings. Viscosity grades (like 5W-30) indicate flow characteristics at cold and hot temperatures. Synthetic oils offer better protection in extreme conditions. Oil should be changed per manufacturer intervals.",
+    definitionChinese: "减少发动机运动部件之间摩擦、带走热量、悬浮污染物并为活塞和活塞环提供密封油膜的润滑剂。粘度等级（如5W-30）表示冷热温度下的流动特性。合成油在极端条件下提供更好的保护。应按制造商间隔更换机油。",
+    image: "https://upload.wikimedia.org/wikipedia/commons/4/47/Four_stroke_engine_diagram.jpg",
+    youtube: "https://www.youtube.com/watch?v=XMa2FH6D07o",
+    youtubeTitle: "Engine Oil Basics and Selection"
+  },
+  "fuel_filter": {
+    term: "Fuel Filter",
+    termChinese: "燃油滤清器",
+    section: "A8",
+    definition: "A filter in the fuel delivery system that removes dirt, rust particles, and other contaminants before fuel reaches the injectors. A clogged fuel filter restricts flow, causing loss of power under load, hard starting, and engine stalling. Some modern vehicles have filters integrated into the fuel pump module inside the tank.",
+    definitionChinese: "燃油输送系统中的过滤器，在燃油到达喷油器之前去除灰尘、锈蚀颗粒和其他污染物。堵塞的燃油滤清器限制流量，导致负荷下动力不足、启动困难和发动机熄火。一些现代车辆的滤清器集成在油箱内的燃油泵模块中。",
+    image: "https://upload.wikimedia.org/wikipedia/commons/4/47/Four_stroke_engine_diagram.jpg",
+    youtube: "https://www.youtube.com/watch?v=i70X4-RCBKs",
+    youtubeTitle: "Fuel Filter Replacement Guide"
+  },
+  "camshaft_position_sensor": {
+    term: "Camshaft Position Sensor (CMP)",
+    termChinese: "凸轮轴位置传感器",
+    section: "A8",
+    definition: "A sensor that monitors the rotational position and speed of the camshaft, telling the PCM which cylinder is on its power stroke. Used with the crankshaft position sensor for sequential fuel injection and ignition timing. A failing CMP sensor can cause hard starting, misfires, and stalling. It typically generates a Hall-effect or magnetic signal.",
+    definitionChinese: "监测凸轮轴旋转位置和速度的传感器，告诉PCM哪个气缸在做功冲程。与曲轴位置传感器一起用于顺序燃油喷射和点火正时。故障的CMP传感器可导致启动困难、失火和熄火。通常产生霍尔效应或磁信号。",
+    image: "https://upload.wikimedia.org/wikipedia/commons/d/d2/Camshaft.JPG",
+    youtube: "https://www.youtube.com/watch?v=9n7eVsEmhMk",
+    youtubeTitle: "Camshaft Position Sensor Testing"
+  },
+  "mass_air_flow": {
+    term: "Mass Air Flow (MAF)",
+    termChinese: "质量空气流量",
+    section: "A8",
+    definition: "The measurement of how much air is entering the engine, detected by the MAF sensor. The PCM uses this data to calculate the correct amount of fuel to inject. A contaminated MAF sensor reads incorrectly, causing lean or rich conditions, rough idle, hesitation, and poor fuel economy. The sensor can often be cleaned with MAF cleaner spray.",
+    definitionChinese: "MAF传感器检测到的进入发动机的空气量测量值。PCM使用此数据计算正确的燃油喷射量。污染的MAF传感器读数不正确，导致混合气偏稀或偏浓、怠速不稳、犹豫和油耗增加。传感器通常可以用MAF清洁剂喷雾清洁。",
+    image: "https://upload.wikimedia.org/wikipedia/commons/2/2b/Carburetor.svg",
+    youtube: "https://www.youtube.com/watch?v=9n7eVsEmhMk",
+    youtubeTitle: "MAF Sensor Cleaning and Testing"
+  },
+  "manifold_absolute_pressure": {
+    term: "Manifold Absolute Pressure (MAP)",
+    termChinese: "进气歧管绝对压力",
+    section: "A8",
+    definition: "The pressure measured inside the intake manifold by the MAP sensor. At idle, MAP reads low (high vacuum); at wide-open throttle, it reads near atmospheric. The PCM uses MAP with RPM to calculate engine load and determine fuel delivery and ignition timing. A faulty MAP sensor causes rich running, poor fuel economy, and black exhaust smoke.",
+    definitionChinese: "MAP传感器测量的进气歧管内部压力。怠速时MAP读数低（高真空）；全开节气门时接近大气压。PCM使用MAP和RPM计算发动机负荷并确定燃油供给和点火正时。故障的MAP传感器导致混合气偏浓、油耗增加和黑色排气烟。",
+    image: "https://upload.wikimedia.org/wikipedia/commons/2/2b/Carburetor.svg",
+    youtube: "https://www.youtube.com/watch?v=9n7eVsEmhMk",
+    youtubeTitle: "MAP Sensor Function and Testing"
+  },
+  "short_term_fuel_trim": {
+    term: "Short-Term Fuel Trim (STFT)",
+    termChinese: "短期燃油修正",
+    section: "A8",
+    definition: "A real-time PCM adjustment to fuel injector pulse width based on oxygen sensor feedback. Positive values mean the PCM is adding fuel (lean correction); negative values mean it is removing fuel (rich correction). Normal range is plus or minus 10%. Values beyond that indicate a fuel delivery or air leak problem that needs diagnosis.",
+    definitionChinese: "PCM基于氧传感器反馈对喷油器脉冲宽度的实时调整。正值表示PCM正在加油（稀修正）；负值表示正在减油（浓修正）。正常范围是正负10%。超出该范围的值表明需要诊断的燃油供给或空气泄漏问题。",
+    image: "https://upload.wikimedia.org/wikipedia/commons/4/47/Four_stroke_engine_diagram.jpg",
+    youtube: "https://www.youtube.com/watch?v=9n7eVsEmhMk",
+    youtubeTitle: "Understanding Fuel Trims"
+  },
+  "long_term_fuel_trim": {
+    term: "Long-Term Fuel Trim (LTFT)",
+    termChinese: "长期燃油修正",
+    section: "A8",
+    definition: "A learned PCM fuel correction that compensates for ongoing deviations from the ideal air-fuel ratio. It represents a semi-permanent adjustment stored in memory. High positive LTFT values suggest a consistent lean condition (vacuum leak, weak fuel pump). High negative values suggest a rich condition (leaking injector, high fuel pressure).",
+    definitionChinese: "PCM学习到的燃油修正，补偿理想空燃比的持续偏差。代表存储在内存中的半永久性调整。高正LTFT值表明持续的稀工况（真空泄漏、燃油泵弱）。高负值表明浓工况（喷油器泄漏、燃油压力高）。",
+    image: "https://upload.wikimedia.org/wikipedia/commons/4/47/Four_stroke_engine_diagram.jpg",
+    youtube: "https://www.youtube.com/watch?v=9n7eVsEmhMk",
+    youtubeTitle: "Long-Term Fuel Trim Diagnosis"
+  },
+  "torque_wrench": {
+    term: "Torque Wrench",
+    termChinese: "扭力扳手",
+    section: "G1",
+    definition: "A precision tool that allows a mechanic to tighten fasteners to a specific torque value. Types include click-type, beam-type, and electronic. Proper torque is critical for head bolts, wheel lug nuts, and many other fasteners to prevent warping, stripping, or loosening. Most torque wrenches should be stored at the lowest setting and recalibrated periodically.",
+    definitionChinese: "精密工具，允许技师将紧固件拧紧到特定扭矩值。类型包括咔嗒式、梁式和电子式。正确的扭矩对缸盖螺栓、车轮螺母和许多其他紧固件至关重要，以防止翘曲、滑丝或松动。大多数扭力扳手应在最低设置下存放并定期校准。",
+    image: "https://upload.wikimedia.org/wikipedia/commons/4/47/Four_stroke_engine_diagram.jpg",
+    youtube: "https://www.youtube.com/watch?v=XMa2FH6D07o",
+    youtubeTitle: "How to Use a Torque Wrench"
+  },
+  "timing_belt": {
+    term: "Timing Belt",
+    termChinese: "正时皮带",
+    section: "A1",
+    definition: "A toothed rubber belt that synchronizes the rotation of the crankshaft and camshaft(s) to ensure valves open and close at the correct time relative to piston position. Timing belts have service intervals (typically 60,000-100,000 miles) and must be replaced before failure. A broken timing belt on an interference engine causes catastrophic valve-to-piston contact.",
+    definitionChinese: "齿形橡胶皮带，同步曲轴和凸轮轴的旋转，确保气门相对于活塞位置在正确时间开关。正时皮带有保养间隔（通常60,000-100,000英里），必须在失效前更换。在干涉型发动机上，断裂的正时皮带导致气门与活塞的灾难性撞击。",
+    image: "https://upload.wikimedia.org/wikipedia/commons/4/47/Four_stroke_engine_diagram.jpg",
+    youtube: "https://www.youtube.com/watch?v=9n7eVsEmhMk",
+    youtubeTitle: "Timing Belt Replacement and Function"
+  },
+  "engine_block": {
+    term: "Engine Block",
+    termChinese: "发动机缸体",
+    section: "A1",
+    definition: "The main structural casting of the engine containing the cylinders, coolant passages, oil galleries, and the crankshaft main bearing saddles. Made from cast iron or aluminum alloy. The block must be inspected for cracks, warpage, and cylinder bore wear during overhaul. Deck surface flatness is critical for head gasket sealing.",
+    definitionChinese: "发动机的主要结构铸件，包含气缸、冷却液通道、油道和曲轴主轴承座。由铸铁或铝合金制成。大修时必须检查缸体的裂纹、翘曲和气缸孔磨损。缸体上平面的平整度对缸垫密封至关重要。",
+    image: "https://upload.wikimedia.org/wikipedia/commons/4/47/Four_stroke_engine_diagram.jpg",
+    youtube: "https://www.youtube.com/watch?v=XMa2FH6D07o",
+    youtubeTitle: "Engine Block Inspection"
+  },
+  "solenoid": {
+    term: "Solenoid",
+    termChinese: "电磁阀/螺线管",
+    section: "A6",
+    definition: "An electromagnetic device that converts electrical energy into linear mechanical motion. When energized, the coil creates a magnetic field that pulls a plunger. Used extensively in vehicles for starter engagement, transmission shift control, fuel injector operation, door locks, and EVAP system purge. Testing involves checking coil resistance and voltage supply.",
+    definitionChinese: "将电能转换为直线机械运动的电磁装置。通电时，线圈产生磁场拉动柱塞。在车辆中广泛用于起动机啮合、变速箱换挡控制、喷油器操作、门锁和EVAP系统清洗。测试包括检查线圈电阻和电压供应。",
+    image: "https://upload.wikimedia.org/wikipedia/commons/4/47/Four_stroke_engine_diagram.jpg",
+    youtube: "https://www.youtube.com/watch?v=9n7eVsEmhMk",
+    youtubeTitle: "How Solenoids Work in Cars"
+  },
+  "diode": {
+    term: "Diode",
+    termChinese: "二极管",
+    section: "A6",
+    definition: "A semiconductor device that allows current flow in one direction only. In automotive applications, diodes are used in the alternator rectifier bridge to convert AC to DC, as suppression diodes across relay coils to prevent voltage spikes, and in lighting circuits. A shorted diode in the alternator causes AC voltage ripple and can drain the battery.",
+    definitionChinese: "只允许电流单向流动的半导体器件。在汽车应用中，二极管用于发电机整流桥将交流电转换为直流电、用作继电器线圈上的抑制二极管防止电压尖峰，以及用于照明电路。发电机中短路的二极管导致交流电压纹波并可能耗尽电池。",
+    image: "https://upload.wikimedia.org/wikipedia/commons/4/47/Four_stroke_engine_diagram.jpg",
+    youtube: "https://www.youtube.com/watch?v=9n7eVsEmhMk",
+    youtubeTitle: "Automotive Diode Testing"
+  },
+  "wire_harness": {
+    term: "Wire Harness",
+    termChinese: "线束",
+    section: "A6",
+    definition: "A bundled assembly of wires, connectors, and terminals that routes electrical signals and power throughout the vehicle. Harnesses are designed with specific wire gauges for different current loads and include protective loom, tape, or conduit. Chafed or corroded harness connections cause intermittent electrical faults that can be difficult to diagnose.",
+    definitionChinese: "导线、连接器和端子的捆扎组件，在整个车辆中传输电信号和电源。线束根据不同电流负荷设计特定线径，包括保护波纹管、胶带或导管。磨损或腐蚀的线束连接导致间歇性电气故障，可能难以诊断。",
+    image: "https://upload.wikimedia.org/wikipedia/commons/4/47/Four_stroke_engine_diagram.jpg",
+    youtube: "https://www.youtube.com/watch?v=9n7eVsEmhMk",
+    youtubeTitle: "Wire Harness Repair Techniques"
+  },
+  "headlight": {
+    term: "Headlight",
+    termChinese: "前照灯",
+    section: "A6",
+    definition: "The primary forward-facing lights on a vehicle for illumination at night and in poor visibility. Types include halogen, HID (xenon), and LED. Headlight aiming is important for proper road illumination without blinding oncoming traffic. Dim headlights can indicate voltage drop in the circuit, failing bulbs, or corroded connectors and grounds.",
+    definitionChinese: "车辆前方的主要照明灯，用于夜间和能见度差时照明。类型包括卤素、HID（氙气）和LED。前照灯瞄准对正确的道路照明而不致盲对向车辆很重要。暗淡的前照灯可能表明电路中的电压降、灯泡失效或腐蚀的连接器和接地。",
+    image: "https://upload.wikimedia.org/wikipedia/commons/4/47/Four_stroke_engine_diagram.jpg",
+    youtube: "https://www.youtube.com/watch?v=9n7eVsEmhMk",
+    youtubeTitle: "Headlight Diagnosis and Replacement"
+  },
+  "horn": {
+    term: "Horn",
+    termChinese: "喇叭",
+    section: "A6",
+    definition: "An audible warning device required on all road vehicles. Operates via a relay circuit triggered by the horn button through the clock spring. A non-working horn can be caused by a blown fuse, faulty relay, corroded ground, failed clock spring, or the horn itself. Testing involves checking power and ground at the horn connector.",
+    definitionChinese: "所有道路车辆必须配备的声音警告装置。通过时钟弹簧由喇叭按钮触发的继电器电路工作。喇叭不工作可能由保险丝烧断、继电器故障、接地腐蚀、时钟弹簧故障或喇叭本身引起。测试包括检查喇叭连接器处的电源和接地。",
+    image: "https://upload.wikimedia.org/wikipedia/commons/4/47/Four_stroke_engine_diagram.jpg",
+    youtube: "https://www.youtube.com/watch?v=9n7eVsEmhMk",
+    youtubeTitle: "Horn Circuit Diagnosis"
+  },
+  "window_motor": {
+    term: "Power Window Motor",
+    termChinese: "电动车窗电机",
+    section: "A6",
+    definition: "A small DC motor that drives the window regulator to raise and lower the door glass. It receives power through the window switch and is reversible for up/down operation. A slow or non-functional window can be caused by a failed motor, faulty switch, broken regulator, or binding in the glass channel. Current draw testing helps isolate the cause.",
+    definitionChinese: "驱动车窗升降器升降车门玻璃的小型直流电机。通过车窗开关接收电源，可逆转实现上下操作。缓慢或失效的车窗可能由电机故障、开关故障、升降器断裂或玻璃导槽卡滞引起。电流消耗测试有助于隔离原因。",
+    image: "https://upload.wikimedia.org/wikipedia/commons/4/47/Four_stroke_engine_diagram.jpg",
+    youtube: "https://www.youtube.com/watch?v=9n7eVsEmhMk",
+    youtubeTitle: "Power Window Motor Diagnosis"
+  },
+  "fuel_rail": {
+    term: "Fuel Rail",
+    termChinese: "燃油分配管",
+    section: "A8",
+    definition: "A metal tube or pipe that distributes pressurized fuel equally to all fuel injectors. It maintains consistent fuel pressure across all cylinders. The fuel pressure regulator (or returnless system pressure control) attaches to the rail. A fuel rail with a Schrader valve allows fuel pressure testing. Leaking fuel rails are a fire hazard.",
+    definitionChinese: "将加压燃油均匀分配到所有喷油器的金属管。在所有气缸上保持一致的燃油压力。燃油压力调节器（或无回流系统压力控制）连接到燃油轨。带施拉德阀的燃油轨允许燃油压力测试。泄漏的燃油轨是火灾隐患。",
+    image: "https://upload.wikimedia.org/wikipedia/commons/4/47/Four_stroke_engine_diagram.jpg",
+    youtube: "https://www.youtube.com/watch?v=i70X4-RCBKs",
+    youtubeTitle: "Fuel Rail and Injector Service"
+  },
+  "exhaust_system": {
+    term: "Exhaust System",
+    termChinese: "排气系统",
+    section: "A8",
+    definition: "The complete system that routes exhaust gases from the engine to the atmosphere, including the exhaust manifold, catalytic converter, resonator, muffler, and tailpipe. It reduces noise and harmful emissions. Exhaust leaks cause ticking noises, failed emission tests, and can allow CO into the cabin. Rust and corrosion are common failure causes.",
+    definitionChinese: "将废气从发动机排到大气中的完整系统，包括排气歧管、催化转化器、谐振器、消声器和尾管。减少噪音和有害排放。排气泄漏导致滴答声、排放测试失败，并可能让CO进入驾驶室。锈蚀和腐蚀是常见的故障原因。",
+    image: "https://upload.wikimedia.org/wikipedia/commons/4/47/Four_stroke_engine_diagram.jpg",
+    youtube: "https://www.youtube.com/watch?v=XMa2FH6D07o",
+    youtubeTitle: "Exhaust System Components Explained"
+  },
+  "muffler": {
+    term: "Muffler",
+    termChinese: "消声器",
+    section: "A8",
+    definition: "A device in the exhaust system that reduces engine noise using internal chambers and baffles to cancel sound waves. A restricted muffler causes back pressure, reducing engine performance. A rusted-through muffler is excessively loud and may allow exhaust fumes to enter the cabin. Mufflers should be inspected for holes, rust, and loose hangers.",
+    definitionChinese: "排气系统中使用内部腔室和隔板消除声波以降低发动机噪音的装置。受限的消声器导致背压，降低发动机性能。锈穿的消声器过于嘈杂，可能让排气烟雾进入驾驶室。应检查消声器是否有孔、锈蚀和松动的吊架。",
+    image: "https://upload.wikimedia.org/wikipedia/commons/4/47/Four_stroke_engine_diagram.jpg",
+    youtube: "https://www.youtube.com/watch?v=XMa2FH6D07o",
+    youtubeTitle: "How a Muffler Works"
+  },
+  "emission_test": {
+    term: "Emission Test",
+    termChinese: "排放测试",
+    section: "A8",
+    definition: "A government-mandated inspection that measures the levels of pollutants (HC, CO, NOx, CO2) in a vehicle's exhaust. OBD-II vehicles are tested by checking for readiness monitors and DTCs. Older vehicles may undergo a tailpipe emissions test with a gas analyzer. Common causes of failure include a bad catalytic converter, misfires, and EVAP leaks.",
+    definitionChinese: "政府强制的检查，测量车辆排气中的污染物水平（HC、CO、NOx、CO2）。OBD-II车辆通过检查就绪监测器和DTC进行测试。较老的车辆可能用气体分析仪进行尾管排放测试。常见的失败原因包括催化转化器故障、失火和EVAP泄漏。",
+    image: "https://upload.wikimedia.org/wikipedia/commons/4/47/Four_stroke_engine_diagram.jpg",
+    youtube: "https://www.youtube.com/watch?v=9n7eVsEmhMk",
+    youtubeTitle: "Common Reasons for Emission Test Failure"
+  },
+  "wideband_oxygen_sensor": {
+    term: "Wideband Oxygen Sensor (A/F Sensor)",
+    termChinese: "宽带氧传感器（空燃比传感器）",
+    section: "A8",
+    definition: "An advanced oxygen sensor (typically upstream, Bank 1 Sensor 1) that can measure a wide range of air-fuel ratios rather than just switching between rich and lean like a narrow-band sensor. It provides more precise feedback to the PCM for tighter fuel control and lower emissions. It operates at higher temperatures and uses a different voltage output pattern.",
+    definitionChinese: "先进的氧传感器（通常为上游Bank 1 Sensor 1），可以测量宽范围的空燃比，而不像窄带传感器只在浓稀之间切换。为PCM提供更精确的反馈以实现更严格的燃油控制和更低的排放。在更高温度下工作，使用不同的电压输出模式。",
+    image: "https://upload.wikimedia.org/wikipedia/commons/4/47/Four_stroke_engine_diagram.jpg",
+    youtube: "https://www.youtube.com/watch?v=9n7eVsEmhMk",
+    youtubeTitle: "Wideband vs Narrowband O2 Sensors"
+  },
+  "freeze_frame": {
+    term: "Freeze Frame Data",
+    termChinese: "冻结帧数据",
+    section: "A8",
+    definition: "A snapshot of engine sensor data stored by the PCM at the moment a DTC is set. It captures conditions like RPM, load, coolant temperature, fuel trim, and vehicle speed when the fault occurred. Technicians use freeze frame data to understand the conditions that triggered a code, making diagnosis more efficient.",
+    definitionChinese: "PCM在设定DTC时存储的发动机传感器数据快照。捕获故障发生时的RPM、负荷、冷却液温度、燃油修正和车速等条件。技师使用冻结帧数据了解触发代码的条件，使诊断更高效。",
+    image: "https://upload.wikimedia.org/wikipedia/commons/4/47/Four_stroke_engine_diagram.jpg",
+    youtube: "https://www.youtube.com/watch?v=9n7eVsEmhMk",
+    youtubeTitle: "Using Freeze Frame Data for Diagnosis"
+  },
+  "drive_cycle": {
+    term: "Drive Cycle",
+    termChinese: "驾驶循环",
+    section: "A8",
+    definition: "A specific sequence of driving conditions required by the PCM to run all OBD-II readiness monitors (catalyst, EVAP, O2 sensor, etc.). After clearing DTCs, monitors must complete before an emissions inspection. Different monitors require different conditions (cold start, steady cruise, deceleration). An incomplete drive cycle means monitors are not ready.",
+    definitionChinese: "PCM运行所有OBD-II就绪监测器（催化剂、EVAP、O2传感器等）所需的特定驾驶条件序列。清除DTC后，监测器必须在排放检查前完成。不同的监测器需要不同的条件（冷启动、稳定巡航、减速）。不完整的驾驶循环意味着监测器未就绪。",
+    image: "https://upload.wikimedia.org/wikipedia/commons/4/47/Four_stroke_engine_diagram.jpg",
+    youtube: "https://www.youtube.com/watch?v=9n7eVsEmhMk",
+    youtubeTitle: "OBD-II Drive Cycle Explained"
+  },
+  "transmission_mount": {
+    term: "Transmission Mount",
+    termChinese: "变速箱支架",
+    section: "A2",
+    definition: "A rubber-and-metal mount that secures the transmission to the vehicle frame or crossmember while absorbing vibration. A worn or broken mount allows excessive transmission movement, causing clunking noises during acceleration or shifting, misalignment with the driveshaft, and potential damage to shift linkage or exhaust components.",
+    definitionChinese: "将变速箱固定在车架或横梁上同时吸收振动的橡胶金属支架。磨损或断裂的支架允许变速箱过度移动，导致加速或换挡时的咔嗒声、与传动轴不对齐，以及可能损坏换挡连杆或排气部件。",
+    image: "https://upload.wikimedia.org/wikipedia/commons/4/47/Four_stroke_engine_diagram.jpg",
+    youtube: "https://www.youtube.com/watch?v=XMa2FH6D07o",
+    youtubeTitle: "Transmission Mount Replacement"
+  },
+  "torque_converter_clutch": {
+    term: "Torque Converter Clutch (TCC)",
+    termChinese: "液力变矩器锁止离合器",
+    section: "A2",
+    definition: "A lockup clutch inside the torque converter that mechanically connects the engine to the transmission at highway speeds, eliminating torque converter slippage and improving fuel economy. The PCM controls TCC engagement via a solenoid. A shudder during TCC application indicates worn friction material. A stuck TCC causes stalling when coming to a stop.",
+    definitionChinese: "液力变矩器内的锁止离合器，在高速行驶时将发动机与变速箱机械连接，消除液力变矩器滑动并提高燃油经济性。PCM通过电磁阀控制TCC啮合。TCC接合时的抖动表明摩擦材料磨损。卡住的TCC在停车时导致熄火。",
+    image: "https://upload.wikimedia.org/wikipedia/commons/4/47/Four_stroke_engine_diagram.jpg",
+    youtube: "https://www.youtube.com/watch?v=XMa2FH6D07o",
+    youtubeTitle: "Torque Converter Clutch Operation"
+  },
+  "oil_cooler": {
+    term: "Oil Cooler",
+    termChinese: "油冷却器",
+    section: "A1",
+    definition: "A heat exchanger that cools engine oil or transmission fluid using either coolant (liquid-to-liquid) or air (liquid-to-air). Helps maintain proper operating temperature under heavy load conditions. A leaking oil cooler can cause oil-coolant contamination (milky oil or oily coolant). Common on turbocharged engines and towing packages.",
+    definitionChinese: "使用冷却液（液-液式）或空气（液-气式）冷却发动机机油或变速箱油的热交换器。帮助在重负荷条件下保持正常工作温度。泄漏的油冷却器可导致油冷却液污染（乳白色机油或油性冷却液）。常见于涡轮增压发动机和拖车套件。",
+    image: "https://upload.wikimedia.org/wikipedia/commons/a/ad/Automobile_radiator.jpg",
+    youtube: "https://www.youtube.com/watch?v=aOXz5hlKO9s",
+    youtubeTitle: "Oil Cooler Function and Failure"
+  },
+  "turbocharger": {
+    term: "Turbocharger",
+    termChinese: "涡轮增压器",
+    section: "A8",
+    definition: "A forced-induction device driven by exhaust gases that compresses intake air to increase engine power output. Exhaust spins the turbine wheel, which is shaft-connected to the compressor wheel in the intake. Turbo lag is the delay before boost builds. Turbo failures are often caused by oil starvation, contaminated oil, or foreign object damage.",
+    definitionChinese: "由排气驱动的强制进气装置，压缩进气空气以增加发动机功率输出。排气推动涡轮叶轮旋转，涡轮叶轮通过轴连接到进气侧的压缩机叶轮。涡轮迟滞是增压建立前的延迟。涡轮故障通常由油润滑不足、污染的机油或异物损坏引起。",
+    image: "https://upload.wikimedia.org/wikipedia/commons/4/47/Four_stroke_engine_diagram.jpg",
+    youtube: "https://www.youtube.com/watch?v=XMa2FH6D07o",
+    youtubeTitle: "How Turbochargers Work"
+  },
+  "supercharger": {
+    term: "Supercharger",
+    termChinese: "机械增压器",
+    section: "A8",
+    definition: "A belt-driven forced-induction device that compresses intake air to increase engine power. Unlike a turbocharger, it is mechanically driven by the engine's crankshaft via a belt, providing instant boost with no lag. Types include roots, twin-screw, and centrifugal. The trade-off is that it consumes some engine power to drive itself.",
+    definitionChinese: "皮带驱动的强制进气装置，压缩进气空气以增加发动机功率。与涡轮增压器不同，它由发动机曲轴通过皮带机械驱动，提供即时增压无迟滞。类型包括鲁茨式、双螺杆式和离心式。缺点是驱动自身需要消耗一些发动机功率。",
+    image: "https://upload.wikimedia.org/wikipedia/commons/4/47/Four_stroke_engine_diagram.jpg",
+    youtube: "https://www.youtube.com/watch?v=XMa2FH6D07o",
+    youtubeTitle: "Supercharger vs Turbocharger"
+  },
+  "intercooler": {
+    term: "Intercooler",
+    termChinese: "中冷器",
+    section: "A8",
+    definition: "A heat exchanger that cools the compressed intake air from a turbocharger or supercharger before it enters the engine. Cooler air is denser, containing more oxygen molecules for better combustion and more power. Types include air-to-air (uses ambient airflow) and liquid-to-air (uses coolant). A leaking intercooler causes loss of boost pressure.",
+    definitionChinese: "在压缩进气从涡轮增压器或机械增压器进入发动机之前冷却它的热交换器。较冷的空气密度更大，含有更多氧分子以实现更好的燃烧和更多功率。类型包括气-气式（使用环境气流）和液-气式（使用冷却液）。泄漏的中冷器导致增压压力损失。",
+    image: "https://upload.wikimedia.org/wikipedia/commons/4/47/Four_stroke_engine_diagram.jpg",
+    youtube: "https://www.youtube.com/watch?v=XMa2FH6D07o",
+    youtubeTitle: "Intercooler Function and Types"
+  },
+  "wastegate": {
+    term: "Wastegate",
+    termChinese: "废气旁通阀",
+    section: "A8",
+    definition: "A valve that controls turbo boost pressure by diverting some exhaust gas away from the turbine wheel. Internal wastegates are built into the turbine housing; external wastegates are separate units. The PCM controls the wastegate actuator (often a solenoid) to maintain target boost levels. A stuck wastegate causes over-boost or under-boost conditions.",
+    definitionChinese: "通过将部分排气从涡轮叶轮旁引走来控制涡轮增压压力的阀门。内部废气门内置在涡轮壳体中；外部废气门是独立单元。PCM控制废气门执行器（通常是电磁阀）以保持目标增压水平。卡住的废气门导致过增压或增压不足。",
+    image: "https://upload.wikimedia.org/wikipedia/commons/4/47/Four_stroke_engine_diagram.jpg",
+    youtube: "https://www.youtube.com/watch?v=XMa2FH6D07o",
+    youtubeTitle: "Wastegate Operation and Testing"
+  },
+  "traction_control": {
+    term: "Traction Control System (TCS)",
+    termChinese: "牵引力控制系统",
+    section: "A5",
+    definition: "A system that prevents wheel spin during acceleration by using ABS wheel speed sensors to detect slipping wheels. It reduces engine torque and/or applies brakes to the spinning wheel to maintain traction. Works in conjunction with ABS and stability control. The system can be turned off by the driver but reactivates at each key cycle.",
+    definitionChinese: "通过使用ABS轮速传感器检测打滑车轮来防止加速时轮胎打滑的系统。减少发动机扭矩和/或对打滑车轮施加制动以保持牵引力。与ABS和稳定控制系统协同工作。驾驶员可关闭该系统，但每次点火循环时重新激活。",
+    image: "https://upload.wikimedia.org/wikipedia/commons/4/47/Four_stroke_engine_diagram.jpg",
+    youtube: "https://www.youtube.com/watch?v=XMa2FH6D07o",
+    youtubeTitle: "Traction Control System Explained"
+  },
+  "stability_control": {
+    term: "Electronic Stability Control (ESC)",
+    termChinese: "电子稳定控制系统",
+    section: "A5",
+    definition: "A safety system that detects and reduces loss of traction by comparing the driver's intended direction (steering angle) with the vehicle's actual movement (yaw rate sensor). It selectively applies brakes to individual wheels and reduces engine power to help the driver maintain control during skids, understeer, or oversteer conditions.",
+    definitionChinese: "通过比较驾驶员意图方向（转向角）与车辆实际运动（偏航率传感器）来检测并减少牵引力损失的安全系统。选择性地对单个车轮施加制动并降低发动机功率，帮助驾驶员在打滑、转向不足或转向过度情况下保持控制。",
+    image: "https://upload.wikimedia.org/wikipedia/commons/4/47/Four_stroke_engine_diagram.jpg",
+    youtube: "https://www.youtube.com/watch?v=XMa2FH6D07o",
+    youtubeTitle: "Electronic Stability Control How It Works"
+  },
+  "wheel_speed_sensor": {
+    term: "Wheel Speed Sensor",
+    termChinese: "车轮速度传感器",
+    section: "A5",
+    definition: "A sensor at each wheel that monitors rotational speed for the ABS, traction control, and stability control systems. Types include passive (variable reluctance) and active (Hall-effect). A faulty sensor triggers ABS and traction control warning lights and disables those systems. Common failures include damaged tone rings, corroded connectors, and broken wires.",
+    definitionChinese: "每个车轮上监测旋转速度的传感器，用于ABS、牵引力控制和稳定控制系统。类型包括被动式（可变磁阻）和主动式（霍尔效应）。故障的传感器触发ABS和牵引力控制警告灯并禁用这些系统。常见故障包括信号环损坏、连接器腐蚀和断线。",
+    image: "https://upload.wikimedia.org/wikipedia/commons/4/47/Four_stroke_engine_diagram.jpg",
+    youtube: "https://www.youtube.com/watch?v=XMa2FH6D07o",
+    youtubeTitle: "Wheel Speed Sensor Testing"
+  },
+  "tire": {
+    term: "Tire",
+    termChinese: "轮胎",
+    section: "G1",
+    definition: "The rubber component mounted on the wheel rim that provides traction, cushioning, and directional control. Tire sidewall markings (like P215/65R16) indicate width, aspect ratio, construction type, and diameter. Tread depth minimum is 2/32 inch. Uneven wear patterns indicate alignment, inflation, or suspension issues. Tires should be rotated every 5,000-8,000 miles.",
+    definitionChinese: "安装在轮辋上的橡胶部件，提供牵引力、缓冲和方向控制。轮胎侧壁标记（如P215/65R16）表示宽度、扁平比、结构类型和直径。胎面深度最小为2/32英寸。不均匀磨损模式表明对齐、充气或悬架问题。轮胎应每5,000-8,000英里轮换。",
+    image: "https://upload.wikimedia.org/wikipedia/commons/1/1e/Tire_Valve_Stem.jpg",
+    youtube: "https://www.youtube.com/watch?v=K9Gu0f64NWU",
+    youtubeTitle: "How to Read Tire Markings"
+  },
+  "tpms": {
+    term: "Tire Pressure Monitoring System (TPMS)",
+    termChinese: "轮胎压力监测系统",
+    section: "G1",
+    definition: "A system that monitors tire inflation pressure and alerts the driver when pressure drops below a threshold (typically 25% below recommended). Direct TPMS uses sensors inside each tire; indirect TPMS uses ABS wheel speed sensors to detect differences in tire rolling circumference. The TPMS light must be diagnosed and reset after tire service.",
+    definitionChinese: "监测轮胎充气压力并在压力低于阈值（通常低于推荐值25%）时提醒驾驶员的系统。直接TPMS使用每个轮胎内的传感器；间接TPMS使用ABS轮速传感器检测轮胎滚动周长差异。轮胎保养后必须诊断和重置TPMS灯。",
+    image: "https://upload.wikimedia.org/wikipedia/commons/1/1e/Tire_Valve_Stem.jpg",
+    youtube: "https://www.youtube.com/watch?v=K9Gu0f64NWU",
+    youtubeTitle: "TPMS System Operation and Reset"
+  },
+  "electric_fan": {
+    term: "Electric Cooling Fan",
+    termChinese: "电子冷却风扇",
+    section: "A1",
+    definition: "An electrically powered fan mounted behind the radiator that draws air through the radiator core at low speeds and idle when ram airflow is insufficient. Controlled by the PCM based on coolant temperature and A/C status. A non-working fan causes overheating in traffic. The fan relay, temperature sensor, and motor are common failure points.",
+    definitionChinese: "安装在散热器后面的电动风扇，在低速和怠速时当迎面气流不足时吸引空气通过散热器芯。由PCM根据冷却液温度和空调状态控制。风扇不工作导致交通中过热。风扇继电器、温度传感器和电机是常见故障点。",
+    image: "https://upload.wikimedia.org/wikipedia/commons/a/ad/Automobile_radiator.jpg",
+    youtube: "https://www.youtube.com/watch?v=aOXz5hlKO9s",
+    youtubeTitle: "Cooling Fan Circuit Diagnosis"
+  },
+  "radiator_cap": {
+    term: "Radiator Cap",
+    termChinese: "散热器盖",
+    section: "A1",
+    definition: "A pressure cap on the radiator or expansion tank that maintains cooling system pressure (typically 13-18 psi). Higher pressure raises the boiling point of coolant. The cap has a pressure valve that opens to release excess pressure to the overflow tank and a vacuum valve that allows coolant to return when the system cools. A faulty cap causes overheating or coolant loss.",
+    definitionChinese: "散热器或膨胀箱上的压力盖，维持冷却系统压力（通常13-18 psi）。较高压力提高冷却液的沸点。盖上有释放多余压力到溢流箱的压力阀和系统冷却时允许冷却液回流的真空阀。故障的散热器盖导致过热或冷却液损失。",
+    image: "https://upload.wikimedia.org/wikipedia/commons/a/ad/Automobile_radiator.jpg",
+    youtube: "https://www.youtube.com/watch?v=aOXz5hlKO9s",
+    youtubeTitle: "Radiator Cap Testing"
+  },
+  "hose_clamp": {
+    term: "Hose Clamp",
+    termChinese: "软管夹",
+    section: "G1",
+    definition: "A device used to secure rubber hoses to fittings and prevent leaks in cooling, vacuum, and fuel systems. Types include worm-gear (screw type), spring, and constant-tension clamps. Proper clamp selection and tightening ensures leak-free connections. Over-tightening can cut through hoses; under-tightening causes leaks, especially as hoses age and shrink.",
+    definitionChinese: "用于将橡胶软管固定在接头上并防止冷却、真空和燃油系统泄漏的装置。类型包括蜗杆式（螺旋式）、弹簧式和恒张力夹。正确的夹子选择和拧紧确保无泄漏连接。过度拧紧可切穿软管；拧紧不足导致泄漏，尤其是软管老化收缩时。",
+    image: "https://upload.wikimedia.org/wikipedia/commons/a/ad/Automobile_radiator.jpg",
+    youtube: "https://www.youtube.com/watch?v=aOXz5hlKO9s",
+    youtubeTitle: "Hose Clamp Types and Installation"
+  },
+  "vacuum_leak": {
+    term: "Vacuum Leak",
+    termChinese: "真空泄漏",
+    section: "A8",
+    definition: "An unmetered air leak in the intake system that allows air to bypass the throttle and MAF sensor. This causes a lean condition, rough idle, misfires, and high idle speed. Common sources include cracked vacuum hoses, leaking intake manifold gaskets, and worn throttle body gaskets. A smoke machine is the most effective diagnostic tool.",
+    definitionChinese: "进气系统中未计量的空气泄漏，允许空气绕过节气门和MAF传感器。导致混合气偏稀、怠速不稳、失火和高怠速。常见来源包括破裂的真空软管、泄漏的进气歧管垫片和磨损的节气门体垫片。烟雾机是最有效的诊断工具。",
+    image: "https://upload.wikimedia.org/wikipedia/commons/2/2b/Carburetor.svg",
+    youtube: "https://www.youtube.com/watch?v=9n7eVsEmhMk",
+    youtubeTitle: "How to Find a Vacuum Leak"
+  },
+  "catalytic_converter_efficiency": {
+    term: "Catalytic Converter Efficiency",
+    termChinese: "催化转化器效率",
+    section: "A8",
+    definition: "A measurement of how well the catalytic converter is reducing harmful emissions (HC, CO, NOx). The PCM monitors efficiency by comparing upstream and downstream oxygen sensor readings. A healthy converter shows a steady downstream O2 signal. Code P0420/P0430 indicates below-threshold efficiency. Causes include age, contamination from oil or coolant, or physical damage.",
+    definitionChinese: "催化转化器减少有害排放（HC、CO、NOx）效果的测量。PCM通过比较上游和下游氧传感器读数监测效率。健康的转化器显示稳定的下游O2信号。P0420/P0430代码表示效率低于阈值。原因包括老化、机油或冷却液污染或物理损坏。",
+    image: "https://upload.wikimedia.org/wikipedia/commons/4/47/Four_stroke_engine_diagram.jpg",
+    youtube: "https://www.youtube.com/watch?v=9n7eVsEmhMk",
+    youtubeTitle: "Catalytic Converter Efficiency Diagnosis"
+  },
+  "idle_speed": {
+    term: "Idle Speed",
+    termChinese: "怠速转速",
+    section: "A8",
+    definition: "The RPM at which the engine runs when the throttle is closed and no load is applied beyond normal accessories. Typical idle speed is 600-900 RPM for most vehicles. It is controlled by the PCM through the IAC valve or electronic throttle body. Abnormal idle (too high, too low, or fluctuating) indicates vacuum leaks, dirty throttle, or sensor issues.",
+    definitionChinese: "节气门关闭且除正常附件外无负荷时发动机运行的RPM。大多数车辆的典型怠速为600-900 RPM。由PCM通过IAC阀或电子节气门体控制。异常怠速（过高、过低或波动）表明真空泄漏、脏节气门或传感器问题。",
+    image: "https://upload.wikimedia.org/wikipedia/commons/4/47/Four_stroke_engine_diagram.jpg",
+    youtube: "https://www.youtube.com/watch?v=9n7eVsEmhMk",
+    youtubeTitle: "Diagnosing Idle Speed Problems"
+  },
+  "oil_filter": {
+    term: "Oil Filter",
+    termChinese: "机油滤清器",
+    section: "G1",
+    definition: "A replaceable filter that removes contaminants (metal particles, carbon, dirt) from engine oil as it circulates. Contains a bypass valve that opens if the filter becomes clogged, allowing unfiltered oil to pass rather than starving the engine. Should be replaced at every oil change. The anti-drainback valve prevents oil from draining out when the engine is off.",
+    definitionChinese: "在发动机机油循环时去除污染物（金属颗粒、碳、灰尘）的可更换过滤器。包含旁通阀，如果过滤器堵塞则打开，允许未过滤的油通过而不是使发动机缺油。每次换油时应更换。防回流阀防止发动机关闭时机油排出。",
+    image: "https://upload.wikimedia.org/wikipedia/commons/4/47/Four_stroke_engine_diagram.jpg",
+    youtube: "https://www.youtube.com/watch?v=XMa2FH6D07o",
+    youtubeTitle: "Oil Filter Function and Selection"
+  },
+  "gasket": {
+    term: "Gasket",
+    termChinese: "垫片",
+    section: "A1",
+    definition: "A sealing material placed between two mating surfaces to prevent fluid or gas leaks. Automotive gaskets include head gaskets, intake manifold gaskets, exhaust manifold gaskets, valve cover gaskets, and oil pan gaskets. Materials range from multi-layer steel to rubber, cork, and paper. Proper surface preparation and torque are essential for gasket sealing.",
+    definitionChinese: "放置在两个配合表面之间以防止流体或气体泄漏的密封材料。汽车垫片包括缸垫、进气歧管垫片、排气歧管垫片、气门室盖垫片和油底壳垫片。材料从多层钢到橡胶、软木和纸。正确的表面处理和扭矩对垫片密封至关重要。",
+    image: "https://upload.wikimedia.org/wikipedia/commons/e/e5/Cylinder_head_of_1KD-FTV.JPG",
+    youtube: "https://www.youtube.com/watch?v=5zpNjYmmiYY",
+    youtubeTitle: "Types of Automotive Gaskets"
+  },
+  "bearing": {
+    term: "Bearing",
+    termChinese: "轴承",
+    section: "A1",
+    definition: "A component that supports a rotating shaft while minimizing friction. Automotive bearings include engine bearings (plain shell type with oil film), wheel bearings (ball or roller type), and clutch release bearings. Proper lubrication and correct clearances are essential for bearing life. A failing bearing produces noise, heat, and eventually seizure.",
+    definitionChinese: "支撑旋转轴同时最小化摩擦的部件。汽车轴承包括发动机轴承（油膜式普通轴承）、车轮轴承（球型或滚子型）和离合器分离轴承。适当的润滑和正确的间隙对轴承寿命至关重要。故障的轴承产生噪音、发热，最终卡死。",
+    image: "https://upload.wikimedia.org/wikipedia/commons/e/ee/Crankshaft.jpg",
+    youtube: "https://www.youtube.com/watch?v=XMa2FH6D07o",
+    youtubeTitle: "Automotive Bearing Types"
+  },
+  "serpentine_belt_tensioner": {
+    term: "Belt Tensioner",
+    termChinese: "皮带张紧器",
+    section: "A1",
+    definition: "A spring-loaded automatic tensioner that maintains proper tension on the serpentine belt. The internal spring and dampener keep the belt tight as it stretches over time. A worn tensioner causes belt squeal, flutter, or slipping off. The tensioner wear indicator shows if tension is within spec. Replacement is recommended when installing a new belt.",
+    definitionChinese: "弹簧加载的自动张紧器，保持蛇形皮带的适当张力。内部弹簧和阻尼器随皮带拉伸保持紧张。磨损的张紧器导致皮带尖叫、抖动或脱落。张紧器磨损指示器显示张力是否在规格范围内。安装新皮带时建议更换。",
+    image: "https://upload.wikimedia.org/wikipedia/commons/4/47/Four_stroke_engine_diagram.jpg",
+    youtube: "https://www.youtube.com/watch?v=XMa2FH6D07o",
+    youtubeTitle: "Serpentine Belt Tensioner Replacement"
+  },
+  "power_window": {
+    term: "Power Window System",
+    termChinese: "电动车窗系统",
+    section: "A6",
+    definition: "An electrically operated system that raises and lowers the vehicle's door glass using a motor and regulator mechanism. The master switch on the driver's door controls all windows. Window lock prevents passenger operation. One-touch auto-up/down features include anti-pinch protection. Slow operation usually indicates a worn motor or binding in the track.",
+    definitionChinese: "使用电机和升降器机构升降车辆车门玻璃的电气操作系统。驾驶员侧门上的主开关控制所有车窗。车窗锁定防止乘客操作。一键自动升降功能包括防夹保护。操作缓慢通常表明电机磨损或轨道中有卡滞。",
+    image: "https://upload.wikimedia.org/wikipedia/commons/4/47/Four_stroke_engine_diagram.jpg",
+    youtube: "https://www.youtube.com/watch?v=9n7eVsEmhMk",
+    youtubeTitle: "Power Window System Diagnosis"
+  },
+  "airbag": {
+    term: "Airbag (SRS)",
+    termChinese: "安全气囊",
+    section: "A6",
+    definition: "A supplemental restraint system that deploys inflatable cushions during a collision to protect occupants. The SRS module uses crash sensors to determine impact severity and deploy the appropriate airbags. The clock spring provides the electrical connection to the driver's airbag through the steering wheel. Airbag warning light on indicates a system fault requiring scan tool diagnosis.",
+    definitionChinese: "在碰撞时展开充气垫保护乘员的辅助约束系统。SRS模块使用碰撞传感器确定撞击严重程度并展开适当的安全气囊。时钟弹簧通过方向盘为驾驶员安全气囊提供电气连接。安全气囊警告灯亮表示系统故障需要扫描工具诊断。",
+    image: "https://upload.wikimedia.org/wikipedia/commons/4/47/Four_stroke_engine_diagram.jpg",
+    youtube: "https://www.youtube.com/watch?v=9n7eVsEmhMk",
+    youtubeTitle: "SRS Airbag System Components"
+  },
+  "cruise_control": {
+    term: "Cruise Control",
+    termChinese: "巡航控制",
+    section: "A6",
+    definition: "A system that automatically maintains a set vehicle speed without the driver pressing the accelerator pedal. The PCM adjusts throttle position to maintain the set speed. Adaptive cruise control (ACC) uses radar to maintain following distance. The brake pedal switch and vehicle speed sensor are critical inputs. A faulty brake switch can disable cruise control.",
+    definitionChinese: "在驾驶员不踩油门踏板的情况下自动保持设定车速的系统。PCM调整节气门位置以保持设定速度。自适应巡航控制（ACC）使用雷达保持跟车距离。制动踏板开关和车速传感器是关键输入。故障的制动开关可能禁用巡航控制。",
+    image: "https://upload.wikimedia.org/wikipedia/commons/4/47/Four_stroke_engine_diagram.jpg",
+    youtube: "https://www.youtube.com/watch?v=9n7eVsEmhMk",
+    youtubeTitle: "Cruise Control System Diagnosis"
+  },
+  "ac_pressure": {
+    term: "A/C System Pressures",
+    termChinese: "空调系统压力",
+    section: "A7",
+    definition: "The high-side and low-side pressures in the A/C system measured with a manifold gauge set. Normal readings depend on ambient temperature but typically are 25-45 psi low side and 150-250 psi high side. Both sides equal indicates a faulty compressor. High side high/low side high indicates overcharge or poor condenser cooling. Both sides low indicates low refrigerant.",
+    definitionChinese: "用歧管压力表测量的空调系统高压侧和低压侧压力。正常读数取决于环境温度，但通常低压侧25-45 psi，高压侧150-250 psi。两侧相等表示压缩机故障。高压侧高/低压侧高表示过充或冷凝器冷却不良。两侧低表示制冷剂不足。",
+    image: "https://upload.wikimedia.org/wikipedia/commons/4/47/Four_stroke_engine_diagram.jpg",
+    youtube: "https://www.youtube.com/watch?v=XMa2FH6D07o",
+    youtubeTitle: "A/C Pressure Chart and Diagnosis"
+  },
+  "heater_control_valve": {
+    term: "Heater Control Valve",
+    termChinese: "暖风控制阀",
+    section: "A7",
+    definition: "A valve that controls the flow of hot engine coolant into the heater core. Some systems use a cable-operated or vacuum-operated valve; others use the blend door instead. A stuck-closed valve causes no heat; a stuck-open valve causes heat that cannot be turned off. Some modern systems do not use a heater control valve at all.",
+    definitionChinese: "控制热发动机冷却液流入暖风芯体的阀门。某些系统使用拉线操作或真空操作的阀门；其他系统使用混合门代替。卡在关闭位置的阀门导致无暖风；卡在打开位置的阀门导致无法关闭的暖风。一些现代系统完全不使用暖风控制阀。",
+    image: "https://upload.wikimedia.org/wikipedia/commons/a/ad/Automobile_radiator.jpg",
+    youtube: "https://www.youtube.com/watch?v=aOXz5hlKO9s",
+    youtubeTitle: "Heater Control Valve Testing"
+  },
+  "pressure_test": {
+    term: "Cooling System Pressure Test",
+    termChinese: "冷却系统压力测试",
+    section: "A1",
+    definition: "A diagnostic test using a hand pump and adapter to pressurize the cooling system to the radiator cap's rated pressure to check for external and internal leaks. External leaks appear as coolant dripping from hoses, gaskets, or the radiator. The pressure should hold steady; a dropping gauge indicates a leak. Also used to test the radiator cap itself.",
+    definitionChinese: "使用手动泵和适配器将冷却系统加压到散热器盖额定压力的诊断测试，检查外部和内部泄漏。外部泄漏表现为冷却液从软管、垫片或散热器滴落。压力应保持稳定；压力表下降表示泄漏。也用于测试散热器盖本身。",
+    image: "https://upload.wikimedia.org/wikipedia/commons/a/ad/Automobile_radiator.jpg",
+    youtube: "https://www.youtube.com/watch?v=aOXz5hlKO9s",
+    youtubeTitle: "Cooling System Pressure Test Guide"
+  },
+  "transmission_filter": {
+    term: "Transmission Filter",
+    termChinese: "变速箱滤清器",
+    section: "A2",
+    definition: "A filter inside the automatic transmission oil pan that removes contaminants from the fluid before it is drawn into the pump. A clogged filter restricts fluid flow, causing delayed shifts, slipping, and overheating. The filter is typically replaced during a transmission fluid service by dropping the pan. Some filters are internal and require disassembly.",
+    definitionChinese: "自动变速箱油底壳内的过滤器，在液体被泵吸入前去除污染物。堵塞的过滤器限制液体流动，导致换挡延迟、打滑和过热。通常在变速箱油保养时通过拆下油底壳更换过滤器。某些过滤器是内置的，需要拆解。",
+    image: "https://upload.wikimedia.org/wikipedia/commons/4/42/8-speed_AT_for_Lexus_LS460.jpg",
+    youtube: "https://www.youtube.com/watch?v=5nK5j3SEylA",
+    youtubeTitle: "Transmission Filter and Fluid Change"
+  },
+  "overdrive": {
+    term: "Overdrive",
+    termChinese: "超速挡",
+    section: "A2",
+    definition: "The highest gear ratio in a transmission where the output shaft turns faster than the input shaft (ratio less than 1:1). Overdrive reduces engine RPM at highway speeds, improving fuel economy and reducing engine wear. Most automatic transmissions have overdrive as the top gear. A faulty overdrive solenoid prevents the transmission from reaching top gear.",
+    definitionChinese: "变速箱中输出轴转速快于输入轴的最高传动比（比率小于1:1）。超速挡降低高速公路行驶时的发动机RPM，提高燃油经济性并减少发动机磨损。大多数自动变速箱以超速挡为最高挡。故障的超速挡电磁阀阻止变速箱达到最高挡。",
+    image: "https://upload.wikimedia.org/wikipedia/commons/4/42/8-speed_AT_for_Lexus_LS460.jpg",
+    youtube: "https://www.youtube.com/watch?v=5nK5j3SEylA",
+    youtubeTitle: "Overdrive Function and Problems"
+  },
+
+  // ===== ADDITIONAL TERMS BATCH 4: COMMON ASE QUESTION TERMS =====
+  "cylinder_bore": {
+    term: "Cylinder Bore",
+    termChinese: "气缸孔",
+    section: "A1",
+    definition: "The machined cylindrical hole in the engine block where the piston travels. Bore diameter and roundness are critical specifications. Wear patterns include taper (more wear at top), out-of-round, and ridge formation. Bores can be honed for new rings or bored oversize for oversize pistons during an engine rebuild.",
+    definitionChinese: "发动机缸体中活塞运行的加工圆柱孔。孔径和圆度是关键规格。磨损模式包括锥度（顶部磨损更多）、失圆和台阶形成。在发动机翻修中，缸孔可以珩磨用于新活塞环或扩缸用于加大尺寸活塞。",
+    image: "https://upload.wikimedia.org/wikipedia/commons/4/47/Four_stroke_engine_diagram.jpg",
+    youtube: "https://www.youtube.com/watch?v=XMa2FH6D07o",
+    youtubeTitle: "Cylinder Bore Measurement and Honing"
+  },
+  "combustion_chamber": {
+    term: "Combustion Chamber",
+    termChinese: "燃烧室",
+    section: "A1",
+    definition: "The enclosed space at the top of the cylinder where the air-fuel mixture is compressed and ignited. Its shape affects combustion efficiency, power output, and emissions. Carbon deposits in the chamber increase compression ratio and can cause detonation. Chamber volume determines compression ratio and must be equalized across cylinders for smooth operation.",
+    definitionChinese: "气缸顶部封闭空间，空气燃油混合物在此被压缩和点燃。其形状影响燃烧效率、功率输出和排放。燃烧室中的积碳增加压缩比，可能导致爆燃。燃烧室容积决定压缩比，必须在各气缸之间均衡以保证平稳运行。",
+    image: "https://upload.wikimedia.org/wikipedia/commons/4/47/Four_stroke_engine_diagram.jpg",
+    youtube: "https://www.youtube.com/watch?v=XMa2FH6D07o",
+    youtubeTitle: "Combustion Chamber Design"
+  },
+  "oil_pressure_sensor": {
+    term: "Oil Pressure Sensor",
+    termChinese: "油压传感器",
+    section: "A1",
+    definition: "A sensor that monitors engine oil pressure and sends the reading to the PCM and dashboard gauge or warning light. Low oil pressure triggers a warning light. The sensor can be a simple on/off switch (for the warning light) or a variable resistance sender (for the gauge). A faulty sensor gives false readings. Always verify with a mechanical gauge.",
+    definitionChinese: "监测发动机机油压力并将读数发送给PCM和仪表盘压力表或警告灯的传感器。低油压触发警告灯。传感器可以是简单的开关式（用于警告灯）或可变电阻发送器（用于压力表）。故障的传感器给出错误读数。始终用机械压力表验证。",
+    image: "https://upload.wikimedia.org/wikipedia/commons/4/47/Four_stroke_engine_diagram.jpg",
+    youtube: "https://www.youtube.com/watch?v=XMa2FH6D07o",
+    youtubeTitle: "Oil Pressure Sensor Testing"
+  },
+  "valve_cover": {
+    term: "Valve Cover",
+    termChinese: "气门室盖",
+    section: "A1",
+    definition: "A stamped steel or cast aluminum cover that seals the top of the cylinder head, enclosing the valve train components. The valve cover gasket seals against oil leaks. Common sources of oil leaks on high-mileage engines. Must be removed for valve adjustment, rocker arm service, and spark plug tube seal replacement.",
+    definitionChinese: "密封气缸盖顶部、包围气门机构部件的冲压钢或铸铝盖。气门室盖垫片防止漏油。高里程发动机常见的漏油来源。拆卸用于气门调整、摇臂维修和火花塞管密封更换。",
+    image: "https://upload.wikimedia.org/wikipedia/commons/e/e5/Cylinder_head_of_1KD-FTV.JPG",
+    youtube: "https://www.youtube.com/watch?v=_addEj_vCro",
+    youtubeTitle: "Valve Cover Gasket Replacement"
+  },
+  "water_jacket": {
+    term: "Water Jacket",
+    termChinese: "水套",
+    section: "A1",
+    definition: "The passages cast into the engine block and cylinder head through which coolant circulates to absorb heat from the cylinders and combustion chambers. Blocked water jackets from corrosion or deposits cause localized overheating and can lead to head gasket failure. Proper cooling system maintenance prevents water jacket deterioration.",
+    definitionChinese: "铸入发动机缸体和气缸盖中的通道，冷却液在其中循环以吸收气缸和燃烧室的热量。因腐蚀或沉积物堵塞的水套导致局部过热，可能导致缸垫损坏。正确的冷却系统维护可防止水套劣化。",
+    image: "https://upload.wikimedia.org/wikipedia/commons/a/ad/Automobile_radiator.jpg",
+    youtube: "https://www.youtube.com/watch?v=aOXz5hlKO9s",
+    youtubeTitle: "Engine Water Jacket and Cooling"
+  },
+  "flex_plate": {
+    term: "Flexplate",
+    termChinese: "挠性飞轮",
+    section: "A2",
+    definition: "A thin stamped steel plate that connects the engine crankshaft to the torque converter in automatic transmissions. It has a ring gear around its edge for the starter motor. A cracked flexplate causes a rhythmic knocking noise at idle. Missing or loose torque converter bolts can also cause flexplate damage.",
+    definitionChinese: "连接发动机曲轴和自动变速箱液力变矩器的薄冲压钢板。边缘有齿环用于起动电机。开裂的挠性飞轮在怠速时产生有节奏的敲击声。缺失或松动的液力变矩器螺栓也可能导致挠性飞轮损坏。",
+    image: "https://upload.wikimedia.org/wikipedia/commons/4/42/8-speed_AT_for_Lexus_LS460.jpg",
+    youtube: "https://www.youtube.com/watch?v=5nK5j3SEylA",
+    youtubeTitle: "Flexplate vs Flywheel"
+  },
+  "clutch_master_cylinder": {
+    term: "Clutch Master Cylinder",
+    termChinese: "离合器主缸",
+    section: "A3",
+    definition: "A hydraulic cylinder operated by the clutch pedal that pressurizes brake fluid to actuate the clutch slave cylinder. When the pedal is pressed, the piston pushes fluid through the line to disengage the clutch. A leaking master cylinder causes a soft or sinking pedal and incomplete clutch disengagement, making shifting difficult.",
+    definitionChinese: "由离合器踏板操作的液压缸，对制动液加压以驱动离合器从缸。踩下踏板时，活塞通过管路推送液体以分离离合器。泄漏的主缸导致踏板松软或下沉和离合器分离不完全，使换挡困难。",
+    image: "https://upload.wikimedia.org/wikipedia/commons/4/47/Four_stroke_engine_diagram.jpg",
+    youtube: "https://www.youtube.com/watch?v=XMa2FH6D07o",
+    youtubeTitle: "Clutch Hydraulic System"
+  },
+  "slave_cylinder": {
+    term: "Clutch Slave Cylinder",
+    termChinese: "离合器从缸",
+    section: "A3",
+    definition: "A hydraulic actuator at the transmission that receives pressurized fluid from the clutch master cylinder and pushes the release fork or bearing to disengage the clutch. Some are mounted externally on the bell housing; concentric types surround the transmission input shaft. A leaking slave cylinder causes clutch drag and difficult shifting.",
+    definitionChinese: "变速箱处的液压执行器，接收离合器主缸的加压液体并推动分离叉或分离轴承以分离离合器。某些外部安装在钟形壳上；同心式围绕变速箱输入轴。泄漏的从缸导致离合器拖曳和换挡困难。",
+    image: "https://upload.wikimedia.org/wikipedia/commons/4/47/Four_stroke_engine_diagram.jpg",
+    youtube: "https://www.youtube.com/watch?v=XMa2FH6D07o",
+    youtubeTitle: "Clutch Slave Cylinder Replacement"
+  },
+  "ring_gear": {
+    term: "Ring Gear",
+    termChinese: "齿圈",
+    section: "A3",
+    definition: "A large gear in the differential that meshes with the pinion gear to change the direction of power flow 90 degrees and provide final drive gear reduction. The ring-and-pinion gear ratio affects acceleration and fuel economy. Also refers to the gear on the flywheel/flexplate that the starter motor engages to crank the engine.",
+    definitionChinese: "差速器中与小齿轮啮合的大齿轮，将动力流方向改变90度并提供最终传动减速。齿圈和小齿轮的传动比影响加速性和燃油经济性。也指飞轮/挠性飞轮上起动电机啮合以起动发动机的齿轮。",
+    image: "https://upload.wikimedia.org/wikipedia/commons/4/47/Four_stroke_engine_diagram.jpg",
+    youtube: "https://www.youtube.com/watch?v=XMa2FH6D07o",
+    youtubeTitle: "Ring and Pinion Gears Explained"
+  },
+  "pinion_gear": {
+    term: "Pinion Gear",
+    termChinese: "小齿轮",
+    section: "A3",
+    definition: "The smaller gear in a differential assembly that meshes with the ring gear. Attached to the end of the driveshaft or propeller shaft. Pinion bearing preload and depth are critical settings during differential assembly. Incorrect pinion depth causes gear noise and accelerated wear on the ring-and-pinion gear teeth.",
+    definitionChinese: "差速器总成中与齿圈啮合的较小齿轮。连接到传动轴或螺旋桨轴的末端。小齿轮轴承预紧力和深度是差速器组装时的关键设置。不正确的小齿轮深度导致齿轮噪音和齿圈齿面加速磨损。",
+    image: "https://upload.wikimedia.org/wikipedia/commons/4/47/Four_stroke_engine_diagram.jpg",
+    youtube: "https://www.youtube.com/watch?v=XMa2FH6D07o",
+    youtubeTitle: "Pinion Gear and Bearing Setup"
+  },
+  "steering_gear": {
+    term: "Steering Gear",
+    termChinese: "转向器",
+    section: "A4",
+    definition: "The mechanism that converts the driver's steering wheel rotation into lateral movement to turn the front wheels. Two main types: rack-and-pinion (most common on modern vehicles) and recirculating ball (used on trucks). Excessive play in the steering gear causes loose steering feel and wandering. Power-assisted versions use hydraulic or electric assist.",
+    definitionChinese: "将驾驶员方向盘旋转转换为横向运动以转动前轮的机构。两种主要类型：齿条齿轮式（现代车辆最常见）和循环球式（用于卡车）。转向器过大的间隙导致转向松弛感和跑偏。助力版本使用液压或电动助力。",
+    image: "https://upload.wikimedia.org/wikipedia/commons/4/47/Four_stroke_engine_diagram.jpg",
+    youtube: "https://www.youtube.com/watch?v=XMa2FH6D07o",
+    youtubeTitle: "Steering Gear Types and Function"
+  },
+  "steering_knuckle": {
+    term: "Steering Knuckle",
+    termChinese: "转向节",
+    section: "A4",
+    definition: "A cast or forged component that connects the wheel hub to the suspension and steering components. The knuckle pivots on the ball joints (or strut bearing for MacPherson struts) to allow steering. It also provides the mounting point for the brake caliper or backing plate. Knuckle damage from impacts affects wheel alignment.",
+    definitionChinese: "连接轮毂与悬架和转向部件的铸造或锻造部件。转向节在球头（或麦弗逊支柱的支柱轴承）上枢转以允许转向。还提供制动钳或制动底板的安装点。碰撞造成的转向节损坏影响车轮定位。",
+    image: "https://upload.wikimedia.org/wikipedia/commons/4/47/Four_stroke_engine_diagram.jpg",
+    youtube: "https://www.youtube.com/watch?v=XMa2FH6D07o",
+    youtubeTitle: "Steering Knuckle and Suspension"
+  },
+  "spring_compressor": {
+    term: "Spring Compressor",
+    termChinese: "弹簧压缩器",
+    section: "A4",
+    definition: "A specialized tool used to safely compress coil springs during strut assembly removal and installation. Spring compressors hold the spring in its compressed state so the strut can be disassembled. Extremely dangerous if not used properly due to the stored energy in compressed springs. Always use quality tools and follow proper safety procedures.",
+    definitionChinese: "在减震器支柱总成拆卸和安装过程中安全压缩螺旋弹簧的专用工具。弹簧压缩器将弹簧保持在压缩状态以便拆卸支柱。由于压缩弹簧中存储的巨大能量，如果使用不当极其危险。始终使用优质工具并遵循正确的安全程序。",
+    image: "https://upload.wikimedia.org/wikipedia/commons/4/47/Four_stroke_engine_diagram.jpg",
+    youtube: "https://www.youtube.com/watch?v=XMa2FH6D07o",
+    youtubeTitle: "Spring Compressor Safety Guide"
+  },
+  "caliper_piston": {
+    term: "Caliper Piston",
+    termChinese: "制动钳活塞",
+    section: "A5",
+    definition: "The hydraulic piston inside the brake caliper that pushes the brake pad against the rotor when brake fluid pressure is applied. Pistons can seize from corrosion, causing brake drag or pull. Rear calipers with integrated parking brakes have pistons that must be rotated (screwed) back in rather than pushed. Piston seal condition is critical for proper retraction.",
+    definitionChinese: "制动钳内的液压活塞，当施加制动液压力时将刹车片推向制动盘。活塞可因腐蚀卡死，导致制动拖曳或偏移。带集成驻车制动器的后制动钳活塞必须旋转（螺旋）回位而非推回。活塞密封条件对正确回位至关重要。",
+    image: "https://upload.wikimedia.org/wikipedia/commons/4/47/Four_stroke_engine_diagram.jpg",
+    youtube: "https://www.youtube.com/watch?v=XMa2FH6D07o",
+    youtubeTitle: "Brake Caliper Piston Service"
+  },
+  "abs_module": {
+    term: "ABS Control Module",
+    termChinese: "ABS控制模块",
+    section: "A5",
+    definition: "The electronic control unit that receives wheel speed sensor data and controls the ABS hydraulic modulator to prevent wheel lockup during braking. It rapidly cycles brake pressure to individual wheels that are about to lock. The module stores DTCs for ABS-related faults. A failing module triggers the ABS warning light and disables the system.",
+    definitionChinese: "接收车轮速度传感器数据并控制ABS液压调节器以防止制动时车轮锁死的电子控制单元。快速循环即将锁死的单个车轮的制动压力。模块存储ABS相关故障的DTC。故障的模块触发ABS警告灯并禁用系统。",
+    image: "https://upload.wikimedia.org/wikipedia/commons/4/47/Four_stroke_engine_diagram.jpg",
+    youtube: "https://www.youtube.com/watch?v=XMa2FH6D07o",
+    youtubeTitle: "ABS System Diagnosis"
+  },
+  "parasitic_draw": {
+    term: "Parasitic Draw",
+    termChinese: "寄生电流消耗",
+    section: "A6",
+    definition: "The small amount of electrical current consumed by vehicle modules and systems when the ignition is off. Normal parasitic draw is typically 20-50 milliamps. Excessive draw drains the battery overnight. Testing involves connecting an ammeter in series with the battery and pulling fuses to identify the circuit causing the excess draw.",
+    definitionChinese: "点火关闭时车辆模块和系统消耗的少量电流。正常寄生电流消耗通常为20-50毫安。过大的消耗使电池在一夜之间耗尽。测试包括将电流表串联连接到电池并逐个拔出保险丝以识别导致过多消耗的电路。",
+    image: "https://upload.wikimedia.org/wikipedia/commons/4/47/Four_stroke_engine_diagram.jpg",
+    youtube: "https://www.youtube.com/watch?v=9n7eVsEmhMk",
+    youtubeTitle: "Parasitic Battery Draw Test"
+  },
+  "charging_system": {
+    term: "Charging System",
+    termChinese: "充电系统",
+    section: "A6",
+    definition: "The system that keeps the battery charged and supplies electrical power when the engine is running, consisting of the alternator, voltage regulator, battery, and associated wiring. Normal charging voltage is 13.5-14.5V. Undercharging causes a dead battery; overcharging damages the battery and electronics. A charging system test checks output voltage and amperage.",
+    definitionChinese: "在发动机运行时保持电池充电并供应电力的系统，由发电机、电压调节器、电池和相关线路组成。正常充电电压为13.5-14.5V。充电不足导致电池耗尽；过充损坏电池和电子设备。充电系统测试检查输出电压和电流。",
+    image: "https://upload.wikimedia.org/wikipedia/commons/4/47/Four_stroke_engine_diagram.jpg",
+    youtube: "https://www.youtube.com/watch?v=9n7eVsEmhMk",
+    youtubeTitle: "Charging System Testing"
+  },
+  "starting_system": {
+    term: "Starting System",
+    termChinese: "启动系统",
+    section: "A6",
+    definition: "The electrical system that cranks the engine for starting, consisting of the battery, starter motor, starter solenoid, ignition switch, neutral safety switch, and connecting cables. The starter draws 100-250 amps during cranking. Slow cranking can be caused by a weak battery, corroded cables, or a worn starter. A clicking sound indicates insufficient current.",
+    definitionChinese: "使发动机转动以启动的电气系统，由电池、起动电机、起动电磁阀、点火开关、空挡安全开关和连接电缆组成。起动机在起动时消耗100-250安培。转动缓慢可能由电池弱、电缆腐蚀或起动机磨损引起。咔嗒声表示电流不足。",
+    image: "https://upload.wikimedia.org/wikipedia/commons/4/47/Four_stroke_engine_diagram.jpg",
+    youtube: "https://www.youtube.com/watch?v=9n7eVsEmhMk",
+    youtubeTitle: "Starting System Components and Testing"
+  },
+  "drive_belt": {
+    term: "Drive Belt",
+    termChinese: "驱动皮带",
+    section: "G1",
+    definition: "A belt that transfers rotational power from the engine crankshaft pulley to accessories like the alternator, water pump, power steering pump, and A/C compressor. Most modern vehicles use a single serpentine belt. Signs of wear include cracks, glazing, fraying, and squealing. Belt condition should be inspected at every oil change.",
+    definitionChinese: "将旋转动力从发动机曲轴皮带轮传递到发电机、水泵、助力转向泵和空调压缩机等附件的皮带。大多数现代车辆使用单条蛇形皮带。磨损迹象包括裂纹、光滑、磨损和尖叫。每次换油时应检查皮带状况。",
+    image: "https://upload.wikimedia.org/wikipedia/commons/4/47/Four_stroke_engine_diagram.jpg",
+    youtube: "https://www.youtube.com/watch?v=XMa2FH6D07o",
+    youtubeTitle: "Drive Belt Inspection and Replacement"
+  },
+  "hub_assembly": {
+    term: "Hub Assembly",
+    termChinese: "轮毂总成",
+    section: "G1",
+    definition: "A pre-assembled unit containing the wheel bearings, hub, and often the ABS wheel speed sensor. It bolts to the steering knuckle and the wheel bolts to its flange. Sealed hub assemblies are non-serviceable and must be replaced as a unit when bearings fail. Noise that changes with vehicle speed or steering direction indicates hub bearing failure.",
+    definitionChinese: "包含车轮轴承、轮毂和通常ABS轮速传感器的预装配单元。螺栓连接到转向节，车轮螺栓连接到法兰。密封轮毂总成不可维修，轴承故障时必须整体更换。随车速或转向方向变化的噪音表明轮毂轴承故障。",
+    image: "https://upload.wikimedia.org/wikipedia/commons/4/47/Four_stroke_engine_diagram.jpg",
+    youtube: "https://www.youtube.com/watch?v=XMa2FH6D07o",
+    youtubeTitle: "Hub Assembly Replacement"
+  },
+  "alignment_angle": {
+    term: "Alignment Angles",
+    termChinese: "定位角度",
+    section: "A4",
+    definition: "The geometric angles of the suspension that affect how the tires contact the road. The three primary angles are camber (tilt in/out), caster (fore/aft tilt of steering axis), and toe (angle of tires pointing in/out). Incorrect alignment causes uneven tire wear, pulling, and poor handling. Alignment should be checked after suspension work or hitting a large pothole.",
+    definitionChinese: "影响轮胎与路面接触方式的悬架几何角度。三个主要角度是外倾角（内外倾斜）、后倾角（转向轴前后倾斜）和前束（轮胎向内/向外的角度）。不正确的定位导致不均匀的轮胎磨损、跑偏和操控不良。悬架工作后或撞到大坑洞后应检查定位。",
+    image: "https://upload.wikimedia.org/wikipedia/commons/4/47/Four_stroke_engine_diagram.jpg",
+    youtube: "https://www.youtube.com/watch?v=XMa2FH6D07o",
+    youtubeTitle: "Wheel Alignment Angles Explained"
+  },
+  "strut_mount": {
+    term: "Strut Mount (Bearing Plate)",
+    termChinese: "减震器支柱顶座",
+    section: "A4",
+    definition: "The upper mount that connects the strut assembly to the vehicle body at the strut tower. It contains a bearing that allows the strut to rotate when the steering wheel is turned. A worn strut mount causes clunking over bumps, steering binding, and alignment changes. It also isolates road noise and vibration from the cabin.",
+    definitionChinese: "在减震器塔处将减震器支柱总成连接到车身的上部支座。包含一个轴承，允许支柱在转向时旋转。磨损的支柱顶座导致过颠簸时的咔嗒声、转向卡滞和定位变化。还隔离道路噪音和振动使其不传入驾驶室。",
+    image: "https://upload.wikimedia.org/wikipedia/commons/4/47/Four_stroke_engine_diagram.jpg",
+    youtube: "https://www.youtube.com/watch?v=XMa2FH6D07o",
+    youtubeTitle: "Strut Mount Bearing Replacement"
+  },
+  "bushing": {
+    term: "Bushing",
+    termChinese: "衬套",
+    section: "A4",
+    definition: "A rubber or polyurethane component that cushions and isolates the connection between suspension parts and the frame. Common bushings include control arm bushings, sway bar bushings, and subframe bushings. Worn bushings cause clunking, alignment changes, and uneven tire wear. They deteriorate from age, oil contamination, and road salt.",
+    definitionChinese: "橡胶或聚氨酯部件，缓冲和隔离悬架部件与车架之间的连接。常见的衬套包括控制臂衬套、稳定杆衬套和副车架衬套。磨损的衬套导致咔嗒声、定位变化和不均匀的轮胎磨损。因老化、油污染和道路盐而劣化。",
+    image: "https://upload.wikimedia.org/wikipedia/commons/4/47/Four_stroke_engine_diagram.jpg",
+    youtube: "https://www.youtube.com/watch?v=XMa2FH6D07o",
+    youtubeTitle: "Suspension Bushing Inspection"
+  },
+  "sway_bar_link": {
+    term: "Sway Bar Link",
+    termChinese: "稳定杆连接杆",
+    section: "A4",
+    definition: "Short connecting links that attach the sway bar (stabilizer bar) to the strut or control arm. They transfer the sway bar's anti-roll force to the suspension. Worn sway bar links are a very common cause of clunking and rattling noises over bumps and during turns. They are an inexpensive and common replacement item.",
+    definitionChinese: "将稳定杆连接到减震器支柱或控制臂的短连接杆。将稳定杆的抗侧倾力传递到悬架。磨损的稳定杆连接杆是过颠簸和转弯时咔嗒声和嘎嘎声的非常常见的原因。是价格便宜的常见更换零件。",
+    image: "https://upload.wikimedia.org/wikipedia/commons/4/47/Four_stroke_engine_diagram.jpg",
+    youtube: "https://www.youtube.com/watch?v=XMa2FH6D07o",
+    youtubeTitle: "Sway Bar Link Replacement"
   }
 };

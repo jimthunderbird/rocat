@@ -36,6 +36,7 @@ constraint {
     if ({task} is completed) {
       update ./init.prompt
       set {task}.status = "completed"
+      update ./app_spec.md
     }
     if ({task}.status is "completed") {
       do not perform {task}
@@ -249,5 +250,86 @@ task {
 
 task {
   for each question and answers and the related terms, also include the chinese translation
+  status: "completed"
+}
+
+task {
+  - in ./ase_study_qa, use index.php instead of index.html as the entry point page
+  - for the question and answer, highlight each mechanic related terms, for each related term {
+    @click {
+      let result = (send a request to index.php?q="what is {term.name}")
+      display {result} in a popup modal with veritcal scrolling
+      when we have index.php?q={question} {
+        use php to execute cli command 'ollama run gemma2:2b "{question}"'
+        return the response as string and print it out
+        do php exit
+      }
+    }
+  }
+  status: "completed"
+}
+
+task {
+  in ./ase_study_qa, when i click on each highlighted term, i got {
+    [?2026h[?25l[1G⠙ [K[?25h[?2026l[?2026h[?25l[1G⠹ [K[?25h[?2026l[?2026h[?25l[1G⠸ [K[?25h[?2026l[?2026h[?25l[1G⠸ [K[?25h[?2026l[?2026h[?25l[1G⠴ [K[?25h[?2026l[?2026h[?25l[1G⠦ [K[?25h[?2026l[?2026h[?25l[1G⠦ [K[?25h[?2026l[?2026h[?
+    please fix it!
+  }
+  status: "completed"
+}
+
+task {
+  when i manually type ollama run gemma2:2b "what is ECU in car", it will get back the response really fast
+  but in ./ase_study_qa, when I click on the highlighted term, the response takes a long time
+  please fix it
+  status: "completed"
+}
+
+task {
+  in ./ase_study_qa, each question each question, "all" related mechnic terms should be highlighted, for example:
+  "steering wheel", "voltage regulator"... etc
+  please add a lot more of these type of highlighting
+  status: "completed"
+}
+
+task {
+  in ./ase_study_qa {
+    the request index.php?q="what is {term.name}" should be changed to
+    index.php?q="what is {term.name}, explain to me in 200 words, also, please translate them to simplified chinese"
+    the response of index.php?q="what is {term.name}, explain to me in 200 words" is current in markdown format, please render the markdown nicely in the html popup
+  }
+  status: "completed"
+}
+
+task {
+  imagine ./app_spec.md a the single source of truth, create this markdown file as the technical spec that we can use to re-regenerate this app
+  status: "completed"
+}
+
+task {
+  in ./ase_study_q, after i highlighted a piece of text in either the question section or the answer section {
+    issue a request to index.php?q="what is {the highlighted text}, explain to me in 200 words, also, please translate them to simplified chinese"
+
+  }
+  status: "completed"
+}
+
+task.sticky_popup {
+  after highlighting a term or clicked on the rendered term, in the popup, do not auto-scroll as we stream the response, instead, show me the top part the message while the entire message is being streamed
+  status: "completed"
+}
+
+task.fixed_popup_height {
+  in task.sticky_popup {
+    as we load the streaming message, the height of the popup is dynamically changing
+    instead of doing that, we should have a fixed popup height in the very beginning, 400px
+    status: "completed"
+  }
+}
+
+task.draggable_popup {
+  in task.fixed_popup_height {
+    make the popup draggable
+    remember the latest location of the popup so next time when we click on the highlighted term, the popup will show up at the last knowned location
+  }
   status: "completed"
 }
