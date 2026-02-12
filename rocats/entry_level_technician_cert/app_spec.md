@@ -215,15 +215,28 @@ Exports a `termsGlossary` object keyed by term ID strings.
 
 #### AI Lookup Modal (PHP-only feature)
 - Triggered by clicking highlighted terms in question/explanation text
-- **Also triggered by text selection**: When user highlights/selects any text (2–200 chars) in the question card or explanation area, the AI modal opens automatically with the selected text as the query
+- **Also triggered by text selection**: When user highlights/selects any text (2–200 chars) in the question card, explanation area, **or inside the AI modal body itself**, the AI modal updates in-place with a new streaming response for the selected text
 - Query format: `"what is {term or selected text}, explain to me in 200 words, also, please translate them to simplified chinese"`
 - Shows loading spinner while streaming
 - PHP backend streams response from Ollama API (`gemma2:2b`) via HTTP
-- Response rendered as Markdown → HTML using built-in renderer
+- Response rendered as Markdown → HTML using built-in renderer, then post-processed to highlight known glossary terms as clickable spans
 - Supports: headers, bold, italic, code blocks, lists, blockquotes, horizontal rules
+- **Clickable terms in popup**: After streaming completes, known mechanic terms in the AI response are highlighted and clickable — clicking them triggers a new AI query in the same popup
 - Modal has vertical scrolling, stays at top during streaming (no auto-scroll)
 - Fixed height of 400px for the modal body (no dynamic resizing during streaming)
 - **Draggable**: Modal can be dragged by its header (grab cursor). Position is saved to `localStorage` and restored on next open, so the modal always appears at the user's last-dragged position
+- **Ask Question Box**: Sticky input area at the top of the modal body (always visible regardless of scrolling) with:
+  - "Ask Question" label on the left
+  - Text input field in the center (supports Enter key to submit)
+  - "Submit" button on the right
+  - On submit, sends query: `"please answer the question: {question}, explain to me in 200 words, also, please translate them to simplified chinese"`
+  - Response streams into the same modal body below the input
+- **History Navigation**: Previous/Next buttons (browser-like history) at the top of the modal allow navigating back and forth through all AI queries made in the current session
+  - History tracks each query's display name, query text, and completed response
+  - "Prev" and "Next" buttons with position indicator (e.g., "3 / 7")
+  - Starting a new query from a back-navigated position trims forward history (like a browser)
+  - Navigating history aborts any in-flight streaming request
+  - Buttons are disabled at boundaries (Prev disabled at first entry, Next disabled at latest)
 - Close via X button, overlay click, or Escape key
 
 ### 3.6 PHP Backend (`index.php`)
@@ -275,10 +288,16 @@ GET index.php?q={question}
 | `resetSection()` | Clears section scores, re-shuffles |
 | `highlightTerms(text)` | Scans text for glossary terms, wraps in clickable spans |
 | `showTermModal(termKey)` | Opens glossary modal for a term |
+| `streamAiQuery(displayName, query)` | Core streaming function — sends query to Ollama, streams response into AI modal with progressive Markdown rendering, highlights terms in final output |
+| `highlightTermsInHtml(html)` | Post-processes rendered HTML to add clickable term highlights in text nodes (skips code/pre blocks) |
 | `askAiAboutTerm(termKey)` | Opens AI modal, streams Ollama response for a glossary term |
 | `askAiAboutText(text)` | Opens AI modal, streams Ollama response for arbitrary selected text |
 | `renderMarkdown(text)` | Converts Markdown text to HTML |
 | `closeTermModal(event)` | Closes glossary modal |
+| `submitAiQuestion()` | Reads the Ask Question textbox, sends custom question to Ollama with bilingual prompt, streams response into the AI modal |
+| `aiHistoryBack()` | Navigates to previous entry in AI popup history |
+| `aiHistoryForward()` | Navigates to next entry in AI popup history |
+| `updateAiNavButtons()` | Updates enabled/disabled state and position indicator for history nav buttons |
 | `closeAiModal(event)` | Closes AI modal |
 
 ---

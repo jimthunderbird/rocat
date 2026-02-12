@@ -777,12 +777,105 @@ body {
 .ai-modal-body::-webkit-scrollbar-thumb:hover {
   background: #7dd3e8;
 }
+/* Ask Question Box */
+.ai-modal-askbox {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 10px 20px;
+  background: #1a1a2e;
+  border-bottom: 1px solid #0f3460;
+  flex-shrink: 0;
+  position: sticky;
+  top: 0;
+  z-index: 5;
+}
+.ai-modal-askbox label {
+  color: #f0c040;
+  font-size: 0.85rem;
+  font-weight: 700;
+  white-space: nowrap;
+  letter-spacing: 0.5px;
+}
+.ai-modal-askbox input {
+  flex: 1;
+  padding: 8px 12px;
+  border: 2px solid #0f3460;
+  border-radius: 8px;
+  background: #16213e;
+  color: #e0e0e0;
+  font-size: 0.95rem;
+  outline: none;
+  transition: border-color 0.3s;
+}
+.ai-modal-askbox input:focus {
+  border-color: #45b7d1;
+}
+.ai-modal-askbox input::placeholder {
+  color: #606080;
+}
+.ai-modal-askbox button {
+  padding: 8px 18px;
+  background: linear-gradient(135deg, #e94560, #c23152);
+  color: #fff;
+  border: none;
+  border-radius: 8px;
+  font-size: 0.85rem;
+  font-weight: 700;
+  cursor: pointer;
+  transition: all 0.3s;
+  white-space: nowrap;
+}
+.ai-modal-askbox button:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 4px 12px rgba(233, 69, 96, 0.4);
+}
 .ai-loading {
   display: flex;
   align-items: center;
   gap: 12px;
   color: #a0a0c0;
   font-style: italic;
+}
+/* History Navigation */
+.ai-modal-nav {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 8px 20px;
+  background: #1a1a2e;
+  border-bottom: 1px solid #0f3460;
+  flex-shrink: 0;
+}
+.ai-modal-nav button {
+  padding: 6px 14px;
+  background: #0f3460;
+  color: #a0a0c0;
+  border: 1px solid #45b7d1;
+  border-radius: 6px;
+  font-size: 0.85rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s;
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+.ai-modal-nav button:hover:not(:disabled) {
+  background: #45b7d1;
+  color: #1a1a2e;
+}
+.ai-modal-nav button:disabled {
+  opacity: 0.35;
+  cursor: not-allowed;
+  border-color: #0f3460;
+}
+.ai-modal-nav .nav-position {
+  flex: 1;
+  text-align: center;
+  font-size: 0.8rem;
+  color: #a0a0c0;
+  letter-spacing: 0.5px;
 }
 .ai-loading .spinner {
   width: 24px;
@@ -871,6 +964,16 @@ body {
     <div class="ai-modal-header">
       <div class="ai-modal-badge">AI - Gemma2:2B</div>
       <div class="ai-modal-query" id="aiModalQuery"></div>
+    </div>
+    <div class="ai-modal-nav" id="aiModalNav">
+      <button id="aiNavPrev" onclick="aiHistoryBack()" disabled>&larr; Prev</button>
+      <span class="nav-position" id="aiNavPosition"></span>
+      <button id="aiNavNext" onclick="aiHistoryForward()" disabled>Next &rarr;</button>
+    </div>
+    <div class="ai-modal-askbox">
+      <label for="aiAskInput">Ask Question</label>
+      <input type="text" id="aiAskInput" placeholder="Type your question here..." onkeydown="if(event.key==='Enter')submitAiQuestion()">
+      <button onclick="submitAiQuestion()">Submit</button>
     </div>
     <div class="ai-modal-body" id="aiModalBody">
       <div class="ai-loading"><div class="spinner"></div>Asking AI...</div>
@@ -1270,22 +1373,76 @@ function renderMarkdown(text) {
   return html;
 }
 
-// AI Lookup Modal functions
-function askAiAboutTerm(termKey) {
-  const termData = termsGlossary[termKey];
-  if (!termData) return;
-  const termName = termData.term;
-  const query = 'what is ' + termName + ', explain to me in 200 words, also, please translate them to simplified chinese';
+// --- AI Popup History ---
+let aiHistory = []; // Array of { displayName, query, responseText }
+let aiHistoryIndex = -1; // Current position in history
+let aiCurrentStreamAbort = null; // AbortController for current stream
 
-  // Show modal with loading state
+function updateAiNavButtons() {
+  const prevBtn = document.getElementById('aiNavPrev');
+  const nextBtn = document.getElementById('aiNavNext');
+  const posEl = document.getElementById('aiNavPosition');
+  prevBtn.disabled = aiHistoryIndex <= 0;
+  nextBtn.disabled = aiHistoryIndex >= aiHistory.length - 1;
+  if (aiHistory.length > 0) {
+    posEl.textContent = (aiHistoryIndex + 1) + ' / ' + aiHistory.length;
+  } else {
+    posEl.textContent = '';
+  }
+}
+
+function aiHistoryBack() {
+  if (aiHistoryIndex <= 0) return;
+  // Abort any current stream
+  if (aiCurrentStreamAbort) { aiCurrentStreamAbort.abort(); aiCurrentStreamAbort = null; }
+  aiHistoryIndex--;
+  const entry = aiHistory[aiHistoryIndex];
+  document.getElementById('aiModalQuery').textContent = entry.query;
+  const bodyEl = document.getElementById('aiModalBody');
+  bodyEl.innerHTML = highlightTermsInHtml(renderMarkdown(entry.responseText));
+  bodyEl.scrollTop = 0;
+  updateAiNavButtons();
+}
+
+function aiHistoryForward() {
+  if (aiHistoryIndex >= aiHistory.length - 1) return;
+  // Abort any current stream
+  if (aiCurrentStreamAbort) { aiCurrentStreamAbort.abort(); aiCurrentStreamAbort = null; }
+  aiHistoryIndex++;
+  const entry = aiHistory[aiHistoryIndex];
+  document.getElementById('aiModalQuery').textContent = entry.query;
+  const bodyEl = document.getElementById('aiModalBody');
+  bodyEl.innerHTML = highlightTermsInHtml(renderMarkdown(entry.responseText));
+  bodyEl.scrollTop = 0;
+  updateAiNavButtons();
+}
+
+// Shared streaming AI function - streams into the existing AI modal
+function streamAiQuery(displayName, query) {
+  // Abort any ongoing stream
+  if (aiCurrentStreamAbort) { aiCurrentStreamAbort.abort(); aiCurrentStreamAbort = null; }
+
+  // If we navigated back and then start a new query, trim forward history
+  if (aiHistoryIndex < aiHistory.length - 1) {
+    aiHistory = aiHistory.slice(0, aiHistoryIndex + 1);
+  }
+
+  // Create new history entry
+  const historyEntry = { displayName: displayName, query: query, responseText: '' };
+  aiHistory.push(historyEntry);
+  aiHistoryIndex = aiHistory.length - 1;
+  updateAiNavButtons();
+
   document.getElementById('aiModalQuery').textContent = query;
-  document.getElementById('aiModalBody').innerHTML = '<div class="ai-loading"><div class="spinner"></div>Asking AI about "' + termName + '"...</div>';
+  document.getElementById('aiModalBody').innerHTML = '<div class="ai-loading"><div class="spinner"></div>Asking AI about "' + displayName + '"...</div>';
   document.getElementById('aiModalOverlay').classList.add('show');
 
-  // Stream from PHP backend for real-time output with markdown rendering
   const bodyEl = document.getElementById('aiModalBody');
   let rawText = '';
-  fetch('index.php?q=' + encodeURIComponent(query))
+  const abortCtrl = new AbortController();
+  aiCurrentStreamAbort = abortCtrl;
+
+  fetch('index.php?q=' + encodeURIComponent(query), { signal: abortCtrl.signal })
     .then(response => {
       if (!response.ok) throw new Error('HTTP ' + response.status);
       const reader = response.body.getReader();
@@ -1294,24 +1451,106 @@ function askAiAboutTerm(termKey) {
       function readChunk() {
         reader.read().then(({ done, value }) => {
           if (done) {
-            // Final render with full markdown
-            bodyEl.innerHTML = renderMarkdown(rawText);
+            historyEntry.responseText = rawText;
+            aiCurrentStreamAbort = null;
+            // Final render with full markdown + highlight terms for clickability
+            bodyEl.innerHTML = highlightTermsInHtml(renderMarkdown(rawText));
+            updateAiNavButtons();
             return;
           }
           rawText += decoder.decode(value, { stream: true });
-          // Render markdown progressively without auto-scrolling
+          historyEntry.responseText = rawText;
           bodyEl.innerHTML = renderMarkdown(rawText);
           readChunk();
         }).catch(err => {
+          if (err.name === 'AbortError') return;
           rawText += '\n\n[Stream error: ' + err.message + ']';
+          historyEntry.responseText = rawText;
           bodyEl.innerHTML = renderMarkdown(rawText);
         });
       }
       readChunk();
     })
     .catch(err => {
-      bodyEl.innerHTML = renderMarkdown('Error: Could not reach the AI backend. Make sure PHP server is running and ollama is available.\n\n' + err.message);
+      if (err.name === 'AbortError') return;
+      const errText = 'Error: Could not reach the AI backend. Make sure PHP server is running and ollama is available.\n\n' + err.message;
+      historyEntry.responseText = errText;
+      bodyEl.innerHTML = renderMarkdown(errText);
     });
+}
+
+// Highlight known terms inside already-rendered HTML (only in text nodes, not inside tags)
+function highlightTermsInHtml(html) {
+  const container = document.createElement('div');
+  container.innerHTML = html;
+  function walkTextNodes(node) {
+    if (node.nodeType === Node.TEXT_NODE) {
+      const text = node.textContent;
+      if (!text || text.trim().length === 0) return;
+      const replacements = [];
+      const lowerText = text.toLowerCase();
+      for (const entry of termLookup) {
+        const termLower = entry.name.toLowerCase();
+        let searchFrom = 0;
+        while (true) {
+          const idx = lowerText.indexOf(termLower, searchFrom);
+          if (idx === -1) break;
+          const end = idx + entry.name.length;
+          const charBefore = idx > 0 ? lowerText[idx - 1] : ' ';
+          const charAfter = end < lowerText.length ? lowerText[end] : ' ';
+          const isBoundaryBefore = /[\s,.:;!?()/"'\-]/.test(charBefore) || idx === 0;
+          const isBoundaryAfter = /[\s,.:;!?()/"'\-]/.test(charAfter) || end === lowerText.length;
+          if (isBoundaryBefore && isBoundaryAfter) {
+            let overlaps = false;
+            for (const r of replacements) {
+              if (idx < r.end && end > r.start) { overlaps = true; break; }
+            }
+            if (!overlaps) {
+              replacements.push({ start: idx, end: end, key: entry.key, name: entry.name });
+            }
+          }
+          searchFrom = idx + 1;
+        }
+      }
+      if (replacements.length === 0) return;
+      replacements.sort((a, b) => a.start - b.start);
+      const frag = document.createDocumentFragment();
+      let lastEnd = 0;
+      for (const r of replacements) {
+        if (r.start > lastEnd) {
+          frag.appendChild(document.createTextNode(text.substring(lastEnd, r.start)));
+        }
+        const span = document.createElement('span');
+        span.className = 'term-highlight';
+        span.title = 'Click to ask AI about this term';
+        span.textContent = text.substring(r.start, r.end);
+        span.setAttribute('data-term-key', r.key);
+        const escapedKey = r.key.replace(/\\/g, '\\\\').replace(/'/g, "\\'");
+        span.setAttribute('onclick', "askAiAboutTerm('" + escapedKey + "')");
+        frag.appendChild(span);
+        lastEnd = r.end;
+      }
+      if (lastEnd < text.length) {
+        frag.appendChild(document.createTextNode(text.substring(lastEnd)));
+      }
+      node.parentNode.replaceChild(frag, node);
+    } else if (node.nodeType === Node.ELEMENT_NODE && !['CODE', 'PRE', 'SCRIPT', 'STYLE'].includes(node.tagName)) {
+      // Walk children in reverse to handle replacements safely
+      const children = Array.from(node.childNodes);
+      children.forEach(child => walkTextNodes(child));
+    }
+  }
+  walkTextNodes(container);
+  return container.innerHTML;
+}
+
+// AI Lookup Modal functions
+function askAiAboutTerm(termKey) {
+  const termData = termsGlossary[termKey];
+  if (!termData) return;
+  const termName = termData.term;
+  const query = 'what is ' + termName + ', explain to me in 200 words, also, please translate them to simplified chinese';
+  streamAiQuery(termName, query);
 }
 
 function closeAiModal(event) {
@@ -1319,47 +1558,25 @@ function closeAiModal(event) {
   document.getElementById('aiModalOverlay').classList.remove('show');
 }
 
+// Submit custom question from the Ask Question textbox
+function submitAiQuestion() {
+  const input = document.getElementById('aiAskInput');
+  const question = input.value.trim();
+  if (!question) return;
+  const query = 'please answer the question: ' + question + ', explain to me in 200 words, also, please translate them to simplified chinese';
+  streamAiQuery(question, query);
+  input.value = '';
+}
+
 // Ask AI about arbitrary highlighted text
 function askAiAboutText(text) {
   if (!text || text.trim().length === 0) return;
   const trimmed = text.trim();
   const query = 'what is ' + trimmed + ', explain to me in 200 words, also, please translate them to simplified chinese';
-
-  document.getElementById('aiModalQuery').textContent = query;
-  document.getElementById('aiModalBody').innerHTML = '<div class="ai-loading"><div class="spinner"></div>Asking AI about "' + trimmed + '"...</div>';
-  document.getElementById('aiModalOverlay').classList.add('show');
-
-  const bodyEl = document.getElementById('aiModalBody');
-  let rawText = '';
-  fetch('index.php?q=' + encodeURIComponent(query))
-    .then(response => {
-      if (!response.ok) throw new Error('HTTP ' + response.status);
-      const reader = response.body.getReader();
-      const decoder = new TextDecoder();
-      bodyEl.innerHTML = '';
-      function readChunk() {
-        reader.read().then(({ done, value }) => {
-          if (done) {
-            bodyEl.innerHTML = renderMarkdown(rawText);
-            return;
-          }
-          rawText += decoder.decode(value, { stream: true });
-          // Render markdown progressively without auto-scrolling
-          bodyEl.innerHTML = renderMarkdown(rawText);
-          readChunk();
-        }).catch(err => {
-          rawText += '\n\n[Stream error: ' + err.message + ']';
-          bodyEl.innerHTML = renderMarkdown(rawText);
-        });
-      }
-      readChunk();
-    })
-    .catch(err => {
-      bodyEl.innerHTML = renderMarkdown('Error: Could not reach the AI backend. Make sure PHP server is running and ollama is available.\n\n' + err.message);
-    });
+  streamAiQuery(trimmed, query);
 }
 
-// Detect text selection in question/answer areas and trigger AI lookup
+// Detect text selection in question/answer areas AND in the AI popup, trigger AI lookup
 document.addEventListener('mouseup', function(e) {
   // Small delay to let the browser finalize the selection
   setTimeout(function() {
@@ -1375,12 +1592,12 @@ document.addEventListener('mouseup', function(e) {
 
     const questionCard = document.getElementById('questionCard');
     const explanation = document.getElementById('explanation');
+    const aiModalBody = document.getElementById('aiModalBody');
     const isInQuestion = questionCard && questionCard.contains(anchorNode);
     const isInExplanation = explanation && explanation.contains(anchorNode);
+    const isInAiPopup = aiModalBody && aiModalBody.contains(anchorNode);
 
-    if (isInQuestion || isInExplanation) {
-      // Don't trigger if clicking on a term-highlight (that has its own handler)
-      if (e.target.classList && e.target.classList.contains('term-highlight')) return;
+    if (isInQuestion || isInExplanation || isInAiPopup) {
       askAiAboutText(selectedText);
       // Clear selection after triggering
       sel.removeAllRanges();

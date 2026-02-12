@@ -333,3 +333,27 @@ task.draggable_popup {
   }
   status: "completed"
 }
+
+task {
+  in task.sticky_popup and task.draggable_popup, when keywords in the popup message is highlighted, do the same behavior to send the request to index.php?q="what is {the highlighted text}, explain to me in 200 words, also, please translate them to simplified chinese", then show the streaming response in the same popup
+  status: "completed"
+}
+
+task {
+  inside of the message of the popup, there are pre-highlited keywords, when i click on it or highlight it, it should do the same behavior to send the request to index.php?q="what is {the highlighted text}, explain to me in 200 words, also, please translate them to simplified chinese", then show the streaming response in the same popup
+  status: "completed"
+}
+
+task {
+  in the popup in task.sticky_popup, please add a textbox, allowing me to ask a question, there is be labed "Ask Question" in the left hand side of the textbox, and there should be a "Submit" button in the right hand side of the text box
+
+  once the {question} is submitted, send the request to index.php?q="please answer the question: {question}, explain to me in 200 words, also, please translate them to simplified chinese"
+
+  the question box should be "sticky" and always at the top of the message popup, regardless the scrolling
+  status: "completed"
+}
+
+task {
+  in the popup in task.sticky_popup, please add previous and next level, allowing me to go to the previous or next message, kind of like a browser history
+  status: "completed"
+}
