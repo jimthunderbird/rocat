@@ -2509,5 +2509,2508 @@ const questionsA2 = [
     image: "https://upload.wikimedia.org/wikipedia/commons/thumb/3/3f/Automatic_transmission.jpg/640px-Automatic_transmission.jpg",
     youtube: "https://www.youtube.com/watch?v=gpBtQozOkA8",
     youtubeTitle: "Automatic Transmission Diagnosis Basics"
+  },
+  // ============================================================
+  // ADDITIONAL A2 QUESTIONS (Questions 101-200)
+  // ============================================================
+  {
+    id: 101,
+    q: "What is the primary purpose of automatic transmission fluid (ATF) in an automatic transmission?",
+    qChinese: "自动变速箱油（ATF）在自动变速箱中的主要用途是什么？",
+    options: [
+      "A) Only to lubricate gears",
+      "B) To act as a hydraulic medium, lubricant, and coolant for the transmission",
+      "C) Only to cool the torque converter",
+      "D) To increase engine horsepower"
+    ],
+    optionsChinese: [
+      "A) 仅润滑齿轮",
+      "B) 作为变速箱的液压介质、润滑剂和冷却剂",
+      "C) 仅冷却液力变矩器",
+      "D) 增加发动机马力"
+    ],
+    answer: 1,
+    explanation: "ATF serves multiple critical functions in an automatic transmission. It acts as the hydraulic fluid that operates clutches and bands, lubricates all moving parts including gears and bearings, and transfers heat away from internal components to the cooler. Without proper ATF, the transmission cannot function.",
+    explanationChinese: "ATF在自动变速箱中具有多项关键功能。它作为液压油操作离合器和制动带，润滑包括齿轮和轴承在内的所有运动部件，并将内部部件的热量传递到冷却器。没有合适的ATF，变速箱无法正常工作。",
+    diagram: "",
+    terms: ["transmission_fluid", "torque_converter", "clutch_pack"],
+    image: "https://upload.wikimedia.org/wikipedia/commons/thumb/3/3f/Automatic_transmission.jpg/640px-Automatic_transmission.jpg",
+    youtube: "https://www.youtube.com/watch?v=fRPHIDSYLi4",
+    youtubeTitle: "Automatic Transmission Fluid - What You Need to Know"
+  },
+  {
+    id: 102,
+    q: "What happens if an automatic transmission is overfilled with ATF?",
+    qChinese: "如果自动变速箱加注了过多的ATF会发生什么？",
+    options: [
+      "A) The transmission will shift more smoothly",
+      "B) The fluid may become aerated (foamy), causing erratic shifting and slipping",
+      "C) The torque converter will lock up permanently",
+      "D) The transmission cooler will become more efficient"
+    ],
+    optionsChinese: [
+      "A) 变速箱换挡会更平顺",
+      "B) 油液可能充气（起泡），导致换挡不规律和打滑",
+      "C) 液力变矩器会永久锁止",
+      "D) 变速箱冷却器会更高效"
+    ],
+    answer: 1,
+    explanation: "Overfilling an automatic transmission causes the rotating gears and components to whip the fluid into a foam. Aerated fluid cannot maintain proper hydraulic pressure, leading to slipping clutches, erratic shifting, and potential overheating. The fluid may also be forced out through seals and vents.",
+    explanationChinese: "自动变速箱加注过量会导致旋转的齿轮和部件将油液搅成泡沫。充气的油液无法维持适当的液压压力，导致离合器打滑、换挡不规律和可能的过热。油液也可能从密封件和通气孔中被挤出。",
+    diagram: "",
+    terms: ["transmission_fluid", "clutch_pack", "valve_body"],
+    image: "https://upload.wikimedia.org/wikipedia/commons/thumb/3/3f/Automatic_transmission.jpg/640px-Automatic_transmission.jpg",
+    youtube: "https://www.youtube.com/watch?v=fRPHIDSYLi4",
+    youtubeTitle: "Automatic Transmission Fluid - What You Need to Know"
+  },
+  {
+    id: 103,
+    q: "Which three main components make up a torque converter?",
+    qChinese: "液力变矩器由哪三个主要部件组成？",
+    options: [
+      "A) Sun gear, ring gear, and planet carrier",
+      "B) Impeller (pump), turbine, and stator",
+      "C) Clutch pack, band, and servo",
+      "D) Input shaft, output shaft, and governor"
+    ],
+    optionsChinese: [
+      "A) 太阳轮、齿圈和行星架",
+      "B) 泵轮（叶轮）、涡轮和导轮",
+      "C) 离合器片组、制动带和伺服器",
+      "D) 输入轴、输出轴和调速器"
+    ],
+    answer: 1,
+    explanation: "A torque converter consists of three main elements: the impeller (pump) driven by the engine, the turbine connected to the transmission input shaft, and the stator that redirects fluid flow to multiply torque. These components work together using fluid coupling to transfer engine power to the transmission.",
+    explanationChinese: "液力变矩器由三个主要元件组成：由发动机驱动的泵轮（叶轮）、连接到变速箱输入轴的涡轮以及重新引导油液流向以倍增扭矩的导轮。这些部件通过液力耦合共同工作，将发动机动力传递给变速箱。",
+    diagram: "",
+    terms: ["torque_converter"],
+    image: "https://upload.wikimedia.org/wikipedia/commons/thumb/c/c7/Torque_converter_cutaway.svg/640px-Torque_converter_cutaway.svg.png",
+    youtube: "https://www.youtube.com/watch?v=z1ZlC7OAiNk",
+    youtubeTitle: "How a Torque Converter Works"
+  },
+  {
+    id: 104,
+    q: "What is the function of the stator in a torque converter?",
+    qChinese: "液力变矩器中导轮的功能是什么？",
+    options: [
+      "A) To drive the transmission oil pump",
+      "B) To redirect fluid flow from the turbine back to the impeller to multiply torque",
+      "C) To connect the engine directly to the transmission input shaft",
+      "D) To filter debris from the transmission fluid"
+    ],
+    optionsChinese: [
+      "A) 驱动变速箱油泵",
+      "B) 将涡轮回流的油液重新导向泵轮以倍增扭矩",
+      "C) 将发动机直接连接到变速箱输入轴",
+      "D) 过滤变速箱油中的杂质"
+    ],
+    answer: 1,
+    explanation: "The stator sits between the turbine and impeller and redirects fluid exiting the turbine so it assists the impeller rotation rather than opposing it. This redirection multiplies engine torque during acceleration. The stator is mounted on a one-way clutch so it freewheels at cruising speeds when torque multiplication is not needed.",
+    explanationChinese: "导轮位于涡轮和泵轮之间，重新引导从涡轮流出的油液，使其辅助泵轮旋转而非阻碍。这种重新导向在加速时倍增发动机扭矩。导轮安装在单向离合器上，在不需要扭矩倍增的巡航速度下自由旋转。",
+    diagram: "",
+    terms: ["torque_converter"],
+    image: "https://upload.wikimedia.org/wikipedia/commons/thumb/c/c7/Torque_converter_cutaway.svg/640px-Torque_converter_cutaway.svg.png",
+    youtube: "https://www.youtube.com/watch?v=z1ZlC7OAiNk",
+    youtubeTitle: "How a Torque Converter Works"
+  },
+  {
+    id: 105,
+    q: "In a Simpson planetary gear set, which component is held stationary to achieve second gear (intermediate)?",
+    qChinese: "在辛普森行星齿轮组中，哪个部件被固定以实现二挡（中间挡）？",
+    options: [
+      "A) The front ring gear",
+      "B) The rear planet carrier",
+      "C) The front sun gear using the intermediate band",
+      "D) The output shaft"
+    ],
+    optionsChinese: [
+      "A) 前齿圈",
+      "B) 后行星架",
+      "C) 使用中间制动带固定前太阳轮",
+      "D) 输出轴"
+    ],
+    answer: 2,
+    explanation: "In a typical Simpson gear train, second gear is achieved by holding the front sun gear stationary using the intermediate band while the forward clutch remains applied. This forces the front planet carrier to rotate at a reduced speed, providing a gear reduction between first and third gear ratios.",
+    explanationChinese: "在典型的辛普森齿轮系中，通过使用中间制动带固定前太阳轮来实现二挡，同时前进挡离合器保持接合。这迫使前行星架以较低的速度旋转，提供介于一挡和三挡齿轮比之间的减速比。",
+    diagram: "",
+    terms: ["planetary_gear_set", "band", "gear_ratio"],
+    image: "https://upload.wikimedia.org/wikipedia/commons/thumb/0/0a/Epicyclic_gear_ratios.png/640px-Epicyclic_gear_ratios.png",
+    youtube: "https://www.youtube.com/watch?v=ARd-Om2VyiE",
+    youtubeTitle: "How Planetary Gear Sets Work"
+  },
+  {
+    id: 106,
+    q: "What is the primary function of the valve body in an automatic transmission?",
+    qChinese: "自动变速箱中阀体的主要功能是什么？",
+    options: [
+      "A) To store transmission fluid",
+      "B) To direct hydraulic fluid flow to the appropriate clutch packs and bands for gear selection",
+      "C) To multiply engine torque",
+      "D) To connect the transmission to the driveshaft"
+    ],
+    optionsChinese: [
+      "A) 储存变速箱油",
+      "B) 将液压油引导到适当的离合器片组和制动带以选择挡位",
+      "C) 倍增发动机扭矩",
+      "D) 将变速箱连接到传动轴"
+    ],
+    answer: 1,
+    explanation: "The valve body is the hydraulic control center of the automatic transmission. It contains numerous valves, passages, and check balls that direct pressurized ATF to the correct clutch packs and bands to achieve the desired gear. Modern valve bodies work in conjunction with electronic solenoids controlled by the TCM.",
+    explanationChinese: "阀体是自动变速箱的液压控制中心。它包含许多阀门、油道和单向球阀，将加压的ATF引导到正确的离合器片组和制动带以实现所需挡位。现代阀体与由TCM控制的电子电磁阀协同工作。",
+    diagram: "",
+    terms: ["valve_body", "clutch_pack", "band", "shift_solenoid"],
+    image: "https://upload.wikimedia.org/wikipedia/commons/thumb/3/3f/Automatic_transmission.jpg/640px-Automatic_transmission.jpg",
+    youtube: "https://www.youtube.com/watch?v=u_y1S8C0Hmc",
+    youtubeTitle: "Automatic Transmission Valve Body Explained"
+  },
+  {
+    id: 107,
+    q: "What does a shift solenoid do in an electronically controlled automatic transmission?",
+    qChinese: "在电子控制自动变速箱中，换挡电磁阀的作用是什么？",
+    options: [
+      "A) It generates electrical power for the TCM",
+      "B) It is an electro-hydraulic valve that controls fluid flow to shift valves based on TCM commands",
+      "C) It mechanically connects the engine to the wheels",
+      "D) It measures vehicle speed"
+    ],
+    optionsChinese: [
+      "A) 为TCM产生电力",
+      "B) 它是一种电液阀，根据TCM指令控制流向换挡阀的油液",
+      "C) 机械地将发动机连接到车轮",
+      "D) 测量车速"
+    ],
+    answer: 1,
+    explanation: "Shift solenoids are electro-hydraulic valves commanded by the TCM. When energized or de-energized, they open or close hydraulic passages in the valve body, directing fluid pressure to engage or release specific clutch packs and bands. Different solenoid combinations produce different gear selections.",
+    explanationChinese: "换挡电磁阀是由TCM控制的电液阀。当通电或断电时，它们打开或关闭阀体中的液压通道，引导油压接合或释放特定的离合器片组和制动带。不同的电磁阀组合产生不同的挡位选择。",
+    diagram: "",
+    terms: ["shift_solenoid", "tcm", "valve_body"],
+    image: "https://upload.wikimedia.org/wikipedia/commons/thumb/3/3f/Automatic_transmission.jpg/640px-Automatic_transmission.jpg",
+    youtube: "https://www.youtube.com/watch?v=hE-bFcLHbGc",
+    youtubeTitle: "How Shift Solenoids Work"
+  },
+  {
+    id: 108,
+    q: "A clutch pack in an automatic transmission consists of alternating friction discs and steel plates. What applies the clutch pack?",
+    qChinese: "自动变速箱中的离合器片组由交替排列的摩擦片和钢片组成。什么接合离合器片组？",
+    options: [
+      "A) A mechanical cable from the shift lever",
+      "B) Hydraulic pressure acting on a piston behind the clutch pack",
+      "C) An electric motor inside the transmission",
+      "D) Spring pressure alone"
+    ],
+    optionsChinese: [
+      "A) 来自换挡杆的机械钢缆",
+      "B) 作用在离合器片组后方活塞上的液压压力",
+      "C) 变速箱内部的电动机",
+      "D) 仅弹簧压力"
+    ],
+    answer: 1,
+    explanation: "Clutch packs are applied by hydraulic pressure. When the valve body directs ATF pressure to a clutch circuit, the pressurized fluid pushes a piston that squeezes the friction discs and steel plates together. When pressure is released, return springs push the piston back, releasing the clutch pack.",
+    explanationChinese: "离合器片组通过液压压力接合。当阀体将ATF压力引导到离合器回路时，加压油液推动活塞，将摩擦片和钢片压紧在一起。当压力释放时，回位弹簧将活塞推回，释放离合器片组。",
+    diagram: "",
+    terms: ["clutch_pack", "valve_body", "line_pressure"],
+    image: "https://upload.wikimedia.org/wikipedia/commons/thumb/3/3f/Automatic_transmission.jpg/640px-Automatic_transmission.jpg",
+    youtube: "https://www.youtube.com/watch?v=u_y1S8C0Hmc",
+    youtubeTitle: "How Automatic Transmission Clutches Work"
+  },
+  {
+    id: 109,
+    q: "What is the purpose of a band in an automatic transmission?",
+    qChinese: "自动变速箱中制动带的用途是什么？",
+    options: [
+      "A) To connect the torque converter to the flywheel",
+      "B) To hold a drum connected to a planetary gear member stationary to achieve a specific gear ratio",
+      "C) To filter the transmission fluid",
+      "D) To measure transmission temperature"
+    ],
+    optionsChinese: [
+      "A) 将液力变矩器连接到飞轮",
+      "B) 固定连接到行星齿轮构件的鼓以实现特定的齿轮比",
+      "C) 过滤变速箱油",
+      "D) 测量变速箱温度"
+    ],
+    answer: 1,
+    explanation: "A transmission band wraps around a drum that is connected to a member of the planetary gear set. When the band is applied by its servo, it holds the drum stationary, which holds a specific planetary member to create a desired gear ratio. Bands are released and applied during shifting.",
+    explanationChinese: "变速箱制动带环绕在连接到行星齿轮组某个构件的鼓上。当制动带由其伺服器接合时，它固定住鼓，从而固定特定的行星构件以创建所需的齿轮比。制动带在换挡过程中释放和接合。",
+    diagram: "",
+    terms: ["band", "servo", "planetary_gear_set", "gear_ratio"],
+    image: "https://upload.wikimedia.org/wikipedia/commons/thumb/3/3f/Automatic_transmission.jpg/640px-Automatic_transmission.jpg",
+    youtube: "https://www.youtube.com/watch?v=ARd-Om2VyiE",
+    youtubeTitle: "Automatic Transmission Bands and Servos"
+  },
+  {
+    id: 110,
+    q: "What component applies a band in an automatic transmission?",
+    qChinese: "什么部件接合自动变速箱中的制动带？",
+    options: [
+      "A) A clutch pack",
+      "B) A hydraulic servo piston",
+      "C) The torque converter stator",
+      "D) The parking pawl"
+    ],
+    optionsChinese: [
+      "A) 离合器片组",
+      "B) 液压伺服活塞",
+      "C) 液力变矩器导轮",
+      "D) 驻车棘爪"
+    ],
+    answer: 1,
+    explanation: "A servo consists of a piston inside a bore in the transmission case. When hydraulic pressure is applied to the servo, the piston moves outward and pushes a rod that tightens the band around its drum. When pressure is released, a return spring retracts the piston and the band loosens.",
+    explanationChinese: "伺服器由变速箱壳体内孔中的活塞组成。当液压压力施加到伺服器时，活塞向外移动并推动一根杆将制动带收紧在其鼓上。当压力释放时，回位弹簧使活塞缩回，制动带松开。",
+    diagram: "",
+    terms: ["servo", "band", "line_pressure"],
+    image: "https://upload.wikimedia.org/wikipedia/commons/thumb/3/3f/Automatic_transmission.jpg/640px-Automatic_transmission.jpg",
+    youtube: "https://www.youtube.com/watch?v=u_y1S8C0Hmc",
+    youtubeTitle: "Automatic Transmission Bands and Servos"
+  },
+  {
+    id: 111,
+    q: "What is the function of the transmission cooler?",
+    qChinese: "变速箱冷却器的功能是什么？",
+    options: [
+      "A) To warm the transmission fluid during cold starts only",
+      "B) To remove heat from the transmission fluid to prevent overheating",
+      "C) To filter metal particles from the fluid",
+      "D) To increase line pressure"
+    ],
+    optionsChinese: [
+      "A) 仅在冷启动时加热变速箱油",
+      "B) 从变速箱油中散热以防止过热",
+      "C) 过滤油液中的金属颗粒",
+      "D) 增加主油压"
+    ],
+    answer: 1,
+    explanation: "The transmission cooler removes heat from the ATF to keep it within safe operating temperatures. Most factory coolers are located inside the radiator, using engine coolant to cool the ATF. Auxiliary coolers mounted in front of the radiator provide additional cooling for towing or severe-duty applications.",
+    explanationChinese: "变速箱冷却器从ATF中散热，使其保持在安全的工作温度范围内。大多数原厂冷却器位于散热器内部，使用发动机冷却液冷却ATF。安装在散热器前方的辅助冷却器为拖曳或重负荷应用提供额外冷却。",
+    diagram: "",
+    terms: ["transmission_cooler", "transmission_fluid"],
+    image: "https://upload.wikimedia.org/wikipedia/commons/thumb/5/5f/Radiator.jpg/640px-Radiator.jpg",
+    youtube: "https://www.youtube.com/watch?v=fRPHIDSYLi4",
+    youtubeTitle: "Transmission Cooling System Explained"
+  },
+  {
+    id: 112,
+    q: "What does CVT stand for, and how does it differ from a conventional automatic transmission?",
+    qChinese: "CVT代表什么，它与传统自动变速箱有何不同？",
+    options: [
+      "A) Constant Voltage Transformer; it uses electrical power instead of fluid",
+      "B) Continuously Variable Transmission; it uses a belt and pulley system instead of fixed gear ratios",
+      "C) Computer Validated Transmission; it is fully computer controlled",
+      "D) Converter Vacuum Transfer; it uses vacuum to shift gears"
+    ],
+    optionsChinese: [
+      "A) 恒压变压器；它使用电力而非油液",
+      "B) 无级变速器；它使用皮带和滑轮系统代替固定齿轮比",
+      "C) 计算机验证变速器；它完全由计算机控制",
+      "D) 变矩器真空传递；它使用真空来换挡"
+    ],
+    answer: 1,
+    explanation: "CVT stands for Continuously Variable Transmission. Instead of using planetary gear sets with fixed ratios, a CVT uses a belt or chain running between two variable-diameter pulleys. By changing the effective diameter of each pulley, the CVT provides an infinite number of gear ratios within its range.",
+    explanationChinese: "CVT代表无级变速器。CVT不使用具有固定比率的行星齿轮组，而是使用在两个可变直径滑轮之间运行的皮带或链条。通过改变每个滑轮的有效直径，CVT在其范围内提供无限数量的齿轮比。",
+    diagram: "",
+    terms: ["cvt", "gear_ratio"],
+    image: "https://upload.wikimedia.org/wikipedia/commons/thumb/a/a8/Nissan_Extroid_CVT_cutaway.jpg/640px-Nissan_Extroid_CVT_cutaway.jpg",
+    youtube: "https://www.youtube.com/watch?v=PEq5_b4LWNY",
+    youtubeTitle: "How a CVT Works"
+  },
+  {
+    id: 113,
+    q: "What is the role of the Transmission Control Module (TCM)?",
+    qChinese: "变速箱控制模块（TCM）的作用是什么？",
+    options: [
+      "A) To supply hydraulic pressure to the valve body",
+      "B) To electronically control shift timing, shift feel, and torque converter clutch operation based on sensor inputs",
+      "C) To mechanically connect the engine to the transmission",
+      "D) To cool the transmission fluid"
+    ],
+    optionsChinese: [
+      "A) 向阀体供应液压压力",
+      "B) 根据传感器输入电子控制换挡时机、换挡感觉和液力变矩器离合器工作",
+      "C) 机械地将发动机连接到变速箱",
+      "D) 冷却变速箱油"
+    ],
+    answer: 1,
+    explanation: "The TCM is the electronic brain of the transmission. It receives inputs from sensors such as throttle position, vehicle speed, engine load, and transmission temperature, then commands shift solenoids and pressure control solenoids to optimize shift timing, shift quality, and TCC engagement for efficiency and driveability.",
+    explanationChinese: "TCM是变速箱的电子大脑。它接收来自节气门位置、车速、发动机负载和变速箱温度等传感器的输入，然后指令换挡电磁阀和压力控制电磁阀，以优化换挡时机、换挡质量和TCC接合，实现效率和驾驶性能。",
+    diagram: "",
+    terms: ["tcm", "shift_solenoid", "torque_converter"],
+    image: "https://upload.wikimedia.org/wikipedia/commons/thumb/3/3f/Automatic_transmission.jpg/640px-Automatic_transmission.jpg",
+    youtube: "https://www.youtube.com/watch?v=gpBtQozOkA8",
+    youtubeTitle: "Transmission Control Module Function"
+  },
+  {
+    id: 114,
+    q: "What is a gear ratio in an automatic transmission?",
+    qChinese: "自动变速箱中的齿轮比是什么？",
+    options: [
+      "A) The ratio of transmission fluid to coolant",
+      "B) The ratio of input shaft speed to output shaft speed",
+      "C) The ratio of engine oil pressure to transmission line pressure",
+      "D) The number of forward gears divided by reverse gears"
+    ],
+    optionsChinese: [
+      "A) 变速箱油与冷却液的比率",
+      "B) 输入轴转速与输出轴转速的比率",
+      "C) 发动机油压与变速箱主油压的比率",
+      "D) 前进挡数除以倒挡数"
+    ],
+    answer: 1,
+    explanation: "A gear ratio represents the relationship between input speed and output speed. For example, a 2.5:1 ratio means the input shaft turns 2.5 times for every one revolution of the output shaft. Lower gears have higher numerical ratios for more torque, while higher gears have lower ratios for fuel efficiency.",
+    explanationChinese: "齿轮比表示输入转速与输出转速之间的关系。例如，2.5:1的比率意味着输出轴每转一圈，输入轴转2.5圈。低挡位具有较高的数值比率以提供更多扭矩，而高挡位具有较低的比率以提高燃油效率。",
+    diagram: "",
+    terms: ["gear_ratio", "planetary_gear_set"],
+    image: "https://upload.wikimedia.org/wikipedia/commons/thumb/0/0a/Epicyclic_gear_ratios.png/640px-Epicyclic_gear_ratios.png",
+    youtube: "https://www.youtube.com/watch?v=ARd-Om2VyiE",
+    youtubeTitle: "Understanding Gear Ratios"
+  },
+  {
+    id: 115,
+    q: "What is overdrive in an automatic transmission?",
+    qChinese: "自动变速箱中的超速挡是什么？",
+    options: [
+      "A) A gear ratio less than 1:1 where the output shaft turns faster than the input shaft",
+      "B) A gear that provides maximum torque for towing",
+      "C) A feature that increases engine RPM at highway speeds",
+      "D) An emergency mode when the transmission overheats"
+    ],
+    optionsChinese: [
+      "A) 输出轴转速快于输入轴的小于1:1的齿轮比",
+      "B) 为拖曳提供最大扭矩的挡位",
+      "C) 在高速公路速度下增加发动机转速的功能",
+      "D) 变速箱过热时的紧急模式"
+    ],
+    answer: 0,
+    explanation: "Overdrive is a gear ratio where the output shaft rotates faster than the input shaft, such as 0.70:1. This reduces engine RPM at highway speeds, improving fuel economy and reducing engine wear. Most modern automatic transmissions have one or two overdrive ratios in their highest gears.",
+    explanationChinese: "超速挡是输出轴旋转速度快于输入轴的齿轮比，例如0.70:1。这降低了高速公路速度下的发动机转速，提高了燃油经济性并减少了发动机磨损。大多数现代自动变速箱在其最高挡位具有一到两个超速比。",
+    diagram: "",
+    terms: ["overdrive", "gear_ratio"],
+    image: "https://upload.wikimedia.org/wikipedia/commons/thumb/3/3f/Automatic_transmission.jpg/640px-Automatic_transmission.jpg",
+    youtube: "https://www.youtube.com/watch?v=ARd-Om2VyiE",
+    youtubeTitle: "Overdrive Explained"
+  },
+  {
+    id: 116,
+    q: "What is line pressure in an automatic transmission?",
+    qChinese: "自动变速箱中的主油压是什么？",
+    options: [
+      "A) The pressure of the engine oil that lubricates the transmission",
+      "B) The main hydraulic pressure generated by the transmission oil pump that operates all clutches and bands",
+      "C) The air pressure inside the torque converter",
+      "D) The pressure of the transmission fluid at the dipstick"
+    ],
+    optionsChinese: [
+      "A) 润滑变速箱的发动机油压力",
+      "B) 由变速箱油泵产生的操作所有离合器和制动带的主液压压力",
+      "C) 液力变矩器内部的气压",
+      "D) 油尺处变速箱油的压力"
+    ],
+    answer: 1,
+    explanation: "Line pressure is the main system pressure generated by the transmission oil pump and regulated by the pressure regulator valve. It is the source of hydraulic force used to apply clutch packs and bands. Line pressure is adjusted by the TCM based on engine load and driving conditions to optimize shift feel.",
+    explanationChinese: "主油压是由变速箱油泵产生并由压力调节阀调节的主系统压力。它是用于接合离合器片组和制动带的液压力来源。主油压由TCM根据发动机负载和驾驶条件进行调整，以优化换挡感觉。",
+    diagram: "",
+    terms: ["line_pressure", "valve_body", "clutch_pack"],
+    image: "https://upload.wikimedia.org/wikipedia/commons/thumb/3/3f/Automatic_transmission.jpg/640px-Automatic_transmission.jpg",
+    youtube: "https://www.youtube.com/watch?v=u_y1S8C0Hmc",
+    youtubeTitle: "Transmission Line Pressure Explained"
+  },
+  {
+    id: 117,
+    q: "What is the purpose of an accumulator in an automatic transmission?",
+    qChinese: "自动变速箱中蓄压器的用途是什么？",
+    options: [
+      "A) To store electrical energy for the solenoids",
+      "B) To cushion the application of a clutch or band for a smoother shift",
+      "C) To increase the maximum line pressure",
+      "D) To filter debris from the transmission fluid"
+    ],
+    optionsChinese: [
+      "A) 为电磁阀储存电能",
+      "B) 缓冲离合器或制动带的接合以实现更平顺的换挡",
+      "C) 增加最大主油压",
+      "D) 过滤变速箱油中的杂质"
+    ],
+    answer: 1,
+    explanation: "An accumulator is a spring-loaded piston that absorbs some of the hydraulic pressure surge when a clutch or band is applied. By temporarily absorbing fluid, it slows the rate of pressure buildup, allowing the clutch or band to engage progressively rather than abruptly, resulting in a smoother shift feel.",
+    explanationChinese: "蓄压器是一个弹簧加载的活塞，在离合器或制动带接合时吸收部分液压压力冲击。通过暂时吸收油液，它减慢了压力建立的速率，允许离合器或制动带逐渐接合而非突然接合，从而产生更平顺的换挡感觉。",
+    diagram: "",
+    terms: ["accumulator", "clutch_pack", "band"],
+    image: "https://upload.wikimedia.org/wikipedia/commons/thumb/3/3f/Automatic_transmission.jpg/640px-Automatic_transmission.jpg",
+    youtube: "https://www.youtube.com/watch?v=u_y1S8C0Hmc",
+    youtubeTitle: "Transmission Accumulators Explained"
+  },
+  {
+    id: 118,
+    q: "What does the parking pawl do in an automatic transmission?",
+    qChinese: "自动变速箱中驻车棘爪的作用是什么？",
+    options: [
+      "A) It applies the service brakes when the vehicle is in Park",
+      "B) It mechanically locks the output shaft by engaging a toothed parking gear",
+      "C) It engages the torque converter clutch at idle",
+      "D) It controls line pressure in Park"
+    ],
+    optionsChinese: [
+      "A) 当车辆在驻车挡时施加行车制动器",
+      "B) 通过与带齿的驻车齿轮啮合来机械锁定输出轴",
+      "C) 在怠速时接合液力变矩器离合器",
+      "D) 在驻车挡控制主油压"
+    ],
+    answer: 1,
+    explanation: "The parking pawl is a small metal latch that swings into engagement with a toothed parking gear on the output shaft when the driver selects Park. This mechanically prevents the output shaft from rotating, holding the vehicle stationary. It is not a substitute for the parking brake on hills.",
+    explanationChinese: "驻车棘爪是一个小金属锁扣，当驾驶员选择驻车挡时，它摆入与输出轴上带齿的驻车齿轮啮合。这机械地防止输出轴旋转，使车辆静止不动。它不能替代在坡道上使用的驻车制动器。",
+    diagram: "",
+    terms: ["parking_pawl"],
+    image: "https://upload.wikimedia.org/wikipedia/commons/thumb/3/3f/Automatic_transmission.jpg/640px-Automatic_transmission.jpg",
+    youtube: "https://www.youtube.com/watch?v=gpBtQozOkA8",
+    youtubeTitle: "How the Parking Pawl Works"
+  },
+  {
+    id: 119,
+    q: "What is a flexplate, and what is its purpose?",
+    qChinese: "挠性板是什么，它的用途是什么？",
+    options: [
+      "A) A rigid disc that replaces the clutch in a manual transmission",
+      "B) A thin, flexible metal plate that connects the engine crankshaft to the torque converter",
+      "C) A rubber mount that supports the transmission",
+      "D) A spring plate inside the valve body"
+    ],
+    optionsChinese: [
+      "A) 替代手动变速箱离合器的刚性圆盘",
+      "B) 连接发动机曲轴和液力变矩器的薄而柔韧的金属板",
+      "C) 支撑变速箱的橡胶支架",
+      "D) 阀体内部的弹簧板"
+    ],
+    answer: 1,
+    explanation: "A flexplate is a thin stamped-steel plate bolted to the engine crankshaft on one side and to the torque converter on the other. Unlike a flywheel used with manual transmissions, the flexplate is flexible to absorb slight misalignment. It also has a ring gear for the starter motor to engage.",
+    explanationChinese: "挠性板是一块薄冲压钢板，一侧用螺栓固定在发动机曲轴上，另一侧固定在液力变矩器上。与手动变速箱使用的飞轮不同，挠性板是柔性的，可吸收轻微的不对中。它还有一个齿圈供起动机啮合。",
+    diagram: "",
+    terms: ["flexplate", "torque_converter"],
+    image: "https://upload.wikimedia.org/wikipedia/commons/thumb/3/3f/Automatic_transmission.jpg/640px-Automatic_transmission.jpg",
+    youtube: "https://www.youtube.com/watch?v=z1ZlC7OAiNk",
+    youtubeTitle: "Flexplate vs Flywheel Explained"
+  },
+  {
+    id: 120,
+    q: "Technician A says the input speed sensor measures the rotational speed of the turbine shaft. Technician B says the output speed sensor measures the rotational speed of the transmission output shaft. Who is correct?",
+    qChinese: "技师A说输入速度传感器测量涡轮轴的旋转速度。技师B说输出速度传感器测量变速箱输出轴的旋转速度。谁是正确的？",
+    options: [
+      "A) Technician A only",
+      "B) Technician B only",
+      "C) Both Technician A and Technician B",
+      "D) Neither Technician A nor Technician B"
+    ],
+    optionsChinese: [
+      "A) 仅技师A正确",
+      "B) 仅技师B正确",
+      "C) 技师A和技师B都正确",
+      "D) 技师A和技师B都不正确"
+    ],
+    answer: 2,
+    explanation: "Both technicians are correct. The input (turbine) speed sensor monitors the speed of the torque converter turbine, which equals input shaft speed. The output speed sensor monitors the output shaft speed, which corresponds to vehicle speed. The TCM compares both signals to calculate actual gear ratios and shift quality.",
+    explanationChinese: "两位技师都是正确的。输入（涡轮）速度传感器监测液力变矩器涡轮的速度，即输入轴转速。输出速度传感器监测输出轴转速，对应车速。TCM比较两个信号以计算实际齿轮比和换挡质量。",
+    diagram: "",
+    terms: ["speed_sensor", "torque_converter", "tcm"],
+    image: "https://upload.wikimedia.org/wikipedia/commons/thumb/3/3f/Automatic_transmission.jpg/640px-Automatic_transmission.jpg",
+    youtube: "https://www.youtube.com/watch?v=hE-bFcLHbGc",
+    youtubeTitle: "Transmission Speed Sensor Testing"
+  },
+  {
+    id: 121,
+    q: "A vehicle in limp mode (failsafe) is stuck in one gear and the MIL is illuminated. What is the most likely reason the TCM has entered this mode?",
+    qChinese: "一辆处于跛行模式（故障保护）的车辆卡在一个挡位且故障指示灯亮起。TCM进入此模式最可能的原因是什么？",
+    options: [
+      "A) The transmission fluid is slightly low",
+      "B) A critical sensor or solenoid circuit failure has been detected",
+      "C) The vehicle needs a routine oil change",
+      "D) The battery voltage is slightly above normal"
+    ],
+    optionsChinese: [
+      "A) 变速箱油略微偏低",
+      "B) 检测到关键传感器或电磁阀电路故障",
+      "C) 车辆需要常规换油",
+      "D) 电池电压略高于正常值"
+    ],
+    answer: 1,
+    explanation: "Limp mode or failsafe mode is triggered when the TCM detects a critical fault such as a failed speed sensor, shorted solenoid circuit, or major electrical problem. The transmission defaults to a single gear (usually second or third) to allow the driver to reach a repair facility without causing further damage.",
+    explanationChinese: "当TCM检测到关键故障，如速度传感器失效、电磁阀电路短路或重大电气问题时，会触发跛行模式或故障保护模式。变速箱默认为单一挡位（通常是二挡或三挡），以允许驾驶员到达维修站而不造成进一步损坏。",
+    diagram: "",
+    terms: ["tcm", "shift_solenoid", "speed_sensor", "dtc"],
+    image: "https://upload.wikimedia.org/wikipedia/commons/thumb/3/3f/Automatic_transmission.jpg/640px-Automatic_transmission.jpg",
+    youtube: "https://www.youtube.com/watch?v=gpBtQozOkA8",
+    youtubeTitle: "Transmission Limp Mode Explained"
+  },
+  {
+    id: 122,
+    q: "What type of fluid is typically required for a CVT transmission?",
+    qChinese: "CVT变速箱通常需要什么类型的油液？",
+    options: [
+      "A) Standard Dexron III ATF",
+      "B) CVT-specific fluid designed for belt and pulley operation",
+      "C) Manual transmission gear oil (75W-90)",
+      "D) Engine oil (5W-30)"
+    ],
+    optionsChinese: [
+      "A) 标准Dexron III ATF",
+      "B) 专为皮带和滑轮操作设计的CVT专用油液",
+      "C) 手动变速箱齿轮油（75W-90）",
+      "D) 发动机油（5W-30）"
+    ],
+    answer: 1,
+    explanation: "CVT transmissions require a specially formulated CVT fluid that provides the correct friction characteristics for the belt-and-pulley system. Using conventional ATF in a CVT can cause belt slippage, premature wear, and transmission damage. Always refer to the manufacturer's specifications for the correct fluid type.",
+    explanationChinese: "CVT变速箱需要专门配方的CVT油液，为皮带-滑轮系统提供正确的摩擦特性。在CVT中使用传统ATF可能导致皮带打滑、过早磨损和变速箱损坏。始终参考制造商的规格以确定正确的油液类型。",
+    diagram: "",
+    terms: ["cvt", "transmission_fluid"],
+    image: "https://upload.wikimedia.org/wikipedia/commons/thumb/a/a8/Nissan_Extroid_CVT_cutaway.jpg/640px-Nissan_Extroid_CVT_cutaway.jpg",
+    youtube: "https://www.youtube.com/watch?v=PEq5_b4LWNY",
+    youtubeTitle: "CVT Fluid - What You Need to Know"
+  },
+  {
+    id: 123,
+    q: "Technician A says governor pressure increases with vehicle speed. Technician B says throttle pressure increases with throttle opening. Who is correct?",
+    qChinese: "技师A说调速器压力随车速增加而增大。技师B说节气门压力随节气门开度增大而增大。谁是正确的？",
+    options: [
+      "A) Technician A only",
+      "B) Technician B only",
+      "C) Both Technician A and Technician B",
+      "D) Neither Technician A nor Technician B"
+    ],
+    optionsChinese: [
+      "A) 仅技师A正确",
+      "B) 仅技师B正确",
+      "C) 技师A和技师B都正确",
+      "D) 技师A和技师B都不正确"
+    ],
+    answer: 2,
+    explanation: "Both technicians are correct. In hydraulically controlled transmissions, the governor produces a speed-sensitive pressure signal that increases with vehicle speed to initiate upshifts. Throttle pressure increases with throttle opening to delay upshifts under heavy load. These two pressures work together to determine shift points.",
+    explanationChinese: "两位技师都是正确的。在液压控制的变速箱中，调速器产生随车速增加而增大的速度敏感压力信号以启动升挡。节气门压力随节气门开度增大而增大，以在重负载下延迟升挡。这两个压力共同决定换挡点。",
+    diagram: "",
+    terms: ["valve_body", "line_pressure", "gear_ratio"],
+    image: "https://upload.wikimedia.org/wikipedia/commons/thumb/3/3f/Automatic_transmission.jpg/640px-Automatic_transmission.jpg",
+    youtube: "https://www.youtube.com/watch?v=u_y1S8C0Hmc",
+    youtubeTitle: "Governor and Throttle Pressure Explained"
+  },
+  {
+    id: 124,
+    q: "What is the consequence of using the wrong type of ATF in a transmission?",
+    qChinese: "在变速箱中使用错误类型的ATF会有什么后果？",
+    options: [
+      "A) No consequence; all ATF types are interchangeable",
+      "B) Potential clutch slippage, harsh shifting, seal damage, or premature transmission failure",
+      "C) Only a minor color difference in the fluid",
+      "D) Improved shift quality in all conditions"
+    ],
+    optionsChinese: [
+      "A) 没有后果；所有ATF类型可互换",
+      "B) 可能导致离合器打滑、换挡生硬、密封件损坏或变速箱过早故障",
+      "C) 仅油液颜色略有不同",
+      "D) 在所有条件下改善换挡质量"
+    ],
+    answer: 1,
+    explanation: "Different transmissions require specific ATF formulations with particular friction modifiers, viscosity, and additive packages. Using the wrong fluid can cause clutch slippage from incorrect friction characteristics, harsh or delayed shifts, swelling or deterioration of seals, and ultimately premature transmission failure.",
+    explanationChinese: "不同的变速箱需要具有特定摩擦改性剂、粘度和添加剂包的特定ATF配方。使用错误的油液可能导致因摩擦特性不正确而离合器打滑、换挡生硬或延迟、密封件膨胀或劣化，最终导致变速箱过早故障。",
+    diagram: "",
+    terms: ["transmission_fluid", "clutch_pack"],
+    image: "https://upload.wikimedia.org/wikipedia/commons/thumb/3/3f/Automatic_transmission.jpg/640px-Automatic_transmission.jpg",
+    youtube: "https://www.youtube.com/watch?v=fRPHIDSYLi4",
+    youtubeTitle: "Automatic Transmission Fluid Types Explained"
+  },
+  {
+    id: 125,
+    q: "A planetary gear set in an automatic transmission consists of which three main components?",
+    qChinese: "自动变速箱中的行星齿轮组由哪三个主要部件组成？",
+    options: [
+      "A) Impeller, turbine, and stator",
+      "B) Sun gear, planet carrier with pinion gears, and ring gear",
+      "C) Input shaft, output shaft, and countershaft",
+      "D) Servo, band, and accumulator"
+    ],
+    optionsChinese: [
+      "A) 泵轮、涡轮和导轮",
+      "B) 太阳轮、带有行星小齿轮的行星架和齿圈",
+      "C) 输入轴、输出轴和中间轴",
+      "D) 伺服器、制动带和蓄压器"
+    ],
+    answer: 1,
+    explanation: "A planetary gear set consists of a central sun gear, a ring (annulus) gear surrounding it, and a planet carrier holding pinion gears that mesh with both the sun and ring gears. By holding, driving, or releasing different members, various gear ratios including forward, reverse, and overdrive are achieved.",
+    explanationChinese: "行星齿轮组由中央太阳轮、围绕其的齿圈（环形齿轮）和持有与太阳轮和齿圈啮合的行星小齿轮的行星架组成。通过固定、驱动或释放不同的构件，可实现包括前进、倒挡和超速挡在内的各种齿轮比。",
+    diagram: "",
+    terms: ["planetary_gear_set", "gear_ratio"],
+    image: "https://upload.wikimedia.org/wikipedia/commons/thumb/0/0a/Epicyclic_gear_ratios.png/640px-Epicyclic_gear_ratios.png",
+    youtube: "https://www.youtube.com/watch?v=ARd-Om2VyiE",
+    youtubeTitle: "How Planetary Gear Sets Work"
+  },
+  {
+    id: 126,
+    q: "During a transmission fluid change, a technician notices metal shavings on the drain plug magnet. What does this indicate?",
+    qChinese: "在更换变速箱油时，技师注意到排油塞磁铁上有金属碎屑。这表明什么？",
+    options: [
+      "A) Normal wear during break-in of a new transmission",
+      "B) Internal component wear or damage requiring further inspection",
+      "C) The transmission fluid is the wrong type",
+      "D) The drain plug magnet needs to be demagnetized"
+    ],
+    optionsChinese: [
+      "A) 新变速箱磨合期间的正常磨损",
+      "B) 内部部件磨损或损坏需要进一步检查",
+      "C) 变速箱油类型错误",
+      "D) 排油塞磁铁需要消磁"
+    ],
+    answer: 1,
+    explanation: "Metal shavings or particles on the drain plug magnet indicate internal wear of metal components such as gears, bearings, or clutch plates. A small amount of fine particles may be normal, but larger or excessive metal debris suggests significant internal damage that requires further diagnosis and possible overhaul.",
+    explanationChinese: "排油塞磁铁上的金属碎屑或颗粒表明齿轮、轴承或离合器片等金属部件的内部磨损。少量细微颗粒可能是正常的，但较大或过多的金属碎屑表明存在需要进一步诊断和可能大修的重大内部损坏。",
+    diagram: "",
+    terms: ["transmission_fluid", "planetary_gear_set", "clutch_pack"],
+    image: "https://upload.wikimedia.org/wikipedia/commons/thumb/3/3f/Automatic_transmission.jpg/640px-Automatic_transmission.jpg",
+    youtube: "https://www.youtube.com/watch?v=fRPHIDSYLi4",
+    youtubeTitle: "Transmission Fluid Inspection Tips"
+  },
+  {
+    id: 127,
+    q: "What is torque multiplication in a torque converter, and when does it occur?",
+    qChinese: "液力变矩器中的扭矩倍增是什么，它何时发生？",
+    options: [
+      "A) It occurs at highway speed when the TCC is locked",
+      "B) It occurs at low speeds when there is a large speed difference between the impeller and turbine, and the stator redirects fluid",
+      "C) It occurs only in reverse gear",
+      "D) It occurs when the transmission is in neutral"
+    ],
+    optionsChinese: [
+      "A) 在TCC锁止时的高速公路速度下发生",
+      "B) 在低速时泵轮和涡轮之间存在大速度差且导轮重新导向油液时发生",
+      "C) 仅在倒挡时发生",
+      "D) 在变速箱处于空挡时发生"
+    ],
+    answer: 1,
+    explanation: "Torque multiplication occurs during acceleration from a stop when there is a large speed difference between the impeller and turbine. The stator redirects fluid exiting the turbine back into the impeller in a favorable direction, adding energy to the fluid flow. This can multiply engine torque by a factor of 2:1 or more.",
+    explanationChinese: "扭矩倍增发生在从停车状态加速时，此时泵轮和涡轮之间存在大的速度差。导轮将从涡轮流出的油液以有利的方向重新导回泵轮，为油液流动增加能量。这可以将发动机扭矩倍增2:1或更多。",
+    diagram: "",
+    terms: ["torque_converter"],
+    image: "https://upload.wikimedia.org/wikipedia/commons/thumb/c/c7/Torque_converter_cutaway.svg/640px-Torque_converter_cutaway.svg.png",
+    youtube: "https://www.youtube.com/watch?v=z1ZlC7OAiNk",
+    youtubeTitle: "Torque Converter Torque Multiplication"
+  },
+  {
+    id: 128,
+    q: "Technician A says a pressure control solenoid regulates line pressure based on TCM commands. Technician B says a pressure control solenoid is only used in the torque converter clutch circuit. Who is correct?",
+    qChinese: "技师A说压力控制电磁阀根据TCM指令调节主油压。技师B说压力控制电磁阀仅用于液力变矩器离合器回路。谁是正确的？",
+    options: [
+      "A) Technician A only",
+      "B) Technician B only",
+      "C) Both Technician A and Technician B",
+      "D) Neither Technician A nor Technician B"
+    ],
+    optionsChinese: [
+      "A) 仅技师A正确",
+      "B) 仅技师B正确",
+      "C) 技师A和技师B都正确",
+      "D) 技师A和技师B都不正确"
+    ],
+    answer: 0,
+    explanation: "Technician A is correct. Pressure control solenoids are used to regulate line pressure, shift feel, and other hydraulic pressures based on TCM commands. They are not limited to the TCC circuit. The TCM varies the duty cycle of these solenoids to precisely control hydraulic pressure for optimal shift quality under all conditions.",
+    explanationChinese: "技师A是正确的。压力控制电磁阀用于根据TCM指令调节主油压、换挡感觉和其他液压压力。它们不限于TCC回路。TCM改变这些电磁阀的占空比，以在所有条件下精确控制液压压力，实现最佳换挡质量。",
+    diagram: "",
+    terms: ["shift_solenoid", "tcm", "line_pressure", "valve_body"],
+    image: "https://upload.wikimedia.org/wikipedia/commons/thumb/3/3f/Automatic_transmission.jpg/640px-Automatic_transmission.jpg",
+    youtube: "https://www.youtube.com/watch?v=hE-bFcLHbGc",
+    youtubeTitle: "Pressure Control Solenoids Explained"
+  },
+  {
+    id: 129,
+    q: "A transmission has a DTC P0741 (Torque Converter Clutch Circuit Performance or Stuck Off). What does this code indicate?",
+    qChinese: "变速箱有DTC P0741（液力变矩器离合器电路性能或卡在断开位置）。此代码表明什么？",
+    options: [
+      "A) The TCC is engaging too early",
+      "B) The TCC is not locking up as commanded, resulting in excessive slippage",
+      "C) The torque converter is physically broken",
+      "D) The transmission fluid is overfilled"
+    ],
+    optionsChinese: [
+      "A) TCC接合过早",
+      "B) TCC未按指令锁止，导致过度滑差",
+      "C) 液力变矩器物理损坏",
+      "D) 变速箱油加注过量"
+    ],
+    answer: 1,
+    explanation: "P0741 indicates the TCM has detected excessive slippage in the torque converter clutch when it should be locked. Causes include a faulty TCC solenoid, worn converter clutch friction material, valve body issues, or wiring problems. The converter is not mechanically applying when commanded by the TCM.",
+    explanationChinese: "P0741表示TCM检测到液力变矩器离合器在应该锁止时存在过度滑差。原因包括TCC电磁阀故障、变矩器离合器摩擦材料磨损、阀体问题或线路问题。变矩器未在TCM指令时机械接合。",
+    diagram: "",
+    terms: ["torque_converter", "shift_solenoid", "dtc", "tcm"],
+    image: "https://upload.wikimedia.org/wikipedia/commons/thumb/c/c7/Torque_converter_cutaway.svg/640px-Torque_converter_cutaway.svg.png",
+    youtube: "https://www.youtube.com/watch?v=z1ZlC7OAiNk",
+    youtubeTitle: "TCC Solenoid Diagnosis"
+  },
+  {
+    id: 130,
+    q: "What is the coupling phase in a torque converter?",
+    qChinese: "液力变矩器中的耦合阶段是什么？",
+    options: [
+      "A) When the engine is cranking but not yet running",
+      "B) When the impeller and turbine reach nearly the same speed and the stator freewheels",
+      "C) When the parking pawl is engaged",
+      "D) When the transmission is in neutral"
+    ],
+    optionsChinese: [
+      "A) 当发动机在起动但尚未运转时",
+      "B) 当泵轮和涡轮达到几乎相同的速度且导轮自由旋转时",
+      "C) 当驻车棘爪接合时",
+      "D) 当变速箱处于空挡时"
+    ],
+    answer: 1,
+    explanation: "The coupling phase occurs at cruising speeds when the turbine speed nearly equals the impeller speed. At this point, fluid returning from the turbine strikes the back of the stator vanes, causing the stator one-way clutch to unlock, allowing it to freewheel. No torque multiplication occurs during coupling phase.",
+    explanationChinese: "耦合阶段发生在巡航速度下，此时涡轮速度几乎等于泵轮速度。此时从涡轮返回的油液冲击导轮叶片的背面，使导轮单向离合器解锁，允许其自由旋转。在耦合阶段不发生扭矩倍增。",
+    diagram: "",
+    terms: ["torque_converter"],
+    image: "https://upload.wikimedia.org/wikipedia/commons/thumb/c/c7/Torque_converter_cutaway.svg/640px-Torque_converter_cutaway.svg.png",
+    youtube: "https://www.youtube.com/watch?v=z1ZlC7OAiNk",
+    youtubeTitle: "Torque Converter Phases Explained"
+  },
+  {
+    id: 131,
+    q: "What is the purpose of the torque converter clutch (TCC)?",
+    qChinese: "液力变矩器离合器（TCC）的用途是什么？",
+    options: [
+      "A) To multiply torque during acceleration",
+      "B) To mechanically lock the impeller and turbine together to eliminate slippage and improve fuel economy",
+      "C) To prevent the engine from stalling at idle",
+      "D) To engage reverse gear"
+    ],
+    optionsChinese: [
+      "A) 在加速期间倍增扭矩",
+      "B) 机械地将泵轮和涡轮锁在一起以消除滑差并提高燃油经济性",
+      "C) 防止发动机在怠速时熄火",
+      "D) 接合倒挡"
+    ],
+    answer: 1,
+    explanation: "The TCC mechanically locks the turbine to the impeller housing at cruising speeds, creating a direct mechanical connection between the engine and transmission. This eliminates the inherent fluid slippage in the converter, improving fuel economy and reducing heat generation in the transmission fluid.",
+    explanationChinese: "TCC在巡航速度下机械地将涡轮锁定到泵轮壳体上，在发动机和变速箱之间创建直接的机械连接。这消除了变矩器中固有的液体滑差，提高了燃油经济性并减少了变速箱油中的热量产生。",
+    diagram: "",
+    terms: ["torque_converter", "transmission_fluid"],
+    image: "https://upload.wikimedia.org/wikipedia/commons/thumb/c/c7/Torque_converter_cutaway.svg/640px-Torque_converter_cutaway.svg.png",
+    youtube: "https://www.youtube.com/watch?v=z1ZlC7OAiNk",
+    youtubeTitle: "Torque Converter Clutch Operation"
+  },
+  {
+    id: 132,
+    q: "A transmission oil pump is driven by which component?",
+    qChinese: "变速箱油泵由哪个部件驱动？",
+    options: [
+      "A) The output shaft",
+      "B) The torque converter hub, which is connected to the engine",
+      "C) An electric motor",
+      "D) The governor assembly"
+    ],
+    optionsChinese: [
+      "A) 输出轴",
+      "B) 连接到发动机的液力变矩器轮毂",
+      "C) 电动机",
+      "D) 调速器总成"
+    ],
+    answer: 1,
+    explanation: "The transmission oil pump is driven by the torque converter housing, which is bolted to the flexplate and turns at engine speed. This means the pump only operates when the engine is running. This is why a vehicle with an automatic transmission cannot be push-started, as the pump needs engine power to create pressure.",
+    explanationChinese: "变速箱油泵由液力变矩器壳体驱动，该壳体用螺栓固定在挠性板上并以发动机转速旋转。这意味着油泵仅在发动机运转时才工作。这就是为什么配备自动变速箱的车辆不能推启动，因为油泵需要发动机动力来产生压力。",
+    diagram: "",
+    terms: ["torque_converter", "flexplate", "line_pressure"],
+    image: "https://upload.wikimedia.org/wikipedia/commons/thumb/3/3f/Automatic_transmission.jpg/640px-Automatic_transmission.jpg",
+    youtube: "https://www.youtube.com/watch?v=u_y1S8C0Hmc",
+    youtubeTitle: "Transmission Oil Pump Operation"
+  },
+  {
+    id: 133,
+    q: "What does DTC P0720 indicate?",
+    qChinese: "DTC P0720表示什么？",
+    options: [
+      "A) Torque converter clutch malfunction",
+      "B) Output speed sensor circuit malfunction",
+      "C) Shift solenoid A stuck on",
+      "D) Transmission fluid temperature too high"
+    ],
+    optionsChinese: [
+      "A) 液力变矩器离合器故障",
+      "B) 输出速度传感器电路故障",
+      "C) 换挡电磁阀A卡在开启位置",
+      "D) 变速箱油温过高"
+    ],
+    answer: 1,
+    explanation: "DTC P0720 indicates an output speed sensor circuit malfunction. The output speed sensor provides the TCM with vehicle speed data used to calculate gear ratios and determine shift points. A faulty output speed sensor can cause erratic shifting, no shifting, or incorrect speedometer readings.",
+    explanationChinese: "DTC P0720表示输出速度传感器电路故障。输出速度传感器向TCM提供用于计算齿轮比和确定换挡点的车速数据。故障的输出速度传感器可能导致换挡不规律、不换挡或车速表读数不正确。",
+    diagram: "",
+    terms: ["speed_sensor", "dtc", "tcm"],
+    image: "https://upload.wikimedia.org/wikipedia/commons/thumb/3/3f/Automatic_transmission.jpg/640px-Automatic_transmission.jpg",
+    youtube: "https://www.youtube.com/watch?v=hE-bFcLHbGc",
+    youtubeTitle: "Output Speed Sensor Diagnosis"
+  },
+  {
+    id: 134,
+    q: "When performing a transmission pressure test, the technician connects a pressure gauge to which port?",
+    qChinese: "进行变速箱压力测试时，技师将压力表连接到哪个端口？",
+    options: [
+      "A) The transmission cooler return line",
+      "B) The designated pressure test port on the transmission case",
+      "C) The dipstick tube",
+      "D) The torque converter drain plug"
+    ],
+    optionsChinese: [
+      "A) 变速箱冷却器回油管路",
+      "B) 变速箱壳体上指定的压力测试端口",
+      "C) 油尺管",
+      "D) 液力变矩器排油塞"
+    ],
+    answer: 1,
+    explanation: "Transmission cases have designated pressure test ports with threaded fittings for connecting a pressure gauge. These ports tap into specific hydraulic circuits such as line pressure, servo apply, and clutch apply circuits. The technician compares measured pressures against manufacturer specifications in each gear range.",
+    explanationChinese: "变速箱壳体上有带螺纹接头的指定压力测试端口，用于连接压力表。这些端口接入特定的液压回路，如主油压、伺服器接合和离合器接合回路。技师在每个挡位范围内将测量的压力与制造商规格进行比较。",
+    diagram: "",
+    terms: ["line_pressure", "valve_body", "servo"],
+    image: "https://upload.wikimedia.org/wikipedia/commons/thumb/3/3f/Automatic_transmission.jpg/640px-Automatic_transmission.jpg",
+    youtube: "https://www.youtube.com/watch?v=u_y1S8C0Hmc",
+    youtubeTitle: "Transmission Pressure Testing"
+  },
+  {
+    id: 135,
+    q: "A band adjustment is too tight. What symptom will this cause?",
+    qChinese: "制动带调整过紧。这会导致什么症状？",
+    options: [
+      "A) Slipping in the gear that uses that band",
+      "B) Harsh or early engagement of the gear controlled by that band and possible drag in other gears",
+      "C) The transmission will not go into Park",
+      "D) Improved fuel economy"
+    ],
+    optionsChinese: [
+      "A) 在使用该制动带的挡位打滑",
+      "B) 该制动带控制的挡位接合生硬或过早，其他挡位可能有拖滞",
+      "C) 变速箱无法进入驻车挡",
+      "D) 提高燃油经济性"
+    ],
+    answer: 1,
+    explanation: "A band adjusted too tight may partially drag on the drum even when released, causing binding or delayed disengagement in other gears. When applied, it engages too abruptly, causing harsh shifts. The drum may overheat from friction caused by the dragging band. A band too loose will cause slipping.",
+    explanationChinese: "调整过紧的制动带即使在释放时也可能部分拖在鼓上，导致其他挡位卡滞或延迟脱离。接合时，它会过于突然地接合，导致换挡生硬。鼓可能因拖滞制动带造成的摩擦而过热。制动带过松则会导致打滑。",
+    diagram: "",
+    terms: ["band", "servo", "valve_body"],
+    image: "https://upload.wikimedia.org/wikipedia/commons/thumb/3/3f/Automatic_transmission.jpg/640px-Automatic_transmission.jpg",
+    youtube: "https://www.youtube.com/watch?v=u_y1S8C0Hmc",
+    youtubeTitle: "Transmission Band Adjustment"
+  },
+  {
+    id: 136,
+    q: "Technician A says a cracked flexplate can cause a knocking noise at idle that changes with engine load. Technician B says a cracked flexplate will have no noticeable symptoms. Who is correct?",
+    qChinese: "技师A说破裂的挠性板会导致怠速时随发动机负载变化的敲击噪声。技师B说破裂的挠性板没有明显的症状。谁是正确的？",
+    options: [
+      "A) Technician A only",
+      "B) Technician B only",
+      "C) Both Technician A and Technician B",
+      "D) Neither Technician A nor Technician B"
+    ],
+    optionsChinese: [
+      "A) 仅技师A正确",
+      "B) 仅技师B正确",
+      "C) 技师A和技师B都正确",
+      "D) 技师A和技师B都不正确"
+    ],
+    answer: 0,
+    explanation: "Technician A is correct. A cracked flexplate often produces a rhythmic clicking or knocking noise, most noticeable at idle, that may change in intensity when the transmission is shifted into gear (adding load). The crack flexes open and closed as the plate rotates under engine power. This noise is often mistaken for an internal engine knock.",
+    explanationChinese: "技师A是正确的。破裂的挠性板通常产生有节奏的咔嗒或敲击噪声，在怠速时最明显，当变速箱挂入挡位（增加负载）时强度可能变化。裂缝在挠性板在发动机动力下旋转时张开和闭合。这种噪声常被误认为是发动机内部的敲击。",
+    diagram: "",
+    terms: ["flexplate", "torque_converter"],
+    image: "https://upload.wikimedia.org/wikipedia/commons/thumb/3/3f/Automatic_transmission.jpg/640px-Automatic_transmission.jpg",
+    youtube: "https://www.youtube.com/watch?v=z1ZlC7OAiNk",
+    youtubeTitle: "Cracked Flexplate Symptoms"
+  },
+  {
+    id: 137,
+    q: "What is an electronic pressure control (EPC) solenoid?",
+    qChinese: "电子压力控制（EPC）电磁阀是什么？",
+    options: [
+      "A) A solenoid that controls the starter motor circuit",
+      "B) A variable-force solenoid that regulates transmission line pressure based on TCM commands",
+      "C) A solenoid that controls the air conditioning compressor",
+      "D) A solenoid that opens and closes the transmission dipstick tube"
+    ],
+    optionsChinese: [
+      "A) 控制起动机电路的电磁阀",
+      "B) 根据TCM指令调节变速箱主油压的可变力电磁阀",
+      "C) 控制空调压缩机的电磁阀",
+      "D) 打开和关闭变速箱油尺管的电磁阀"
+    ],
+    answer: 1,
+    explanation: "The EPC solenoid is a variable-force solenoid that regulates mainline pressure in the transmission. The TCM adjusts the current supplied to the EPC solenoid to vary line pressure based on engine torque, gear selection, and driving conditions. This provides optimal clutch and band apply pressure for smooth, firm shifts.",
+    explanationChinese: "EPC电磁阀是一种可变力电磁阀，用于调节变速箱中的主管路压力。TCM调整供给EPC电磁阀的电流，以根据发动机扭矩、挡位选择和驾驶条件来改变主油压。这为平顺、稳健的换挡提供最佳的离合器和制动带接合压力。",
+    diagram: "",
+    terms: ["shift_solenoid", "line_pressure", "tcm", "valve_body"],
+    image: "https://upload.wikimedia.org/wikipedia/commons/thumb/3/3f/Automatic_transmission.jpg/640px-Automatic_transmission.jpg",
+    youtube: "https://www.youtube.com/watch?v=hE-bFcLHbGc",
+    youtubeTitle: "EPC Solenoid Operation and Testing"
+  },
+  {
+    id: 138,
+    q: "A vehicle with an automatic transmission has no movement in any gear but the engine revs freely. What is the most likely cause?",
+    qChinese: "一辆配备自动变速箱的车辆在任何挡位都没有移动，但发动机自由升速。最可能的原因是什么？",
+    options: [
+      "A) A stuck throttle cable",
+      "B) Very low or no transmission fluid, or a failed oil pump",
+      "C) A faulty ignition switch",
+      "D) Worn engine mounts"
+    ],
+    optionsChinese: [
+      "A) 节气门拉索卡滞",
+      "B) 变速箱油非常低或没有，或油泵故障",
+      "C) 点火开关故障",
+      "D) 发动机支架磨损"
+    ],
+    answer: 1,
+    explanation: "No movement in any gear with a freely revving engine indicates the transmission has no hydraulic pressure to apply any clutch packs or bands. The most common causes are extremely low or no fluid level, or a completely failed transmission oil pump. Without pressure, no holding devices can engage.",
+    explanationChinese: "在任何挡位都没有移动且发动机自由升速表明变速箱没有液压压力来接合任何离合器片组或制动带。最常见的原因是油液位极低或没有油液，或变速箱油泵完全故障。没有压力，任何保持装置都无法接合。",
+    diagram: "",
+    terms: ["transmission_fluid", "line_pressure", "clutch_pack"],
+    image: "https://upload.wikimedia.org/wikipedia/commons/thumb/3/3f/Automatic_transmission.jpg/640px-Automatic_transmission.jpg",
+    youtube: "https://www.youtube.com/watch?v=u_y1S8C0Hmc",
+    youtubeTitle: "Transmission No Movement Diagnosis"
+  },
+  {
+    id: 139,
+    q: "What should a technician check if a transmission makes a buzzing or whining noise only in Park and Neutral?",
+    qChinese: "如果变速箱仅在驻车挡和空挡时发出嗡嗡声或啸叫声，技师应检查什么？",
+    options: [
+      "A) The planetary gear set",
+      "B) The torque converter and transmission oil pump",
+      "C) The output shaft bearing",
+      "D) The drive shaft U-joints"
+    ],
+    optionsChinese: [
+      "A) 行星齿轮组",
+      "B) 液力变矩器和变速箱油泵",
+      "C) 输出轴轴承",
+      "D) 传动轴万向节"
+    ],
+    answer: 1,
+    explanation: "Noises present only in Park and Neutral, where no gear train is loaded, point to components that are always spinning with the engine: the torque converter and the oil pump. A worn pump, damaged converter, or low fluid level causing cavitation in the pump can produce buzzing or whining sounds in these ranges.",
+    explanationChinese: "仅在驻车挡和空挡（齿轮系无负载）时出现的噪声指向始终与发动机一起旋转的部件：液力变矩器和油泵。磨损的油泵、损坏的变矩器或导致油泵气蚀的低油液位都可能在这些位置产生嗡嗡声或啸叫声。",
+    diagram: "",
+    terms: ["torque_converter", "transmission_fluid"],
+    image: "https://upload.wikimedia.org/wikipedia/commons/thumb/c/c7/Torque_converter_cutaway.svg/640px-Torque_converter_cutaway.svg.png",
+    youtube: "https://www.youtube.com/watch?v=z1ZlC7OAiNk",
+    youtubeTitle: "Transmission Noise Diagnosis"
+  },
+  {
+    id: 140,
+    q: "Technician A says a clogged transmission filter can cause low line pressure. Technician B says a clogged filter can cause the transmission to overheat. Who is correct?",
+    qChinese: "技师A说堵塞的变速箱滤清器会导致主油压偏低。技师B说堵塞的滤清器会导致变速箱过热。谁是正确的？",
+    options: [
+      "A) Technician A only",
+      "B) Technician B only",
+      "C) Both Technician A and Technician B",
+      "D) Neither Technician A nor Technician B"
+    ],
+    optionsChinese: [
+      "A) 仅技师A正确",
+      "B) 仅技师B正确",
+      "C) 技师A和技师B都正确",
+      "D) 技师A和技师B都不正确"
+    ],
+    answer: 2,
+    explanation: "Both technicians are correct. A clogged filter restricts fluid flow to the oil pump, reducing line pressure and causing slipping clutches. Reduced fluid flow also means less fluid passes through the cooler, leading to overheating. Additionally, the pump works harder trying to draw fluid through the restriction, generating extra heat.",
+    explanationChinese: "两位技师都是正确的。堵塞的滤清器限制了流向油泵的油液流量，降低了主油压并导致离合器打滑。减少的油液流量也意味着流经冷却器的油液减少，导致过热。此外，油泵努力通过堵塞抽取油液时工作更加费力，产生额外热量。",
+    diagram: "",
+    terms: ["transmission_fluid", "line_pressure", "transmission_cooler"],
+    image: "https://upload.wikimedia.org/wikipedia/commons/thumb/3/3f/Automatic_transmission.jpg/640px-Automatic_transmission.jpg",
+    youtube: "https://www.youtube.com/watch?v=fRPHIDSYLi4",
+    youtubeTitle: "Transmission Filter Service"
+  },
+  {
+    id: 141,
+    q: "In a Ravigneaux planetary gear set, how many sun gears are used?",
+    qChinese: "在拉维娜式行星齿轮组中，使用了多少个太阳轮？",
+    options: [
+      "A) One",
+      "B) Two",
+      "C) Three",
+      "D) None"
+    ],
+    optionsChinese: [
+      "A) 一个",
+      "B) 两个",
+      "C) 三个",
+      "D) 没有"
+    ],
+    answer: 1,
+    explanation: "A Ravigneaux gear set uses two sun gears of different sizes, a single ring gear, and two sets of planet pinions (short and long) sharing one common planet carrier. This compact design achieves multiple gear ratios in a smaller package than two separate Simpson-type gear sets and is popular in modern transmissions.",
+    explanationChinese: "拉维娜式齿轮组使用两个不同大小的太阳轮、一个齿圈和两组共用一个行星架的行星小齿轮（短齿轮和长齿轮）。这种紧凑设计在比两个独立辛普森式齿轮组更小的空间内实现了多个齿轮比，在现代变速箱中很受欢迎。",
+    diagram: "",
+    terms: ["planetary_gear_set", "gear_ratio"],
+    image: "https://upload.wikimedia.org/wikipedia/commons/thumb/0/0a/Epicyclic_gear_ratios.png/640px-Epicyclic_gear_ratios.png",
+    youtube: "https://www.youtube.com/watch?v=ARd-Om2VyiE",
+    youtubeTitle: "Ravigneaux Gear Set Explained"
+  },
+  {
+    id: 142,
+    q: "What is the function of check balls in an automatic transmission valve body?",
+    qChinese: "自动变速箱阀体中单向球阀的功能是什么？",
+    options: [
+      "A) To permanently block fluid passages",
+      "B) To act as one-way valves that allow fluid flow in one direction and block it in the other",
+      "C) To filter metal particles from the fluid",
+      "D) To adjust band tension"
+    ],
+    optionsChinese: [
+      "A) 永久阻塞油液通道",
+      "B) 作为单向阀，允许油液在一个方向流动并在另一个方向阻止流动",
+      "C) 过滤油液中的金属颗粒",
+      "D) 调整制动带张力"
+    ],
+    answer: 1,
+    explanation: "Check balls in the valve body act as one-way valves. They seat against a specific passage opening under fluid pressure to block flow in one direction but unseat and allow flow in the opposite direction. They control fluid routing during shifts and prevent pressure bleed-off in certain circuits.",
+    explanationChinese: "阀体中的单向球阀起单向阀的作用。它们在油液压力下抵住特定的通道开口以阻止一个方向的流动，但在相反方向离开阀座并允许流动。它们在换挡时控制油液路径并防止某些回路中的压力泄漏。",
+    diagram: "",
+    terms: ["valve_body"],
+    image: "https://upload.wikimedia.org/wikipedia/commons/thumb/3/3f/Automatic_transmission.jpg/640px-Automatic_transmission.jpg",
+    youtube: "https://www.youtube.com/watch?v=u_y1S8C0Hmc",
+    youtubeTitle: "Valve Body Check Balls and Their Function"
+  },
+  {
+    id: 143,
+    q: "A vehicle equipped with a CVT transmission makes a loud droning or humming noise during acceleration. What is the most likely cause?",
+    qChinese: "一辆配备CVT变速箱的车辆在加速期间发出响亮的嗡鸣声或嗡嗡声。最可能的原因是什么？",
+    options: [
+      "A) Normal CVT operation",
+      "B) A worn or slipping CVT belt or chain",
+      "C) A faulty radio speaker",
+      "D) Low engine oil level"
+    ],
+    optionsChinese: [
+      "A) CVT正常运行",
+      "B) CVT皮带或链条磨损或打滑",
+      "C) 收音机扬声器故障",
+      "D) 发动机油液位低"
+    ],
+    answer: 1,
+    explanation: "A loud droning or humming noise during acceleration in a CVT vehicle often indicates a worn or slipping belt or chain. CVT belts and chains operate under high clamping pressure between the pulleys. As they wear, slippage increases, producing noise and reducing power transfer efficiency.",
+    explanationChinese: "CVT车辆在加速时发出响亮的嗡鸣声或嗡嗡声通常表明皮带或链条磨损或打滑。CVT皮带和链条在滑轮之间高夹紧压力下运行。随着磨损，滑移增加，产生噪声并降低动力传递效率。",
+    diagram: "",
+    terms: ["cvt", "transmission_fluid"],
+    image: "https://upload.wikimedia.org/wikipedia/commons/thumb/a/a8/Nissan_Extroid_CVT_cutaway.jpg/640px-Nissan_Extroid_CVT_cutaway.jpg",
+    youtube: "https://www.youtube.com/watch?v=PEq5_b4LWNY",
+    youtubeTitle: "CVT Noise Diagnosis"
+  },
+  {
+    id: 144,
+    q: "Technician A says the transmission fluid temperature sensor is used by the TCM to adjust shift strategy. Technician B says the TCM may activate the TCC earlier when fluid temperature is high. Who is correct?",
+    qChinese: "技师A说变速箱油温传感器由TCM用于调整换挡策略。技师B说当油温高时TCM可能更早激活TCC。谁是正确的？",
+    options: [
+      "A) Technician A only",
+      "B) Technician B only",
+      "C) Both Technician A and Technician B",
+      "D) Neither Technician A nor Technician B"
+    ],
+    optionsChinese: [
+      "A) 仅技师A正确",
+      "B) 仅技师B正确",
+      "C) 技师A和技师B都正确",
+      "D) 技师A和技师B都不正确"
+    ],
+    answer: 2,
+    explanation: "Both technicians are correct. The TCM uses transmission fluid temperature to modify shift points, line pressure, and TCC operation. When fluid is hot, the TCM may engage the TCC earlier to reduce slippage and heat generation. When fluid is cold, shifts may be delayed until proper operating temperature is reached.",
+    explanationChinese: "两位技师都是正确的。TCM使用变速箱油温来修改换挡点、主油压和TCC操作。当油液过热时，TCM可能更早接合TCC以减少滑差和热量产生。当油液冷时，换挡可能会延迟直到达到适当的工作温度。",
+    diagram: "",
+    terms: ["tcm", "torque_converter", "transmission_fluid"],
+    image: "https://upload.wikimedia.org/wikipedia/commons/thumb/3/3f/Automatic_transmission.jpg/640px-Automatic_transmission.jpg",
+    youtube: "https://www.youtube.com/watch?v=gpBtQozOkA8",
+    youtubeTitle: "Transmission Temperature Sensor Function"
+  },
+  {
+    id: 145,
+    q: "What is adaptive learning in a modern automatic transmission?",
+    qChinese: "现代自动变速箱中的自适应学习是什么？",
+    options: [
+      "A) A feature that allows the driver to manually select gears",
+      "B) The TCM's ability to adjust shift parameters over time to compensate for clutch wear and maintain shift quality",
+      "C) A training mode for new drivers",
+      "D) A method of diagnosing transmission problems"
+    ],
+    optionsChinese: [
+      "A) 允许驾驶员手动选择挡位的功能",
+      "B) TCM随时间调整换挡参数以补偿离合器磨损并保持换挡质量的能力",
+      "C) 新驾驶员的训练模式",
+      "D) 诊断变速箱问题的方法"
+    ],
+    answer: 1,
+    explanation: "Adaptive learning allows the TCM to continuously adjust shift timing, pressure, and TCC apply parameters based on real-time feedback from speed sensors. As clutch friction material wears, the TCM increases apply pressure slightly to maintain consistent shift quality. These learned values are stored in TCM memory.",
+    explanationChinese: "自适应学习允许TCM根据速度传感器的实时反馈持续调整换挡时机、压力和TCC接合参数。随着离合器摩擦材料磨损，TCM略微增加接合压力以保持一致的换挡质量。这些学习值存储在TCM存储器中。",
+    diagram: "",
+    terms: ["tcm", "shift_solenoid", "clutch_pack"],
+    image: "https://upload.wikimedia.org/wikipedia/commons/thumb/3/3f/Automatic_transmission.jpg/640px-Automatic_transmission.jpg",
+    youtube: "https://www.youtube.com/watch?v=gpBtQozOkA8",
+    youtubeTitle: "Transmission Adaptive Learning Explained"
+  },
+  {
+    id: 146,
+    q: "What is the purpose of the manual valve in the valve body?",
+    qChinese: "阀体中手动阀的用途是什么？",
+    options: [
+      "A) To regulate line pressure automatically",
+      "B) To direct line pressure to the appropriate hydraulic circuits based on the gear selector position chosen by the driver",
+      "C) To engage the torque converter clutch",
+      "D) To control transmission fluid temperature"
+    ],
+    optionsChinese: [
+      "A) 自动调节主油压",
+      "B) 根据驾驶员选择的挡位位置将主油压引导到适当的液压回路",
+      "C) 接合液力变矩器离合器",
+      "D) 控制变速箱油温度"
+    ],
+    answer: 1,
+    explanation: "The manual valve is mechanically linked to the gear selector (shift lever) through a cable or linkage. When the driver moves the selector to Park, Reverse, Neutral, Drive, or Low, the manual valve moves to corresponding positions, directing line pressure to the correct hydraulic circuits for that selected range.",
+    explanationChinese: "手动阀通过钢缆或连杆机构与挡位选择器（换挡杆）机械连接。当驾驶员将选择器移到驻车挡、倒挡、空挡、前进挡或低挡时，手动阀移动到相应位置，将主油压引导到该选择范围的正确液压回路。",
+    diagram: "",
+    terms: ["valve_body", "line_pressure"],
+    image: "https://upload.wikimedia.org/wikipedia/commons/thumb/3/3f/Automatic_transmission.jpg/640px-Automatic_transmission.jpg",
+    youtube: "https://www.youtube.com/watch?v=u_y1S8C0Hmc",
+    youtubeTitle: "Manual Valve and Shift Linkage"
+  },
+  {
+    id: 147,
+    q: "What is the difference between a transmission and a transaxle?",
+    qChinese: "变速箱和变速驱动桥有什么区别？",
+    options: [
+      "A) They are exactly the same component",
+      "B) A transaxle combines the transmission and differential into one unit, typically used in front-wheel-drive vehicles",
+      "C) A transaxle is used only in rear-wheel-drive vehicles",
+      "D) A transmission is smaller than a transaxle in all cases"
+    ],
+    optionsChinese: [
+      "A) 它们是完全相同的部件",
+      "B) 变速驱动桥将变速箱和差速器组合成一个单元，通常用于前轮驱动车辆",
+      "C) 变速驱动桥仅用于后轮驱动车辆",
+      "D) 变速箱在所有情况下都比变速驱动桥小"
+    ],
+    answer: 1,
+    explanation: "A transaxle is a single unit that combines the transmission, final drive gears, and differential into one housing. It is typically used in front-wheel-drive vehicles and some rear-engine vehicles. A separate transmission, used in rear-wheel-drive vehicles, sends power through a driveshaft to a separate rear differential.",
+    explanationChinese: "变速驱动桥是将变速箱、最终传动齿轮和差速器组合在一个壳体中的单一单元。它通常用于前轮驱动车辆和一些后置发动机车辆。后轮驱动车辆使用的独立变速箱通过传动轴将动力传递到独立的后差速器。",
+    diagram: "",
+    terms: ["planetary_gear_set", "gear_ratio"],
+    image: "https://upload.wikimedia.org/wikipedia/commons/thumb/3/3f/Automatic_transmission.jpg/640px-Automatic_transmission.jpg",
+    youtube: "https://www.youtube.com/watch?v=ARd-Om2VyiE",
+    youtubeTitle: "Transmission vs Transaxle Explained"
+  },
+  {
+    id: 148,
+    q: "A vehicle shifts late (at higher RPMs than normal) under light throttle. What is the most likely cause?",
+    qChinese: "一辆车在轻油门下换挡迟（转速比正常高）。最可能的原因是什么？",
+    options: [
+      "A) A faulty transmission cooler",
+      "B) A misadjusted or faulty throttle position sensor providing a higher-than-actual throttle signal",
+      "C) An overcharged battery",
+      "D) Worn brake pads"
+    ],
+    optionsChinese: [
+      "A) 变速箱冷却器故障",
+      "B) 油门位置传感器失调或故障，提供高于实际的节气门信号",
+      "C) 电池过度充电",
+      "D) 制动片磨损"
+    ],
+    answer: 1,
+    explanation: "The TCM uses throttle position sensor data to determine engine load and set shift points. If the TPS sends a signal indicating higher throttle than actual, the TCM interprets this as a demand for more power and delays upshifts. This results in late, high-RPM shifts even under light throttle conditions.",
+    explanationChinese: "TCM使用节气门位置传感器数据来确定发动机负载并设定换挡点。如果TPS发送高于实际节气门的信号，TCM将其解释为对更多动力的需求并延迟升挡。这导致即使在轻油门条件下也出现迟到的高转速换挡。",
+    diagram: "",
+    terms: ["tcm", "shift_solenoid", "valve_body"],
+    image: "https://upload.wikimedia.org/wikipedia/commons/thumb/3/3f/Automatic_transmission.jpg/640px-Automatic_transmission.jpg",
+    youtube: "https://www.youtube.com/watch?v=gpBtQozOkA8",
+    youtubeTitle: "Throttle Position Sensor and Shifting"
+  },
+  {
+    id: 149,
+    q: "What precaution should be taken when towing a vehicle with an automatic transmission?",
+    qChinese: "拖曳配备自动变速箱的车辆时应采取什么预防措施？",
+    options: [
+      "A) Always tow with the drive wheels on the ground at any speed",
+      "B) Follow manufacturer guidelines; many require the drive wheels to be off the ground or a maximum tow speed and distance",
+      "C) Disconnect the battery before towing",
+      "D) Fill the transmission to double the normal fluid level"
+    ],
+    optionsChinese: [
+      "A) 始终将驱动轮着地以任何速度拖曳",
+      "B) 遵循制造商指南；许多要求驱动轮离地或限制最大拖曳速度和距离",
+      "C) 拖曳前断开电池",
+      "D) 将变速箱油加注到正常液位的两倍"
+    ],
+    answer: 1,
+    explanation: "Towing an automatic transmission vehicle with the drive wheels on the ground can damage the transmission because the oil pump only operates when the engine is running. Without pump pressure, internal components lack lubrication. Manufacturer guidelines specify maximum tow speeds, distances, or require the drive wheels to be raised.",
+    explanationChinese: "将驱动轮着地拖曳自动变速箱车辆可能损坏变速箱，因为油泵仅在发动机运转时才工作。没有油泵压力，内部部件缺乏润滑。制造商指南规定了最大拖曳速度、距离，或要求将驱动轮抬起。",
+    diagram: "",
+    terms: ["transmission_fluid", "torque_converter"],
+    image: "https://upload.wikimedia.org/wikipedia/commons/thumb/3/3f/Automatic_transmission.jpg/640px-Automatic_transmission.jpg",
+    youtube: "https://www.youtube.com/watch?v=gpBtQozOkA8",
+    youtubeTitle: "Towing Automatic Transmission Vehicles"
+  },
+  {
+    id: 150,
+    q: "Technician A says the transmission range sensor tells the TCM which gear the driver has selected. Technician B says a faulty range sensor can prevent the engine from starting. Who is correct?",
+    qChinese: "技师A说变速箱档位传感器告诉TCM驾驶员选择了哪个挡位。技师B说故障的档位传感器可能导致发动机无法启动。谁是正确的？",
+    options: [
+      "A) Technician A only",
+      "B) Technician B only",
+      "C) Both Technician A and Technician B",
+      "D) Neither Technician A nor Technician B"
+    ],
+    optionsChinese: [
+      "A) 仅技师A正确",
+      "B) 仅技师B正确",
+      "C) 技师A和技师B都正确",
+      "D) 技师A和技师B都不正确"
+    ],
+    answer: 2,
+    explanation: "Both technicians are correct. The transmission range sensor (also called neutral safety switch) informs the TCM/PCM of the gear selector position. It also serves as a safety device that allows the engine to start only in Park or Neutral. A faulty sensor may prevent starting or cause incorrect gear indication.",
+    explanationChinese: "两位技师都是正确的。变速箱档位传感器（也称为空挡安全开关）向TCM/PCM报告挡位选择器的位置。它还作为安全装置，仅允许在驻车挡或空挡时启动发动机。故障的传感器可能阻止启动或导致挡位显示不正确。",
+    diagram: "",
+    terms: ["tcm", "shift_solenoid"],
+    image: "https://upload.wikimedia.org/wikipedia/commons/thumb/3/3f/Automatic_transmission.jpg/640px-Automatic_transmission.jpg",
+    youtube: "https://www.youtube.com/watch?v=gpBtQozOkA8",
+    youtubeTitle: "Transmission Range Sensor Testing"
+  },
+  {
+    id: 151,
+    q: "What causes a delayed or soft reverse engagement in an automatic transmission?",
+    qChinese: "什么导致自动变速箱倒挡接合延迟或无力？",
+    options: [
+      "A) A worn overdrive band",
+      "B) Leaking reverse clutch seals or a worn reverse band",
+      "C) A faulty speedometer",
+      "D) An overcharged air conditioning system"
+    ],
+    optionsChinese: [
+      "A) 磨损的超速挡制动带",
+      "B) 倒挡离合器密封泄漏或倒挡制动带磨损",
+      "C) 车速表故障",
+      "D) 空调系统过度充注"
+    ],
+    answer: 1,
+    explanation: "Delayed or soft reverse engagement typically results from worn seals on the reverse clutch piston or a worn reverse band that cannot hold firmly. These conditions allow fluid to leak past the piston or the band to slip, reducing the clamping force needed for firm engagement in reverse gear.",
+    explanationChinese: "倒挡接合延迟或无力通常是由倒挡离合器活塞密封磨损或无法牢固保持的倒挡制动带磨损造成的。这些情况允许油液从活塞旁泄漏或制动带打滑，减少了在倒挡中牢固接合所需的夹紧力。",
+    diagram: "",
+    terms: ["clutch_pack", "band", "servo"],
+    image: "https://upload.wikimedia.org/wikipedia/commons/thumb/3/3f/Automatic_transmission.jpg/640px-Automatic_transmission.jpg",
+    youtube: "https://www.youtube.com/watch?v=u_y1S8C0Hmc",
+    youtubeTitle: "Reverse Engagement Problems"
+  },
+  {
+    id: 152,
+    q: "What is the purpose of the transmission fluid dipstick markings (HOT and COLD)?",
+    qChinese: "变速箱油尺标记（HOT和COLD）的用途是什么？",
+    options: [
+      "A) To indicate the color of the fluid",
+      "B) To provide different fluid level reference points depending on fluid temperature",
+      "C) To show the age of the fluid",
+      "D) To indicate which type of fluid to use"
+    ],
+    optionsChinese: [
+      "A) 指示油液颜色",
+      "B) 根据油液温度提供不同的油液液位参考点",
+      "C) 显示油液使用时间",
+      "D) 指示使用哪种类型的油液"
+    ],
+    answer: 1,
+    explanation: "ATF expands as it heats up. The HOT marking on the dipstick shows the correct level when the fluid is at normal operating temperature (about 170-200 degrees F). The COLD marking shows the correct level when the fluid is at ambient temperature. Checking at the wrong temperature will give an inaccurate reading.",
+    explanationChinese: "ATF随温度升高而膨胀。油尺上的HOT标记显示油液在正常工作温度（约170-200华氏度）时的正确液位。COLD标记显示油液在环境温度时的正确液位。在错误温度下检查会得到不准确的读数。",
+    diagram: "",
+    terms: ["transmission_fluid"],
+    image: "https://upload.wikimedia.org/wikipedia/commons/thumb/3/3f/Automatic_transmission.jpg/640px-Automatic_transmission.jpg",
+    youtube: "https://www.youtube.com/watch?v=fRPHIDSYLi4",
+    youtubeTitle: "How to Check Transmission Fluid Level"
+  },
+  {
+    id: 153,
+    q: "A vehicle with an automatic transmission surges or bucks at steady highway speed. The issue stops when the overdrive is turned off. What is the most likely cause?",
+    qChinese: "一辆自动变速箱车辆在稳定高速公路速度下出现冲击或颠簸。关闭超速挡后问题消失。最可能的原因是什么？",
+    options: [
+      "A) A faulty engine mount",
+      "B) TCC cycling on and off due to a fault in the TCC solenoid or circuit",
+      "C) Low tire pressure",
+      "D) A worn exhaust manifold gasket"
+    ],
+    optionsChinese: [
+      "A) 发动机支架故障",
+      "B) TCC因TCC电磁阀或电路故障而反复接合和断开",
+      "C) 轮胎气压低",
+      "D) 排气歧管垫片磨损"
+    ],
+    answer: 1,
+    explanation: "Surging at steady highway speed that disappears when overdrive is canceled is a classic sign of the TCC cycling on and off. The TCC engages, then slips or disengages, then re-engages repeatedly. Causes include a faulty TCC solenoid, worn converter clutch material, or intermittent wiring problems.",
+    explanationChinese: "在稳定高速公路速度下的冲击，当取消超速挡后消失，是TCC反复接合和断开的典型标志。TCC接合后又滑动或断开，然后反复重新接合。原因包括TCC电磁阀故障、变矩器离合器材料磨损或间歇性线路问题。",
+    diagram: "",
+    terms: ["torque_converter", "shift_solenoid", "overdrive"],
+    image: "https://upload.wikimedia.org/wikipedia/commons/thumb/c/c7/Torque_converter_cutaway.svg/640px-Torque_converter_cutaway.svg.png",
+    youtube: "https://www.youtube.com/watch?v=z1ZlC7OAiNk",
+    youtubeTitle: "TCC Cycling Diagnosis"
+  },
+  {
+    id: 154,
+    q: "When removing a transmission from a vehicle, what must be done with the torque converter?",
+    qChinese: "从车辆上拆卸变速箱时，液力变矩器必须怎么处理？",
+    options: [
+      "A) Leave it bolted to the flexplate",
+      "B) Ensure it is separated from the flexplate and slides back onto the transmission input shaft so it comes out with the transmission",
+      "C) Remove it before pulling the transmission",
+      "D) Drain all fluid from it before removal"
+    ],
+    optionsChinese: [
+      "A) 将其用螺栓固定在挠性板上",
+      "B) 确保它与挠性板分离并滑回变速箱输入轴上，以便与变速箱一起取出",
+      "C) 在拉出变速箱之前将其拆除",
+      "D) 拆卸前排尽其中所有油液"
+    ],
+    answer: 1,
+    explanation: "During transmission removal, the torque converter bolts must be removed from the flexplate first. The converter should slide back onto the transmission input shaft and pump drive hub so it stays with the transmission as it is lowered. If the converter stays on the flexplate, it can be damaged or fall.",
+    explanationChinese: "在拆卸变速箱时，必须先从挠性板上拆除液力变矩器螺栓。变矩器应滑回变速箱输入轴和油泵驱动毂上，以便在降下变速箱时与变速箱一起。如果变矩器留在挠性板上，可能会损坏或掉落。",
+    diagram: "",
+    terms: ["torque_converter", "flexplate"],
+    image: "https://upload.wikimedia.org/wikipedia/commons/thumb/c/c7/Torque_converter_cutaway.svg/640px-Torque_converter_cutaway.svg.png",
+    youtube: "https://www.youtube.com/watch?v=z1ZlC7OAiNk",
+    youtubeTitle: "Transmission Removal Procedure"
+  },
+  {
+    id: 155,
+    q: "What does the abbreviation ATF stand for?",
+    qChinese: "ATF的缩写代表什么？",
+    options: [
+      "A) Automatic Transfer Function",
+      "B) Automatic Transmission Fluid",
+      "C) Auxiliary Torque Factor",
+      "D) Advanced Throttle Feedback"
+    ],
+    optionsChinese: [
+      "A) 自动传递功能",
+      "B) 自动变速箱油",
+      "C) 辅助扭矩系数",
+      "D) 高级节气门反馈"
+    ],
+    answer: 1,
+    explanation: "ATF stands for Automatic Transmission Fluid. It is a specially formulated hydraulic fluid used in automatic transmissions and transaxles. ATF serves as the hydraulic medium for shifting, lubricates internal components, cools the transmission, and provides the correct friction characteristics for clutch operation.",
+    explanationChinese: "ATF代表自动变速箱油。它是用于自动变速箱和变速驱动桥的特殊配方液压油。ATF作为换挡的液压介质，润滑内部部件，冷却变速箱，并为离合器操作提供正确的摩擦特性。",
+    diagram: "",
+    terms: ["transmission_fluid"],
+    image: "https://upload.wikimedia.org/wikipedia/commons/thumb/3/3f/Automatic_transmission.jpg/640px-Automatic_transmission.jpg",
+    youtube: "https://www.youtube.com/watch?v=fRPHIDSYLi4",
+    youtubeTitle: "What is ATF - Automatic Transmission Fluid"
+  },
+  {
+    id: 156,
+    q: "Technician A says a worn one-way clutch in the torque converter stator will cause poor acceleration from a stop. Technician B says it will cause the transmission to overheat at highway speeds. Who is correct?",
+    qChinese: "技师A说液力变矩器导轮中磨损的单向离合器会导致从停车状态加速不良。技师B说它会导致变速箱在高速公路速度下过热。谁是正确的？",
+    options: [
+      "A) Technician A only",
+      "B) Technician B only",
+      "C) Both Technician A and Technician B",
+      "D) Neither Technician A nor Technician B"
+    ],
+    optionsChinese: [
+      "A) 仅技师A正确",
+      "B) 仅技师B正确",
+      "C) 技师A和技师B都正确",
+      "D) 技师A和技师B都不正确"
+    ],
+    answer: 0,
+    explanation: "Technician A is correct. If the stator one-way clutch slips, the stator cannot redirect fluid to multiply torque, resulting in poor acceleration. At highway speed, the stator should freewheel anyway, so a slipping one-way clutch would not cause overheating at cruise. A locked stator would cause overheating at highway speed.",
+    explanationChinese: "技师A是正确的。如果导轮单向离合器打滑，导轮无法重新导向油液以倍增扭矩，导致加速不良。在高速公路速度下，导轮本身应自由旋转，因此打滑的单向离合器不会在巡航时导致过热。锁死的导轮会在高速公路速度下导致过热。",
+    diagram: "",
+    terms: ["torque_converter"],
+    image: "https://upload.wikimedia.org/wikipedia/commons/thumb/c/c7/Torque_converter_cutaway.svg/640px-Torque_converter_cutaway.svg.png",
+    youtube: "https://www.youtube.com/watch?v=z1ZlC7OAiNk",
+    youtubeTitle: "Stator One-Way Clutch Testing"
+  },
+  {
+    id: 157,
+    q: "What is the purpose of the pressure regulator valve in an automatic transmission?",
+    qChinese: "自动变速箱中压力调节阀的用途是什么？",
+    options: [
+      "A) To increase line pressure to maximum at all times",
+      "B) To control and maintain line pressure at a specified level by diverting excess pump output",
+      "C) To shift the transmission into overdrive",
+      "D) To engage the parking pawl"
+    ],
+    optionsChinese: [
+      "A) 始终将主油压增加到最大值",
+      "B) 通过分流多余的油泵输出来控制和维持主油压在规定水平",
+      "C) 将变速箱切换到超速挡",
+      "D) 接合驻车棘爪"
+    ],
+    answer: 1,
+    explanation: "The pressure regulator valve controls mainline pressure by balancing spring force against hydraulic pressure. When pump output exceeds what is needed, the regulator valve opens, diverting excess fluid to the converter circuit, lubrication system, or back to the pump inlet. This prevents excessively high system pressure.",
+    explanationChinese: "压力调节阀通过平衡弹簧力与液压压力来控制主管路压力。当油泵输出超过需要时，调节阀打开，将多余的油液分流到变矩器回路、润滑系统或回到油泵进口。这防止了系统压力过高。",
+    diagram: "",
+    terms: ["valve_body", "line_pressure"],
+    image: "https://upload.wikimedia.org/wikipedia/commons/thumb/3/3f/Automatic_transmission.jpg/640px-Automatic_transmission.jpg",
+    youtube: "https://www.youtube.com/watch?v=u_y1S8C0Hmc",
+    youtubeTitle: "Pressure Regulator Valve Operation"
+  },
+  {
+    id: 158,
+    q: "A transmission leaks fluid from the front seal area. What should be inspected?",
+    qChinese: "变速箱从前密封区域泄漏油液。应检查什么？",
+    options: [
+      "A) The rear output shaft seal only",
+      "B) The front pump seal, converter hub surface, and pump bushing",
+      "C) The valve body gaskets only",
+      "D) The parking pawl mechanism"
+    ],
+    optionsChinese: [
+      "A) 仅后输出轴密封",
+      "B) 前油泵密封、变矩器轮毂表面和油泵衬套",
+      "C) 仅阀体垫片",
+      "D) 驻车棘爪机构"
+    ],
+    answer: 1,
+    explanation: "A front seal leak can be caused by a worn or damaged front pump seal, a scored or worn torque converter hub that rides against the seal, or a worn pump bushing that allows the converter to wobble. All three components should be inspected during repair to prevent a repeat failure after seal replacement.",
+    explanationChinese: "前密封泄漏可能由磨损或损坏的前油泵密封、与密封件接触的磨损或划伤的液力变矩器轮毂、或允许变矩器晃动的磨损油泵衬套引起。在维修期间应检查所有三个部件，以防止密封更换后重复故障。",
+    diagram: "",
+    terms: ["torque_converter", "transmission_fluid"],
+    image: "https://upload.wikimedia.org/wikipedia/commons/thumb/3/3f/Automatic_transmission.jpg/640px-Automatic_transmission.jpg",
+    youtube: "https://www.youtube.com/watch?v=z1ZlC7OAiNk",
+    youtubeTitle: "Transmission Front Seal Replacement"
+  },
+  {
+    id: 159,
+    q: "What scan tool data parameter indicates torque converter clutch slip?",
+    qChinese: "什么扫描工具数据参数指示液力变矩器离合器滑差？",
+    options: [
+      "A) Engine oil temperature",
+      "B) The difference between engine RPM and transmission input shaft RPM (TCC slip speed)",
+      "C) Battery voltage",
+      "D) Fuel trim values"
+    ],
+    optionsChinese: [
+      "A) 发动机油温",
+      "B) 发动机转速与变速箱输入轴转速之间的差值（TCC滑差转速）",
+      "C) 电池电压",
+      "D) 燃油修正值"
+    ],
+    answer: 1,
+    explanation: "TCC slip is calculated as the difference between engine RPM (from the crankshaft position sensor) and transmission input RPM (from the turbine speed sensor). When the TCC is fully locked, slip should be near zero. Excessive slip when commanded on indicates a worn converter clutch or solenoid problem.",
+    explanationChinese: "TCC滑差计算为发动机转速（来自曲轴位置传感器）与变速箱输入转速（来自涡轮速度传感器）之间的差值。当TCC完全锁止时，滑差应接近零。当指令接合时出现过度滑差表明变矩器离合器磨损或电磁阀问题。",
+    diagram: "",
+    terms: ["torque_converter", "speed_sensor", "tcm"],
+    image: "https://upload.wikimedia.org/wikipedia/commons/thumb/c/c7/Torque_converter_cutaway.svg/640px-Torque_converter_cutaway.svg.png",
+    youtube: "https://www.youtube.com/watch?v=z1ZlC7OAiNk",
+    youtubeTitle: "TCC Slip Diagnosis with Scan Tool"
+  },
+  {
+    id: 160,
+    q: "In a planetary gear set, what gear results when the ring gear is the input, the sun gear is held, and the planet carrier is the output?",
+    qChinese: "在行星齿轮组中，当齿圈为输入、太阳轮被固定、行星架为输出时，会产生什么挡位？",
+    options: [
+      "A) Reverse",
+      "B) A forward gear reduction (underdrive)",
+      "C) Direct drive (1:1)",
+      "D) Overdrive"
+    ],
+    optionsChinese: [
+      "A) 倒挡",
+      "B) 前进减速挡（欠速）",
+      "C) 直接挡（1:1）",
+      "D) 超速挡"
+    ],
+    answer: 1,
+    explanation: "When the ring gear is the input, the sun gear is held stationary, and the planet carrier is the output, the result is a forward gear reduction. The carrier turns in the same direction as the ring gear but at a slower speed, providing a torque increase. The exact ratio depends on the number of teeth.",
+    explanationChinese: "当齿圈为输入、太阳轮被固定、行星架为输出时，结果是前进减速挡。行星架与齿圈同方向旋转但速度较慢，提供扭矩增加。确切的比率取决于齿数。",
+    diagram: "",
+    terms: ["planetary_gear_set", "gear_ratio"],
+    image: "https://upload.wikimedia.org/wikipedia/commons/thumb/0/0a/Epicyclic_gear_ratios.png/640px-Epicyclic_gear_ratios.png",
+    youtube: "https://www.youtube.com/watch?v=ARd-Om2VyiE",
+    youtubeTitle: "Planetary Gear Ratios Explained"
+  },
+  {
+    id: 161,
+    q: "Technician A says direct drive (1:1 ratio) in a planetary gear set is achieved when any two members are locked together. Technician B says direct drive can only be achieved by holding the sun gear. Who is correct?",
+    qChinese: "技师A说在行星齿轮组中，当任意两个构件锁在一起时可实现直接挡（1:1比率）。技师B说直接挡只能通过固定太阳轮来实现。谁是正确的？",
+    options: [
+      "A) Technician A only",
+      "B) Technician B only",
+      "C) Both Technician A and Technician B",
+      "D) Neither Technician A nor Technician B"
+    ],
+    optionsChinese: [
+      "A) 仅技师A正确",
+      "B) 仅技师B正确",
+      "C) 技师A和技师B都正确",
+      "D) 技师A和技师B都不正确"
+    ],
+    answer: 0,
+    explanation: "Technician A is correct. When any two members of a planetary gear set are locked together (for example, the sun gear to the planet carrier), the entire gear set must rotate as a unit, producing a 1:1 direct drive ratio. Holding the sun gear does not produce direct drive; it produces a gear reduction.",
+    explanationChinese: "技师A是正确的。当行星齿轮组的任意两个构件锁在一起时（例如太阳轮与行星架），整个齿轮组必须作为一个整体旋转，产生1:1的直接驱动比率。固定太阳轮不会产生直接挡；它会产生减速挡。",
+    diagram: "",
+    terms: ["planetary_gear_set", "gear_ratio", "clutch_pack"],
+    image: "https://upload.wikimedia.org/wikipedia/commons/thumb/0/0a/Epicyclic_gear_ratios.png/640px-Epicyclic_gear_ratios.png",
+    youtube: "https://www.youtube.com/watch?v=ARd-Om2VyiE",
+    youtubeTitle: "Direct Drive in Planetary Gear Sets"
+  },
+  {
+    id: 162,
+    q: "What is the function of the transmission fluid temperature sensor?",
+    qChinese: "变速箱油温传感器的功能是什么？",
+    options: [
+      "A) To heat the transmission fluid",
+      "B) To measure ATF temperature and send the data to the TCM for shift strategy adjustments",
+      "C) To control the transmission cooler fan speed",
+      "D) To display fluid level on the dashboard"
+    ],
+    optionsChinese: [
+      "A) 加热变速箱油",
+      "B) 测量ATF温度并将数据发送给TCM用于换挡策略调整",
+      "C) 控制变速箱冷却器风扇速度",
+      "D) 在仪表板上显示油液位"
+    ],
+    answer: 1,
+    explanation: "The transmission fluid temperature sensor is a thermistor that measures ATF temperature and sends a voltage signal to the TCM. The TCM uses this data to adjust shift points, line pressure, and TCC operation. If fluid is too hot, the TCM may inhibit TCC lockup or trigger a temperature warning.",
+    explanationChinese: "变速箱油温传感器是一个热敏电阻，测量ATF温度并向TCM发送电压信号。TCM使用此数据调整换挡点、主油压和TCC操作。如果油液过热，TCM可能禁止TCC锁止或触发温度警告。",
+    diagram: "",
+    terms: ["tcm", "transmission_fluid"],
+    image: "https://upload.wikimedia.org/wikipedia/commons/thumb/3/3f/Automatic_transmission.jpg/640px-Automatic_transmission.jpg",
+    youtube: "https://www.youtube.com/watch?v=gpBtQozOkA8",
+    youtubeTitle: "Transmission Temperature Sensor"
+  },
+  {
+    id: 163,
+    q: "What is the most common type of transmission oil pump used in modern automatic transmissions?",
+    qChinese: "现代自动变速箱中最常用的变速箱油泵类型是什么？",
+    options: [
+      "A) A centrifugal pump",
+      "B) A gear-type or gerotor (internal/external gear) pump",
+      "C) A piston pump",
+      "D) A diaphragm pump"
+    ],
+    optionsChinese: [
+      "A) 离心泵",
+      "B) 齿轮式或摆线泵（内/外齿轮）泵",
+      "C) 活塞泵",
+      "D) 膜片泵"
+    ],
+    answer: 1,
+    explanation: "Modern automatic transmissions typically use gear-type or gerotor (internal-external gear) pumps. These positive-displacement pumps provide consistent flow and pressure across a wide RPM range. The pump is driven by the torque converter housing and supplies all hydraulic pressure needed for transmission operation.",
+    explanationChinese: "现代自动变速箱通常使用齿轮式或摆线（内-外齿轮）泵。这些容积式泵在宽转速范围内提供一致的流量和压力。油泵由液力变矩器壳体驱动，提供变速箱运行所需的所有液压压力。",
+    diagram: "",
+    terms: ["line_pressure", "torque_converter"],
+    image: "https://upload.wikimedia.org/wikipedia/commons/thumb/3/3f/Automatic_transmission.jpg/640px-Automatic_transmission.jpg",
+    youtube: "https://www.youtube.com/watch?v=u_y1S8C0Hmc",
+    youtubeTitle: "Transmission Oil Pump Types"
+  },
+  {
+    id: 164,
+    q: "During a CVT inspection, what component should be checked for wear or damage?",
+    qChinese: "在CVT检查期间，应检查哪个部件是否磨损或损坏？",
+    options: [
+      "A) The clutch packs and bands",
+      "B) The drive belt or chain and the pulley surfaces",
+      "C) The planetary gear sets",
+      "D) The governor assembly"
+    ],
+    optionsChinese: [
+      "A) 离合器片组和制动带",
+      "B) 传动皮带或链条和滑轮表面",
+      "C) 行星齿轮组",
+      "D) 调速器总成"
+    ],
+    answer: 1,
+    explanation: "CVTs use a belt or chain running between two variable-diameter pulleys instead of traditional clutch packs and planetary gears. During inspection, the belt or chain should be checked for stretching, cracks, or glazing, and the pulley surfaces should be examined for scoring, pitting, or wear that could cause slippage.",
+    explanationChinese: "CVT使用在两个可变直径滑轮之间运行的皮带或链条，而不是传统的离合器片组和行星齿轮。检查时，应检查皮带或链条是否有拉伸、裂纹或发亮，滑轮表面应检查是否有刮痕、点蚀或可能导致打滑的磨损。",
+    diagram: "",
+    terms: ["cvt"],
+    image: "https://upload.wikimedia.org/wikipedia/commons/thumb/a/a8/Nissan_Extroid_CVT_cutaway.jpg/640px-Nissan_Extroid_CVT_cutaway.jpg",
+    youtube: "https://www.youtube.com/watch?v=PEq5_b4LWNY",
+    youtubeTitle: "CVT Belt and Pulley Inspection"
+  },
+  {
+    id: 165,
+    q: "What is the result of a stuck-open shift solenoid in an automatic transmission?",
+    qChinese: "自动变速箱中换挡电磁阀卡在开启位置会产生什么结果？",
+    options: [
+      "A) Normal shifting in all gears",
+      "B) The transmission may be stuck in one gear or unable to shift properly",
+      "C) Improved fuel economy",
+      "D) The engine will not start"
+    ],
+    optionsChinese: [
+      "A) 所有挡位正常换挡",
+      "B) 变速箱可能卡在一个挡位或无法正常换挡",
+      "C) 提高燃油经济性",
+      "D) 发动机无法启动"
+    ],
+    answer: 1,
+    explanation: "A shift solenoid that is stuck open continuously directs hydraulic pressure to a clutch or band circuit that should only be pressurized during certain gears. This can prevent normal gear changes, cause the transmission to be stuck in a wrong gear, or produce simultaneous engagement of incompatible elements.",
+    explanationChinese: "卡在开启位置的换挡电磁阀持续将液压压力引导到仅应在某些挡位加压的离合器或制动带回路。这可能阻止正常的换挡、导致变速箱卡在错误挡位或产生不兼容元件的同时接合。",
+    diagram: "",
+    terms: ["shift_solenoid", "valve_body", "clutch_pack"],
+    image: "https://upload.wikimedia.org/wikipedia/commons/thumb/3/3f/Automatic_transmission.jpg/640px-Automatic_transmission.jpg",
+    youtube: "https://www.youtube.com/watch?v=hE-bFcLHbGc",
+    youtubeTitle: "Stuck Shift Solenoid Symptoms"
+  },
+  {
+    id: 166,
+    q: "Technician A says you should always replace the torque converter when rebuilding a transmission. Technician B says the converter can be reused if the transmission failure was minor and the converter passes inspection. Who is correct?",
+    qChinese: "技师A说在重建变速箱时应始终更换液力变矩器。技师B说如果变速箱故障轻微且变矩器通过检查，可以重新使用。谁是正确的？",
+    options: [
+      "A) Technician A only",
+      "B) Technician B only",
+      "C) Both Technician A and Technician B",
+      "D) Neither Technician A nor Technician B"
+    ],
+    optionsChinese: [
+      "A) 仅技师A正确",
+      "B) 仅技师B正确",
+      "C) 技师A和技师B都正确",
+      "D) 技师A和技师B都不正确"
+    ],
+    answer: 1,
+    explanation: "Technician B is correct. While many shops recommend converter replacement as best practice, it is not always mandatory. If the failure was external (like a broken linkage) and no debris entered the converter, and the converter hub, one-way clutch, and TCC material are in good condition, reuse is acceptable.",
+    explanationChinese: "技师B是正确的。虽然许多维修店建议更换变矩器作为最佳做法，但并非总是强制性的。如果故障是外部的（如断裂的连杆），没有碎屑进入变矩器，且变矩器轮毂、单向离合器和TCC材料状况良好，则可以重新使用。",
+    diagram: "",
+    terms: ["torque_converter", "clutch_pack"],
+    image: "https://upload.wikimedia.org/wikipedia/commons/thumb/c/c7/Torque_converter_cutaway.svg/640px-Torque_converter_cutaway.svg.png",
+    youtube: "https://www.youtube.com/watch?v=z1ZlC7OAiNk",
+    youtubeTitle: "Torque Converter Inspection During Rebuild"
+  },
+  {
+    id: 167,
+    q: "What does DTC P0760 indicate?",
+    qChinese: "DTC P0760表示什么？",
+    options: [
+      "A) Engine misfire detected",
+      "B) Shift solenoid C malfunction",
+      "C) Transmission fluid over-temperature",
+      "D) Output speed sensor intermittent"
+    ],
+    optionsChinese: [
+      "A) 检测到发动机失火",
+      "B) 换挡电磁阀C故障",
+      "C) 变速箱油过温",
+      "D) 输出速度传感器间歇性故障"
+    ],
+    answer: 1,
+    explanation: "DTC P0760 indicates a malfunction in the shift solenoid C circuit. This could be an electrical issue such as an open or short circuit, or a mechanical problem with the solenoid itself. The technician should check wiring, connectors, and the solenoid resistance before replacing the solenoid.",
+    explanationChinese: "DTC P0760表示换挡电磁阀C电路故障。这可能是电气问题如开路或短路，或电磁阀本身的机械问题。技师应在更换电磁阀之前检查线路、接头和电磁阀电阻。",
+    diagram: "",
+    terms: ["shift_solenoid", "dtc", "tcm"],
+    image: "https://upload.wikimedia.org/wikipedia/commons/thumb/3/3f/Automatic_transmission.jpg/640px-Automatic_transmission.jpg",
+    youtube: "https://www.youtube.com/watch?v=hE-bFcLHbGc",
+    youtubeTitle: "Shift Solenoid C Diagnosis"
+  },
+  {
+    id: 168,
+    q: "What is the purpose of a servo return spring?",
+    qChinese: "伺服回位弹簧的用途是什么？",
+    options: [
+      "A) To apply the band with more force",
+      "B) To release the band by pushing the servo piston back when hydraulic pressure is removed",
+      "C) To increase line pressure during shifts",
+      "D) To hold the parking pawl in place"
+    ],
+    optionsChinese: [
+      "A) 以更大的力接合制动带",
+      "B) 当液压压力移除时将伺服活塞推回以释放制动带",
+      "C) 在换挡时增加主油压",
+      "D) 将驻车棘爪固定到位"
+    ],
+    answer: 1,
+    explanation: "The servo return spring pushes the servo piston back to its rest position when hydraulic apply pressure is released. This action releases the band from the drum, allowing the planetary member to rotate freely. Without the return spring, the band would remain partially applied, causing drag and overheating.",
+    explanationChinese: "当液压接合压力释放时，伺服回位弹簧将伺服活塞推回其静止位置。此动作从鼓上释放制动带，允许行星构件自由旋转。没有回位弹簧，制动带将保持部分接合状态，导致拖滞和过热。",
+    diagram: "",
+    terms: ["servo", "band"],
+    image: "https://upload.wikimedia.org/wikipedia/commons/thumb/3/3f/Automatic_transmission.jpg/640px-Automatic_transmission.jpg",
+    youtube: "https://www.youtube.com/watch?v=u_y1S8C0Hmc",
+    youtubeTitle: "Servo and Band Operation"
+  },
+  {
+    id: 169,
+    q: "Which of the following is NOT a common cause of transmission overheating?",
+    qChinese: "以下哪项不是变速箱过热的常见原因？",
+    options: [
+      "A) A plugged transmission cooler",
+      "B) Towing beyond the vehicle's rated capacity",
+      "C) A properly functioning auxiliary cooler",
+      "D) Low transmission fluid level"
+    ],
+    optionsChinese: [
+      "A) 堵塞的变速箱冷却器",
+      "B) 超出车辆额定能力的拖曳",
+      "C) 正常工作的辅助冷却器",
+      "D) 变速箱油液位低"
+    ],
+    answer: 2,
+    explanation: "A properly functioning auxiliary cooler helps prevent overheating by providing additional cooling capacity. A plugged cooler restricts fluid flow and heat dissipation. Towing beyond capacity creates excessive heat from increased load. Low fluid means less fluid to absorb and dissipate heat, causing temperatures to rise.",
+    explanationChinese: "正常工作的辅助冷却器通过提供额外的冷却能力帮助防止过热。堵塞的冷却器限制油液流动和散热。超出能力的拖曳因负载增加产生过多热量。低油液位意味着更少的油液来吸收和散发热量，导致温度升高。",
+    diagram: "",
+    terms: ["transmission_cooler", "transmission_fluid"],
+    image: "https://upload.wikimedia.org/wikipedia/commons/thumb/5/5f/Radiator.jpg/640px-Radiator.jpg",
+    youtube: "https://www.youtube.com/watch?v=fRPHIDSYLi4",
+    youtubeTitle: "Preventing Transmission Overheating"
+  },
+  {
+    id: 170,
+    q: "A technician is replacing the transmission pan gasket. What else should be serviced at the same time?",
+    qChinese: "技师正在更换变速箱油底壳垫片。同时还应维修什么？",
+    options: [
+      "A) The engine air filter",
+      "B) The transmission filter and fluid",
+      "C) The spark plugs",
+      "D) The brake fluid"
+    ],
+    optionsChinese: [
+      "A) 发动机空气滤清器",
+      "B) 变速箱滤清器和油液",
+      "C) 火花塞",
+      "D) 制动液"
+    ],
+    answer: 1,
+    explanation: "When the pan is removed to replace the gasket, the transmission filter is accessible and should be replaced at the same time. Fresh ATF should also be added. This is standard transmission service practice, as the filter traps debris and contaminants that can restrict fluid flow and degrade performance over time.",
+    explanationChinese: "当拆除油底壳更换垫片时，变速箱滤清器可以接触到，应同时更换。还应添加新的ATF。这是标准的变速箱维护做法，因为滤清器捕获的碎屑和污染物会随时间限制油液流动并降低性能。",
+    diagram: "",
+    terms: ["transmission_fluid", "transmission_cooler"],
+    image: "https://upload.wikimedia.org/wikipedia/commons/thumb/3/3f/Automatic_transmission.jpg/640px-Automatic_transmission.jpg",
+    youtube: "https://www.youtube.com/watch?v=fRPHIDSYLi4",
+    youtubeTitle: "Transmission Pan and Filter Service"
+  },
+  {
+    id: 171,
+    q: "What happens when two incompatible holding devices in a planetary gear set are applied simultaneously?",
+    qChinese: "当行星齿轮组中两个不兼容的保持装置同时接合时会发生什么？",
+    options: [
+      "A) The transmission shifts more smoothly",
+      "B) The transmission locks up internally, potentially stalling the engine or damaging components",
+      "C) The vehicle goes faster",
+      "D) The torque converter multiplies extra torque"
+    ],
+    optionsChinese: [
+      "A) 变速箱换挡更平顺",
+      "B) 变速箱内部锁死，可能导致发动机熄火或损坏部件",
+      "C) 车辆速度更快",
+      "D) 液力变矩器倍增额外扭矩"
+    ],
+    answer: 1,
+    explanation: "Applying two incompatible holding devices simultaneously locks the planetary gear set, preventing rotation. This is called a tie-up and can stall the engine, cause a severe jolt, or break internal hard parts like shafts and gear teeth. This condition usually results from a valve body malfunction or solenoid error.",
+    explanationChinese: "同时接合两个不兼容的保持装置会锁死行星齿轮组，阻止旋转。这称为锁挡，可能导致发动机熄火、严重的冲击或折断轴和齿轮齿等内部硬部件。这种情况通常由阀体故障或电磁阀错误引起。",
+    diagram: "",
+    terms: ["planetary_gear_set", "clutch_pack", "band", "valve_body"],
+    image: "https://upload.wikimedia.org/wikipedia/commons/thumb/0/0a/Epicyclic_gear_ratios.png/640px-Epicyclic_gear_ratios.png",
+    youtube: "https://www.youtube.com/watch?v=ARd-Om2VyiE",
+    youtubeTitle: "Transmission Tie-Up Explained"
+  },
+  {
+    id: 172,
+    q: "Technician A says a scan tool can be used to command individual shift solenoids on and off for testing. Technician B says solenoid resistance should be tested with an ohmmeter. Who is correct?",
+    qChinese: "技师A说扫描工具可用于指令单个换挡电磁阀接通和断开进行测试。技师B说电磁阀电阻应使用欧姆表测试。谁是正确的？",
+    options: [
+      "A) Technician A only",
+      "B) Technician B only",
+      "C) Both Technician A and Technician B",
+      "D) Neither Technician A nor Technician B"
+    ],
+    optionsChinese: [
+      "A) 仅技师A正确",
+      "B) 仅技师B正确",
+      "C) 技师A和技师B都正确",
+      "D) 技师A和技师B都不正确"
+    ],
+    answer: 2,
+    explanation: "Both technicians are correct. Modern scan tools have bi-directional control capabilities that allow the technician to command solenoids on and off to verify operation. Measuring solenoid resistance with an ohmmeter confirms whether the coil is open, shorted, or within specification. Both tests are valuable diagnostic procedures.",
+    explanationChinese: "两位技师都是正确的。现代扫描工具具有双向控制功能，允许技师指令电磁阀接通和断开以验证操作。使用欧姆表测量电磁阀电阻可确认线圈是否断路、短路或在规格范围内。两种测试都是有价值的诊断程序。",
+    diagram: "",
+    terms: ["shift_solenoid", "tcm", "scan_tool"],
+    image: "https://upload.wikimedia.org/wikipedia/commons/thumb/3/3f/Automatic_transmission.jpg/640px-Automatic_transmission.jpg",
+    youtube: "https://www.youtube.com/watch?v=hE-bFcLHbGc",
+    youtubeTitle: "Testing Shift Solenoids"
+  },
+  {
+    id: 173,
+    q: "What is a common symptom of a faulty vehicle speed sensor in a vehicle with an automatic transmission?",
+    qChinese: "在配备自动变速箱的车辆中，故障的车速传感器的常见症状是什么？",
+    options: [
+      "A) The engine overheats",
+      "B) Erratic or no shifting, inoperative speedometer, and possible limp mode",
+      "C) The air conditioning stops working",
+      "D) The headlights flicker"
+    ],
+    optionsChinese: [
+      "A) 发动机过热",
+      "B) 不规律换挡或不换挡、车速表不工作以及可能进入跛行模式",
+      "C) 空调停止工作",
+      "D) 大灯闪烁"
+    ],
+    answer: 1,
+    explanation: "The vehicle speed sensor provides critical data to both the TCM and the instrument cluster. A faulty VSS can cause the TCM to lose vehicle speed information, resulting in erratic shifting or no upshifts. The speedometer will also be inoperative, and the TCM may enter limp mode to protect the transmission.",
+    explanationChinese: "车速传感器向TCM和仪表板提供关键数据。故障的VSS可能导致TCM丢失车速信息，导致换挡不规律或不升挡。车速表也将不工作，TCM可能进入跛行模式以保护变速箱。",
+    diagram: "",
+    terms: ["speed_sensor", "tcm", "shift_solenoid"],
+    image: "https://upload.wikimedia.org/wikipedia/commons/thumb/3/3f/Automatic_transmission.jpg/640px-Automatic_transmission.jpg",
+    youtube: "https://www.youtube.com/watch?v=hE-bFcLHbGc",
+    youtubeTitle: "Vehicle Speed Sensor Symptoms"
+  },
+  {
+    id: 174,
+    q: "What should be checked if a vehicle's Park position on the gear selector does not hold the vehicle on an incline?",
+    qChinese: "如果车辆的挡位选择器驻车位置无法在斜坡上固定车辆，应检查什么？",
+    options: [
+      "A) The torque converter clutch",
+      "B) The parking pawl, parking gear, shift linkage adjustment, and parking pawl spring",
+      "C) The transmission fluid level",
+      "D) The valve body solenoids"
+    ],
+    optionsChinese: [
+      "A) 液力变矩器离合器",
+      "B) 驻车棘爪、驻车齿轮、换挡连杆调整和驻车棘爪弹簧",
+      "C) 变速箱油液位",
+      "D) 阀体电磁阀"
+    ],
+    answer: 1,
+    explanation: "If Park does not hold, the parking pawl may be worn, broken, or not fully engaging the parking gear teeth. The shift linkage may be misadjusted, preventing the manual valve from reaching the full Park position. The pawl actuating spring may be weak or broken, preventing proper engagement of the pawl.",
+    explanationChinese: "如果驻车挡不能保持，驻车棘爪可能磨损、断裂或未完全与驻车齿轮齿啮合。换挡连杆可能调整不当，阻止手动阀到达完全驻车位置。棘爪驱动弹簧可能虚弱或断裂，阻止棘爪正确啮合。",
+    diagram: "",
+    terms: ["parking_pawl"],
+    image: "https://upload.wikimedia.org/wikipedia/commons/thumb/3/3f/Automatic_transmission.jpg/640px-Automatic_transmission.jpg",
+    youtube: "https://www.youtube.com/watch?v=gpBtQozOkA8",
+    youtubeTitle: "Parking Pawl Inspection"
+  },
+  {
+    id: 175,
+    q: "During an air pressure test of a transmission clutch circuit, what indicates a leaking seal?",
+    qChinese: "在变速箱离合器回路的气压测试中，什么表明密封件泄漏？",
+    options: [
+      "A) A firm thud sound when air is applied",
+      "B) A continuous hissing of air escaping and failure of the clutch piston to apply firmly",
+      "C) The transmission shifting into gear",
+      "D) A clicking noise from the parking pawl"
+    ],
+    optionsChinese: [
+      "A) 施加气压时发出坚实的砰声",
+      "B) 空气持续泄漏的嘶嘶声且离合器活塞无法牢固接合",
+      "C) 变速箱挂入挡位",
+      "D) 驻车棘爪的咔嗒声"
+    ],
+    answer: 1,
+    explanation: "During an air test, applying compressed air to a clutch circuit should produce a firm thud as the piston moves and applies the clutch. A continuous hissing sound indicates air is leaking past a worn or damaged piston seal, preventing the circuit from holding pressure. This confirms the need for seal replacement.",
+    explanationChinese: "在气压测试中，向离合器回路施加压缩空气应产生活塞移动并接合离合器时的坚实砰声。持续的嘶嘶声表明空气正从磨损或损坏的活塞密封件旁泄漏，阻止回路保持压力。这确认需要更换密封件。",
+    diagram: "",
+    terms: ["clutch_pack", "servo"],
+    image: "https://upload.wikimedia.org/wikipedia/commons/thumb/3/3f/Automatic_transmission.jpg/640px-Automatic_transmission.jpg",
+    youtube: "https://www.youtube.com/watch?v=u_y1S8C0Hmc",
+    youtubeTitle: "Transmission Air Test Procedure"
+  },
+  {
+    id: 176,
+    q: "What is the typical color of new, healthy automatic transmission fluid?",
+    qChinese: "新的、健康的自动变速箱油的典型颜色是什么？",
+    options: [
+      "A) Dark brown",
+      "B) Clear red or light pink",
+      "C) Milky white",
+      "D) Green"
+    ],
+    optionsChinese: [
+      "A) 深棕色",
+      "B) 清澈的红色或浅粉色",
+      "C) 乳白色",
+      "D) 绿色"
+    ],
+    answer: 1,
+    explanation: "New ATF is typically dyed clear red or light pink for easy identification. As the fluid ages and is subjected to heat and contamination, it gradually darkens. Brown or dark fluid suggests deterioration, black fluid with a burnt smell indicates severe overheating, and milky pink indicates coolant contamination.",
+    explanationChinese: "新ATF通常被染成清澈的红色或浅粉色以便于识别。随着油液老化并受到热量和污染，它逐渐变暗。棕色或深色油液表明劣化，伴有烧焦气味的黑色油液表明严重过热，乳白粉色表明有冷却液污染。",
+    diagram: "",
+    terms: ["transmission_fluid"],
+    image: "https://upload.wikimedia.org/wikipedia/commons/thumb/3/3f/Automatic_transmission.jpg/640px-Automatic_transmission.jpg",
+    youtube: "https://www.youtube.com/watch?v=fRPHIDSYLi4",
+    youtubeTitle: "Transmission Fluid Color Guide"
+  },
+  {
+    id: 177,
+    q: "Technician A says shift linkage misadjustment can cause the gear indicator on the dashboard to not match the actual gear selected. Technician B says it can also cause the vehicle to start in gears other than Park or Neutral. Who is correct?",
+    qChinese: "技师A说换挡连杆调整不当会导致仪表板上的挡位指示器与实际选择的挡位不匹配。技师B说它还可能导致车辆在驻车挡或空挡以外的挡位启动。谁是正确的？",
+    options: [
+      "A) Technician A only",
+      "B) Technician B only",
+      "C) Both Technician A and Technician B",
+      "D) Neither Technician A nor Technician B"
+    ],
+    optionsChinese: [
+      "A) 仅技师A正确",
+      "B) 仅技师B正确",
+      "C) 技师A和技师B都正确",
+      "D) 技师A和技师B都不正确"
+    ],
+    answer: 2,
+    explanation: "Both technicians are correct. Misadjusted shift linkage causes the manual valve and neutral safety switch positions to not correspond with the driver's selected gear. This can result in a mismatch between the indicator display and actual gear, and potentially allow starting in gear if the switch position is incorrect.",
+    explanationChinese: "两位技师都是正确的。换挡连杆调整不当导致手动阀和空挡安全开关位置与驾驶员选择的挡位不对应。这可能导致指示器显示与实际挡位不匹配，如果开关位置不正确，还可能允许在挡位中启动。",
+    diagram: "",
+    terms: ["valve_body", "parking_pawl"],
+    image: "https://upload.wikimedia.org/wikipedia/commons/thumb/3/3f/Automatic_transmission.jpg/640px-Automatic_transmission.jpg",
+    youtube: "https://www.youtube.com/watch?v=gpBtQozOkA8",
+    youtubeTitle: "Shift Linkage Adjustment"
+  },
+  {
+    id: 178,
+    q: "What is the function of the sprag-type one-way clutch in an automatic transmission?",
+    qChinese: "自动变速箱中棘爪式单向离合器的功能是什么？",
+    options: [
+      "A) To lock a planetary member in one direction of rotation and allow it to freewheel in the other",
+      "B) To regulate line pressure",
+      "C) To filter transmission fluid",
+      "D) To engage the parking pawl"
+    ],
+    optionsChinese: [
+      "A) 在一个旋转方向锁定行星构件并允许其在另一个方向自由旋转",
+      "B) 调节主油压",
+      "C) 过滤变速箱油",
+      "D) 接合驻车棘爪"
+    ],
+    answer: 0,
+    explanation: "A sprag-type one-way clutch contains small figure-eight shaped sprags between inner and outer races. When the races rotate in one direction, the sprags tilt and lock the races together. In the other direction, the sprags tilt to allow freewheel. This provides smooth, instantaneous engagement during shifts.",
+    explanationChinese: "棘爪式单向离合器在内外滚道之间包含小的八字形棘爪。当滚道在一个方向旋转时，棘爪倾斜并将滚道锁在一起。在另一个方向，棘爪倾斜以允许自由旋转。这在换挡时提供平顺、即时的接合。",
+    diagram: "",
+    terms: ["clutch_pack", "planetary_gear_set"],
+    image: "https://upload.wikimedia.org/wikipedia/commons/thumb/3/3f/Automatic_transmission.jpg/640px-Automatic_transmission.jpg",
+    youtube: "https://www.youtube.com/watch?v=u_y1S8C0Hmc",
+    youtubeTitle: "One-Way Clutch Operation"
+  },
+  {
+    id: 179,
+    q: "Why is it important to install the correct number and position of check balls when reassembling a valve body?",
+    qChinese: "为什么在重新组装阀体时安装正确数量和位置的单向球阀很重要？",
+    options: [
+      "A) They are decorative and have no function",
+      "B) Incorrect check ball placement will cause improper fluid routing, leading to harsh shifts, slipping, or no shifts",
+      "C) They prevent the valve body from overheating",
+      "D) They are only needed for reverse gear"
+    ],
+    optionsChinese: [
+      "A) 它们是装饰性的，没有功能",
+      "B) 单向球阀放置不正确会导致油液路径不当，引起换挡生硬、打滑或不换挡",
+      "C) 它们防止阀体过热",
+      "D) 它们仅在倒挡时需要"
+    ],
+    answer: 1,
+    explanation: "Check balls control fluid flow direction and timing within the valve body. A missing, extra, or misplaced check ball can block a needed fluid passage or allow fluid to flow where it should not, causing incorrect clutch or band application, harsh shifts, slipping, or complete failure to shift in certain gears.",
+    explanationChinese: "单向球阀控制阀体内油液流动的方向和时序。缺少、多余或放错位置的单向球阀可能阻塞所需的油液通道或允许油液流到不应该去的地方，导致离合器或制动带接合不正确、换挡生硬、打滑或在某些挡位完全无法换挡。",
+    diagram: "",
+    terms: ["valve_body"],
+    image: "https://upload.wikimedia.org/wikipedia/commons/thumb/3/3f/Automatic_transmission.jpg/640px-Automatic_transmission.jpg",
+    youtube: "https://www.youtube.com/watch?v=u_y1S8C0Hmc",
+    youtubeTitle: "Valve Body Reassembly Tips"
+  },
+  {
+    id: 180,
+    q: "What is the purpose of the transmission vent?",
+    qChinese: "变速箱通气孔的用途是什么？",
+    options: [
+      "A) To allow fresh air into the combustion chamber",
+      "B) To equalize pressure inside the transmission case and prevent seal damage from pressure buildup",
+      "C) To release exhaust gases",
+      "D) To cool the transmission fluid directly"
+    ],
+    optionsChinese: [
+      "A) 允许新鲜空气进入燃烧室",
+      "B) 平衡变速箱壳体内部的压力并防止压力积聚造成密封件损坏",
+      "C) 排放废气",
+      "D) 直接冷却变速箱油"
+    ],
+    answer: 1,
+    explanation: "The transmission vent allows air to escape as internal components heat up and fluid expands, preventing pressure buildup that could force fluid past seals. A clogged vent causes internal pressure to rise, potentially blowing out seals and causing fluid leaks from multiple locations on the transmission.",
+    explanationChinese: "变速箱通气孔允许内部部件加热和油液膨胀时空气排出，防止压力积聚迫使油液通过密封件。堵塞的通气孔导致内部压力升高，可能吹坏密封件并导致变速箱多个位置的油液泄漏。",
+    diagram: "",
+    terms: ["transmission_fluid"],
+    image: "https://upload.wikimedia.org/wikipedia/commons/thumb/3/3f/Automatic_transmission.jpg/640px-Automatic_transmission.jpg",
+    youtube: "https://www.youtube.com/watch?v=fRPHIDSYLi4",
+    youtubeTitle: "Transmission Vent and Seal Leaks"
+  },
+  {
+    id: 181,
+    q: "Technician A says the transmission cooler lines should be flushed when replacing a failed transmission. Technician B says the old cooler can be reused without flushing. Who is correct?",
+    qChinese: "技师A说在更换故障变速箱时应冲洗变速箱冷却管路。技师B说旧冷却器可以不冲洗直接重新使用。谁是正确的？",
+    options: [
+      "A) Technician A only",
+      "B) Technician B only",
+      "C) Both Technician A and Technician B",
+      "D) Neither Technician A nor Technician B"
+    ],
+    optionsChinese: [
+      "A) 仅技师A正确",
+      "B) 仅技师B正确",
+      "C) 技师A和技师B都正确",
+      "D) 技师A和技师B都不正确"
+    ],
+    answer: 0,
+    explanation: "Technician A is correct. When a transmission fails internally, metal debris and clutch material can be trapped in the cooler and lines. If not flushed, this contamination will be pumped into the new or rebuilt transmission, causing premature failure. Thorough flushing or cooler replacement is essential during transmission replacement.",
+    explanationChinese: "技师A是正确的。当变速箱内部故障时，金属碎屑和离合器材料可能滞留在冷却器和管路中。如果不冲洗，这些污染物将被泵入新的或重建的变速箱，导致过早故障。在更换变速箱时，彻底冲洗或更换冷却器是必要的。",
+    diagram: "",
+    terms: ["transmission_cooler", "transmission_fluid"],
+    image: "https://upload.wikimedia.org/wikipedia/commons/thumb/5/5f/Radiator.jpg/640px-Radiator.jpg",
+    youtube: "https://www.youtube.com/watch?v=fRPHIDSYLi4",
+    youtubeTitle: "Transmission Cooler Flushing"
+  },
+  {
+    id: 182,
+    q: "What is the purpose of the reaction member in a planetary gear set?",
+    qChinese: "行星齿轮组中反作用构件的用途是什么？",
+    options: [
+      "A) To provide the input power",
+      "B) To be held stationary by a band or clutch to provide a reaction point for gear reduction or overdrive",
+      "C) To output power to the driveshaft",
+      "D) To lubricate the gear teeth"
+    ],
+    optionsChinese: [
+      "A) 提供输入动力",
+      "B) 由制动带或离合器固定以提供减速或超速的反作用点",
+      "C) 将动力输出到传动轴",
+      "D) 润滑齿轮齿"
+    ],
+    answer: 1,
+    explanation: "The reaction member is whichever planetary component (sun gear, ring gear, or carrier) is held stationary. By holding one member, the other two are forced into a specific speed and direction relationship, creating a gear ratio. Different members held as reaction points produce different gear ratios.",
+    explanationChinese: "反作用构件是被固定的任何行星部件（太阳轮、齿圈或行星架）。通过固定一个构件，其他两个被迫进入特定的速度和方向关系，创建齿轮比。作为反作用点的不同构件产生不同的齿轮比。",
+    diagram: "",
+    terms: ["planetary_gear_set", "band", "clutch_pack", "gear_ratio"],
+    image: "https://upload.wikimedia.org/wikipedia/commons/thumb/0/0a/Epicyclic_gear_ratios.png/640px-Epicyclic_gear_ratios.png",
+    youtube: "https://www.youtube.com/watch?v=ARd-Om2VyiE",
+    youtubeTitle: "Planetary Gear Set Reaction Members"
+  },
+  {
+    id: 183,
+    q: "What does it mean when a transmission is described as having a 'flare' during a shift?",
+    qChinese: "当描述变速箱在换挡时出现'空转'是什么意思？",
+    options: [
+      "A) The engine temperature increases during the shift",
+      "B) Engine RPM increases momentarily between gears because the off-going gear releases before the on-coming gear fully applies",
+      "C) The transmission makes a visual spark",
+      "D) The shift indicator light flashes"
+    ],
+    optionsChinese: [
+      "A) 换挡时发动机温度升高",
+      "B) 发动机转速在两个挡位之间短暂升高，因为释放挡位比接合挡位先释放",
+      "C) 变速箱产生可见的火花",
+      "D) 换挡指示灯闪烁"
+    ],
+    answer: 1,
+    explanation: "A shift flare occurs when the releasing (off-going) holding device disengages before the applying (on-coming) device is fully engaged. During this brief overlap gap, no gear is fully applied, causing the engine to rev up momentarily. This indicates a timing or pressure problem in the shift overlap.",
+    explanationChinese: "换挡空转发生在释放的保持装置脱离后接合的装置尚未完全接合时。在这个短暂的重叠间隙中，没有挡位完全接合，导致发动机转速短暂升高。这表明换挡重叠的时序或压力存在问题。",
+    diagram: "",
+    terms: ["clutch_pack", "band", "valve_body", "shift_solenoid"],
+    image: "https://upload.wikimedia.org/wikipedia/commons/thumb/3/3f/Automatic_transmission.jpg/640px-Automatic_transmission.jpg",
+    youtube: "https://www.youtube.com/watch?v=u_y1S8C0Hmc",
+    youtubeTitle: "Shift Flare Diagnosis"
+  },
+  {
+    id: 184,
+    q: "What information does the Transmission Fluid Temperature (TFT) sensor provide to the TCM?",
+    qChinese: "变速箱油温（TFT）传感器向TCM提供什么信息？",
+    options: [
+      "A) The viscosity of the fluid",
+      "B) The current temperature of the transmission fluid in degrees",
+      "C) The fluid level in the pan",
+      "D) The age of the transmission fluid"
+    ],
+    optionsChinese: [
+      "A) 油液的粘度",
+      "B) 变速箱油当前的温度（度数）",
+      "C) 油底壳中的油液位",
+      "D) 变速箱油的使用年限"
+    ],
+    answer: 1,
+    explanation: "The TFT sensor provides the TCM with the current transmission fluid temperature as a voltage or resistance value. The TCM uses this information to modify shift schedules, adjust line pressure, control TCC engagement, and activate overheating protection strategies when the fluid exceeds safe temperature limits.",
+    explanationChinese: "TFT传感器以电压或电阻值的形式向TCM提供当前变速箱油温。TCM使用此信息修改换挡计划、调整主油压、控制TCC接合，并在油液超过安全温度限值时启动过热保护策略。",
+    diagram: "",
+    terms: ["tcm", "transmission_fluid"],
+    image: "https://upload.wikimedia.org/wikipedia/commons/thumb/3/3f/Automatic_transmission.jpg/640px-Automatic_transmission.jpg",
+    youtube: "https://www.youtube.com/watch?v=gpBtQozOkA8",
+    youtubeTitle: "TFT Sensor Operation"
+  },
+  {
+    id: 185,
+    q: "When installing a torque converter onto a transmission, how do you verify proper seating?",
+    qChinese: "将液力变矩器安装到变速箱上时，如何验证正确安装？",
+    options: [
+      "A) Push it on until it stops and measure nothing",
+      "B) Rotate the converter while pushing it on; it should engage in multiple stages and sit recessed from the bell housing surface by a specified distance",
+      "C) Bolt it to the flexplate first, then slide the transmission on",
+      "D) Fill it with fluid before installation"
+    ],
+    optionsChinese: [
+      "A) 推到底不测量任何东西",
+      "B) 在推入时旋转变矩器；它应在多个阶段接合并从变速箱壳体表面凹入规定的距离",
+      "C) 先将其用螺栓固定到挠性板上，然后滑入变速箱",
+      "D) 安装前注满油液"
+    ],
+    answer: 1,
+    explanation: "Proper converter installation requires rotating it while pushing it onto the input shaft, stator support, and pump drive hub. You should feel two or three distinct engagements as it seats on each splined component. The converter should sit recessed from the bell housing face by the manufacturer-specified measurement.",
+    explanationChinese: "正确的变矩器安装需要在将其推到输入轴、导轮支撑和油泵驱动毂上时旋转它。当它在每个花键部件上安装到位时，您应该感觉到两到三个明显的接合。变矩器应从变速箱壳体面凹入制造商规定的测量距离。",
+    diagram: "",
+    terms: ["torque_converter", "flexplate"],
+    image: "https://upload.wikimedia.org/wikipedia/commons/thumb/c/c7/Torque_converter_cutaway.svg/640px-Torque_converter_cutaway.svg.png",
+    youtube: "https://www.youtube.com/watch?v=z1ZlC7OAiNk",
+    youtubeTitle: "Torque Converter Installation"
+  },
+  {
+    id: 186,
+    q: "What is the most likely cause of a grinding noise when shifting from Park to Reverse?",
+    qChinese: "从驻车挡切换到倒挡时出现研磨噪声最可能的原因是什么？",
+    options: [
+      "A) Low engine oil",
+      "B) A worn parking pawl not fully disengaging from the parking gear before reverse is applied",
+      "C) A faulty alternator",
+      "D) Worn brake rotors"
+    ],
+    optionsChinese: [
+      "A) 发动机油低",
+      "B) 磨损的驻车棘爪在倒挡接合前未完全从驻车齿轮上脱离",
+      "C) 发电机故障",
+      "D) 制动盘磨损"
+    ],
+    answer: 1,
+    explanation: "A grinding noise when shifting from Park to Reverse can indicate the parking pawl is not fully retracting before the reverse clutch or band engages. This can be caused by a worn pawl, weak return spring, or shift linkage misadjustment that does not fully move the manual valve out of the Park position.",
+    explanationChinese: "从驻车挡切换到倒挡时的研磨噪声可能表明驻车棘爪在倒挡离合器或制动带接合前未完全缩回。这可能由棘爪磨损、回位弹簧虚弱或未将手动阀完全移出驻车位置的换挡连杆调整不当引起。",
+    diagram: "",
+    terms: ["parking_pawl", "band", "clutch_pack"],
+    image: "https://upload.wikimedia.org/wikipedia/commons/thumb/3/3f/Automatic_transmission.jpg/640px-Automatic_transmission.jpg",
+    youtube: "https://www.youtube.com/watch?v=gpBtQozOkA8",
+    youtubeTitle: "Park to Reverse Grinding Noise"
+  },
+  {
+    id: 187,
+    q: "Technician A says a PWM (Pulse Width Modulated) solenoid can vary hydraulic pressure by changing the on-off duty cycle. Technician B says a PWM solenoid is either fully on or fully off. Who is correct?",
+    qChinese: "技师A说PWM（脉宽调制）电磁阀可以通过改变通断占空比来改变液压压力。技师B说PWM电磁阀要么完全接通要么完全断开。谁是正确的？",
+    options: [
+      "A) Technician A only",
+      "B) Technician B only",
+      "C) Both Technician A and Technician B",
+      "D) Neither Technician A nor Technician B"
+    ],
+    optionsChinese: [
+      "A) 仅技师A正确",
+      "B) 仅技师B正确",
+      "C) 技师A和技师B都正确",
+      "D) 技师A和技师B都不正确"
+    ],
+    answer: 0,
+    explanation: "Technician A is correct. PWM solenoids rapidly cycle on and off at varying duty cycles to precisely control hydraulic pressure. By changing the percentage of time the solenoid is energized versus de-energized, the effective fluid flow and pressure can be varied smoothly. They are not simple on-off devices.",
+    explanationChinese: "技师A是正确的。PWM电磁阀以不同的占空比快速循环通断，精确控制液压压力。通过改变电磁阀通电与断电时间的百分比，可以平滑地改变有效的油液流量和压力。它们不是简单的开关装置。",
+    diagram: "",
+    terms: ["shift_solenoid", "tcm", "line_pressure"],
+    image: "https://upload.wikimedia.org/wikipedia/commons/thumb/3/3f/Automatic_transmission.jpg/640px-Automatic_transmission.jpg",
+    youtube: "https://www.youtube.com/watch?v=hE-bFcLHbGc",
+    youtubeTitle: "PWM Solenoid Operation"
+  },
+  {
+    id: 188,
+    q: "What is the purpose of the clutch return springs (Belleville spring or coil springs) in a clutch pack assembly?",
+    qChinese: "离合器片组总成中离合器回位弹簧（碟形弹簧或螺旋弹簧）的用途是什么？",
+    options: [
+      "A) To help apply the clutch with more force",
+      "B) To push the piston back and release the clutch pack when hydraulic pressure is removed",
+      "C) To increase the gear ratio",
+      "D) To filter fluid entering the clutch circuit"
+    ],
+    optionsChinese: [
+      "A) 帮助以更大的力接合离合器",
+      "B) 当液压压力移除时将活塞推回并释放离合器片组",
+      "C) 增加齿轮比",
+      "D) 过滤进入离合器回路的油液"
+    ],
+    answer: 1,
+    explanation: "Clutch return springs push the apply piston away from the clutch pack when hydraulic pressure is released, creating clearance between the friction discs and steel plates. This ensures the clutch is fully released and does not drag, which would cause heat generation and premature wear of the friction material.",
+    explanationChinese: "离合器回位弹簧在液压压力释放时将接合活塞推离离合器片组，在摩擦片和钢片之间创建间隙。这确保离合器完全释放且不拖滞，否则会产生热量并导致摩擦材料过早磨损。",
+    diagram: "",
+    terms: ["clutch_pack"],
+    image: "https://upload.wikimedia.org/wikipedia/commons/thumb/3/3f/Automatic_transmission.jpg/640px-Automatic_transmission.jpg",
+    youtube: "https://www.youtube.com/watch?v=u_y1S8C0Hmc",
+    youtubeTitle: "Clutch Pack Assembly Explained"
+  },
+  {
+    id: 189,
+    q: "A customer complains that the engine stalls when coming to a stop with the transmission in Drive. What is the most likely cause?",
+    qChinese: "客户投诉在前进挡停车时发动机熄火。最可能的原因是什么？",
+    options: [
+      "A) A slipping overdrive band",
+      "B) The torque converter clutch not releasing at low speeds",
+      "C) A faulty speedometer",
+      "D) An overfilled transmission"
+    ],
+    optionsChinese: [
+      "A) 超速挡制动带打滑",
+      "B) 液力变矩器离合器在低速时不释放",
+      "C) 车速表故障",
+      "D) 变速箱加注过量"
+    ],
+    answer: 1,
+    explanation: "If the TCC does not disengage as the vehicle slows down, the engine is mechanically locked to the drivetrain. Without the fluid coupling effect of the torque converter, the engine cannot idle independently and will stall when the vehicle stops. Common causes include a stuck TCC solenoid or faulty brake switch signal.",
+    explanationChinese: "如果TCC在车辆减速时不脱离，发动机就与传动系统机械锁定。没有液力变矩器的液力耦合效果，发动机无法独立怠速并在车辆停止时熄火。常见原因包括TCC电磁阀卡滞或制动开关信号故障。",
+    diagram: "",
+    terms: ["torque_converter", "shift_solenoid", "tcm"],
+    image: "https://upload.wikimedia.org/wikipedia/commons/thumb/c/c7/Torque_converter_cutaway.svg/640px-Torque_converter_cutaway.svg.png",
+    youtube: "https://www.youtube.com/watch?v=z1ZlC7OAiNk",
+    youtubeTitle: "TCC Not Releasing - Engine Stall"
+  },
+  {
+    id: 190,
+    q: "What is the purpose of clutch pack clearance measurement during transmission overhaul?",
+    qChinese: "在变速箱大修期间离合器片组间隙测量的目的是什么？",
+    options: [
+      "A) To determine the transmission fluid capacity",
+      "B) To ensure proper clutch apply and release by selecting the correct thickness selective snap ring or pressure plate",
+      "C) To measure the torque converter size",
+      "D) To set the band adjustment"
+    ],
+    optionsChinese: [
+      "A) 确定变速箱油容量",
+      "B) 通过选择正确厚度的选择性卡环或压盘来确保离合器正确接合和释放",
+      "C) 测量液力变矩器尺寸",
+      "D) 设定制动带调整"
+    ],
+    answer: 1,
+    explanation: "Clutch pack clearance must be within manufacturer specifications. Too much clearance causes delayed engagement and slipping. Too little clearance can cause the clutch to drag when released. The technician measures the clearance and selects the appropriate thickness selective snap ring or pressure plate to achieve proper clearance.",
+    explanationChinese: "离合器片组间隙必须在制造商规格范围内。间隙过大导致接合延迟和打滑。间隙过小可能导致离合器在释放时拖滞。技师测量间隙并选择适当厚度的选择性卡环或压盘以实现正确的间隙。",
+    diagram: "",
+    terms: ["clutch_pack"],
+    image: "https://upload.wikimedia.org/wikipedia/commons/thumb/3/3f/Automatic_transmission.jpg/640px-Automatic_transmission.jpg",
+    youtube: "https://www.youtube.com/watch?v=u_y1S8C0Hmc",
+    youtubeTitle: "Clutch Pack Clearance Measurement"
+  },
+  {
+    id: 191,
+    q: "What type of sensor is commonly used as a transmission speed sensor?",
+    qChinese: "什么类型的传感器通常用作变速箱速度传感器？",
+    options: [
+      "A) A thermocouple",
+      "B) A Hall-effect or magnetic reluctance (variable reluctance) sensor",
+      "C) A piezoelectric pressure sensor",
+      "D) An oxygen sensor"
+    ],
+    optionsChinese: [
+      "A) 热电偶",
+      "B) 霍尔效应或磁阻（可变磁阻）传感器",
+      "C) 压电压力传感器",
+      "D) 氧传感器"
+    ],
+    answer: 1,
+    explanation: "Transmission speed sensors typically use either Hall-effect or variable reluctance (magnetic) technology. These sensors detect the passage of teeth on a tone ring or reluctor wheel attached to the shaft. Hall-effect sensors produce a digital square wave signal, while variable reluctance sensors produce an analog AC signal that varies with speed.",
+    explanationChinese: "变速箱速度传感器通常使用霍尔效应或可变磁阻（磁性）技术。这些传感器检测安装在轴上的信号齿圈或磁阻轮齿的通过。霍尔效应传感器产生数字方波信号，而可变磁阻传感器产生随速度变化的模拟交流信号。",
+    diagram: "",
+    terms: ["speed_sensor", "tcm"],
+    image: "https://upload.wikimedia.org/wikipedia/commons/thumb/3/3f/Automatic_transmission.jpg/640px-Automatic_transmission.jpg",
+    youtube: "https://www.youtube.com/watch?v=hE-bFcLHbGc",
+    youtubeTitle: "Speed Sensor Types Explained"
+  },
+  {
+    id: 192,
+    q: "Technician A says that low reverse gear in an automatic transmission often uses the same holding devices as low forward gear. Technician B says reverse gear requires a different combination of clutches and bands than any forward gear. Who is correct?",
+    qChinese: "技师A说自动变速箱中的低挡倒挡通常使用与低挡前进相同的保持装置。技师B说倒挡需要与任何前进挡不同的离合器和制动带组合。谁是正确的？",
+    options: [
+      "A) Technician A only",
+      "B) Technician B only",
+      "C) Both Technician A and Technician B",
+      "D) Neither Technician A nor Technician B"
+    ],
+    optionsChinese: [
+      "A) 仅技师A正确",
+      "B) 仅技师B正确",
+      "C) 技师A和技师B都正确",
+      "D) 技师A和技师B都不正确"
+    ],
+    answer: 1,
+    explanation: "Technician B is correct. Reverse gear requires a unique combination of clutch and band applications different from any forward gear. In a typical planetary gear set, reverse is achieved by driving one member, holding a different member than in forward gears, and outputting through a third member to reverse the rotation direction.",
+    explanationChinese: "技师B是正确的。倒挡需要与任何前进挡不同的独特离合器和制动带接合组合。在典型的行星齿轮组中，倒挡通过驱动一个构件、固定与前进挡不同的构件并通过第三个构件输出来反转旋转方向来实现。",
+    diagram: "",
+    terms: ["planetary_gear_set", "clutch_pack", "band", "gear_ratio"],
+    image: "https://upload.wikimedia.org/wikipedia/commons/thumb/0/0a/Epicyclic_gear_ratios.png/640px-Epicyclic_gear_ratios.png",
+    youtube: "https://www.youtube.com/watch?v=ARd-Om2VyiE",
+    youtubeTitle: "Reverse Gear in Planetary Gear Sets"
+  },
+  {
+    id: 193,
+    q: "A transmission pan gasket is leaking. What is the LEAST likely cause?",
+    qChinese: "变速箱油底壳垫片泄漏。最不可能的原因是什么？",
+    options: [
+      "A) Overtightened pan bolts that warped the pan",
+      "B) A damaged or worn gasket",
+      "C) A clogged transmission vent causing internal pressure buildup",
+      "D) A faulty shift solenoid"
+    ],
+    optionsChinese: [
+      "A) 油底壳螺栓过紧导致油底壳变形",
+      "B) 损坏或磨损的垫片",
+      "C) 堵塞的变速箱通气孔导致内部压力积聚",
+      "D) 故障的换挡电磁阀"
+    ],
+    answer: 3,
+    explanation: "A faulty shift solenoid affects gear selection and shift quality but does not cause pan gasket leaks. Overtightened bolts warp the pan flange, creating gaps. A worn gasket loses its sealing ability. A clogged vent builds internal pressure that forces fluid past gaskets and seals. All three are common leak causes.",
+    explanationChinese: "故障的换挡电磁阀影响挡位选择和换挡质量，但不会导致油底壳垫片泄漏。螺栓过紧使油底壳法兰变形，产生间隙。磨损的垫片失去密封能力。堵塞的通气孔积聚内部压力，迫使油液通过垫片和密封件。这三者都是常见的泄漏原因。",
+    diagram: "",
+    terms: ["transmission_fluid", "shift_solenoid"],
+    image: "https://upload.wikimedia.org/wikipedia/commons/thumb/3/3f/Automatic_transmission.jpg/640px-Automatic_transmission.jpg",
+    youtube: "https://www.youtube.com/watch?v=fRPHIDSYLi4",
+    youtubeTitle: "Transmission Pan Leak Repair"
+  },
+  {
+    id: 194,
+    q: "Why is it important to properly torque the flexplate-to-torque converter bolts?",
+    qChinese: "为什么正确扭紧挠性板到液力变矩器的螺栓很重要？",
+    options: [
+      "A) Loose bolts can cause the flexplate to crack, vibration, and noise; overtightened bolts can distort the converter",
+      "B) It only affects the paint finish",
+      "C) It changes the gear ratio",
+      "D) It adjusts the band tension"
+    ],
+    optionsChinese: [
+      "A) 松动的螺栓可能导致挠性板破裂、振动和噪声；过紧的螺栓可能使变矩器变形",
+      "B) 仅影响油漆表面",
+      "C) 改变齿轮比",
+      "D) 调整制动带张力"
+    ],
+    answer: 0,
+    explanation: "Proper torque on flexplate-to-converter bolts is critical. Loose bolts allow the converter to wobble, causing vibration, noise, and eventual flexplate cracking. Overtightened bolts can distort the converter housing or pull the converter forward, damaging the pump bushing and seal. Always torque to manufacturer specifications.",
+    explanationChinese: "挠性板到变矩器螺栓的正确扭矩至关重要。松动的螺栓允许变矩器晃动，导致振动、噪声并最终导致挠性板破裂。过紧的螺栓可能使变矩器壳体变形或将变矩器向前拉，损坏油泵衬套和密封件。始终按制造商规格扭紧。",
+    diagram: "",
+    terms: ["flexplate", "torque_converter"],
+    image: "https://upload.wikimedia.org/wikipedia/commons/thumb/3/3f/Automatic_transmission.jpg/640px-Automatic_transmission.jpg",
+    youtube: "https://www.youtube.com/watch?v=z1ZlC7OAiNk",
+    youtubeTitle: "Flexplate to Converter Bolt Torque"
+  },
+  {
+    id: 195,
+    q: "What scan tool parameter indicates the gear the TCM is commanding?",
+    qChinese: "什么扫描工具参数指示TCM正在指令的挡位？",
+    options: [
+      "A) Engine coolant temperature",
+      "B) Commanded gear or current gear state PID",
+      "C) Mass air flow rate",
+      "D) Oxygen sensor voltage"
+    ],
+    optionsChinese: [
+      "A) 发动机冷却液温度",
+      "B) 指令挡位或当前挡位状态PID",
+      "C) 空气流量",
+      "D) 氧传感器电压"
+    ],
+    answer: 1,
+    explanation: "The commanded gear PID shows which gear the TCM is attempting to engage. Comparing this with the actual gear ratio calculated from input and output speed sensors helps diagnose whether the transmission is achieving the correct gear. If commanded and actual gears differ, a mechanical or hydraulic problem exists.",
+    explanationChinese: "指令挡位PID显示TCM正试图接合哪个挡位。将此与从输入和输出速度传感器计算的实际齿轮比进行比较，有助于诊断变速箱是否达到了正确的挡位。如果指令挡位与实际挡位不同，则存在机械或液压问题。",
+    diagram: "",
+    terms: ["tcm", "scan_tool", "gear_ratio"],
+    image: "https://upload.wikimedia.org/wikipedia/commons/thumb/3/3f/Automatic_transmission.jpg/640px-Automatic_transmission.jpg",
+    youtube: "https://www.youtube.com/watch?v=gpBtQozOkA8",
+    youtubeTitle: "Using Scan Tool for Transmission Diagnosis"
+  },
+  {
+    id: 196,
+    q: "What is the most likely cause of a whining noise from the transmission that increases in pitch with vehicle speed?",
+    qChinese: "变速箱发出随车速增加而音调升高的啸叫声最可能的原因是什么？",
+    options: [
+      "A) A faulty radio",
+      "B) Worn or damaged planetary gear set bearings or gear teeth",
+      "C) A clogged cabin air filter",
+      "D) Low windshield washer fluid"
+    ],
+    optionsChinese: [
+      "A) 收音机故障",
+      "B) 磨损或损坏的行星齿轮组轴承或齿轮齿",
+      "C) 堵塞的车厢空气滤清器",
+      "D) 挡风玻璃清洗液低"
+    ],
+    answer: 1,
+    explanation: "A whining noise that increases in pitch with vehicle speed typically indicates worn bearings or damaged gear teeth in the planetary gear set or output shaft area. As the output shaft speed increases with vehicle speed, the frequency of the noise increases accordingly. This usually requires internal inspection and repair.",
+    explanationChinese: "随车速增加而音调升高的啸叫声通常表明行星齿轮组或输出轴区域的轴承磨损或齿轮齿损坏。随着输出轴速度随车速增加，噪声频率相应增加。这通常需要内部检查和维修。",
+    diagram: "",
+    terms: ["planetary_gear_set"],
+    image: "https://upload.wikimedia.org/wikipedia/commons/thumb/3/3f/Automatic_transmission.jpg/640px-Automatic_transmission.jpg",
+    youtube: "https://www.youtube.com/watch?v=ARd-Om2VyiE",
+    youtubeTitle: "Transmission Bearing Noise Diagnosis"
+  },
+  {
+    id: 197,
+    q: "Technician A says a worn servo bore in the transmission case can cause a band to not apply fully. Technician B says a worn servo bore can be repaired using an oversized servo piston. Who is correct?",
+    qChinese: "技师A说变速箱壳体中磨损的伺服器孔会导致制动带无法完全接合。技师B说磨损的伺服器孔可以使用加大尺寸的伺服器活塞进行修复。谁是正确的？",
+    options: [
+      "A) Technician A only",
+      "B) Technician B only",
+      "C) Both Technician A and Technician B",
+      "D) Neither Technician A nor Technician B"
+    ],
+    optionsChinese: [
+      "A) 仅技师A正确",
+      "B) 仅技师B正确",
+      "C) 技师A和技师B都正确",
+      "D) 技师A和技师B都不正确"
+    ],
+    answer: 2,
+    explanation: "Both technicians are correct. A worn servo bore allows hydraulic fluid to leak past the piston seal, reducing the force applied to the band and causing slippage. Many aftermarket suppliers offer oversized servo pistons and seals that fit the worn bore, restoring proper sealing without replacing the entire case.",
+    explanationChinese: "两位技师都是正确的。磨损的伺服器孔允许液压油从活塞密封件旁泄漏，减少施加到制动带的力并导致打滑。许多售后市场供应商提供适合磨损孔的加大尺寸伺服器活塞和密封件，恢复正确的密封而无需更换整个壳体。",
+    diagram: "",
+    terms: ["servo", "band", "line_pressure"],
+    image: "https://upload.wikimedia.org/wikipedia/commons/thumb/3/3f/Automatic_transmission.jpg/640px-Automatic_transmission.jpg",
+    youtube: "https://www.youtube.com/watch?v=u_y1S8C0Hmc",
+    youtubeTitle: "Servo Bore Wear and Repair"
+  },
+  {
+    id: 198,
+    q: "What is the most common cause of automatic transmission external fluid leaks?",
+    qChinese: "自动变速箱外部油液泄漏最常见的原因是什么？",
+    options: [
+      "A) Cracked transmission case",
+      "B) Worn or damaged seals, gaskets, and O-rings",
+      "C) Overfilled engine oil",
+      "D) A faulty catalytic converter"
+    ],
+    optionsChinese: [
+      "A) 变速箱壳体破裂",
+      "B) 磨损或损坏的密封件、垫片和O形圈",
+      "C) 发动机油加注过量",
+      "D) 三元催化器故障"
+    ],
+    answer: 1,
+    explanation: "The most common sources of external transmission leaks are worn or deteriorated seals, gaskets, and O-rings. Common leak points include the pan gasket, front pump seal, rear output shaft seal, cooler line fittings, and electrical connector seals. Heat cycling and age cause these components to harden and lose their sealing ability.",
+    explanationChinese: "外部变速箱泄漏最常见的来源是磨损或劣化的密封件、垫片和O形圈。常见泄漏点包括油底壳垫片、前油泵密封、后输出轴密封、冷却管路接头和电气接头密封。热循环和老化导致这些部件硬化并失去密封能力。",
+    diagram: "",
+    terms: ["transmission_fluid"],
+    image: "https://upload.wikimedia.org/wikipedia/commons/thumb/3/3f/Automatic_transmission.jpg/640px-Automatic_transmission.jpg",
+    youtube: "https://www.youtube.com/watch?v=fRPHIDSYLi4",
+    youtubeTitle: "Finding Transmission Leaks"
+  },
+  {
+    id: 199,
+    q: "What is the result of not properly seating the transmission filter during installation?",
+    qChinese: "变速箱滤清器在安装过程中未正确安装到位会产生什么结果？",
+    options: [
+      "A) Improved fluid flow",
+      "B) An air leak at the filter seal that causes the pump to cavitate, lose pressure, and produce a whining noise",
+      "C) Increased line pressure",
+      "D) Better fuel economy"
+    ],
+    optionsChinese: [
+      "A) 改善油液流量",
+      "B) 滤清器密封处的空气泄漏导致油泵气蚀、失压和产生啸叫噪声",
+      "C) 增加主油压",
+      "D) 更好的燃油经济性"
+    ],
+    answer: 1,
+    explanation: "If the filter is not properly seated, an air leak occurs at the filter-to-pump seal. The pump draws in air along with fluid, causing cavitation and aeration. This results in a whining noise from the pump, low and erratic line pressure, foamy fluid, and potential slipping or delayed shifts throughout the transmission.",
+    explanationChinese: "如果滤清器未正确安装到位，滤清器到油泵密封处会发生空气泄漏。油泵连同油液一起吸入空气，导致气蚀和充气。这导致油泵发出啸叫噪声、主油压低且不稳定、油液起泡以及整个变速箱可能出现打滑或换挡延迟。",
+    diagram: "",
+    terms: ["transmission_fluid", "line_pressure"],
+    image: "https://upload.wikimedia.org/wikipedia/commons/thumb/3/3f/Automatic_transmission.jpg/640px-Automatic_transmission.jpg",
+    youtube: "https://www.youtube.com/watch?v=fRPHIDSYLi4",
+    youtubeTitle: "Transmission Filter Installation"
+  },
+  {
+    id: 200,
+    q: "Technician A says the TCM must be reprogrammed or have its adaptive values reset after a transmission replacement. Technician B says the old adaptive values will work fine with the new transmission. Who is correct?",
+    qChinese: "技师A说在更换变速箱后必须重新编程TCM或重置其自适应值。技师B说旧的自适应值对新变速箱同样适用。谁是正确的？",
+    options: [
+      "A) Technician A only",
+      "B) Technician B only",
+      "C) Both Technician A and Technician B",
+      "D) Neither Technician A nor Technician B"
+    ],
+    optionsChinese: [
+      "A) 仅技师A正确",
+      "B) 仅技师B正确",
+      "C) 技师A和技师B都正确",
+      "D) 技师A和技师B都不正确"
+    ],
+    answer: 0,
+    explanation: "Technician A is correct. The TCM adaptive values were learned based on the wear characteristics of the old transmission. A new or rebuilt transmission has different friction and clearance characteristics. If the old adaptive values are not reset, the TCM will apply incorrect pressures, causing harsh or soft shifts until it relearns.",
+    explanationChinese: "技师A是正确的。TCM自适应值是根据旧变速箱的磨损特性学习的。新的或重建的变速箱具有不同的摩擦和间隙特性。如果不重置旧的自适应值，TCM将施加不正确的压力，导致在重新学习之前换挡生硬或无力。",
+    diagram: "",
+    terms: ["tcm", "shift_solenoid", "clutch_pack"],
+    image: "https://upload.wikimedia.org/wikipedia/commons/thumb/3/3f/Automatic_transmission.jpg/640px-Automatic_transmission.jpg",
+    youtube: "https://www.youtube.com/watch?v=gpBtQozOkA8",
+    youtubeTitle: "TCM Reset After Transmission Replacement"
   }
 ];

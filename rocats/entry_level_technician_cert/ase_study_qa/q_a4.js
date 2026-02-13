@@ -2505,5 +2505,2509 @@ const questionsA4 = [
       "D) 变速箱支撑座"
     ],
     explanationChinese: "在标准平衡后仍然存在的与特定速度相关的方向盘振动，应使用路面力平衡机重新检查。该设备能检测标准平衡机无法测量的轮胎刚度变化和过大的径向力。它还可以进行匹配安装以最大限度地减少振动。"
+  },
+  // ===== STEERING SYSTEMS II (Questions 101-125) =====
+  {
+    id: 101,
+    q: "A vehicle equipped with electronic power steering (EPS) has a warning light on the dash and no power assist. What should be checked FIRST?",
+    options: [
+      "A) The power steering fluid level",
+      "B) The EPS control module and related DTCs",
+      "C) The serpentine belt tension",
+      "D) The steering gear for internal leaks"
+    ],
+    answer: 1,
+    explanation: "Electronic power steering uses an electric motor rather than a hydraulic pump, so there is no fluid or belt to check. The first step is to scan for diagnostic trouble codes in the EPS control module, which will indicate the root cause of the assist loss.",
+    diagram: "",
+    terms: ["power_steering_pump", "rack_and_pinion", "steering_gear"],
+    image: "https://upload.wikimedia.org/wikipedia/commons/thumb/3/3e/Rack_and_pinion_animation.gif/400px-Rack_and_pinion_animation.gif",
+    youtube: "https://www.youtube.com/watch?v=BnEE0ORchHM",
+    youtubeTitle: "Electronic Power Steering Explained",
+    qChinese: "一辆配备电子助力转向(EPS)的车辆仪表盘上警告灯亮起且没有助力。应首先检查什么？",
+    optionsChinese: [
+      "A) 助力转向液面",
+      "B) EPS控制模块及相关故障码",
+      "C) 蛇形皮带张力",
+      "D) 转向器是否有内部泄漏"
+    ],
+    explanationChinese: "电子助力转向使用电动马达而非液压泵，因此无需检查液面或皮带。第一步是扫描EPS控制模块中的故障码，以确定助力丧失的根本原因。"
+  },
+  {
+    id: 102,
+    q: "Which component in a recirculating ball steering system converts rotary motion to linear motion?",
+    options: [
+      "A) The Pitman arm",
+      "B) The worm gear and sector shaft",
+      "C) The idler arm",
+      "D) The center link"
+    ],
+    answer: 1,
+    explanation: "The worm gear and sector shaft inside the steering gearbox convert the rotary input from the steering column into linear output motion. The sector shaft moves the Pitman arm, which then transfers the motion to the steering linkage and ultimately turns the wheels.",
+    diagram: "",
+    terms: ["steering_gear", "pitman_arm", "idler_arm"],
+    image: "https://upload.wikimedia.org/wikipedia/commons/thumb/5/54/Recirculating_ball_steering_gear.svg/500px-Recirculating_ball_steering_gear.svg.png",
+    youtube: "https://www.youtube.com/watch?v=YDl1UxCrEhM",
+    youtubeTitle: "Power Steering System Explained",
+    qChinese: "循环球式转向系统中哪个部件将旋转运动转换为直线运动？",
+    optionsChinese: [
+      "A) 摇臂",
+      "B) 蜗杆和扇形轴",
+      "C) 惰臂",
+      "D) 中间连杆"
+    ],
+    explanationChinese: "转向器内的蜗杆和扇形轴将来自转向柱的旋转输入转换为直线输出运动。扇形轴带动摇臂，然后将运动传递到转向连杆机构，最终使车轮转向。"
+  },
+  {
+    id: 103,
+    q: "A technician notices the power steering fluid is foamy and light brown in color. What does this indicate?",
+    options: [
+      "A) The fluid is contaminated with water",
+      "B) The fluid has air mixed in (aerated)",
+      "C) The fluid is overheated and oxidized",
+      "D) The wrong type of fluid was installed"
+    ],
+    answer: 1,
+    explanation: "Foamy, light-colored power steering fluid indicates aeration, meaning air has entered the system. Common causes include a low fluid level, a leaking suction hose, or a loose fitting. The air mixes with fluid and creates foam, reducing hydraulic assist and causing pump noise.",
+    diagram: "",
+    terms: ["power_steering_fluid", "power_steering_pump"],
+    image: "https://upload.wikimedia.org/wikipedia/commons/thumb/3/3e/Rack_and_pinion_animation.gif/400px-Rack_and_pinion_animation.gif",
+    youtube: "https://www.youtube.com/watch?v=YDl1UxCrEhM",
+    youtubeTitle: "Power Steering System Explained",
+    qChinese: "技师注意到助力转向液呈泡沫状且颜色为浅棕色。这表明什么？",
+    optionsChinese: [
+      "A) 液体被水污染",
+      "B) 液体中混入了空气（充气）",
+      "C) 液体过热并氧化",
+      "D) 使用了错误类型的液体"
+    ],
+    explanationChinese: "泡沫状、颜色偏浅的助力转向液表明系统中混入了空气。常见原因包括液位偏低、吸油管泄漏或接头松动。空气与液体混合产生泡沫，降低液压助力并引起泵噪音。"
+  },
+  {
+    id: 104,
+    q: "What is the purpose of the inner tie rod boot on a rack and pinion steering system?",
+    options: [
+      "A) To lubricate the tie rod end",
+      "B) To protect the rack seals from dirt and moisture",
+      "C) To act as a bump stop for the rack",
+      "D) To dampen steering vibrations"
+    ],
+    answer: 1,
+    explanation: "The inner tie rod boot (bellows boot) seals the opening where the inner tie rod exits the steering rack housing. It keeps dirt, water, and road debris from entering and damaging the internal rack seals. A torn boot allows contamination that leads to premature rack failure.",
+    diagram: "",
+    terms: ["tie_rod", "rack_and_pinion"],
+    image: "https://upload.wikimedia.org/wikipedia/commons/thumb/3/3e/Rack_and_pinion_animation.gif/400px-Rack_and_pinion_animation.gif",
+    youtube: "https://www.youtube.com/watch?v=dL0mMEjwjMI",
+    youtubeTitle: "Tie Rod End Replacement Guide",
+    qChinese: "齿条齿轮转向系统上内拉杆防尘套的作用是什么？",
+    optionsChinese: [
+      "A) 润滑拉杆端部",
+      "B) 保护齿条密封件免受灰尘和水分侵害",
+      "C) 作为齿条的限位缓冲",
+      "D) 抑制转向振动"
+    ],
+    explanationChinese: "内拉杆防尘套（波纹套）密封内拉杆从转向齿条壳体伸出的开口。它防止灰尘、水和路面碎屑进入并损坏齿条内部密封件。破裂的防尘套会导致污染物进入，造成齿条过早损坏。"
+  },
+  {
+    id: 105,
+    q: "A vehicle pulls to the left during braking but tracks straight while driving. Technician A says a worn left outer tie rod could be the cause. Technician B says a caliper issue is more likely. Who is correct?",
+    options: [
+      "A) Technician A only",
+      "B) Technician B only",
+      "C) Both Technician A and Technician B",
+      "D) Neither Technician A nor Technician B"
+    ],
+    answer: 1,
+    explanation: "A pull only during braking points to a brake issue rather than a steering or alignment concern. A seized or sticking caliper, restricted brake hose, or contaminated pad on one side causes uneven braking force. A worn tie rod would cause a constant pull or wandering.",
+    diagram: "",
+    terms: ["tie_rod", "rack_and_pinion", "wheel_alignment"],
+    image: "https://upload.wikimedia.org/wikipedia/commons/thumb/3/3e/Rack_and_pinion_animation.gif/400px-Rack_and_pinion_animation.gif",
+    youtube: "https://www.youtube.com/watch?v=dL0mMEjwjMI",
+    youtubeTitle: "Tie Rod End Replacement Guide",
+    qChinese: "一辆车在制动时向左跑偏，但正常行驶时直行。技师A说磨损的左侧外拉杆可能是原因。技师B说制动卡钳问题更可能。谁是正确的？",
+    optionsChinese: [
+      "A) 仅技师A正确",
+      "B) 仅技师B正确",
+      "C) 技师A和技师B都正确",
+      "D) 技师A和技师B都不正确"
+    ],
+    explanationChinese: "仅在制动时跑偏指向制动问题而非转向或四轮定位问题。一侧卡钳卡滞、制动软管受限或刹车片污染会导致制动力不均。磨损的拉杆会导致持续跑偏或方向不稳。"
+  },
+  {
+    id: 106,
+    q: "What happens when the power steering pressure relief valve opens?",
+    options: [
+      "A) Fluid is routed back to the reservoir to prevent pump damage",
+      "B) Fluid is directed to the steering gear for maximum assist",
+      "C) The pump output pressure increases",
+      "D) The flow control valve closes"
+    ],
+    answer: 0,
+    explanation: "The pressure relief valve opens when system pressure exceeds a predetermined maximum. It routes high-pressure fluid back to the reservoir or pump inlet to prevent damage to the pump, hoses, and steering gear seals. This occurs when the steering wheel is held at full lock.",
+    diagram: "",
+    terms: ["power_steering_pump", "power_steering_fluid"],
+    image: "https://upload.wikimedia.org/wikipedia/commons/thumb/3/3e/Rack_and_pinion_animation.gif/400px-Rack_and_pinion_animation.gif",
+    youtube: "https://www.youtube.com/watch?v=YDl1UxCrEhM",
+    youtubeTitle: "Power Steering System Explained",
+    qChinese: "助力转向压力释放阀打开时会发生什么？",
+    optionsChinese: [
+      "A) 液体被导回储液罐以防止泵损坏",
+      "B) 液体被引导至转向器以获得最大助力",
+      "C) 泵的输出压力增加",
+      "D) 流量控制阀关闭"
+    ],
+    explanationChinese: "当系统压力超过预定最大值时，压力释放阀打开。它将高压液体导回储液罐或泵入口，以防止泵、软管和转向器密封件损坏。当方向盘打到头时会发生这种情况。"
+  },
+  {
+    id: 107,
+    q: "A steering wheel is not centered after a front-end alignment. Which adjustment corrects this?",
+    options: [
+      "A) Camber adjustment",
+      "B) Caster adjustment",
+      "C) Toe adjustment by equal amounts on each tie rod",
+      "D) Thrust angle adjustment"
+    ],
+    answer: 2,
+    explanation: "An off-center steering wheel with correct total toe is corrected by adjusting each tie rod equally in opposite directions. This centers the steering wheel without changing the total toe setting. Adjusting only one side would change toe and cause a pull or tire wear.",
+    diagram: "",
+    terms: ["toe", "tie_rod", "wheel_alignment"],
+    image: "https://upload.wikimedia.org/wikipedia/commons/thumb/a/ab/Wheel_alignment.jpg/640px-Wheel_alignment.jpg",
+    youtube: "https://www.youtube.com/watch?v=MXGi6CaKtaY",
+    youtubeTitle: "How to Perform a Wheel Alignment",
+    qChinese: "前轮定位后方向盘未居中。哪项调整可以纠正这个问题？",
+    optionsChinese: [
+      "A) 外倾角调整",
+      "B) 主销后倾角调整",
+      "C) 通过在每个拉杆上等量调整前束",
+      "D) 推力角调整"
+    ],
+    explanationChinese: "在总前束正确的情况下方向盘偏移，通过在两侧拉杆上进行等量反向调整来纠正。这样可以在不改变总前束设定的情况下使方向盘居中。仅调整一侧会改变前束并导致跑偏或轮胎磨损。"
+  },
+  {
+    id: 108,
+    q: "What component connects the Pitman arm to the steering knuckle on a parallelogram steering linkage?",
+    options: [
+      "A) The inner tie rod",
+      "B) The center link and outer tie rod",
+      "C) The drag link",
+      "D) The rack and pinion"
+    ],
+    answer: 1,
+    explanation: "In a parallelogram steering linkage, the Pitman arm connects to the center link (relay rod). The center link connects to the outer tie rods, which attach to the steering knuckles. The idler arm supports the opposite end of the center link from the Pitman arm.",
+    diagram: "",
+    terms: ["pitman_arm", "idler_arm", "tie_rod", "steering_gear"],
+    image: "https://upload.wikimedia.org/wikipedia/commons/thumb/5/54/Recirculating_ball_steering_gear.svg/500px-Recirculating_ball_steering_gear.svg.png",
+    youtube: "https://www.youtube.com/watch?v=YDl1UxCrEhM",
+    youtubeTitle: "Power Steering System Explained",
+    qChinese: "在平行四边形转向连杆机构中，哪个部件连接摇臂和转向节？",
+    optionsChinese: [
+      "A) 内拉杆",
+      "B) 中间连杆和外拉杆",
+      "C) 拖杆",
+      "D) 齿条和小齿轮"
+    ],
+    explanationChinese: "在平行四边形转向连杆机构中，摇臂连接到中间连杆（中继杆）。中间连杆连接到外拉杆，外拉杆连接到转向节。惰臂支撑中间连杆与摇臂相对的另一端。"
+  },
+  {
+    id: 109,
+    q: "A technician is replacing a power steering pump. What should be done before starting the engine?",
+    options: [
+      "A) Fill the reservoir and turn the steering wheel lock to lock several times with the engine off",
+      "B) Add fluid only to the minimum mark",
+      "C) Start the engine immediately and add fluid as needed",
+      "D) Pressurize the system with compressed air"
+    ],
+    answer: 0,
+    explanation: "Before starting the engine, the reservoir should be filled and the steering wheel turned lock to lock with the engine off. This primes the pump and bleeds air from the system. Starting a dry pump can cause instant damage to the pump vanes and cavitation noise.",
+    diagram: "",
+    terms: ["power_steering_pump", "power_steering_fluid"],
+    image: "https://upload.wikimedia.org/wikipedia/commons/thumb/3/3e/Rack_and_pinion_animation.gif/400px-Rack_and_pinion_animation.gif",
+    youtube: "https://www.youtube.com/watch?v=YDl1UxCrEhM",
+    youtubeTitle: "Power Steering System Explained",
+    qChinese: "技师正在更换助力转向泵。启动发动机前应该做什么？",
+    optionsChinese: [
+      "A) 加满储液罐并在发动机关闭状态下将方向盘从一侧打到另一侧转动几次",
+      "B) 仅将液面加至最低刻度线",
+      "C) 立即启动发动机并根据需要添加液体",
+      "D) 用压缩空气对系统加压"
+    ],
+    explanationChinese: "启动发动机前，应加满储液罐并在发动机关闭状态下将方向盘从一侧打到另一侧转动。这样可以给泵排气并排出系统中的空气。干运转泵会立即损坏泵叶片并产生气蚀噪音。"
+  },
+  {
+    id: 110,
+    q: "Excessive play in the steering wheel before the front tires respond is MOST likely caused by:",
+    options: [
+      "A) Over-inflated tires",
+      "B) Worn tie rod ends or steering linkage components",
+      "C) Excessive negative camber",
+      "D) A bent steering wheel"
+    ],
+    answer: 1,
+    explanation: "Excessive steering wheel play (free play) before the wheels respond indicates wear in the steering linkage. Worn tie rod ends, a loose steering gear adjustment, worn center link sockets, or a worn idler arm all allow the steering wheel to move without transmitting motion to the wheels.",
+    diagram: "",
+    terms: ["tie_rod", "idler_arm", "pitman_arm", "steering_gear"],
+    image: "https://upload.wikimedia.org/wikipedia/commons/thumb/5/54/Recirculating_ball_steering_gear.svg/500px-Recirculating_ball_steering_gear.svg.png",
+    youtube: "https://www.youtube.com/watch?v=dL0mMEjwjMI",
+    youtubeTitle: "Tie Rod End Replacement Guide",
+    qChinese: "方向盘有过多的游隙才能使前轮响应，最可能的原因是：",
+    optionsChinese: [
+      "A) 轮胎过度充气",
+      "B) 拉杆端部或转向连杆机构部件磨损",
+      "C) 过大的负外倾角",
+      "D) 方向盘弯曲"
+    ],
+    explanationChinese: "方向盘在车轮响应之前有过多的游隙（自由间隙）表明转向连杆机构存在磨损。磨损的拉杆端部、转向器调整松动、中间连杆球头磨损或惰臂磨损都会导致方向盘转动而不能将运动传递至车轮。"
+  },
+  {
+    id: 111,
+    q: "During a dry park check, a technician finds vertical movement at the outer tie rod end. What does this indicate?",
+    options: [
+      "A) A worn tie rod end ball stud",
+      "B) A worn wheel bearing",
+      "C) A worn ball joint",
+      "D) A bent spindle"
+    ],
+    answer: 0,
+    explanation: "Vertical movement detected at the outer tie rod end during a dry park check indicates a worn tie rod end ball stud. The ball stud should fit snugly in its socket with no perceptible vertical play. A worn ball joint would show play at the knuckle, not the tie rod.",
+    diagram: "",
+    terms: ["tie_rod", "ball_joint"],
+    image: "https://upload.wikimedia.org/wikipedia/commons/thumb/3/3e/Rack_and_pinion_animation.gif/400px-Rack_and_pinion_animation.gif",
+    youtube: "https://www.youtube.com/watch?v=dL0mMEjwjMI",
+    youtubeTitle: "Tie Rod End Replacement Guide",
+    qChinese: "在原地检查中，技师发现外拉杆端部有上下运动。这表明什么？",
+    optionsChinese: [
+      "A) 拉杆端部球头磨损",
+      "B) 车轮轴承磨损",
+      "C) 球头磨损",
+      "D) 转向节弯曲"
+    ],
+    explanationChinese: "在原地检查中，外拉杆端部出现上下运动表明拉杆端部球头磨损。球头应紧密配合在球窝中，没有明显的上下间隙。球头磨损会在转向节处显示间隙，而不是拉杆处。"
+  },
+  {
+    id: 112,
+    q: "Which type of power steering fluid should NEVER be mixed with the manufacturer-specified fluid?",
+    options: [
+      "A) ATF-compatible power steering fluid",
+      "B) Synthetic power steering fluid of the same specification",
+      "C) Any fluid not meeting the vehicle manufacturer's specification",
+      "D) Fluid from the same manufacturer but a different color"
+    ],
+    answer: 2,
+    explanation: "Using fluid that does not meet the vehicle manufacturer's specification can damage seals, cause leaks, and reduce system performance. Some systems require specific synthetic fluids, while others use ATF. Always consult the owner's manual or service information for the correct fluid type.",
+    diagram: "",
+    terms: ["power_steering_fluid", "power_steering_pump"],
+    image: "https://upload.wikimedia.org/wikipedia/commons/thumb/3/3e/Rack_and_pinion_animation.gif/400px-Rack_and_pinion_animation.gif",
+    youtube: "https://www.youtube.com/watch?v=YDl1UxCrEhM",
+    youtubeTitle: "Power Steering System Explained",
+    qChinese: "哪种助力转向液绝对不能与制造商指定的液体混合？",
+    optionsChinese: [
+      "A) 兼容ATF的助力转向液",
+      "B) 相同规格的合成助力转向液",
+      "C) 任何不符合车辆制造商规格的液体",
+      "D) 来自同一制造商但颜色不同的液体"
+    ],
+    explanationChinese: "使用不符合车辆制造商规格的液体会损坏密封件、导致泄漏并降低系统性能。某些系统需要特定的合成液体，而其他系统使用ATF。请始终查阅车主手册或维修资料以确认正确的液体类型。"
+  },
+  {
+    id: 113,
+    q: "A vehicle with variable-assist power steering loses assist at low speeds but has normal assist at highway speeds. What is the MOST likely cause?",
+    options: [
+      "A) A faulty vehicle speed sensor signal to the steering module",
+      "B) Low power steering fluid",
+      "C) A worn power steering pump",
+      "D) A restricted return hose"
+    ],
+    answer: 0,
+    explanation: "Variable-assist power steering adjusts assist level based on vehicle speed, providing more assist at low speeds and less at highway speeds. If the speed sensor signal is incorrect, the module may reduce assist at low speeds. Low fluid or a worn pump would affect assist at all speeds.",
+    diagram: "",
+    terms: ["power_steering_pump", "rack_and_pinion", "steering_gear"],
+    image: "https://upload.wikimedia.org/wikipedia/commons/thumb/3/3e/Rack_and_pinion_animation.gif/400px-Rack_and_pinion_animation.gif",
+    youtube: "https://www.youtube.com/watch?v=BnEE0ORchHM",
+    youtubeTitle: "Electronic Power Steering Explained",
+    qChinese: "一辆配备可变助力转向的车辆在低速时失去助力，但在高速公路速度下助力正常。最可能的原因是什么？",
+    optionsChinese: [
+      "A) 车速传感器信号传送至转向模块故障",
+      "B) 助力转向液偏低",
+      "C) 助力转向泵磨损",
+      "D) 回油管路受限"
+    ],
+    explanationChinese: "可变助力转向根据车速调整助力大小，低速时提供更多助力，高速时减少助力。如果车速传感器信号不正确，模块可能会在低速时减少助力。液位偏低或泵磨损会影响所有速度下的助力。"
+  },
+  {
+    id: 114,
+    q: "What is the correct method to check for worn idler arm bushings?",
+    options: [
+      "A) Measure steering wheel free play",
+      "B) Grasp the center link near the idler arm and push up and down to check for vertical movement",
+      "C) Check the toe setting with an alignment machine",
+      "D) Listen for noise while turning the steering wheel"
+    ],
+    answer: 1,
+    explanation: "To check the idler arm, grasp the center link near where it attaches to the idler arm and push up and down. Excessive vertical movement beyond manufacturer specifications indicates worn idler arm bushings. This is a standard parallelogram linkage inspection procedure.",
+    diagram: "",
+    terms: ["idler_arm", "pitman_arm", "tie_rod"],
+    image: "https://upload.wikimedia.org/wikipedia/commons/thumb/5/54/Recirculating_ball_steering_gear.svg/500px-Recirculating_ball_steering_gear.svg.png",
+    youtube: "https://www.youtube.com/watch?v=YDl1UxCrEhM",
+    youtubeTitle: "Power Steering System Explained",
+    qChinese: "检查惰臂衬套磨损的正确方法是什么？",
+    optionsChinese: [
+      "A) 测量方向盘自由间隙",
+      "B) 抓住惰臂附近的中间连杆上下推动检查垂直运动",
+      "C) 使用四轮定位仪检查前束设定",
+      "D) 转动方向盘时听是否有噪音"
+    ],
+    explanationChinese: "检查惰臂时，抓住中间连杆靠近惰臂连接处上下推动。超出制造商规格的过大垂直运动表明惰臂衬套磨损。这是标准的平行四边形连杆机构检查程序。"
+  },
+  {
+    id: 115,
+    q: "A clunking noise is heard when turning the steering wheel from left to right while the vehicle is stationary. What is the MOST likely cause?",
+    options: [
+      "A) Worn strut mounts",
+      "B) Loose or worn steering gear mounting bolts or coupling",
+      "C) Low tire pressure",
+      "D) Worn engine mounts"
+    ],
+    answer: 1,
+    explanation: "A clunking noise when reversing steering direction while stationary typically indicates looseness in the steering system. A loose steering gear, worn coupling, or loose mounting bolts allow movement and create a clunk. Strut mount noise is more common over bumps than during stationary steering.",
+    diagram: "",
+    terms: ["steering_gear", "rack_and_pinion"],
+    image: "https://upload.wikimedia.org/wikipedia/commons/thumb/3/3e/Rack_and_pinion_animation.gif/400px-Rack_and_pinion_animation.gif",
+    youtube: "https://www.youtube.com/watch?v=YDl1UxCrEhM",
+    youtubeTitle: "Power Steering System Explained",
+    qChinese: "车辆静止时将方向盘从左打到右时听到咔嗒声。最可能的原因是什么？",
+    optionsChinese: [
+      "A) 减震器顶部支座磨损",
+      "B) 转向器安装螺栓松动或联轴器磨损",
+      "C) 轮胎气压偏低",
+      "D) 发动机支撑座磨损"
+    ],
+    explanationChinese: "静止时改变转向方向出现咔嗒声通常表明转向系统中存在松动。转向器松动、联轴器磨损或安装螺栓松动会产生间隙并发出咔嗒声。减震器顶部支座噪音更常见于过减速带时而非静止转向时。"
+  },
+  // ===== SUSPENSION SYSTEMS II (Questions 116-150) =====
+  {
+    id: 116,
+    q: "A MacPherson strut is being replaced. Why must a spring compressor be used during disassembly?",
+    options: [
+      "A) To prevent damage to the strut body",
+      "B) To release stored energy in the coil spring safely",
+      "C) To align the spring perch properly",
+      "D) To remove the strut bearing"
+    ],
+    answer: 1,
+    explanation: "The coil spring on a MacPherson strut holds tremendous stored energy when compressed. A spring compressor tool must be used to hold the spring compressed so the upper strut nut can be safely removed. Without it, the spring can violently release, causing serious injury or death.",
+    diagram: "",
+    terms: ["strut", "coil_spring", "shock_absorber"],
+    image: "https://upload.wikimedia.org/wikipedia/commons/2/2c/Mcpherson_strut.jpg",
+    youtube: "https://www.youtube.com/watch?v=0gUkBWHGfRs",
+    youtubeTitle: "MacPherson Strut Replacement",
+    qChinese: "正在更换麦弗逊式减震器。为什么拆卸时必须使用弹簧压缩工具？",
+    optionsChinese: [
+      "A) 防止损坏减震器本体",
+      "B) 安全释放螺旋弹簧中储存的能量",
+      "C) 正确对齐弹簧座",
+      "D) 拆卸减震器轴承"
+    ],
+    explanationChinese: "麦弗逊减震器上的螺旋弹簧在压缩状态下储存巨大的能量。必须使用弹簧压缩工具将弹簧保持在压缩状态，以便安全地拆卸上部减震器螺母。否则弹簧可能会猛烈弹出，造成严重伤害甚至死亡。"
+  },
+  {
+    id: 117,
+    q: "What is the primary function of a shock absorber in the suspension system?",
+    options: [
+      "A) To support the vehicle's weight",
+      "B) To control spring oscillation and dampen road impacts",
+      "C) To maintain wheel alignment",
+      "D) To connect the control arm to the frame"
+    ],
+    answer: 1,
+    explanation: "The shock absorber's primary function is to dampen or control the oscillation of the springs. It converts kinetic energy to heat energy through hydraulic fluid resistance. Without shocks, the vehicle would continue bouncing after hitting a bump. Shocks do not support vehicle weight; springs do.",
+    diagram: "",
+    terms: ["shock_absorber", "coil_spring"],
+    image: "https://upload.wikimedia.org/wikipedia/commons/2/2c/Mcpherson_strut.jpg",
+    youtube: "https://www.youtube.com/watch?v=0gUkBWHGfRs",
+    youtubeTitle: "MacPherson Strut Replacement",
+    qChinese: "减震器在悬挂系统中的主要功能是什么？",
+    optionsChinese: [
+      "A) 支撑车辆重量",
+      "B) 控制弹簧振荡并缓冲路面冲击",
+      "C) 维持车轮定位",
+      "D) 将控制臂连接到车架"
+    ],
+    explanationChinese: "减震器的主要功能是阻尼或控制弹簧的振荡。它通过液压流体阻力将动能转化为热能。没有减震器，车辆在经过颠簸后会持续弹跳。减震器不支撑车辆重量，弹簧才是。"
+  },
+  {
+    id: 118,
+    q: "A vehicle bounces excessively after going over a bump. A bounce test shows the vehicle continues to bounce more than two times. What is the MOST likely cause?",
+    options: [
+      "A) Worn shock absorbers or struts",
+      "B) Over-inflated tires",
+      "C) Broken sway bar links",
+      "D) Worn control arm bushings"
+    ],
+    answer: 0,
+    explanation: "The bounce test is a quick check for worn shocks or struts. Push down firmly on the vehicle corner and release. If it bounces more than one to two times before stopping, the shocks or struts are worn and cannot properly dampen spring oscillation. They should be replaced.",
+    diagram: "",
+    terms: ["shock_absorber", "strut", "coil_spring"],
+    image: "https://upload.wikimedia.org/wikipedia/commons/2/2c/Mcpherson_strut.jpg",
+    youtube: "https://www.youtube.com/watch?v=0gUkBWHGfRs",
+    youtubeTitle: "MacPherson Strut Replacement",
+    qChinese: "车辆过减速带后过度弹跳。弹跳测试显示车辆弹跳超过两次。最可能的原因是什么？",
+    optionsChinese: [
+      "A) 减震器或支柱磨损",
+      "B) 轮胎过度充气",
+      "C) 稳定杆连杆断裂",
+      "D) 控制臂衬套磨损"
+    ],
+    explanationChinese: "弹跳测试是快速检查减震器或支柱磨损的方法。在车辆一角用力按下然后释放。如果弹跳超过一到两次才停止，说明减震器或支柱磨损，无法正确阻尼弹簧振荡，应予以更换。"
+  },
+  {
+    id: 119,
+    q: "Technician A says worn ball joints can cause a clunking noise over bumps. Technician B says worn ball joints can affect camber and caster angles. Who is correct?",
+    options: [
+      "A) Technician A only",
+      "B) Technician B only",
+      "C) Both Technician A and Technician B",
+      "D) Neither Technician A nor Technician B"
+    ],
+    answer: 2,
+    explanation: "Both technicians are correct. Worn ball joints create play in the suspension that causes clunking noises over bumps and during turns. Additionally, because ball joints serve as pivot points, wear allows the knuckle to shift, changing camber and caster alignment angles.",
+    diagram: "",
+    terms: ["ball_joint", "camber", "caster", "control_arm"],
+    image: "https://upload.wikimedia.org/wikipedia/commons/2/2c/Mcpherson_strut.jpg",
+    youtube: "https://www.youtube.com/watch?v=MgCxvRCHbhQ",
+    youtubeTitle: "Ball Joint Inspection and Replacement",
+    qChinese: "技师A说磨损的球头会导致过减速带时发出咔嗒声。技师B说磨损的球头会影响外倾角和主销后倾角。谁是正确的？",
+    optionsChinese: [
+      "A) 仅技师A正确",
+      "B) 仅技师B正确",
+      "C) 技师A和技师B都正确",
+      "D) 技师A和技师B都不正确"
+    ],
+    explanationChinese: "两位技师都是正确的。磨损的球头在悬挂中产生间隙，导致过减速带和转弯时发出咔嗒声。此外，由于球头是枢轴点，磨损会导致转向节移位，改变外倾角和主销后倾角定位角度。"
+  },
+  {
+    id: 120,
+    q: "What is the purpose of a sway bar (stabilizer bar) in the suspension system?",
+    options: [
+      "A) To support the vehicle's weight during cornering",
+      "B) To reduce body roll during turns",
+      "C) To maintain ride height",
+      "D) To dampen spring oscillation"
+    ],
+    answer: 1,
+    explanation: "The sway bar (stabilizer bar) connects the left and right sides of the suspension. During cornering, it transfers force from the loaded side to the unloaded side, resisting body roll and keeping the vehicle more level. It does not support weight or dampen springs.",
+    diagram: "",
+    terms: ["sway_bar", "control_arm"],
+    image: "https://upload.wikimedia.org/wikipedia/commons/2/2c/Mcpherson_strut.jpg",
+    youtube: "https://www.youtube.com/watch?v=KJH4E85jW7I",
+    youtubeTitle: "Sway Bar and Stabilizer Bar Explained",
+    qChinese: "悬挂系统中稳定杆（防倾杆）的作用是什么？",
+    optionsChinese: [
+      "A) 在转弯时支撑车辆重量",
+      "B) 减少转弯时的车身侧倾",
+      "C) 维持车身高度",
+      "D) 抑制弹簧振荡"
+    ],
+    explanationChinese: "稳定杆（防倾杆）连接悬挂系统的左右两侧。在转弯时，它将力从受载侧传递到非受载侧，抵抗车身侧倾并保持车辆更加平稳。它不支撑重量也不抑制弹簧振荡。"
+  },
+  {
+    id: 121,
+    q: "A vehicle with a SLA (Short-Long Arm) front suspension has a worn lower ball joint. How should the ball joint be inspected?",
+    options: [
+      "A) Jack under the lower control arm and check for vertical play at the ball joint",
+      "B) Jack under the frame and check for horizontal play at the tie rod",
+      "C) Jack under the frame and check for vertical play at the ball joint",
+      "D) Jack under the lower control arm and check for horizontal play at the tie rod"
+    ],
+    answer: 0,
+    explanation: "On an SLA suspension where the spring sits on the lower control arm, the lower ball joint is the load-carrying joint. To properly unload it for inspection, jack under the lower control arm. Then check for vertical play by prying up on the tire. This unloads the joint for accurate measurement.",
+    diagram: "",
+    terms: ["ball_joint", "control_arm"],
+    image: "https://upload.wikimedia.org/wikipedia/commons/2/2c/Mcpherson_strut.jpg",
+    youtube: "https://www.youtube.com/watch?v=MgCxvRCHbhQ",
+    youtubeTitle: "Ball Joint Inspection and Replacement",
+    qChinese: "一辆配备SLA（短长臂）前悬挂的车辆下球头磨损。应如何检查球头？",
+    optionsChinese: [
+      "A) 在下控制臂下方举升并检查球头的垂直间隙",
+      "B) 在车架下方举升并检查拉杆的水平间隙",
+      "C) 在车架下方举升并检查球头的垂直间隙",
+      "D) 在下控制臂下方举升并检查拉杆的水平间隙"
+    ],
+    explanationChinese: "在弹簧位于下控制臂上的SLA悬挂中，下球头是承载球头。为了正确卸载以进行检查，应在下控制臂下方举升。然后通过向上撬动轮胎来检查垂直间隙。这样可以卸载球头以进行准确测量。"
+  },
+  {
+    id: 122,
+    q: "On a MacPherson strut suspension, which ball joint is the load-carrying joint?",
+    options: [
+      "A) The upper ball joint",
+      "B) The lower ball joint",
+      "C) There is no load-carrying ball joint; the strut carries the load",
+      "D) Both upper and lower ball joints share the load"
+    ],
+    answer: 2,
+    explanation: "On a MacPherson strut suspension, the strut assembly carries the vehicle weight through the coil spring and upper strut mount. There is no upper ball joint. The lower ball joint serves as a pivot point (follower joint) and does not carry the vehicle weight. Inspection is done by jacking under the frame.",
+    diagram: "",
+    terms: ["strut", "ball_joint", "coil_spring"],
+    image: "https://upload.wikimedia.org/wikipedia/commons/2/2c/Mcpherson_strut.jpg",
+    youtube: "https://www.youtube.com/watch?v=0gUkBWHGfRs",
+    youtubeTitle: "MacPherson Strut Replacement",
+    qChinese: "在麦弗逊式悬挂中，哪个球头是承载球头？",
+    optionsChinese: [
+      "A) 上球头",
+      "B) 下球头",
+      "C) 没有承载球头；减震器支柱承载负荷",
+      "D) 上下球头共同承载负荷"
+    ],
+    explanationChinese: "在麦弗逊式悬挂中，减震器支柱总成通过螺旋弹簧和上部支座承载车辆重量。没有上球头。下球头仅作为枢轴点（随动球头），不承载车辆重量。检查时应在车架下方举升。"
+  },
+  {
+    id: 123,
+    q: "A vehicle with rear leaf springs sags on one side. What is the MOST likely cause?",
+    options: [
+      "A) A broken leaf spring or weak spring pack",
+      "B) A worn rear shock absorber",
+      "C) A disconnected sway bar link",
+      "D) Over-inflated rear tires"
+    ],
+    answer: 0,
+    explanation: "A sagging or lower ride height on one side of a leaf spring-equipped vehicle typically indicates a broken leaf or a fatigued spring pack. Broken leaves cannot support the vehicle's weight properly. Shock absorbers control oscillation but do not support weight or affect ride height.",
+    diagram: "",
+    terms: ["leaf_spring", "shock_absorber"],
+    image: "https://upload.wikimedia.org/wikipedia/commons/thumb/7/7c/Leafs1.jpg/640px-Leafs1.jpg",
+    youtube: "https://www.youtube.com/watch?v=YA8RGICM4zU",
+    youtubeTitle: "Leaf Spring Suspension Explained",
+    qChinese: "一辆配备后钢板弹簧的车辆一侧下沉。最可能的原因是什么？",
+    optionsChinese: [
+      "A) 钢板弹簧断裂或弹簧组疲劳",
+      "B) 后减震器磨损",
+      "C) 稳定杆连杆断开",
+      "D) 后轮胎过度充气"
+    ],
+    explanationChinese: "配备钢板弹簧的车辆一侧下沉或车身高度偏低，通常表明弹簧片断裂或弹簧组疲劳。断裂的弹簧片无法正确支撑车辆重量。减震器控制振荡但不支撑重量或影响车身高度。"
+  },
+  {
+    id: 124,
+    q: "What is the function of a torsion bar in a suspension system?",
+    options: [
+      "A) To dampen spring oscillation",
+      "B) To act as the spring element by resisting twisting force",
+      "C) To connect the sway bar to the control arm",
+      "D) To maintain caster angle"
+    ],
+    answer: 1,
+    explanation: "A torsion bar is a spring element that uses its resistance to twisting to support the vehicle's weight. One end is anchored to the frame and the other to the control arm. As the control arm moves, the bar twists and then returns to its original position, acting like a coil spring.",
+    diagram: "",
+    terms: ["torsion_bar", "control_arm", "coil_spring"],
+    image: "https://upload.wikimedia.org/wikipedia/commons/thumb/4/43/Torsion_bar_suspension.jpg/640px-Torsion_bar_suspension.jpg",
+    youtube: "https://www.youtube.com/watch?v=YA8RGICM4zU",
+    youtubeTitle: "Leaf Spring Suspension Explained",
+    qChinese: "扭力杆在悬挂系统中的功能是什么？",
+    optionsChinese: [
+      "A) 抑制弹簧振荡",
+      "B) 通过抵抗扭转力作为弹簧元件",
+      "C) 将稳定杆连接到控制臂",
+      "D) 维持主销后倾角"
+    ],
+    explanationChinese: "扭力杆是一种弹簧元件，利用其对扭转的抵抗力来支撑车辆重量。一端固定在车架上，另一端固定在控制臂上。当控制臂运动时，杆件扭转然后恢复到原来的位置，其作用类似于螺旋弹簧。"
+  },
+  {
+    id: 125,
+    q: "A technician hears a rattling noise from the front suspension when driving over small bumps. Which component is MOST likely worn?",
+    options: [
+      "A) Coil springs",
+      "B) Sway bar end links",
+      "C) Strut cartridge",
+      "D) Control arm pivot shaft"
+    ],
+    answer: 1,
+    explanation: "Sway bar end links are one of the most common causes of front-end rattling over small bumps. They contain small ball studs and bushings that wear out, creating a rattling or clunking noise. They are an inexpensive and frequently replaced suspension component.",
+    diagram: "",
+    terms: ["sway_bar", "sway_bar_link", "shock_absorber"],
+    image: "https://upload.wikimedia.org/wikipedia/commons/2/2c/Mcpherson_strut.jpg",
+    youtube: "https://www.youtube.com/watch?v=KJH4E85jW7I",
+    youtubeTitle: "Sway Bar and Stabilizer Bar Explained",
+    qChinese: "技师在行驶过小颠簸时听到前悬挂发出哗啦声。哪个部件最可能磨损？",
+    optionsChinese: [
+      "A) 螺旋弹簧",
+      "B) 稳定杆连杆",
+      "C) 减震器内芯",
+      "D) 控制臂枢轴"
+    ],
+    explanationChinese: "稳定杆连杆是前悬挂在过小颠簸时发出哗啦声最常见的原因之一。它们包含小球头和衬套，磨损后会产生哗啦声或咔嗒声。这是一种价格低廉且经常更换的悬挂部件。"
+  },
+  {
+    id: 126,
+    q: "A vehicle has a cupped or scalloped tire wear pattern on the front tires. What is the MOST likely cause?",
+    options: [
+      "A) Excessive toe-out",
+      "B) Worn shock absorbers or struts",
+      "C) Excessive positive camber",
+      "D) Over-inflation"
+    ],
+    answer: 1,
+    explanation: "Cupped or scalloped tire wear (dips or cups around the tread) is caused by worn shock absorbers or struts. When the shock cannot control the tire's contact with the road, the tire bounces and skips, creating alternating high and low wear spots around the circumference.",
+    diagram: "",
+    terms: ["shock_absorber", "strut", "tire_rotation"],
+    image: "https://upload.wikimedia.org/wikipedia/commons/thumb/a/ab/Wheel_alignment.jpg/640px-Wheel_alignment.jpg",
+    youtube: "https://www.youtube.com/watch?v=DepYSarbCVg",
+    youtubeTitle: "Tire Wear Patterns and What They Mean",
+    qChinese: "车辆前轮有凹坑状或波浪状磨损。最可能的原因是什么？",
+    optionsChinese: [
+      "A) 过大的外前束",
+      "B) 减震器或支柱磨损",
+      "C) 过大的正外倾角",
+      "D) 过度充气"
+    ],
+    explanationChinese: "凹坑状或波浪状轮胎磨损（胎面上的凹陷或杯状痕迹）是由减震器或支柱磨损引起的。当减震器无法控制轮胎与路面的接触时，轮胎会弹跳和跳动，在周向产生交替的高低磨损点。"
+  },
+  {
+    id: 127,
+    q: "What happens when a control arm bushing wears out?",
+    options: [
+      "A) The steering wheel vibrates at all speeds",
+      "B) The suspension alignment shifts and clunking noise occurs",
+      "C) The brake pedal feels spongy",
+      "D) The power steering assist increases"
+    ],
+    answer: 1,
+    explanation: "Control arm bushings cushion the connection between the control arm and the vehicle frame. When they wear out, the control arm can shift during driving and braking, causing alignment changes, clunking noises over bumps, and uneven tire wear. Braking may also cause the front end to shift.",
+    diagram: "",
+    terms: ["control_arm", "ball_joint", "wheel_alignment"],
+    image: "https://upload.wikimedia.org/wikipedia/commons/2/2c/Mcpherson_strut.jpg",
+    youtube: "https://www.youtube.com/watch?v=MgCxvRCHbhQ",
+    youtubeTitle: "Ball Joint Inspection and Replacement",
+    qChinese: "控制臂衬套磨损后会发生什么？",
+    optionsChinese: [
+      "A) 方向盘在所有速度下振动",
+      "B) 悬挂定位偏移并出现咔嗒声",
+      "C) 刹车踏板感觉海绵状",
+      "D) 助力转向助力增加"
+    ],
+    explanationChinese: "控制臂衬套缓冲控制臂与车架之间的连接。当它们磨损时，控制臂在行驶和制动时会移位，导致定位变化、过减速带时咔嗒声和轮胎不均匀磨损。制动时也可能导致前端移位。"
+  },
+  {
+    id: 128,
+    q: "A vehicle with rear coil spring suspension has one corner sitting lower than the other. What should be inspected?",
+    options: [
+      "A) The rear shock absorbers",
+      "B) The rear coil springs for sagging or breakage",
+      "C) The rear sway bar",
+      "D) The rear wheel bearings"
+    ],
+    answer: 1,
+    explanation: "An uneven ride height with one corner sitting lower indicates a sagging or broken coil spring on that corner. Coil springs support the vehicle weight and maintain ride height. A weak spring compresses more under load, lowering that corner. Shock absorbers do not affect ride height.",
+    diagram: "",
+    terms: ["coil_spring", "shock_absorber"],
+    image: "https://upload.wikimedia.org/wikipedia/commons/2/2c/Mcpherson_strut.jpg",
+    youtube: "https://www.youtube.com/watch?v=0gUkBWHGfRs",
+    youtubeTitle: "MacPherson Strut Replacement",
+    qChinese: "一辆后螺旋弹簧悬挂的车辆一角比另一角低。应检查什么？",
+    optionsChinese: [
+      "A) 后减震器",
+      "B) 后螺旋弹簧是否下沉或断裂",
+      "C) 后稳定杆",
+      "D) 后轮轴承"
+    ],
+    explanationChinese: "一角车身高度偏低表明该角的螺旋弹簧下沉或断裂。螺旋弹簧支撑车辆重量并维持车身高度。弱化的弹簧在负载下压缩更多，导致该角偏低。减震器不影响车身高度。"
+  },
+  {
+    id: 129,
+    q: "Technician A says struts should always be replaced in pairs (both sides of the same axle). Technician B says a single strut can be replaced if only one is leaking. Who is correct?",
+    options: [
+      "A) Technician A only",
+      "B) Technician B only",
+      "C) Both Technician A and Technician B",
+      "D) Neither Technician A nor Technician B"
+    ],
+    answer: 0,
+    explanation: "Struts should be replaced in pairs on the same axle. Even if only one is visibly leaking, the other has the same mileage and wear. Replacing only one creates uneven damping characteristics side to side, which can affect handling, braking stability, and tire wear patterns.",
+    diagram: "",
+    terms: ["strut", "shock_absorber"],
+    image: "https://upload.wikimedia.org/wikipedia/commons/2/2c/Mcpherson_strut.jpg",
+    youtube: "https://www.youtube.com/watch?v=0gUkBWHGfRs",
+    youtubeTitle: "MacPherson Strut Replacement",
+    qChinese: "技师A说减震器支柱应始终成对更换（同一轴的两侧）。技师B说如果只有一个漏油可以单独更换。谁是正确的？",
+    optionsChinese: [
+      "A) 仅技师A正确",
+      "B) 仅技师B正确",
+      "C) 技师A和技师B都正确",
+      "D) 技师A和技师B都不正确"
+    ],
+    explanationChinese: "减震器支柱应在同一轴上成对更换。即使只有一个明显漏油，另一个也有相同的里程和磨损。仅更换一个会导致两侧阻尼特性不均，影响操控性、制动稳定性和轮胎磨损模式。"
+  },
+  {
+    id: 130,
+    q: "A creaking noise is heard from the front suspension when going over bumps at low speed. The noise goes away when the suspension components are sprayed with silicone lubricant. What is the MOST likely cause?",
+    options: [
+      "A) Worn ball joints",
+      "B) Dry or deteriorated rubber bushings or strut mounts",
+      "C) Loose wheel lug nuts",
+      "D) A bent control arm"
+    ],
+    answer: 1,
+    explanation: "A creaking noise that temporarily disappears when lubricated with silicone spray indicates dry or deteriorated rubber suspension bushings or strut mounts. The rubber-to-metal contact creates a creaking or groaning sound. While lubrication provides temporary relief, the worn components should be replaced.",
+    diagram: "",
+    terms: ["strut_mount", "control_arm", "ball_joint"],
+    image: "https://upload.wikimedia.org/wikipedia/commons/2/2c/Mcpherson_strut.jpg",
+    youtube: "https://www.youtube.com/watch?v=0gUkBWHGfRs",
+    youtubeTitle: "MacPherson Strut Replacement",
+    qChinese: "低速过减速带时前悬挂发出吱吱声。用硅润滑剂喷洒悬挂部件后噪音消失。最可能的原因是什么？",
+    optionsChinese: [
+      "A) 球头磨损",
+      "B) 橡胶衬套或减震器顶部支座干燥或老化",
+      "C) 车轮螺母松动",
+      "D) 控制臂弯曲"
+    ],
+    explanationChinese: "用硅润滑剂润滑后暂时消失的吱吱声表明橡胶悬挂衬套或减震器顶部支座干燥或老化。橡胶与金属的接触产生吱吱声或嘎嘎声。虽然润滑可以暂时缓解，但应更换磨损的部件。"
+  },
+  {
+    id: 131,
+    q: "What type of suspension uses a single lower control arm and strut with no upper control arm?",
+    options: [
+      "A) Short-Long Arm (SLA) suspension",
+      "B) MacPherson strut suspension",
+      "C) Solid axle suspension",
+      "D) Multi-link suspension"
+    ],
+    answer: 1,
+    explanation: "MacPherson strut suspension uses a single lower control arm and a strut assembly that serves as both the upper suspension pivot and the damping element. There is no upper control arm. The strut connects to the steering knuckle and the strut tower in the body.",
+    diagram: "",
+    terms: ["strut", "control_arm", "ball_joint"],
+    image: "https://upload.wikimedia.org/wikipedia/commons/2/2c/Mcpherson_strut.jpg",
+    youtube: "https://www.youtube.com/watch?v=0gUkBWHGfRs",
+    youtubeTitle: "MacPherson Strut Replacement",
+    qChinese: "哪种悬挂类型使用单个下控制臂和支柱而没有上控制臂？",
+    optionsChinese: [
+      "A) 短长臂(SLA)悬挂",
+      "B) 麦弗逊式悬挂",
+      "C) 整体桥悬挂",
+      "D) 多连杆悬挂"
+    ],
+    explanationChinese: "麦弗逊式悬挂使用单个下控制臂和一个同时作为上悬挂枢轴和阻尼元件的支柱总成。没有上控制臂。支柱连接到转向节和车身上的支柱塔。"
+  },
+  {
+    id: 132,
+    q: "A vehicle has excessive body roll during turns. All shocks and struts are in good condition. What other component should be checked?",
+    options: [
+      "A) The tie rod ends",
+      "B) The sway bar, bushings, and end links",
+      "C) The wheel bearings",
+      "D) The steering gear"
+    ],
+    answer: 1,
+    explanation: "The sway bar resists body roll during turns. If the sway bar is broken, disconnected, or its bushings and end links are severely worn, the bar cannot effectively transfer anti-roll force. This results in excessive body lean. Shocks and struts also help but the sway bar is the primary anti-roll device.",
+    diagram: "",
+    terms: ["sway_bar", "sway_bar_link", "control_arm"],
+    image: "https://upload.wikimedia.org/wikipedia/commons/2/2c/Mcpherson_strut.jpg",
+    youtube: "https://www.youtube.com/watch?v=KJH4E85jW7I",
+    youtubeTitle: "Sway Bar and Stabilizer Bar Explained",
+    qChinese: "车辆转弯时车身侧倾过大。所有减震器和支柱状态良好。还应检查哪个部件？",
+    optionsChinese: [
+      "A) 拉杆端部",
+      "B) 稳定杆、衬套和连杆",
+      "C) 车轮轴承",
+      "D) 转向器"
+    ],
+    explanationChinese: "稳定杆在转弯时抵抗车身侧倾。如果稳定杆断裂、断开或其衬套和连杆严重磨损，杆件无法有效传递抗侧倾力。这会导致车身过度倾斜。减震器和支柱也有帮助，但稳定杆是主要的抗侧倾装置。"
+  },
+  {
+    id: 133,
+    q: "During a strut replacement, what alignment angle is MOST affected and should be checked afterward?",
+    options: [
+      "A) Caster only",
+      "B) Camber only",
+      "C) Toe only",
+      "D) Camber and toe"
+    ],
+    answer: 3,
+    explanation: "When a strut is removed and reinstalled, camber can change based on the strut position in the tower and knuckle attachment. Toe is also affected because the steering geometry changes when the knuckle position shifts. A full alignment check of at least camber and toe is recommended after strut replacement.",
+    diagram: "",
+    terms: ["strut", "camber", "toe", "wheel_alignment"],
+    image: "https://upload.wikimedia.org/wikipedia/commons/thumb/a/ab/Wheel_alignment.jpg/640px-Wheel_alignment.jpg",
+    youtube: "https://www.youtube.com/watch?v=MXGi6CaKtaY",
+    youtubeTitle: "How to Perform a Wheel Alignment",
+    qChinese: "更换减震器支柱后，哪个定位角度最受影响应该检查？",
+    optionsChinese: [
+      "A) 仅主销后倾角",
+      "B) 仅外倾角",
+      "C) 仅前束",
+      "D) 外倾角和前束"
+    ],
+    explanationChinese: "拆卸和重新安装支柱时，外倾角会因支柱在塔架中的位置和转向节连接而改变。前束也会受影响，因为转向节位置变化时转向几何也会改变。建议在更换支柱后至少检查外倾角和前束。"
+  },
+  {
+    id: 134,
+    q: "What does a blue stain on a shock absorber or strut body indicate?",
+    options: [
+      "A) Normal manufacturing residue",
+      "B) A heat-related failure from overheating",
+      "C) Oil seepage that requires replacement",
+      "D) Corrosion from road salt"
+    ],
+    answer: 2,
+    explanation: "Oil seepage or a wet, oily film on the shock absorber or strut body indicates that the internal seals have failed. The hydraulic fluid is leaking out, reducing the shock's damping ability. A light film may be acceptable, but active leaking or dripping means the unit should be replaced.",
+    diagram: "",
+    terms: ["shock_absorber", "strut"],
+    image: "https://upload.wikimedia.org/wikipedia/commons/2/2c/Mcpherson_strut.jpg",
+    youtube: "https://www.youtube.com/watch?v=0gUkBWHGfRs",
+    youtubeTitle: "MacPherson Strut Replacement",
+    qChinese: "减震器或支柱本体上的蓝色污渍表明什么？",
+    optionsChinese: [
+      "A) 正常的制造残留物",
+      "B) 过热导致的热失效",
+      "C) 需要更换的油液渗漏",
+      "D) 道路盐分造成的腐蚀"
+    ],
+    explanationChinese: "减震器或支柱本体上的油液渗漏或湿润油膜表明内部密封件已失效。液压油正在泄漏，降低了减震器的阻尼能力。轻微的油膜可能可以接受，但活跃的泄漏或滴漏意味着该部件应该更换。"
+  },
+  {
+    id: 135,
+    q: "A vehicle equipped with air suspension has one corner that drops overnight. What is the MOST likely cause?",
+    options: [
+      "A) A faulty compressor relay",
+      "B) A leaking air spring or air line on that corner",
+      "C) A faulty ride height sensor",
+      "D) A weak battery"
+    ],
+    answer: 1,
+    explanation: "A single corner that drops overnight indicates an air leak specific to that corner. The most common causes are a leaking air spring (air bag), a cracked or disconnected air line, or a leaking valve block. The compressor only runs to maintain height and cannot compensate for a continuous leak when the vehicle is off.",
+    diagram: "",
+    terms: ["coil_spring", "shock_absorber"],
+    image: "https://upload.wikimedia.org/wikipedia/commons/2/2c/Mcpherson_strut.jpg",
+    youtube: "https://www.youtube.com/watch?v=0gUkBWHGfRs",
+    youtubeTitle: "MacPherson Strut Replacement",
+    qChinese: "一辆配备空气悬挂的车辆一角在过夜后下沉。最可能的原因是什么？",
+    optionsChinese: [
+      "A) 压缩机继电器故障",
+      "B) 该角的空气弹簧或气管泄漏",
+      "C) 车身高度传感器故障",
+      "D) 蓄电池电力不足"
+    ],
+    explanationChinese: "单个角落过夜后下沉表明该角有特定的空气泄漏。最常见的原因是空气弹簧（气囊）泄漏、气管破裂或断开、或阀体泄漏。压缩机仅在车辆运行时运转以维持高度，车辆关闭时无法补偿持续泄漏。"
+  },
+  {
+    id: 136,
+    q: "Technician A says a worn strut mount bearing can cause steering binding. Technician B says a worn strut mount can cause a clunking noise when turning. Who is correct?",
+    options: [
+      "A) Technician A only",
+      "B) Technician B only",
+      "C) Both Technician A and Technician B",
+      "D) Neither Technician A nor Technician B"
+    ],
+    answer: 2,
+    explanation: "Both technicians are correct. The strut mount bearing allows the strut to rotate with steering. If the bearing is worn or seized, it creates resistance and a binding feel when turning. A worn strut mount also produces clunking noises over bumps and when the steering direction is changed.",
+    diagram: "",
+    terms: ["strut_mount", "strut", "shock_absorber"],
+    image: "https://upload.wikimedia.org/wikipedia/commons/2/2c/Mcpherson_strut.jpg",
+    youtube: "https://www.youtube.com/watch?v=0gUkBWHGfRs",
+    youtubeTitle: "MacPherson Strut Replacement",
+    qChinese: "技师A说磨损的减震器顶部支座轴承会导致转向卡滞。技师B说磨损的减震器顶部支座会在转向时发出咔嗒声。谁是正确的？",
+    optionsChinese: [
+      "A) 仅技师A正确",
+      "B) 仅技师B正确",
+      "C) 技师A和技师B都正确",
+      "D) 技师A和技师B都不正确"
+    ],
+    explanationChinese: "两位技师都是正确的。减震器顶部支座轴承允许支柱随转向旋转。如果轴承磨损或卡住，转向时会产生阻力和卡滞感。磨损的减震器顶部支座在过减速带和改变转向方向时也会产生咔嗒声。"
+  },
+  {
+    id: 137,
+    q: "What is the correct procedure to measure ball joint axial play on a load-carrying ball joint?",
+    options: [
+      "A) Lift the vehicle by the frame, place a dial indicator on the knuckle, and pry up on the tire",
+      "B) Lift the vehicle by the lower control arm and check for lateral play",
+      "C) Unload the ball joint by proper jacking and use a dial indicator to measure vertical play",
+      "D) Rock the tire side to side at 12 and 6 o'clock"
+    ],
+    answer: 2,
+    explanation: "To accurately measure ball joint axial (vertical) play, the joint must first be unloaded by jacking at the correct point. A dial indicator is then placed to measure vertical movement while prying. The maximum allowable play is specified by the vehicle manufacturer.",
+    diagram: "",
+    terms: ["ball_joint", "control_arm"],
+    image: "https://upload.wikimedia.org/wikipedia/commons/2/2c/Mcpherson_strut.jpg",
+    youtube: "https://www.youtube.com/watch?v=MgCxvRCHbhQ",
+    youtubeTitle: "Ball Joint Inspection and Replacement",
+    qChinese: "测量承载球头轴向间隙的正确程序是什么？",
+    optionsChinese: [
+      "A) 用车架举升车辆，将百分表放在转向节上，向上撬动轮胎",
+      "B) 用下控制臂举升车辆并检查横向间隙",
+      "C) 通过正确的举升位置卸载球头并使用百分表测量垂直间隙",
+      "D) 在12点和6点方向左右摇晃轮胎"
+    ],
+    explanationChinese: "要准确测量球头的轴向（垂直）间隙，必须首先在正确的位置举升以卸载球头。然后放置百分表在撬动时测量垂直运动。最大允许间隙由车辆制造商规定。"
+  },
+  {
+    id: 138,
+    q: "A vehicle with independent rear suspension has a knocking noise from the rear when going over bumps. What should be inspected FIRST?",
+    options: [
+      "A) The rear differential mount",
+      "B) The rear control arm bushings and shock absorbers",
+      "C) The rear brake pads",
+      "D) The rear exhaust hangers"
+    ],
+    answer: 1,
+    explanation: "On independent rear suspension, knocking over bumps is commonly caused by worn control arm bushings, worn shock absorbers, or worn sway bar end links. These components absorb impact and maintain alignment. The bushings and shocks should be inspected first as they are the most common causes.",
+    diagram: "",
+    terms: ["control_arm", "shock_absorber", "sway_bar_link"],
+    image: "https://upload.wikimedia.org/wikipedia/commons/2/2c/Mcpherson_strut.jpg",
+    youtube: "https://www.youtube.com/watch?v=0gUkBWHGfRs",
+    youtubeTitle: "MacPherson Strut Replacement",
+    qChinese: "配备独立后悬挂的车辆过减速带时后部有敲击声。应首先检查什么？",
+    optionsChinese: [
+      "A) 后差速器支座",
+      "B) 后控制臂衬套和减震器",
+      "C) 后刹车片",
+      "D) 后排气管吊架"
+    ],
+    explanationChinese: "在独立后悬挂上，过减速带时的敲击声通常由磨损的控制臂衬套、减震器或稳定杆连杆引起。这些部件吸收冲击并维持定位。衬套和减震器应首先检查，因为它们是最常见的原因。"
+  },
+  {
+    id: 139,
+    q: "What is the purpose of a jounce bumper (bump stop) on a strut or shock absorber?",
+    options: [
+      "A) To limit maximum suspension droop",
+      "B) To prevent metal-to-metal contact when the suspension fully compresses",
+      "C) To support the vehicle weight",
+      "D) To maintain proper ride height"
+    ],
+    answer: 1,
+    explanation: "The jounce bumper (bump stop) is a rubber or foam cushion on the strut or shock shaft that prevents metal-to-metal contact when the suspension reaches full compression (jounce). Without it, the suspension would bottom out harshly, potentially damaging the strut, spring, or body mounting points.",
+    diagram: "",
+    terms: ["strut", "shock_absorber", "coil_spring"],
+    image: "https://upload.wikimedia.org/wikipedia/commons/2/2c/Mcpherson_strut.jpg",
+    youtube: "https://www.youtube.com/watch?v=0gUkBWHGfRs",
+    youtubeTitle: "MacPherson Strut Replacement",
+    qChinese: "减震器或支柱上缓冲块（限位块）的作用是什么？",
+    optionsChinese: [
+      "A) 限制悬挂最大拉伸量",
+      "B) 防止悬挂完全压缩时金属与金属接触",
+      "C) 支撑车辆重量",
+      "D) 维持正确的车身高度"
+    ],
+    explanationChinese: "缓冲块（限位块）是安装在支柱或减震器轴上的橡胶或泡沫垫，防止悬挂达到完全压缩（跳动）时金属与金属接触。没有它，悬挂会剧烈触底，可能损坏支柱、弹簧或车身安装点。"
+  },
+  {
+    id: 140,
+    q: "A vehicle with a solid rear axle and leaf springs wanders at highway speed. What is the MOST likely cause?",
+    options: [
+      "A) Worn front ball joints",
+      "B) Worn or broken rear leaf spring center bolt or U-bolts",
+      "C) Low tire pressure in the front tires",
+      "D) A worn steering gear"
+    ],
+    answer: 1,
+    explanation: "On a solid rear axle with leaf springs, the center bolt and U-bolts locate the axle to the springs. If the center bolt shears or U-bolts loosen, the axle can shift, causing the thrust angle to change. This makes the rear axle point in a different direction than the front, causing highway wandering.",
+    diagram: "",
+    terms: ["leaf_spring", "thrust_angle", "wheel_alignment"],
+    image: "https://upload.wikimedia.org/wikipedia/commons/thumb/7/7c/Leafs1.jpg/640px-Leafs1.jpg",
+    youtube: "https://www.youtube.com/watch?v=YA8RGICM4zU",
+    youtubeTitle: "Leaf Spring Suspension Explained",
+    qChinese: "一辆配备整体后桥和钢板弹簧的车辆在高速公路上行驶不稳。最可能的原因是什么？",
+    optionsChinese: [
+      "A) 前球头磨损",
+      "B) 后钢板弹簧中心螺栓或U型螺栓磨损或断裂",
+      "C) 前轮胎气压偏低",
+      "D) 转向器磨损"
+    ],
+    explanationChinese: "在配备钢板弹簧的整体后桥上，中心螺栓和U型螺栓将车桥定位在弹簧上。如果中心螺栓剪断或U型螺栓松动，车桥可以移位，导致推力角改变。这使得后桥指向与前部不同的方向，导致高速公路上行驶不稳。"
+  },
+  {
+    id: 141,
+    q: "What is the primary difference between a strut and a shock absorber?",
+    options: [
+      "A) A strut is a structural component that supports vehicle weight; a shock is not",
+      "B) A shock absorber supports vehicle weight; a strut does not",
+      "C) A strut uses gas; a shock uses oil only",
+      "D) There is no functional difference between the two"
+    ],
+    answer: 0,
+    explanation: "A strut is a structural component that is part of the suspension's load-bearing structure, serving as the upper pivot point for the steering knuckle and supporting vehicle weight through its spring. A shock absorber only controls spring oscillation and is not a structural member.",
+    diagram: "",
+    terms: ["strut", "shock_absorber", "coil_spring"],
+    image: "https://upload.wikimedia.org/wikipedia/commons/2/2c/Mcpherson_strut.jpg",
+    youtube: "https://www.youtube.com/watch?v=0gUkBWHGfRs",
+    youtubeTitle: "MacPherson Strut Replacement",
+    qChinese: "支柱和减震器之间的主要区别是什么？",
+    optionsChinese: [
+      "A) 支柱是支撑车辆重量的结构部件；减震器不是",
+      "B) 减震器支撑车辆重量；支柱不支撑",
+      "C) 支柱使用气体；减震器仅使用油液",
+      "D) 两者之间没有功能差异"
+    ],
+    explanationChinese: "支柱是悬挂承载结构的一部分，作为转向节的上枢轴点并通过其弹簧支撑车辆重量。减震器仅控制弹簧振荡，不是结构部件。"
+  },
+  // ===== WHEEL ALIGNMENT II (Questions 142-175) =====
+  {
+    id: 142,
+    q: "What tire wear pattern does excessive positive camber cause?",
+    options: [
+      "A) Wear on the inside edge of the tire",
+      "B) Wear on the outside edge of the tire",
+      "C) Center wear on the tire",
+      "D) Cupped or scalloped wear"
+    ],
+    answer: 1,
+    explanation: "Excessive positive camber tilts the top of the tire outward, placing more load on the outside edge of the tire tread. Over time, this causes accelerated wear on the outside edge. Negative camber causes inside edge wear. Center wear is from over-inflation.",
+    diagram: "",
+    terms: ["camber", "wheel_alignment", "tire_rotation"],
+    image: "https://upload.wikimedia.org/wikipedia/commons/thumb/a/ab/Wheel_alignment.jpg/640px-Wheel_alignment.jpg",
+    youtube: "https://www.youtube.com/watch?v=MXGi6CaKtaY",
+    youtubeTitle: "How to Perform a Wheel Alignment",
+    qChinese: "过大的正外倾角会导致什么轮胎磨损模式？",
+    optionsChinese: [
+      "A) 轮胎内侧边缘磨损",
+      "B) 轮胎外侧边缘磨损",
+      "C) 轮胎中心磨损",
+      "D) 凹坑状或波浪状磨损"
+    ],
+    explanationChinese: "过大的正外倾角使轮胎顶部向外倾斜，在轮胎胎面外侧边缘施加更多负载。随着时间推移，这会导致外侧边缘加速磨损。负外倾角导致内侧边缘磨损。中心磨损是由过度充气引起的。"
+  },
+  {
+    id: 143,
+    q: "A vehicle pulls to the right while driving on a flat, level road. The tire pressures are equal and correct. Which alignment angle is MOST likely the cause?",
+    options: [
+      "A) Unequal toe settings",
+      "B) Unequal caster angles side to side",
+      "C) Excessive positive camber on the left side",
+      "D) Excessive thrust angle"
+    ],
+    answer: 1,
+    explanation: "Unequal caster angles side to side are the primary alignment cause of a pull. The vehicle pulls toward the side with less positive caster. While unequal camber can contribute to a pull, caster is the dominant factor. Toe affects tire wear more than directional pull.",
+    diagram: "",
+    terms: ["caster", "camber", "wheel_alignment"],
+    image: "https://upload.wikimedia.org/wikipedia/commons/thumb/a/ab/Wheel_alignment.jpg/640px-Wheel_alignment.jpg",
+    youtube: "https://www.youtube.com/watch?v=MXGi6CaKtaY",
+    youtubeTitle: "How to Perform a Wheel Alignment",
+    qChinese: "车辆在平坦水平路面上行驶时向右跑偏。轮胎气压相等且正确。哪个定位角度最可能是原因？",
+    optionsChinese: [
+      "A) 不等的前束设定",
+      "B) 两侧不等的主销后倾角",
+      "C) 左侧过大的正外倾角",
+      "D) 过大的推力角"
+    ],
+    explanationChinese: "两侧不等的主销后倾角是导致跑偏的主要定位原因。车辆向正主销后倾角较小的一侧跑偏。虽然不等的外倾角也可能导致跑偏，但主销后倾角是主导因素。前束主要影响轮胎磨损而非方向性跑偏。"
+  },
+  {
+    id: 144,
+    q: "What is the thrust angle?",
+    options: [
+      "A) The angle between the vehicle's centerline and the direction the rear axle points",
+      "B) The angle of the steering axis when viewed from the side",
+      "C) The inward or outward tilt of the tire viewed from the front",
+      "D) The angle of the tie rod relative to the center link"
+    ],
+    answer: 0,
+    explanation: "The thrust angle is the angle between the vehicle's geometric centerline and the thrust line (the direction the rear wheels are pointing). A non-zero thrust angle means the rear axle is not perpendicular to the centerline, which can cause the vehicle to drive at a slight angle (dog tracking).",
+    diagram: "",
+    terms: ["thrust_angle", "wheel_alignment", "toe"],
+    image: "https://upload.wikimedia.org/wikipedia/commons/thumb/a/ab/Wheel_alignment.jpg/640px-Wheel_alignment.jpg",
+    youtube: "https://www.youtube.com/watch?v=MXGi6CaKtaY",
+    youtubeTitle: "How to Perform a Wheel Alignment",
+    qChinese: "什么是推力角？",
+    optionsChinese: [
+      "A) 车辆中心线与后桥指向之间的角度",
+      "B) 从侧面看转向轴的角度",
+      "C) 从前面看轮胎向内或向外的倾斜",
+      "D) 拉杆相对于中间连杆的角度"
+    ],
+    explanationChinese: "推力角是车辆几何中心线与推力线（后轮指向的方向）之间的角度。非零推力角意味着后桥不垂直于中心线，这会导致车辆以轻微的角度行驶（蟹行）。"
+  },
+  {
+    id: 145,
+    q: "Excessive toe-in on the front wheels causes what type of tire wear?",
+    options: [
+      "A) Wear on the outside edges of both tires",
+      "B) Feathered wear with the sharp edge pointing outward",
+      "C) Center wear on both tires",
+      "D) Cupped wear on both tires"
+    ],
+    answer: 1,
+    explanation: "Excessive toe-in causes a feathered wear pattern across the tread. Each tread block develops a sharp edge on the outside and a smooth edge on the inside. This occurs because the tires are pointed slightly inward but must travel straight, scrubbing the tread at an angle.",
+    diagram: "",
+    terms: ["toe", "wheel_alignment", "tire_rotation"],
+    image: "https://upload.wikimedia.org/wikipedia/commons/thumb/a/ab/Wheel_alignment.jpg/640px-Wheel_alignment.jpg",
+    youtube: "https://www.youtube.com/watch?v=MXGi6CaKtaY",
+    youtubeTitle: "How to Perform a Wheel Alignment",
+    qChinese: "前轮过大的内前束会导致什么类型的轮胎磨损？",
+    optionsChinese: [
+      "A) 两个轮胎外侧边缘磨损",
+      "B) 锯齿状磨损，锐边朝外",
+      "C) 两个轮胎中心磨损",
+      "D) 两个轮胎凹坑状磨损"
+    ],
+    explanationChinese: "过大的内前束导致胎面出现锯齿状磨损。每个胎面花纹块外侧形成锐边，内侧形成平滑边。这是因为轮胎略微向内指向但必须直线行驶，导致胎面以一定角度摩擦磨损。"
+  },
+  {
+    id: 146,
+    q: "Which alignment angle promotes steering wheel return-to-center after a turn?",
+    options: [
+      "A) Camber",
+      "B) Toe",
+      "C) Caster",
+      "D) Thrust angle"
+    ],
+    answer: 2,
+    explanation: "Positive caster tilts the steering axis rearward at the top, creating a trailing effect similar to a shopping cart caster. This creates a self-centering force that causes the steering wheel to return to center after a turn. More positive caster provides stronger return-to-center feel.",
+    diagram: "",
+    terms: ["caster", "wheel_alignment"],
+    image: "https://upload.wikimedia.org/wikipedia/commons/thumb/a/ab/Wheel_alignment.jpg/640px-Wheel_alignment.jpg",
+    youtube: "https://www.youtube.com/watch?v=MXGi6CaKtaY",
+    youtubeTitle: "How to Perform a Wheel Alignment",
+    qChinese: "哪个定位角度促进转向后方向盘回正？",
+    optionsChinese: [
+      "A) 外倾角",
+      "B) 前束",
+      "C) 主销后倾角",
+      "D) 推力角"
+    ],
+    explanationChinese: "正主销后倾角使转向轴顶部向后倾斜，产生类似购物车脚轮的拖曳效应。这产生自回正力，使方向盘在转弯后回到中心位置。更大的正主销后倾角提供更强的回正感。"
+  },
+  {
+    id: 147,
+    q: "A four-wheel alignment shows the rear toe is toe-out on one side. What will this cause?",
+    options: [
+      "A) Inside edge wear on the front tires",
+      "B) Dog tracking and off-center steering wheel",
+      "C) Excessive body roll",
+      "D) A harsh ride"
+    ],
+    answer: 1,
+    explanation: "Rear toe-out on one side creates a thrust angle that points the rear of the vehicle off to one side. This causes the vehicle to dog track (drive at a slight angle) and the steering wheel to be off-center as the front wheels compensate. It can also cause accelerated rear tire wear.",
+    diagram: "",
+    terms: ["toe", "thrust_angle", "wheel_alignment"],
+    image: "https://upload.wikimedia.org/wikipedia/commons/thumb/a/ab/Wheel_alignment.jpg/640px-Wheel_alignment.jpg",
+    youtube: "https://www.youtube.com/watch?v=MXGi6CaKtaY",
+    youtubeTitle: "How to Perform a Wheel Alignment",
+    qChinese: "四轮定位显示后轮一侧为外前束。这会导致什么？",
+    optionsChinese: [
+      "A) 前轮胎内侧边缘磨损",
+      "B) 蟹行和方向盘偏移",
+      "C) 车身侧倾过大",
+      "D) 颠簸的乘坐感"
+    ],
+    explanationChinese: "一侧后轮外前束会产生将车辆后部指向一侧的推力角。这导致车辆蟹行（以轻微角度行驶），前轮补偿时方向盘偏离中心。还可能导致后轮胎加速磨损。"
+  },
+  {
+    id: 148,
+    q: "Technician A says SAI (Steering Axis Inclination) is adjustable on most vehicles. Technician B says SAI is a diagnostic angle used to identify bent or damaged components. Who is correct?",
+    options: [
+      "A) Technician A only",
+      "B) Technician B only",
+      "C) Both Technician A and Technician B",
+      "D) Neither Technician A nor Technician B"
+    ],
+    answer: 1,
+    explanation: "SAI (Steering Axis Inclination) is not adjustable because it is determined by the physical geometry of the steering knuckle and suspension mounting points. It is used as a diagnostic angle to identify bent spindles, knuckles, strut towers, or control arms by comparing side-to-side readings.",
+    diagram: "",
+    terms: ["wheel_alignment", "camber", "caster"],
+    image: "https://upload.wikimedia.org/wikipedia/commons/thumb/a/ab/Wheel_alignment.jpg/640px-Wheel_alignment.jpg",
+    youtube: "https://www.youtube.com/watch?v=MXGi6CaKtaY",
+    youtubeTitle: "How to Perform a Wheel Alignment",
+    qChinese: "技师A说转向轴倾角(SAI)在大多数车辆上是可调的。技师B说SAI是用于识别弯曲或损坏部件的诊断角度。谁是正确的？",
+    optionsChinese: [
+      "A) 仅技师A正确",
+      "B) 仅技师B正确",
+      "C) 技师A和技师B都正确",
+      "D) 技师A和技师B都不正确"
+    ],
+    explanationChinese: "转向轴倾角(SAI)不可调，因为它由转向节和悬挂安装点的物理几何形状决定。它用作诊断角度，通过比较两侧读数来识别弯曲的主轴、转向节、减震器塔或控制臂。"
+  },
+  {
+    id: 149,
+    q: "When performing a wheel alignment, which angle should be adjusted FIRST?",
+    options: [
+      "A) Front toe",
+      "B) Rear toe",
+      "C) Front camber",
+      "D) Caster"
+    ],
+    answer: 3,
+    explanation: "The correct alignment sequence is caster first, then camber, then toe. Caster is adjusted first because it can affect camber readings. Camber is set next because it can affect toe. Toe is always adjusted last. On a four-wheel alignment, rear angles should be set before front angles.",
+    diagram: "",
+    terms: ["caster", "camber", "toe", "wheel_alignment"],
+    image: "https://upload.wikimedia.org/wikipedia/commons/thumb/a/ab/Wheel_alignment.jpg/640px-Wheel_alignment.jpg",
+    youtube: "https://www.youtube.com/watch?v=MXGi6CaKtaY",
+    youtubeTitle: "How to Perform a Wheel Alignment",
+    qChinese: "进行四轮定位时，应首先调整哪个角度？",
+    optionsChinese: [
+      "A) 前轮前束",
+      "B) 后轮前束",
+      "C) 前轮外倾角",
+      "D) 主销后倾角"
+    ],
+    explanationChinese: "正确的定位调整顺序是先主销后倾角，然后外倾角，最后前束。首先调整主销后倾角因为它会影响外倾角读数。然后设定外倾角因为它会影响前束。前束总是最后调整。在四轮定位中，后部角度应在前部角度之前设定。"
+  },
+  {
+    id: 150,
+    q: "A vehicle has a memory steer condition where the steering wheel stays turned slightly in the direction of the last turn. What is the MOST likely cause?",
+    options: [
+      "A) Excessive positive caster",
+      "B) A binding upper strut mount bearing",
+      "C) Low power steering fluid",
+      "D) Worn tie rod ends"
+    ],
+    answer: 1,
+    explanation: "Memory steer is a condition where the steering does not return to center after a turn and remembers the last steering input. This is typically caused by a binding strut mount bearing, a tight steering column bearing, or a binding ball joint that prevents the steering from self-centering.",
+    diagram: "",
+    terms: ["strut_mount", "caster", "wheel_alignment"],
+    image: "https://upload.wikimedia.org/wikipedia/commons/thumb/a/ab/Wheel_alignment.jpg/640px-Wheel_alignment.jpg",
+    youtube: "https://www.youtube.com/watch?v=MXGi6CaKtaY",
+    youtubeTitle: "How to Perform a Wheel Alignment",
+    qChinese: "车辆有记忆转向现象，方向盘在最后一次转弯后保持略微转向该方向。最可能的原因是什么？",
+    optionsChinese: [
+      "A) 过大的正主销后倾角",
+      "B) 减震器顶部支座轴承卡滞",
+      "C) 助力转向液偏低",
+      "D) 拉杆端部磨损"
+    ],
+    explanationChinese: "记忆转向是转向在转弯后不回正并记住最后转向输入的现象。这通常由减震器顶部支座轴承卡滞、转向柱轴承紧固或球头卡滞导致，阻止了转向自回正。"
+  },
+  {
+    id: 151,
+    q: "What is the included angle in wheel alignment?",
+    options: [
+      "A) The sum of camber and SAI (Steering Axis Inclination)",
+      "B) The sum of caster and camber",
+      "C) The difference between left and right toe",
+      "D) The angle between the thrust line and the vehicle centerline"
+    ],
+    answer: 0,
+    explanation: "The included angle is the sum of camber and SAI on the same wheel. It is used as a diagnostic angle to determine if a spindle or knuckle is bent. If SAI is correct but the included angle is wrong, the spindle is bent. If SAI is also wrong, the strut tower or control arm may be damaged.",
+    diagram: "",
+    terms: ["camber", "wheel_alignment"],
+    image: "https://upload.wikimedia.org/wikipedia/commons/thumb/a/ab/Wheel_alignment.jpg/640px-Wheel_alignment.jpg",
+    youtube: "https://www.youtube.com/watch?v=MXGi6CaKtaY",
+    youtubeTitle: "How to Perform a Wheel Alignment",
+    qChinese: "四轮定位中的包含角是什么？",
+    optionsChinese: [
+      "A) 外倾角和转向轴倾角(SAI)之和",
+      "B) 主销后倾角和外倾角之和",
+      "C) 左右前束之差",
+      "D) 推力线与车辆中心线之间的角度"
+    ],
+    explanationChinese: "包含角是同一车轮上外倾角和转向轴倾角的总和。它用作诊断角度来确定主轴或转向节是否弯曲。如果SAI正确但包含角错误，则主轴弯曲。如果SAI也错误，则减震器塔或控制臂可能损坏。"
+  },
+  {
+    id: 152,
+    q: "A customer complains that the vehicle drifts to the right on a crowned road but tracks straight on a flat road. Is this normal?",
+    options: [
+      "A) No, this indicates incorrect caster",
+      "B) No, this indicates incorrect camber",
+      "C) Yes, this is normal due to road crown",
+      "D) No, this indicates a thrust angle problem"
+    ],
+    answer: 2,
+    explanation: "A slight drift toward the right on a crowned road is normal. Road crown is the slight slope built into roads for water drainage that causes vehicles to drift toward the lower (right) side. Many manufacturers specify slightly more positive caster on the left to compensate.",
+    diagram: "",
+    terms: ["caster", "camber", "wheel_alignment"],
+    image: "https://upload.wikimedia.org/wikipedia/commons/thumb/a/ab/Wheel_alignment.jpg/640px-Wheel_alignment.jpg",
+    youtube: "https://www.youtube.com/watch?v=MXGi6CaKtaY",
+    youtubeTitle: "How to Perform a Wheel Alignment",
+    qChinese: "客户抱怨车辆在有路拱的道路上向右漂移，但在平坦路面上直行正常。这正常吗？",
+    optionsChinese: [
+      "A) 不正常，这表明主销后倾角不正确",
+      "B) 不正常，这表明外倾角不正确",
+      "C) 正常，这是由路拱引起的",
+      "D) 不正常，这表明推力角有问题"
+    ],
+    explanationChinese: "在有路拱的道路上轻微向右漂移是正常的。路拱是道路为排水而设计的轻微坡度，导致车辆向较低的（右侧）漂移。许多制造商规定左侧稍大的正主销后倾角来补偿。"
+  },
+  {
+    id: 153,
+    q: "What is the result of too much toe-out on the front wheels?",
+    options: [
+      "A) Feathered tire wear with sharp edges pointing inward",
+      "B) Wear on the outside edges only",
+      "C) Center wear on both tires",
+      "D) No effect on tire wear"
+    ],
+    answer: 0,
+    explanation: "Excessive toe-out causes a feathered tire wear pattern, but the sharp edges of the tread blocks point inward (opposite of toe-in wear). The tires are pointing slightly outward but must travel straight, scrubbing the tread and creating the feathered pattern in the opposite direction.",
+    diagram: "",
+    terms: ["toe", "wheel_alignment", "tire_rotation"],
+    image: "https://upload.wikimedia.org/wikipedia/commons/thumb/a/ab/Wheel_alignment.jpg/640px-Wheel_alignment.jpg",
+    youtube: "https://www.youtube.com/watch?v=MXGi6CaKtaY",
+    youtubeTitle: "How to Perform a Wheel Alignment",
+    qChinese: "前轮过大的外前束会导致什么结果？",
+    optionsChinese: [
+      "A) 锯齿状轮胎磨损，锐边朝内",
+      "B) 仅外侧边缘磨损",
+      "C) 两个轮胎中心磨损",
+      "D) 对轮胎磨损无影响"
+    ],
+    explanationChinese: "过大的外前束导致锯齿状轮胎磨损，但胎面花纹块的锐边朝内（与内前束磨损相反）。轮胎略微向外指向但必须直线行驶，摩擦胎面并在相反方向产生锯齿状磨损。"
+  },
+  {
+    id: 154,
+    q: "After hitting a large pothole, a vehicle's steering wheel is now off-center but the vehicle tracks straight. What is the MOST likely cause?",
+    options: [
+      "A) A bent rim",
+      "B) The front toe was knocked out of specification, shifting equally on both sides",
+      "C) A broken coil spring",
+      "D) A damaged TPMS sensor"
+    ],
+    answer: 1,
+    explanation: "An off-center steering wheel with straight tracking after an impact typically means the toe setting was disturbed equally on both sides, or one tie rod was pushed. Total toe may still be in spec but is not equally distributed. A realignment adjusting individual toe will center the steering wheel.",
+    diagram: "",
+    terms: ["toe", "tie_rod", "wheel_alignment"],
+    image: "https://upload.wikimedia.org/wikipedia/commons/thumb/a/ab/Wheel_alignment.jpg/640px-Wheel_alignment.jpg",
+    youtube: "https://www.youtube.com/watch?v=MXGi6CaKtaY",
+    youtubeTitle: "How to Perform a Wheel Alignment",
+    qChinese: "撞到大坑后，车辆方向盘偏移但车辆直行正常。最可能的原因是什么？",
+    optionsChinese: [
+      "A) 轮辋弯曲",
+      "B) 前轮前束被撞出规格，两侧等量偏移",
+      "C) 螺旋弹簧断裂",
+      "D) TPMS传感器损坏"
+    ],
+    explanationChinese: "撞击后方向盘偏移但直行正常通常意味着两侧前束设定被等量扰动，或一个拉杆被推移。总前束可能仍在规格内但分布不均。通过调整各侧前束的四轮定位可以使方向盘回正。"
+  },
+  {
+    id: 155,
+    q: "What effect does negative camber have on tire wear?",
+    options: [
+      "A) Wear on the outside edge of the tire",
+      "B) Wear on the inside edge of the tire",
+      "C) Center wear on the tire",
+      "D) Even wear across the tread"
+    ],
+    answer: 1,
+    explanation: "Negative camber tilts the top of the tire inward toward the vehicle center. This places more load on the inside edge of the tire tread, causing accelerated wear on that edge. Slight negative camber is normal for handling, but excessive negative camber causes rapid inside edge wear.",
+    diagram: "",
+    terms: ["camber", "wheel_alignment", "tire_rotation"],
+    image: "https://upload.wikimedia.org/wikipedia/commons/thumb/a/ab/Wheel_alignment.jpg/640px-Wheel_alignment.jpg",
+    youtube: "https://www.youtube.com/watch?v=MXGi6CaKtaY",
+    youtubeTitle: "How to Perform a Wheel Alignment",
+    qChinese: "负外倾角对轮胎磨损有什么影响？",
+    optionsChinese: [
+      "A) 轮胎外侧边缘磨损",
+      "B) 轮胎内侧边缘磨损",
+      "C) 轮胎中心磨损",
+      "D) 胎面均匀磨损"
+    ],
+    explanationChinese: "负外倾角使轮胎顶部向车辆中心倾斜。这在轮胎胎面内侧边缘施加更多负载，导致该边缘加速磨损。轻微的负外倾角对操控是正常的，但过大的负外倾角会导致内侧边缘快速磨损。"
+  },
+  {
+    id: 156,
+    q: "What must be done before performing a wheel alignment on a vehicle?",
+    options: [
+      "A) Replace all four tires",
+      "B) Inspect and correct any worn suspension and steering components",
+      "C) Disconnect the battery",
+      "D) Remove the spare tire"
+    ],
+    answer: 1,
+    explanation: "Before performing an alignment, all suspension and steering components must be inspected and any worn parts replaced. Aligning a vehicle with worn ball joints, tie rod ends, or bushings is pointless because the alignment will not hold. Tire condition and pressures should also be checked.",
+    diagram: "",
+    terms: ["wheel_alignment", "ball_joint", "tie_rod", "control_arm"],
+    image: "https://upload.wikimedia.org/wikipedia/commons/thumb/a/ab/Wheel_alignment.jpg/640px-Wheel_alignment.jpg",
+    youtube: "https://www.youtube.com/watch?v=MXGi6CaKtaY",
+    youtubeTitle: "How to Perform a Wheel Alignment",
+    qChinese: "在进行四轮定位之前必须做什么？",
+    optionsChinese: [
+      "A) 更换全部四条轮胎",
+      "B) 检查并修复任何磨损的悬挂和转向部件",
+      "C) 断开蓄电池",
+      "D) 取下备胎"
+    ],
+    explanationChinese: "在进行定位之前，必须检查所有悬挂和转向部件并更换任何磨损的零件。在球头、拉杆端部或衬套磨损的情况下进行定位是无意义的，因为定位无法保持。还应检查轮胎状况和气压。"
+  },
+  {
+    id: 157,
+    q: "On a vehicle with adjustable camber, what is typically used to make the adjustment?",
+    options: [
+      "A) Shims, eccentric bolts, or slotted holes",
+      "B) Adjusting the tie rod length",
+      "C) Rotating the torsion bar key",
+      "D) Adjusting the sway bar preload"
+    ],
+    answer: 0,
+    explanation: "Camber is typically adjusted using shims between the upper control arm and frame, eccentric (cam) bolts at the control arm pivot or strut-to-knuckle connection, or slotted mounting holes. The specific method depends on the vehicle design. Tie rod adjustment changes toe, not camber.",
+    diagram: "",
+    terms: ["camber", "wheel_alignment", "control_arm"],
+    image: "https://upload.wikimedia.org/wikipedia/commons/thumb/a/ab/Wheel_alignment.jpg/640px-Wheel_alignment.jpg",
+    youtube: "https://www.youtube.com/watch?v=MXGi6CaKtaY",
+    youtubeTitle: "How to Perform a Wheel Alignment",
+    qChinese: "在可调外倾角的车辆上，通常使用什么进行调整？",
+    optionsChinese: [
+      "A) 垫片、偏心螺栓或长圆孔",
+      "B) 调整拉杆长度",
+      "C) 旋转扭力杆键",
+      "D) 调整稳定杆预载"
+    ],
+    explanationChinese: "外倾角通常使用上控制臂和车架之间的垫片、控制臂枢轴或支柱与转向节连接处的偏心（凸轮）螺栓或长圆安装孔来调整。具体方法取决于车辆设计。拉杆调整改变前束而非外倾角。"
+  },
+  {
+    id: 158,
+    q: "A vehicle has both front tires wearing rapidly on the inside edges. The camber readings are within specification. What else should be checked?",
+    options: [
+      "A) Caster angle",
+      "B) Rear toe and thrust angle",
+      "C) Tire pressure and negative camber at ride height under load",
+      "D) Power steering fluid level"
+    ],
+    answer: 2,
+    explanation: "If camber readings are in spec on the alignment machine but tires show inside edge wear, the loaded camber (with passengers and cargo) may be excessively negative. Also check tire pressures, as under-inflation causes both edges to wear. The vehicle should be aligned at its normal loaded condition.",
+    diagram: "",
+    terms: ["camber", "tire_pressure", "wheel_alignment"],
+    image: "https://upload.wikimedia.org/wikipedia/commons/thumb/a/ab/Wheel_alignment.jpg/640px-Wheel_alignment.jpg",
+    youtube: "https://www.youtube.com/watch?v=MXGi6CaKtaY",
+    youtubeTitle: "How to Perform a Wheel Alignment",
+    qChinese: "车辆两个前轮胎内侧边缘快速磨损。外倾角读数在规格范围内。还应检查什么？",
+    optionsChinese: [
+      "A) 主销后倾角",
+      "B) 后轮前束和推力角",
+      "C) 轮胎气压和负载下实际车身高度时的负外倾角",
+      "D) 助力转向液面"
+    ],
+    explanationChinese: "如果四轮定位仪上的外倾角读数在规格内但轮胎显示内侧边缘磨损，负载状态（有乘客和货物）下的外倾角可能过度偏负。还应检查轮胎气压，因为充气不足会导致两侧边缘磨损。车辆应在正常负载条件下进行定位。"
+  },
+  {
+    id: 159,
+    q: "What is the purpose of a toe-out on turns (turning radius) specification?",
+    options: [
+      "A) To ensure both front wheels turn the same angle",
+      "B) To allow the inside wheel to turn a sharper angle than the outside wheel during a turn",
+      "C) To maintain equal tire wear during turns",
+      "D) To reduce power steering effort"
+    ],
+    answer: 1,
+    explanation: "Toe-out on turns (Ackermann geometry) ensures the inside wheel turns at a sharper angle than the outside wheel during a turn. This is necessary because the inside wheel follows a smaller radius arc. This specification is not adjustable and is built into the steering arm angles.",
+    diagram: "",
+    terms: ["toe", "wheel_alignment", "tie_rod"],
+    image: "https://upload.wikimedia.org/wikipedia/commons/thumb/a/ab/Wheel_alignment.jpg/640px-Wheel_alignment.jpg",
+    youtube: "https://www.youtube.com/watch?v=MXGi6CaKtaY",
+    youtubeTitle: "How to Perform a Wheel Alignment",
+    qChinese: "转向时前束外展（转弯半径）规格的目的是什么？",
+    optionsChinese: [
+      "A) 确保两个前轮转动相同角度",
+      "B) 允许转弯时内侧车轮比外侧车轮转动更大的角度",
+      "C) 维持转弯时均匀的轮胎磨损",
+      "D) 减少助力转向力度"
+    ],
+    explanationChinese: "转向时前束外展（阿克曼几何）确保转弯时内侧车轮比外侧车轮转动更大的角度。这是必要的，因为内侧车轮沿着更小半径的弧线行驶。此规格不可调，内置于转向臂角度中。"
+  },
+  {
+    id: 160,
+    q: "A vehicle has a setback condition on the front axle. What does this mean?",
+    options: [
+      "A) One front wheel is farther back than the other",
+      "B) The steering wheel is set back too far from the driver",
+      "C) The rear axle is shifted backward",
+      "D) The camber is set to negative on both sides"
+    ],
+    answer: 0,
+    explanation: "Setback means one front wheel is positioned farther back or forward than the other when viewed from above. This is usually caused by collision damage that shifted a subframe, cradle, or control arm. Setback affects caster readings and can cause a steering pull.",
+    diagram: "",
+    terms: ["caster", "wheel_alignment"],
+    image: "https://upload.wikimedia.org/wikipedia/commons/thumb/a/ab/Wheel_alignment.jpg/640px-Wheel_alignment.jpg",
+    youtube: "https://www.youtube.com/watch?v=MXGi6CaKtaY",
+    youtubeTitle: "How to Perform a Wheel Alignment",
+    qChinese: "车辆前桥有回退现象。这意味着什么？",
+    optionsChinese: [
+      "A) 一个前轮比另一个更靠后",
+      "B) 方向盘离驾驶员太远",
+      "C) 后桥向后移位",
+      "D) 两侧外倾角都设为负值"
+    ],
+    explanationChinese: "回退意味着从上方看一个前轮比另一个更靠前或靠后。这通常由碰撞损坏导致副车架、摇篮或控制臂移位引起。回退影响主销后倾角读数并可能导致转向跑偏。"
+  },
+  {
+    id: 161,
+    q: "When adjusting toe on a rack and pinion steering system, what component is turned?",
+    options: [
+      "A) The outer tie rod end",
+      "B) The inner tie rod adjusting sleeve or outer tie rod jam nut area",
+      "C) The rack housing",
+      "D) The steering column coupling"
+    ],
+    answer: 1,
+    explanation: "On rack and pinion systems, toe is adjusted by turning the inner tie rod or the adjusting sleeve where the inner and outer tie rods thread together. Loosening the jam nut and rotating the inner tie rod changes its effective length, which changes the toe angle of that wheel.",
+    diagram: "",
+    terms: ["toe", "tie_rod", "rack_and_pinion"],
+    image: "https://upload.wikimedia.org/wikipedia/commons/thumb/a/ab/Wheel_alignment.jpg/640px-Wheel_alignment.jpg",
+    youtube: "https://www.youtube.com/watch?v=MXGi6CaKtaY",
+    youtubeTitle: "How to Perform a Wheel Alignment",
+    qChinese: "在齿条齿轮转向系统上调整前束时，转动哪个部件？",
+    optionsChinese: [
+      "A) 外拉杆端部",
+      "B) 内拉杆调整套筒或外拉杆锁紧螺母区域",
+      "C) 齿条壳体",
+      "D) 转向柱联轴器"
+    ],
+    explanationChinese: "在齿条齿轮系统上，通过转动内拉杆或内外拉杆螺纹连接处的调整套筒来调整前束。松开锁紧螺母并旋转内拉杆改变其有效长度，从而改变该车轮的前束角度。"
+  },
+  {
+    id: 162,
+    q: "A vehicle has a cradle (subframe) that has shifted 5mm to the right after a collision repair. What alignment angles will be affected?",
+    options: [
+      "A) Toe only",
+      "B) Camber, caster, and SAI on both sides",
+      "C) Thrust angle only",
+      "D) Ride height only"
+    ],
+    answer: 1,
+    explanation: "A shifted cradle or subframe moves the lower suspension mounting points, affecting camber, caster, and SAI. Since the steering rack is also mounted to the subframe, the steering center will shift. The subframe must be properly repositioned before alignment can be performed correctly.",
+    diagram: "",
+    terms: ["camber", "caster", "wheel_alignment"],
+    image: "https://upload.wikimedia.org/wikipedia/commons/thumb/a/ab/Wheel_alignment.jpg/640px-Wheel_alignment.jpg",
+    youtube: "https://www.youtube.com/watch?v=MXGi6CaKtaY",
+    youtubeTitle: "How to Perform a Wheel Alignment",
+    qChinese: "碰撞修复后车辆副车架向右移位5毫米。哪些定位角度会受影响？",
+    optionsChinese: [
+      "A) 仅前束",
+      "B) 两侧的外倾角、主销后倾角和SAI",
+      "C) 仅推力角",
+      "D) 仅车身高度"
+    ],
+    explanationChinese: "移位的副车架移动了下悬挂安装点，影响外倾角、主销后倾角和SAI。由于转向齿条也安装在副车架上，转向中心也会移位。必须在正确定位副车架后才能正确进行四轮定位。"
+  },
+  {
+    id: 163,
+    q: "What alignment angle is NOT adjustable on most vehicles and is used only for diagnosis?",
+    options: [
+      "A) Camber",
+      "B) Toe",
+      "C) SAI (Steering Axis Inclination)",
+      "D) Caster"
+    ],
+    answer: 2,
+    explanation: "SAI (Steering Axis Inclination) is determined by the physical geometry of the knuckle, ball joints, and suspension mounting points. It is not adjustable and is used as a diagnostic angle to identify bent or damaged suspension components by comparing left and right readings.",
+    diagram: "",
+    terms: ["wheel_alignment", "camber", "caster"],
+    image: "https://upload.wikimedia.org/wikipedia/commons/thumb/a/ab/Wheel_alignment.jpg/640px-Wheel_alignment.jpg",
+    youtube: "https://www.youtube.com/watch?v=MXGi6CaKtaY",
+    youtubeTitle: "How to Perform a Wheel Alignment",
+    qChinese: "哪个定位角度在大多数车辆上不可调，仅用于诊断？",
+    optionsChinese: [
+      "A) 外倾角",
+      "B) 前束",
+      "C) 转向轴倾角(SAI)",
+      "D) 主销后倾角"
+    ],
+    explanationChinese: "转向轴倾角(SAI)由转向节、球头和悬挂安装点的物理几何形状决定。它不可调，用作诊断角度，通过比较左右读数来识别弯曲或损坏的悬挂部件。"
+  },
+  {
+    id: 164,
+    q: "A vehicle needs a four-wheel alignment. The rear alignment is adjusted first. Why?",
+    options: [
+      "A) The rear tires wear faster",
+      "B) The rear alignment establishes the thrust angle that the front must reference",
+      "C) The rear shocks are always replaced first",
+      "D) It is easier to access the rear adjustments"
+    ],
+    answer: 1,
+    explanation: "On a four-wheel alignment, the rear is adjusted first to set the thrust angle. The front alignment is then referenced to the rear thrust angle so the steering wheel is centered and the vehicle tracks straight. Adjusting the front first without a correct rear reference would result in a crooked steering wheel.",
+    diagram: "",
+    terms: ["thrust_angle", "toe", "wheel_alignment"],
+    image: "https://upload.wikimedia.org/wikipedia/commons/thumb/a/ab/Wheel_alignment.jpg/640px-Wheel_alignment.jpg",
+    youtube: "https://www.youtube.com/watch?v=MXGi6CaKtaY",
+    youtubeTitle: "How to Perform a Wheel Alignment",
+    qChinese: "车辆需要四轮定位。先调整后轮定位。为什么？",
+    optionsChinese: [
+      "A) 后轮胎磨损更快",
+      "B) 后部定位确定前部必须参考的推力角",
+      "C) 后减震器总是先更换",
+      "D) 后部调整更容易操作"
+    ],
+    explanationChinese: "在四轮定位中，先调整后部以设定推力角。然后参照后部推力角调整前部定位，使方向盘居中且车辆直行。不先设定正确的后部参考而调整前部会导致方向盘偏斜。"
+  },
+  {
+    id: 165,
+    q: "Unequal caster side to side will cause:",
+    options: [
+      "A) Rapid tire wear on both front tires",
+      "B) The vehicle to pull toward the side with less positive caster",
+      "C) Excessive body roll",
+      "D) A vibration at highway speed"
+    ],
+    answer: 1,
+    explanation: "Unequal caster causes the vehicle to pull toward the side with less positive caster. The side with more caster creates more steering effort, so the vehicle naturally drifts toward the easier-turning side. Caster does not directly cause tire wear but significantly affects directional stability.",
+    diagram: "",
+    terms: ["caster", "wheel_alignment"],
+    image: "https://upload.wikimedia.org/wikipedia/commons/thumb/a/ab/Wheel_alignment.jpg/640px-Wheel_alignment.jpg",
+    youtube: "https://www.youtube.com/watch?v=MXGi6CaKtaY",
+    youtubeTitle: "How to Perform a Wheel Alignment",
+    qChinese: "两侧不等的主销后倾角会导致：",
+    optionsChinese: [
+      "A) 两个前轮胎快速磨损",
+      "B) 车辆向正主销后倾角较小的一侧跑偏",
+      "C) 车身侧倾过大",
+      "D) 高速公路速度时振动"
+    ],
+    explanationChinese: "不等的主销后倾角导致车辆向正主销后倾角较小的一侧跑偏。主销后倾角较大的一侧产生更大的转向力，因此车辆自然向转向更轻松的一侧漂移。主销后倾角不直接导致轮胎磨损但显著影响方向稳定性。"
+  },
+  // ===== WHEEL BEARINGS AND TIRES II (Questions 166-200) =====
+  {
+    id: 166,
+    q: "A humming noise from the front of the vehicle changes pitch when the steering wheel is turned slightly. What is the MOST likely cause?",
+    options: [
+      "A) A worn power steering pump",
+      "B) A worn front wheel bearing",
+      "C) Unbalanced front tires",
+      "D) A worn CV joint"
+    ],
+    answer: 1,
+    explanation: "A humming or growling noise that changes pitch when the steering wheel is turned slightly indicates a worn wheel bearing. Turning the wheel shifts the load between bearings, changing the noise. The noise gets louder when turning away from the bad bearing side and quieter when turning toward it.",
+    diagram: "",
+    terms: ["wheel_bearing"],
+    image: "https://upload.wikimedia.org/wikipedia/commons/thumb/a/ab/Wheel_alignment.jpg/640px-Wheel_alignment.jpg",
+    youtube: "https://www.youtube.com/watch?v=bNEJzSIBxFQ",
+    youtubeTitle: "Wheel Bearing Noise and Diagnosis",
+    qChinese: "车辆前部的嗡嗡声在方向盘轻微转动时音调变化。最可能的原因是什么？",
+    optionsChinese: [
+      "A) 助力转向泵磨损",
+      "B) 前轮轴承磨损",
+      "C) 前轮胎不平衡",
+      "D) CV万向节磨损"
+    ],
+    explanationChinese: "方向盘轻微转动时音调变化的嗡嗡声或咆哮声表明车轮轴承磨损。转动方向盘在轴承之间转移负载，改变噪音。向故障轴承反方向转动时噪音更大，向故障侧转动时更安静。"
+  },
+  {
+    id: 167,
+    q: "What is the correct procedure for adjusting a serviceable tapered roller wheel bearing?",
+    options: [
+      "A) Tighten the spindle nut to 25 ft-lbs and back off 1/4 turn",
+      "B) Tighten the spindle nut while rotating the wheel, back off, then tighten finger-tight and install cotter pin",
+      "C) Tighten the spindle nut until there is zero end play",
+      "D) Use a torque wrench to tighten to 100 ft-lbs"
+    ],
+    answer: 1,
+    explanation: "The standard procedure is to tighten the spindle nut while rotating the wheel to seat the bearings, then back off the nut and retighten to finger-tight (or per manufacturer specification). The cotter pin or lock nut is then installed. The goal is slight end play, not preload.",
+    diagram: "",
+    terms: ["wheel_bearing"],
+    image: "https://upload.wikimedia.org/wikipedia/commons/thumb/a/ab/Wheel_alignment.jpg/640px-Wheel_alignment.jpg",
+    youtube: "https://www.youtube.com/watch?v=bNEJzSIBxFQ",
+    youtubeTitle: "Wheel Bearing Noise and Diagnosis",
+    qChinese: "调整可维修锥形滚子车轮轴承的正确程序是什么？",
+    optionsChinese: [
+      "A) 将主轴螺母拧紧至25英尺磅然后退回1/4圈",
+      "B) 旋转车轮同时拧紧主轴螺母，退回，然后用手拧紧并安装开口销",
+      "C) 拧紧主轴螺母直到没有端部间隙",
+      "D) 使用扭力扳手拧紧至100英尺磅"
+    ],
+    explanationChinese: "标准程序是在旋转车轮的同时拧紧主轴螺母以使轴承就位，然后退回螺母并重新拧到手紧（或按制造商规格）。然后安装开口销或锁紧螺母。目标是保持轻微的端部间隙，而非预载。"
+  },
+  {
+    id: 168,
+    q: "A sealed hub bearing assembly has excessive play. What is the correct repair?",
+    options: [
+      "A) Repack the bearing with fresh grease",
+      "B) Tighten the axle nut to remove the play",
+      "C) Replace the entire hub bearing assembly",
+      "D) Add shims behind the bearing race"
+    ],
+    answer: 2,
+    explanation: "Sealed hub bearing assemblies are not serviceable. They cannot be repacked, adjusted, or repaired. When a sealed hub bearing develops excessive play or noise, the entire assembly must be replaced as a unit. They are common on most modern front-wheel-drive and many rear-wheel-drive vehicles.",
+    diagram: "",
+    terms: ["wheel_bearing"],
+    image: "https://upload.wikimedia.org/wikipedia/commons/thumb/a/ab/Wheel_alignment.jpg/640px-Wheel_alignment.jpg",
+    youtube: "https://www.youtube.com/watch?v=bNEJzSIBxFQ",
+    youtubeTitle: "Wheel Bearing Noise and Diagnosis",
+    qChinese: "密封式轮毂轴承总成有过大间隙。正确的维修方法是什么？",
+    optionsChinese: [
+      "A) 用新润滑脂重新填充轴承",
+      "B) 拧紧车轴螺母以消除间隙",
+      "C) 更换整个轮毂轴承总成",
+      "D) 在轴承座圈后面加垫片"
+    ],
+    explanationChinese: "密封式轮毂轴承总成不可维修。不能重新填充润滑脂、调整或修理。当密封式轮毂轴承出现过大间隙或噪音时，必须整体更换。它们常见于大多数现代前驱和许多后驱车辆。"
+  },
+  {
+    id: 169,
+    q: "How is a front wheel bearing typically checked for play?",
+    options: [
+      "A) Spin the wheel and listen for noise",
+      "B) Grasp the tire at 12 and 6 o'clock and rock it in and out while checking for movement at the bearing",
+      "C) Measure the tire tread depth",
+      "D) Check the brake pad thickness"
+    ],
+    answer: 1,
+    explanation: "To check a wheel bearing for play, raise the vehicle and grasp the tire at 12 and 6 o'clock positions. Rock the tire in and out (top to bottom). Any perceptible movement indicates bearing wear. Use a dial indicator for precise measurement. Rocking at 3 and 9 checks tie rod play.",
+    diagram: "",
+    terms: ["wheel_bearing", "ball_joint"],
+    image: "https://upload.wikimedia.org/wikipedia/commons/thumb/a/ab/Wheel_alignment.jpg/640px-Wheel_alignment.jpg",
+    youtube: "https://www.youtube.com/watch?v=bNEJzSIBxFQ",
+    youtubeTitle: "Wheel Bearing Noise and Diagnosis",
+    qChinese: "前轮轴承通常如何检查间隙？",
+    optionsChinese: [
+      "A) 转动车轮听是否有噪音",
+      "B) 在12点和6点位置抓住轮胎前后摇晃，同时检查轴承处的运动",
+      "C) 测量轮胎胎面深度",
+      "D) 检查刹车片厚度"
+    ],
+    explanationChinese: "检查车轮轴承间隙时，举升车辆并在12点和6点位置抓住轮胎。前后摇晃（上下方向）。任何可感知的运动都表明轴承磨损。使用百分表进行精确测量。在3点和9点方向摇晃是检查拉杆间隙。"
+  },
+  {
+    id: 170,
+    q: "A direct TPMS system uses sensors mounted where?",
+    options: [
+      "A) On the vehicle body near each wheel well",
+      "B) Inside each tire, usually attached to the valve stem",
+      "C) In the engine compartment",
+      "D) On the instrument cluster"
+    ],
+    answer: 1,
+    explanation: "Direct TPMS systems use individual pressure sensors mounted inside each tire, typically attached to the valve stem assembly. Each sensor transmits tire pressure and temperature data wirelessly to the TPMS receiver module. These sensors require battery replacement or complete sensor replacement over time.",
+    diagram: "",
+    terms: ["tpms", "tire_pressure"],
+    image: "https://upload.wikimedia.org/wikipedia/commons/thumb/a/ab/Wheel_alignment.jpg/640px-Wheel_alignment.jpg",
+    youtube: "https://www.youtube.com/watch?v=DepYSarbCVg",
+    youtubeTitle: "Tire Wear Patterns and What They Mean",
+    qChinese: "直接式TPMS系统使用安装在哪里的传感器？",
+    optionsChinese: [
+      "A) 在每个轮拱附近的车身上",
+      "B) 在每个轮胎内部，通常连接在气门嘴上",
+      "C) 在发动机舱内",
+      "D) 在仪表盘上"
+    ],
+    explanationChinese: "直接式TPMS系统在每个轮胎内部使用单独的压力传感器，通常连接在气门嘴总成上。每个传感器以无线方式将轮胎压力和温度数据传输到TPMS接收模块。这些传感器随时间需要更换电池或完全更换传感器。"
+  },
+  {
+    id: 171,
+    q: "After a tire rotation, the TPMS warning light comes on. What is the MOST likely cause?",
+    options: [
+      "A) The tire pressures are incorrect",
+      "B) The TPMS sensors need to be relearned to their new positions",
+      "C) The TPMS sensors are damaged",
+      "D) The TPMS module has failed"
+    ],
+    answer: 1,
+    explanation: "After rotating tires on a direct TPMS system, the sensors move to different positions. The TPMS module must relearn which sensor is at which location. Most vehicles require a relearn procedure using a TPMS tool or a specific drive cycle to update the sensor positions.",
+    diagram: "",
+    terms: ["tpms", "tire_rotation", "tire_pressure"],
+    image: "https://upload.wikimedia.org/wikipedia/commons/thumb/a/ab/Wheel_alignment.jpg/640px-Wheel_alignment.jpg",
+    youtube: "https://www.youtube.com/watch?v=DepYSarbCVg",
+    youtubeTitle: "Tire Wear Patterns and What They Mean",
+    qChinese: "轮胎换位后TPMS警告灯亮起。最可能的原因是什么？",
+    optionsChinese: [
+      "A) 轮胎气压不正确",
+      "B) TPMS传感器需要在新位置重新学习",
+      "C) TPMS传感器损坏",
+      "D) TPMS模块故障"
+    ],
+    explanationChinese: "在直接式TPMS系统上换位轮胎后，传感器移动到不同位置。TPMS模块必须重新学习哪个传感器在哪个位置。大多数车辆需要使用TPMS工具或特定行驶循环执行重新学习程序来更新传感器位置。"
+  },
+  {
+    id: 172,
+    q: "What is the difference between a direct and indirect TPMS system?",
+    options: [
+      "A) Direct measures pressure with sensors; indirect uses ABS wheel speed sensors to detect pressure differences",
+      "B) Direct is installed at the factory; indirect is aftermarket",
+      "C) Direct monitors only front tires; indirect monitors all four",
+      "D) There is no functional difference"
+    ],
+    answer: 0,
+    explanation: "Direct TPMS uses pressure sensors inside each tire that transmit actual pressure readings. Indirect TPMS uses the ABS wheel speed sensors to detect rotational speed differences, since an under-inflated tire has a smaller effective rolling radius and spins faster than a properly inflated tire.",
+    diagram: "",
+    terms: ["tpms", "tire_pressure"],
+    image: "https://upload.wikimedia.org/wikipedia/commons/thumb/a/ab/Wheel_alignment.jpg/640px-Wheel_alignment.jpg",
+    youtube: "https://www.youtube.com/watch?v=DepYSarbCVg",
+    youtubeTitle: "Tire Wear Patterns and What They Mean",
+    qChinese: "直接式和间接式TPMS系统有什么区别？",
+    optionsChinese: [
+      "A) 直接式用传感器测量压力；间接式用ABS车轮转速传感器检测压力差异",
+      "B) 直接式是工厂安装的；间接式是后装市场的",
+      "C) 直接式仅监测前轮胎；间接式监测所有四个",
+      "D) 没有功能差异"
+    ],
+    explanationChinese: "直接式TPMS在每个轮胎内使用压力传感器传输实际压力读数。间接式TPMS使用ABS车轮转速传感器检测旋转速度差异，因为充气不足的轮胎有效滚动半径更小，转速比正常充气的轮胎更快。"
+  },
+  {
+    id: 173,
+    q: "A tire shows excessive wear in the center of the tread with normal wear on the edges. What is the cause?",
+    options: [
+      "A) Under-inflation",
+      "B) Over-inflation",
+      "C) Excessive negative camber",
+      "D) Worn shock absorbers"
+    ],
+    answer: 1,
+    explanation: "Center tread wear is caused by over-inflation. When a tire is over-inflated, the center of the tread bulges outward and carries more load than the edges. This concentrates wear in the center. Under-inflation causes both edge wear. Camber causes single-edge wear.",
+    diagram: "",
+    terms: ["tire_pressure", "tire_rotation"],
+    image: "https://upload.wikimedia.org/wikipedia/commons/thumb/a/ab/Wheel_alignment.jpg/640px-Wheel_alignment.jpg",
+    youtube: "https://www.youtube.com/watch?v=DepYSarbCVg",
+    youtubeTitle: "Tire Wear Patterns and What They Mean",
+    qChinese: "轮胎胎面中心过度磨损而边缘磨损正常。原因是什么？",
+    optionsChinese: [
+      "A) 充气不足",
+      "B) 过度充气",
+      "C) 过大的负外倾角",
+      "D) 减震器磨损"
+    ],
+    explanationChinese: "胎面中心磨损是由过度充气引起的。当轮胎过度充气时，胎面中心向外凸出并承载比边缘更多的负荷。这导致磨损集中在中心。充气不足导致两侧边缘磨损。外倾角导致单侧边缘磨损。"
+  },
+  {
+    id: 174,
+    q: "A tire shows wear on both the inside and outside edges but the center tread is normal. What is the cause?",
+    options: [
+      "A) Over-inflation",
+      "B) Under-inflation",
+      "C) Excessive toe",
+      "D) Worn wheel bearings"
+    ],
+    answer: 1,
+    explanation: "Both-edge wear is caused by under-inflation. When a tire is under-inflated, the sidewalls flex inward and the edges of the tread carry more load than the center. This wears both edges while the center remains relatively normal. Correct tire pressure prevents this wear pattern.",
+    diagram: "",
+    terms: ["tire_pressure", "tire_rotation"],
+    image: "https://upload.wikimedia.org/wikipedia/commons/thumb/a/ab/Wheel_alignment.jpg/640px-Wheel_alignment.jpg",
+    youtube: "https://www.youtube.com/watch?v=DepYSarbCVg",
+    youtubeTitle: "Tire Wear Patterns and What They Mean",
+    qChinese: "轮胎内外两侧边缘磨损但中心胎面正常。原因是什么？",
+    optionsChinese: [
+      "A) 过度充气",
+      "B) 充气不足",
+      "C) 过大的前束",
+      "D) 车轮轴承磨损"
+    ],
+    explanationChinese: "两侧边缘磨损是由充气不足引起的。当轮胎充气不足时，胎壁向内弯曲，胎面边缘承载比中心更多的负荷。这导致两侧边缘磨损而中心相对正常。正确的轮胎气压可以防止这种磨损模式。"
+  },
+  {
+    id: 175,
+    q: "What is the legal minimum tread depth for passenger tires in most US states?",
+    options: [
+      "A) 1/32 inch",
+      "B) 2/32 inch (1/16 inch)",
+      "C) 4/32 inch",
+      "D) 6/32 inch"
+    ],
+    answer: 1,
+    explanation: "The legal minimum tread depth for passenger tires in most US states is 2/32 inch (1/16 inch). Tread wear indicators (wear bars) molded into the tire become flush with the tread at this depth, providing a visual indication that the tire has reached its minimum legal tread depth.",
+    diagram: "",
+    terms: ["tire_pressure", "tire_rotation"],
+    image: "https://upload.wikimedia.org/wikipedia/commons/thumb/a/ab/Wheel_alignment.jpg/640px-Wheel_alignment.jpg",
+    youtube: "https://www.youtube.com/watch?v=DepYSarbCVg",
+    youtubeTitle: "Tire Wear Patterns and What They Mean",
+    qChinese: "美国大多数州乘用车轮胎的法定最小胎面深度是多少？",
+    optionsChinese: [
+      "A) 1/32英寸",
+      "B) 2/32英寸（1/16英寸）",
+      "C) 4/32英寸",
+      "D) 6/32英寸"
+    ],
+    explanationChinese: "美国大多数州乘用车轮胎的法定最小胎面深度为2/32英寸（1/16英寸）。模制在轮胎中的胎面磨损指示器（磨损条）在此深度时与胎面齐平，提供轮胎已达到最小法定胎面深度的视觉指示。"
+  },
+  {
+    id: 176,
+    q: "Technician A says tire rotation should follow the vehicle manufacturer's recommended pattern. Technician B says directional tires can only be rotated front to rear on the same side. Who is correct?",
+    options: [
+      "A) Technician A only",
+      "B) Technician B only",
+      "C) Both Technician A and Technician B",
+      "D) Neither Technician A nor Technician B"
+    ],
+    answer: 2,
+    explanation: "Both are correct. Tire rotation should follow the manufacturer's recommended pattern for optimal wear. Directional tires have a specific rotation direction molded into the sidewall and can only be moved front to rear on the same side. Switching sides would reverse the rotation direction.",
+    diagram: "",
+    terms: ["tire_rotation", "tire_pressure"],
+    image: "https://upload.wikimedia.org/wikipedia/commons/thumb/a/ab/Wheel_alignment.jpg/640px-Wheel_alignment.jpg",
+    youtube: "https://www.youtube.com/watch?v=DepYSarbCVg",
+    youtubeTitle: "Tire Wear Patterns and What They Mean",
+    qChinese: "技师A说轮胎换位应遵循车辆制造商推荐的模式。技师B说方向性轮胎只能在同侧前后换位。谁是正确的？",
+    optionsChinese: [
+      "A) 仅技师A正确",
+      "B) 仅技师B正确",
+      "C) 技师A和技师B都正确",
+      "D) 技师A和技师B都不正确"
+    ],
+    explanationChinese: "两位都正确。轮胎换位应遵循制造商推荐的模式以获得最佳磨损。方向性轮胎在胎壁上模制有特定的旋转方向，只能在同侧前后移动。换侧会逆转旋转方向。"
+  },
+  {
+    id: 177,
+    q: "What is the MOST important safety concern when inflating a tire?",
+    options: [
+      "A) The tire may get too hot",
+      "B) The bead may break loose from the rim",
+      "C) Never exceed the maximum pressure listed on the tire sidewall",
+      "D) Always use nitrogen instead of air"
+    ],
+    answer: 2,
+    explanation: "Never exceed the maximum pressure listed on the tire sidewall. Over-inflating a tire beyond its rated capacity can cause the tire to explode, resulting in serious injury or death. When seating beads, never exceed 40 PSI. Use a clip-on chuck and stand back from the tire.",
+    diagram: "",
+    terms: ["tire_pressure"],
+    image: "https://upload.wikimedia.org/wikipedia/commons/thumb/a/ab/Wheel_alignment.jpg/640px-Wheel_alignment.jpg",
+    youtube: "https://www.youtube.com/watch?v=DepYSarbCVg",
+    youtubeTitle: "Tire Wear Patterns and What They Mean",
+    qChinese: "给轮胎充气时最重要的安全注意事项是什么？",
+    optionsChinese: [
+      "A) 轮胎可能变得过热",
+      "B) 胎圈可能从轮辋上脱落",
+      "C) 切勿超过轮胎侧壁上标注的最大压力",
+      "D) 始终使用氮气而非空气"
+    ],
+    explanationChinese: "切勿超过轮胎侧壁上标注的最大压力。超过额定容量充气可能导致轮胎爆炸，造成严重伤害甚至死亡。安装胎圈时，切勿超过40 PSI。使用夹式充气嘴并远离轮胎。"
+  },
+  {
+    id: 178,
+    q: "Where is the recommended tire pressure specification for a vehicle found?",
+    options: [
+      "A) On the tire sidewall",
+      "B) On the vehicle door jamb placard or owner's manual",
+      "C) On the wheel rim",
+      "D) On the valve stem cap"
+    ],
+    answer: 1,
+    explanation: "The recommended tire inflation pressure is found on the vehicle door jamb placard (usually the driver's door) or in the owner's manual. The pressure on the tire sidewall is the maximum pressure for the tire, not the recommended operating pressure for the specific vehicle.",
+    diagram: "",
+    terms: ["tire_pressure"],
+    image: "https://upload.wikimedia.org/wikipedia/commons/thumb/a/ab/Wheel_alignment.jpg/640px-Wheel_alignment.jpg",
+    youtube: "https://www.youtube.com/watch?v=DepYSarbCVg",
+    youtubeTitle: "Tire Wear Patterns and What They Mean",
+    qChinese: "车辆的推荐轮胎气压规格在哪里可以找到？",
+    optionsChinese: [
+      "A) 在轮胎侧壁上",
+      "B) 在车辆门框标牌或车主手册上",
+      "C) 在轮辋上",
+      "D) 在气门帽上"
+    ],
+    explanationChinese: "推荐的轮胎充气压力在车辆门框标牌（通常在驾驶员侧门）或车主手册中找到。轮胎侧壁上的压力是轮胎的最大压力，不是特定车辆的推荐操作压力。"
+  },
+  {
+    id: 179,
+    q: "A customer reports a shimmy or vibration in the steering wheel at 55-65 mph that goes away at other speeds. The tires are in good condition. What should be done FIRST?",
+    options: [
+      "A) Replace the front struts",
+      "B) Check the wheel balance",
+      "C) Perform a wheel alignment",
+      "D) Replace the tie rod ends"
+    ],
+    answer: 1,
+    explanation: "A speed-specific vibration felt in the steering wheel is most commonly caused by a tire or wheel balance issue. An out-of-balance tire creates a vibration that occurs at a specific speed range. Checking and correcting wheel balance is the first and simplest diagnostic step.",
+    diagram: "",
+    terms: ["tire_rotation", "wheel_alignment"],
+    image: "https://upload.wikimedia.org/wikipedia/commons/thumb/a/ab/Wheel_alignment.jpg/640px-Wheel_alignment.jpg",
+    youtube: "https://www.youtube.com/watch?v=DepYSarbCVg",
+    youtubeTitle: "Tire Wear Patterns and What They Mean",
+    qChinese: "客户报告方向盘在55-65英里/小时时有抖动或振动，其他速度下消失。轮胎状况良好。应首先做什么？",
+    optionsChinese: [
+      "A) 更换前支柱",
+      "B) 检查车轮平衡",
+      "C) 进行四轮定位",
+      "D) 更换拉杆端部"
+    ],
+    explanationChinese: "方向盘上感觉到的与特定速度相关的振动最常见的原因是轮胎或车轮平衡问题。不平衡的轮胎产生在特定速度范围内出现的振动。检查和修正车轮平衡是最先且最简单的诊断步骤。"
+  },
+  {
+    id: 180,
+    q: "What does a TPMS warning light that flashes for 60-90 seconds then stays on solid indicate?",
+    options: [
+      "A) Low tire pressure in one or more tires",
+      "B) A TPMS system malfunction (faulty sensor, dead battery, or communication error)",
+      "C) The tires need to be rotated",
+      "D) The TPMS system is initializing"
+    ],
+    answer: 1,
+    explanation: "A TPMS light that flashes for 60-90 seconds at startup and then remains on solid indicates a system malfunction, not low tire pressure. This can be caused by a dead sensor battery, a missing sensor, or a communication error. A steady light without flashing indicates low pressure.",
+    diagram: "",
+    terms: ["tpms", "tire_pressure"],
+    image: "https://upload.wikimedia.org/wikipedia/commons/thumb/a/ab/Wheel_alignment.jpg/640px-Wheel_alignment.jpg",
+    youtube: "https://www.youtube.com/watch?v=DepYSarbCVg",
+    youtubeTitle: "Tire Wear Patterns and What They Mean",
+    qChinese: "TPMS警告灯闪烁60-90秒然后常亮表示什么？",
+    optionsChinese: [
+      "A) 一个或多个轮胎气压偏低",
+      "B) TPMS系统故障（传感器故障、电池耗尽或通信错误）",
+      "C) 轮胎需要换位",
+      "D) TPMS系统正在初始化"
+    ],
+    explanationChinese: "TPMS灯在启动时闪烁60-90秒然后常亮表示系统故障，而非气压偏低。可能由传感器电池耗尽、传感器缺失或通信错误引起。不闪烁的常亮灯表示气压偏低。"
+  },
+  {
+    id: 181,
+    q: "A lug nut should be tightened to the manufacturer's specified torque using what pattern?",
+    options: [
+      "A) Clockwise around the wheel",
+      "B) Counterclockwise around the wheel",
+      "C) A star (crisscross) pattern",
+      "D) Any order is acceptable"
+    ],
+    answer: 2,
+    explanation: "Lug nuts must be tightened in a star (crisscross) pattern to ensure even clamping force across the wheel. Tightening in a circular pattern can warp the brake rotor and cause uneven wheel seating. Each nut should be gradually tightened in multiple passes to the final torque specification.",
+    diagram: "",
+    terms: ["lug_nut_torque", "tire_rotation"],
+    image: "https://upload.wikimedia.org/wikipedia/commons/thumb/a/ab/Wheel_alignment.jpg/640px-Wheel_alignment.jpg",
+    youtube: "https://www.youtube.com/watch?v=DepYSarbCVg",
+    youtubeTitle: "Tire Wear Patterns and What They Mean",
+    qChinese: "轮毂螺母应使用什么顺序拧紧到制造商指定的扭矩？",
+    optionsChinese: [
+      "A) 围绕车轮顺时针方向",
+      "B) 围绕车轮逆时针方向",
+      "C) 星形（交叉）顺序",
+      "D) 任何顺序都可以"
+    ],
+    explanationChinese: "轮毂螺母必须以星形（交叉）顺序拧紧，以确保车轮上的夹紧力均匀。按圆形顺序拧紧可能导致制动盘变形和车轮贴合不均。每个螺母应分多次逐渐拧紧至最终扭矩规格。"
+  },
+  {
+    id: 182,
+    q: "What can happen if lug nuts are over-torqued with an impact wrench?",
+    options: [
+      "A) The wheel will come loose",
+      "B) The brake rotor can warp and the wheel studs can stretch or break",
+      "C) The tire will lose air pressure",
+      "D) The wheel bearing will fail"
+    ],
+    answer: 1,
+    explanation: "Over-torquing lug nuts can warp brake rotors, stretch or break wheel studs, and damage the wheel. Warped rotors cause a pulsation felt in the brake pedal. Always use a calibrated torque wrench for final tightening and never rely solely on an impact wrench for final torque.",
+    diagram: "",
+    terms: ["lug_nut_torque"],
+    image: "https://upload.wikimedia.org/wikipedia/commons/thumb/a/ab/Wheel_alignment.jpg/640px-Wheel_alignment.jpg",
+    youtube: "https://www.youtube.com/watch?v=DepYSarbCVg",
+    youtubeTitle: "Tire Wear Patterns and What They Mean",
+    qChinese: "使用冲击扳手过度拧紧轮毂螺母会发生什么？",
+    optionsChinese: [
+      "A) 车轮会松脱",
+      "B) 制动盘可能变形且轮毂螺栓可能拉伸或断裂",
+      "C) 轮胎会漏气",
+      "D) 车轮轴承会失效"
+    ],
+    explanationChinese: "过度拧紧轮毂螺母可能导致制动盘变形、轮毂螺栓拉伸或断裂以及车轮损坏。变形的制动盘导致制动踏板产生脉动感。最终拧紧时应始终使用校准的扭力扳手，不要仅依赖冲击扳手进行最终力矩紧固。"
+  },
+  {
+    id: 183,
+    q: "A vehicle with rack and pinion steering has fluid leaking from the passenger side inner tie rod boot. What does this indicate?",
+    options: [
+      "A) The outer tie rod is worn",
+      "B) The rack seal on that side is leaking",
+      "C) The power steering pump is failing",
+      "D) The boot itself is torn and letting in water"
+    ],
+    answer: 1,
+    explanation: "Power steering fluid leaking from inside the inner tie rod boot indicates a leaking rack seal on that side. The rack seals prevent fluid from leaking out of the rack housing. When they fail, fluid accumulates in the boot. The rack typically needs to be replaced or rebuilt.",
+    diagram: "",
+    terms: ["rack_and_pinion", "tie_rod", "power_steering_fluid"],
+    image: "https://upload.wikimedia.org/wikipedia/commons/thumb/3/3e/Rack_and_pinion_animation.gif/400px-Rack_and_pinion_animation.gif",
+    youtube: "https://www.youtube.com/watch?v=YDl1UxCrEhM",
+    youtubeTitle: "Power Steering System Explained",
+    qChinese: "一辆齿条齿轮转向车辆副驾驶侧内拉杆防尘套处漏液。这表明什么？",
+    optionsChinese: [
+      "A) 外拉杆磨损",
+      "B) 该侧齿条密封件泄漏",
+      "C) 助力转向泵故障",
+      "D) 防尘套本身破裂进水"
+    ],
+    explanationChinese: "内拉杆防尘套内部泄漏助力转向液表明该侧齿条密封件泄漏。齿条密封件防止液体从齿条壳体泄漏。当密封件失效时，液体在防尘套内积聚。齿条通常需要更换或翻修。"
+  },
+  {
+    id: 184,
+    q: "Which tire wear pattern indicates a bent wheel or out-of-round tire?",
+    options: [
+      "A) Center wear",
+      "B) Edge wear on one side only",
+      "C) Flat spots or patchy uneven wear in one area of the tread",
+      "D) Feathered wear across the tread"
+    ],
+    answer: 2,
+    explanation: "A bent wheel or out-of-round tire causes localized flat spots or patchy wear because the tire does not maintain consistent contact with the road surface. One section of the tread receives more pressure and wears faster, creating an isolated area of heavy wear.",
+    diagram: "",
+    terms: ["tire_rotation", "wheel_alignment"],
+    image: "https://upload.wikimedia.org/wikipedia/commons/thumb/a/ab/Wheel_alignment.jpg/640px-Wheel_alignment.jpg",
+    youtube: "https://www.youtube.com/watch?v=DepYSarbCVg",
+    youtubeTitle: "Tire Wear Patterns and What They Mean",
+    qChinese: "哪种轮胎磨损模式表明车轮弯曲或轮胎不圆？",
+    optionsChinese: [
+      "A) 中心磨损",
+      "B) 仅一侧边缘磨损",
+      "C) 胎面某一区域出现平斑或不均匀的斑块状磨损",
+      "D) 胎面上的锯齿状磨损"
+    ],
+    explanationChinese: "弯曲的车轮或不圆的轮胎导致局部平斑或斑块状磨损，因为轮胎无法与路面保持一致的接触。胎面的某一部分受到更多压力并磨损更快，形成一个孤立的严重磨损区域。"
+  },
+  {
+    id: 185,
+    q: "A vehicle has a vibration that gets worse as speed increases and does not change with engine load. What is the MOST likely cause?",
+    options: [
+      "A) An engine misfire",
+      "B) A transmission problem",
+      "C) A tire or wheel imbalance or a bent rim",
+      "D) A worn engine mount"
+    ],
+    answer: 2,
+    explanation: "A vibration that increases proportionally with vehicle speed and is unaffected by engine load (accelerating vs. coasting) is related to the wheels and tires. An imbalanced tire, bent rim, or tire defect creates a vibration that worsens with speed. Engine-related vibrations change with load.",
+    diagram: "",
+    terms: ["tire_rotation", "wheel_alignment", "tire_pressure"],
+    image: "https://upload.wikimedia.org/wikipedia/commons/thumb/a/ab/Wheel_alignment.jpg/640px-Wheel_alignment.jpg",
+    youtube: "https://www.youtube.com/watch?v=DepYSarbCVg",
+    youtubeTitle: "Tire Wear Patterns and What They Mean",
+    qChinese: "车辆有一种随速度增加而加剧的振动，与发动机负载无关。最可能的原因是什么？",
+    optionsChinese: [
+      "A) 发动机失火",
+      "B) 变速箱问题",
+      "C) 轮胎或车轮不平衡或轮辋弯曲",
+      "D) 发动机支撑座磨损"
+    ],
+    explanationChinese: "随车辆速度成比例增加且不受发动机负载（加速与滑行）影响的振动与车轮和轮胎有关。不平衡的轮胎、弯曲的轮辋或轮胎缺陷会产生随速度加剧的振动。与发动机相关的振动随负载变化。"
+  },
+  {
+    id: 186,
+    q: "Technician A says a TPMS sensor battery can be replaced separately. Technician B says most TPMS sensors require complete replacement when the battery dies. Who is correct?",
+    options: [
+      "A) Technician A only",
+      "B) Technician B only",
+      "C) Both Technician A and Technician B",
+      "D) Neither Technician A nor Technician B"
+    ],
+    answer: 1,
+    explanation: "Most TPMS sensors have sealed, non-replaceable batteries. When the battery dies (typically after 5-10 years), the entire sensor must be replaced. The sensor is then programmed to the vehicle during a relearn procedure. A few aftermarket sensors have replaceable batteries but most OEM sensors do not.",
+    diagram: "",
+    terms: ["tpms", "tire_pressure"],
+    image: "https://upload.wikimedia.org/wikipedia/commons/thumb/a/ab/Wheel_alignment.jpg/640px-Wheel_alignment.jpg",
+    youtube: "https://www.youtube.com/watch?v=DepYSarbCVg",
+    youtubeTitle: "Tire Wear Patterns and What They Mean",
+    qChinese: "技师A说TPMS传感器电池可以单独更换。技师B说大多数TPMS传感器在电池耗尽时需要完全更换。谁是正确的？",
+    optionsChinese: [
+      "A) 仅技师A正确",
+      "B) 仅技师B正确",
+      "C) 技师A和技师B都正确",
+      "D) 技师A和技师B都不正确"
+    ],
+    explanationChinese: "大多数TPMS传感器具有密封的不可更换电池。当电池耗尽（通常5-10年后），必须更换整个传感器。然后在重新学习程序中将传感器编程到车辆上。少数售后传感器有可更换电池，但大多数原厂传感器没有。"
+  },
+  {
+    id: 187,
+    q: "What causes a vehicle to dog track (rear end offset from the front)?",
+    options: [
+      "A) Excessive positive caster",
+      "B) A non-zero thrust angle caused by misaligned rear wheels",
+      "C) Excessive negative camber on the front",
+      "D) Over-inflated front tires"
+    ],
+    answer: 1,
+    explanation: "Dog tracking occurs when the rear wheels point in a different direction than the vehicle's centerline, creating a non-zero thrust angle. The rear of the vehicle travels offset from the front. Common causes include a shifted rear axle, rear toe misalignment, or a bent rear suspension component.",
+    diagram: "",
+    terms: ["thrust_angle", "toe", "wheel_alignment"],
+    image: "https://upload.wikimedia.org/wikipedia/commons/thumb/a/ab/Wheel_alignment.jpg/640px-Wheel_alignment.jpg",
+    youtube: "https://www.youtube.com/watch?v=MXGi6CaKtaY",
+    youtubeTitle: "How to Perform a Wheel Alignment",
+    qChinese: "什么导致车辆蟹行（后部与前部偏移）？",
+    optionsChinese: [
+      "A) 过大的正主销后倾角",
+      "B) 后轮定位不正导致的非零推力角",
+      "C) 前部过大的负外倾角",
+      "D) 前轮胎过度充气"
+    ],
+    explanationChinese: "蟹行发生在后轮指向与车辆中心线不同的方向，产生非零推力角。车辆后部与前部偏移行驶。常见原因包括后桥移位、后轮前束不正或后悬挂部件弯曲。"
+  },
+  {
+    id: 188,
+    q: "When mounting a tire on a rim, what is applied to the tire bead to help seat it properly?",
+    options: [
+      "A) Engine oil",
+      "B) Tire mounting lubricant (bead lubricant)",
+      "C) Brake cleaner",
+      "D) Silicone spray"
+    ],
+    answer: 1,
+    explanation: "Tire mounting lubricant (bead lubricant) is applied to the tire bead and rim flange to allow the bead to slide into position during mounting and inflation. Using the wrong lubricant can damage the rubber or prevent proper bead seating. Never use petroleum-based products.",
+    diagram: "",
+    terms: ["tire_pressure", "tire_rotation"],
+    image: "https://upload.wikimedia.org/wikipedia/commons/thumb/a/ab/Wheel_alignment.jpg/640px-Wheel_alignment.jpg",
+    youtube: "https://www.youtube.com/watch?v=DepYSarbCVg",
+    youtubeTitle: "Tire Wear Patterns and What They Mean",
+    qChinese: "将轮胎安装到轮辋上时，在轮胎胎圈上涂抹什么以帮助正确就位？",
+    optionsChinese: [
+      "A) 机油",
+      "B) 轮胎安装润滑剂（胎圈润滑剂）",
+      "C) 制动器清洁剂",
+      "D) 硅喷雾"
+    ],
+    explanationChinese: "轮胎安装润滑剂（胎圈润滑剂）涂在轮胎胎圈和轮辋边缘上，使胎圈在安装和充气时能滑入正确位置。使用错误的润滑剂可能损坏橡胶或阻碍胎圈正确就位。切勿使用石油基产品。"
+  },
+  {
+    id: 189,
+    q: "A vehicle with electronic power steering (EPS) requires what special procedure after certain repairs?",
+    options: [
+      "A) Bleeding the power steering system",
+      "B) A steering angle sensor calibration or zero-point reset",
+      "C) Adjusting the drive belt tension",
+      "D) Flushing the power steering fluid"
+    ],
+    answer: 1,
+    explanation: "After alignment, steering component replacement, or certain other repairs, many EPS systems require a steering angle sensor calibration or zero-point reset. This tells the EPS module where straight-ahead is. Without calibration, the EPS may provide uneven assist or trigger warning lights.",
+    diagram: "",
+    terms: ["steering_gear", "rack_and_pinion", "wheel_alignment"],
+    image: "https://upload.wikimedia.org/wikipedia/commons/thumb/3/3e/Rack_and_pinion_animation.gif/400px-Rack_and_pinion_animation.gif",
+    youtube: "https://www.youtube.com/watch?v=BnEE0ORchHM",
+    youtubeTitle: "Electronic Power Steering Explained",
+    qChinese: "配备电子助力转向(EPS)的车辆在某些维修后需要什么特殊程序？",
+    optionsChinese: [
+      "A) 排放助力转向系统空气",
+      "B) 转向角传感器校准或零点重置",
+      "C) 调整驱动皮带张力",
+      "D) 冲洗助力转向液"
+    ],
+    explanationChinese: "在定位、转向部件更换或某些其他维修后，许多EPS系统需要转向角传感器校准或零点重置。这告诉EPS模块直行位置在哪里。不进行校准，EPS可能提供不均匀的助力或触发警告灯。"
+  },
+  {
+    id: 190,
+    q: "A vehicle has one tire that is wearing much faster than the others. All alignment angles are within specification. What should be checked?",
+    options: [
+      "A) The engine oil level",
+      "B) The brake on that wheel for dragging",
+      "C) The air filter",
+      "D) The battery voltage"
+    ],
+    answer: 1,
+    explanation: "If alignment is correct and one tire wears faster than the others, a dragging brake on that wheel is a likely cause. A seized caliper slide pin, collapsed brake hose, or sticking parking brake cable can cause constant friction on one wheel, generating heat and accelerating tire wear.",
+    diagram: "",
+    terms: ["tire_rotation", "wheel_alignment"],
+    image: "https://upload.wikimedia.org/wikipedia/commons/thumb/a/ab/Wheel_alignment.jpg/640px-Wheel_alignment.jpg",
+    youtube: "https://www.youtube.com/watch?v=DepYSarbCVg",
+    youtubeTitle: "Tire Wear Patterns and What They Mean",
+    qChinese: "一辆车有一个轮胎比其他轮胎磨损快得多。所有定位角度都在规格范围内。应检查什么？",
+    optionsChinese: [
+      "A) 发动机油位",
+      "B) 该车轮的制动器是否拖滞",
+      "C) 空气滤清器",
+      "D) 蓄电池电压"
+    ],
+    explanationChinese: "如果定位正确但一个轮胎比其他轮胎磨损更快，该车轮的制动拖滞是可能的原因。卡滞的卡钳滑销、塌陷的制动软管或粘滞的驻车制动拉线可能导致一个车轮持续摩擦，产生热量并加速轮胎磨损。"
+  },
+  {
+    id: 191,
+    q: "Technician A says ride height must be checked before performing a wheel alignment. Technician B says sagging springs can affect alignment readings. Who is correct?",
+    options: [
+      "A) Technician A only",
+      "B) Technician B only",
+      "C) Both Technician A and Technician B",
+      "D) Neither Technician A nor Technician B"
+    ],
+    answer: 2,
+    explanation: "Both are correct. Ride height must be within specification before performing an alignment because all alignment angles change with ride height. Sagging springs lower the ride height and shift camber, caster, and toe readings. Aligning a vehicle with incorrect ride height will produce incorrect settings.",
+    diagram: "",
+    terms: ["wheel_alignment", "coil_spring", "camber", "caster"],
+    image: "https://upload.wikimedia.org/wikipedia/commons/thumb/a/ab/Wheel_alignment.jpg/640px-Wheel_alignment.jpg",
+    youtube: "https://www.youtube.com/watch?v=MXGi6CaKtaY",
+    youtubeTitle: "How to Perform a Wheel Alignment",
+    qChinese: "技师A说在进行四轮定位前必须检查车身高度。技师B说下沉的弹簧会影响定位读数。谁是正确的？",
+    optionsChinese: [
+      "A) 仅技师A正确",
+      "B) 仅技师B正确",
+      "C) 技师A和技师B都正确",
+      "D) 技师A和技师B都不正确"
+    ],
+    explanationChinese: "两位都正确。在进行定位前车身高度必须在规格内，因为所有定位角度都随车身高度变化。下沉的弹簧降低车身高度并改变外倾角、主销后倾角和前束读数。在车身高度不正确的情况下定位会产生不正确的设定。"
+  },
+  {
+    id: 192,
+    q: "What type of wheel bearing is used in most modern front-wheel-drive vehicles?",
+    options: [
+      "A) Tapered roller bearing with manual adjustment",
+      "B) Sealed hub bearing assembly (unitized bearing)",
+      "C) Loose ball bearing with races",
+      "D) Needle roller bearing"
+    ],
+    answer: 1,
+    explanation: "Most modern front-wheel-drive vehicles use a sealed hub bearing assembly, also called a unitized bearing. It is a pre-assembled, pre-adjusted, sealed unit that bolts to the knuckle. It contains the wheel speed sensor ring and cannot be serviced. When it fails, the entire assembly is replaced.",
+    diagram: "",
+    terms: ["wheel_bearing"],
+    image: "https://upload.wikimedia.org/wikipedia/commons/thumb/a/ab/Wheel_alignment.jpg/640px-Wheel_alignment.jpg",
+    youtube: "https://www.youtube.com/watch?v=bNEJzSIBxFQ",
+    youtubeTitle: "Wheel Bearing Noise and Diagnosis",
+    qChinese: "大多数现代前驱车辆使用什么类型的车轮轴承？",
+    optionsChinese: [
+      "A) 带手动调整的锥形滚子轴承",
+      "B) 密封式轮毂轴承总成（整体式轴承）",
+      "C) 带座圈的散装球轴承",
+      "D) 滚针轴承"
+    ],
+    explanationChinese: "大多数现代前驱车辆使用密封式轮毂轴承总成，也称为整体式轴承。它是预组装、预调整的密封装置，用螺栓固定在转向节上。它包含车轮转速传感器环且不可维修。当它失效时，必须更换整个总成。"
+  },
+  {
+    id: 193,
+    q: "A clicking noise from the front wheels during tight turns at low speed is MOST likely caused by:",
+    options: [
+      "A) Worn wheel bearings",
+      "B) A worn outer CV joint",
+      "C) Worn sway bar links",
+      "D) A loose heat shield"
+    ],
+    answer: 1,
+    explanation: "A clicking or popping noise during tight turns at low speed is the classic symptom of a worn outer CV (constant velocity) joint. The outer joint operates at the greatest angle during turns. A torn CV boot allows grease to escape and contamination to enter, leading to joint failure.",
+    diagram: "",
+    terms: ["wheel_bearing", "ball_joint"],
+    image: "https://upload.wikimedia.org/wikipedia/commons/thumb/a/ab/Wheel_alignment.jpg/640px-Wheel_alignment.jpg",
+    youtube: "https://www.youtube.com/watch?v=bNEJzSIBxFQ",
+    youtubeTitle: "Wheel Bearing Noise and Diagnosis",
+    qChinese: "低速紧弯时前轮发出咔嗒声最可能的原因是：",
+    optionsChinese: [
+      "A) 车轮轴承磨损",
+      "B) 外CV万向节磨损",
+      "C) 稳定杆连杆磨损",
+      "D) 热屏蔽板松动"
+    ],
+    explanationChinese: "低速紧弯时的咔嗒声或啪嗒声是外CV（等速）万向节磨损的典型症状。外万向节在转弯时以最大角度工作。CV防尘套破裂导致润滑脂泄出和污染物进入，导致万向节失效。"
+  },
+  {
+    id: 194,
+    q: "When removing a pressed-in wheel bearing from a steering knuckle, what tool is typically used?",
+    options: [
+      "A) A slide hammer",
+      "B) A hydraulic press",
+      "C) A pry bar",
+      "D) A torque wrench"
+    ],
+    answer: 1,
+    explanation: "Pressed-in wheel bearings require a hydraulic press for removal and installation. The bearing is pressed into the knuckle bore with precise alignment. Improper installation methods such as hammering can damage the new bearing and cause premature failure. Some can also be removed with a special puller.",
+    diagram: "",
+    terms: ["wheel_bearing"],
+    image: "https://upload.wikimedia.org/wikipedia/commons/thumb/a/ab/Wheel_alignment.jpg/640px-Wheel_alignment.jpg",
+    youtube: "https://www.youtube.com/watch?v=bNEJzSIBxFQ",
+    youtubeTitle: "Wheel Bearing Noise and Diagnosis",
+    qChinese: "从转向节中拆卸压入式车轮轴承时通常使用什么工具？",
+    optionsChinese: [
+      "A) 滑锤",
+      "B) 液压压力机",
+      "C) 撬棒",
+      "D) 扭力扳手"
+    ],
+    explanationChinese: "压入式车轮轴承需要液压压力机进行拆卸和安装。轴承以精确对准的方式压入转向节孔中。不正确的安装方法如锤击可能损坏新轴承并导致过早失效。某些也可以用专用拉拔器拆卸。"
+  },
+  {
+    id: 195,
+    q: "A vehicle with four-wheel independent suspension has a pull to the left. All tire pressures are correct. The alignment shows left caster is 2 degrees less than the right. What is the repair?",
+    options: [
+      "A) Adjust the left caster to match the right",
+      "B) Adjust the toe to compensate",
+      "C) Rotate the tires",
+      "D) Replace the left front tire"
+    ],
+    answer: 0,
+    explanation: "The vehicle pulls toward the side with less positive caster. With the left caster 2 degrees less than the right, the vehicle pulls left. The repair is to adjust the left caster to match the right side. Caster is adjusted using eccentric bolts, shims, or slotted mountings depending on the vehicle design.",
+    diagram: "",
+    terms: ["caster", "wheel_alignment", "control_arm"],
+    image: "https://upload.wikimedia.org/wikipedia/commons/thumb/a/ab/Wheel_alignment.jpg/640px-Wheel_alignment.jpg",
+    youtube: "https://www.youtube.com/watch?v=MXGi6CaKtaY",
+    youtubeTitle: "How to Perform a Wheel Alignment",
+    qChinese: "配备四轮独立悬挂的车辆向左跑偏。所有轮胎气压正确。定位显示左侧主销后倾角比右侧少2度。如何维修？",
+    optionsChinese: [
+      "A) 调整左侧主销后倾角使其与右侧匹配",
+      "B) 调整前束来补偿",
+      "C) 进行轮胎换位",
+      "D) 更换左前轮胎"
+    ],
+    explanationChinese: "车辆向正主销后倾角较小的一侧跑偏。左侧主销后倾角比右侧少2度，车辆向左跑偏。维修方法是调整左侧主销后倾角使其与右侧匹配。主销后倾角通过偏心螺栓、垫片或长圆安装孔调整，取决于车辆设计。"
+  },
+  {
+    id: 196,
+    q: "What is the consequence of not performing a TPMS relearn after rotating tires on a direct TPMS system?",
+    options: [
+      "A) The TPMS light will not illuminate",
+      "B) The system will display incorrect tire positions on the dash display",
+      "C) The tires will lose air faster",
+      "D) The wheel bearings will be damaged"
+    ],
+    answer: 1,
+    explanation: "Without a TPMS relearn, the system still monitors pressures but identifies the wrong tire position. A low-pressure alert may indicate the wrong wheel location on the dash display, confusing the driver. The sensors still function, but the position data is incorrect until a relearn is performed.",
+    diagram: "",
+    terms: ["tpms", "tire_pressure", "tire_rotation"],
+    image: "https://upload.wikimedia.org/wikipedia/commons/thumb/a/ab/Wheel_alignment.jpg/640px-Wheel_alignment.jpg",
+    youtube: "https://www.youtube.com/watch?v=DepYSarbCVg",
+    youtubeTitle: "Tire Wear Patterns and What They Mean",
+    qChinese: "在直接式TPMS系统上换位轮胎后不执行TPMS重新学习的后果是什么？",
+    optionsChinese: [
+      "A) TPMS灯不会亮起",
+      "B) 系统将在仪表盘显示上显示错误的轮胎位置",
+      "C) 轮胎会更快漏气",
+      "D) 车轮轴承会损坏"
+    ],
+    explanationChinese: "不进行TPMS重新学习，系统仍然监测压力但识别错误的轮胎位置。低压警报可能在仪表盘显示上指示错误的车轮位置，误导驾驶员。传感器仍然工作，但位置数据不正确，直到执行重新学习。"
+  },
+  {
+    id: 197,
+    q: "A vehicle has a shimmy or wobble at low speeds (under 30 mph) that smooths out at higher speeds. What is the MOST likely cause?",
+    options: [
+      "A) An out-of-balance tire",
+      "B) A separated tire (tread separation or belt shift)",
+      "C) Low power steering fluid",
+      "D) Worn brake pads"
+    ],
+    answer: 1,
+    explanation: "A shimmy or wobble at low speeds that smooths out at higher speeds often indicates a tire with internal damage such as a tread separation or shifted belt. This creates a physical lump in the tire that is more noticeable at lower speeds. A balance issue typically causes vibrations at higher speeds.",
+    diagram: "",
+    terms: ["tire_pressure", "tire_rotation"],
+    image: "https://upload.wikimedia.org/wikipedia/commons/thumb/a/ab/Wheel_alignment.jpg/640px-Wheel_alignment.jpg",
+    youtube: "https://www.youtube.com/watch?v=DepYSarbCVg",
+    youtubeTitle: "Tire Wear Patterns and What They Mean",
+    qChinese: "车辆在低速（30英里/小时以下）时有摆振或摇摆，在高速时消失。最可能的原因是什么？",
+    optionsChinese: [
+      "A) 轮胎不平衡",
+      "B) 轮胎内部损伤（胎面分离或帘布层移位）",
+      "C) 助力转向液偏低",
+      "D) 刹车片磨损"
+    ],
+    explanationChinese: "低速时出现而高速时消失的摆振或摇摆通常表明轮胎存在内部损伤，如胎面分离或帘布层移位。这在轮胎上形成一个物理隆起，在低速时更明显。平衡问题通常在高速时产生振动。"
+  },
+  {
+    id: 198,
+    q: "When installing TPMS-equipped wheels, what precaution must be taken to avoid damaging the sensors?",
+    options: [
+      "A) Remove the sensors before mounting tires",
+      "B) Position the tire bead away from the sensor during mounting and use care with tire irons",
+      "C) Only inflate to 20 PSI",
+      "D) Use extra bead lubricant on the sensor"
+    ],
+    answer: 1,
+    explanation: "When mounting and demounting tires on TPMS-equipped wheels, the tire bead and tire machine tools must be positioned away from the sensor to avoid breaking it. The sensor valve stem and body are fragile. Marking the sensor location and starting the bead opposite the sensor prevents damage.",
+    diagram: "",
+    terms: ["tpms", "tire_pressure"],
+    image: "https://upload.wikimedia.org/wikipedia/commons/thumb/a/ab/Wheel_alignment.jpg/640px-Wheel_alignment.jpg",
+    youtube: "https://www.youtube.com/watch?v=DepYSarbCVg",
+    youtubeTitle: "Tire Wear Patterns and What They Mean",
+    qChinese: "安装配有TPMS的车轮时，必须采取什么预防措施以避免损坏传感器？",
+    optionsChinese: [
+      "A) 装胎前取下传感器",
+      "B) 装胎时将胎圈远离传感器，使用撬胎棒时要小心",
+      "C) 仅充气至20 PSI",
+      "D) 在传感器上多涂胎圈润滑剂"
+    ],
+    explanationChinese: "在配有TPMS的车轮上装卸轮胎时，轮胎胎圈和轮胎机工具必须远离传感器以避免损坏。传感器气门嘴和本体很脆弱。标记传感器位置并从传感器对面开始操作胎圈可以防止损坏。"
+  },
+  {
+    id: 199,
+    q: "A vehicle pulls to one side only when braking hard. The alignment is within specification. What is the MOST likely cause?",
+    options: [
+      "A) Unequal caster",
+      "B) A restricted brake hose or sticking caliper on one side",
+      "C) Worn sway bar links",
+      "D) A faulty TPMS sensor"
+    ],
+    answer: 1,
+    explanation: "A pull only during braking indicates a brake issue, not alignment. A restricted brake hose that prevents fluid from reaching or releasing a caliper, or a sticking caliper, causes uneven braking force between sides. The vehicle pulls toward the side with more braking force.",
+    diagram: "",
+    terms: ["wheel_alignment", "tie_rod"],
+    image: "https://upload.wikimedia.org/wikipedia/commons/thumb/a/ab/Wheel_alignment.jpg/640px-Wheel_alignment.jpg",
+    youtube: "https://www.youtube.com/watch?v=MXGi6CaKtaY",
+    youtubeTitle: "How to Perform a Wheel Alignment",
+    qChinese: "车辆仅在急刹车时向一侧跑偏。定位在规格范围内。最可能的原因是什么？",
+    optionsChinese: [
+      "A) 不等的主销后倾角",
+      "B) 一侧制动软管受限或卡钳卡滞",
+      "C) 稳定杆连杆磨损",
+      "D) TPMS传感器故障"
+    ],
+    explanationChinese: "仅在制动时跑偏表明是制动问题而非定位问题。制动软管受限导致液体无法到达或释放卡钳，或卡钳卡滞，会导致两侧制动力不均。车辆向制动力更大的一侧跑偏。"
+  },
+  {
+    id: 200,
+    q: "A customer complains of a steering wheel that oscillates (shakes back and forth) at highway speeds, especially over uneven pavement. What suspension component is MOST likely worn?",
+    options: [
+      "A) The sway bar links",
+      "B) The steering damper (steering stabilizer)",
+      "C) The coil springs",
+      "D) The leaf springs"
+    ],
+    answer: 1,
+    explanation: "A steering damper (steering stabilizer) controls oscillation of the steering linkage, much like a shock absorber controls spring movement. When worn, it cannot dampen the back-and-forth oscillation caused by road irregularities, resulting in a steering wheel that shakes at highway speeds over bumps.",
+    diagram: "",
+    terms: ["shock_absorber", "steering_gear", "tie_rod"],
+    image: "https://upload.wikimedia.org/wikipedia/commons/thumb/3/3e/Rack_and_pinion_animation.gif/400px-Rack_and_pinion_animation.gif",
+    youtube: "https://www.youtube.com/watch?v=YDl1UxCrEhM",
+    youtubeTitle: "Power Steering System Explained",
+    qChinese: "客户抱怨方向盘在高速公路速度下特别是在不平路面上来回摆动。哪个悬挂部件最可能磨损？",
+    optionsChinese: [
+      "A) 稳定杆连杆",
+      "B) 转向减震器（转向稳定器）",
+      "C) 螺旋弹簧",
+      "D) 钢板弹簧"
+    ],
+    explanationChinese: "转向减震器（转向稳定器）控制转向连杆机构的摆动，类似于减震器控制弹簧运动。磨损后无法抑制路面不规则引起的来回摆动，导致方向盘在高速公路速度下过颠簸时摆动。"
   }
 ];

@@ -81,15 +81,15 @@ entry_level_technician_cert/
 │   ├── index.php                            # Entry point (PHP + HTML/JS/CSS)
 │   ├── index.html                           # Static fallback (no AI features)
 │   ├── terms_glossary.js                    # Terms glossary data
-│   ├── q_a1.js                              # A1 questions (100)
-│   ├── q_a2.js                              # A2 questions (100)
-│   ├── q_a3.js                              # A3 questions (100)
-│   ├── q_a4.js                              # A4 questions (100)
-│   ├── q_a5.js                              # A5 questions (100)
-│   ├── q_a6.js                              # A6 questions (100)
-│   ├── q_a7.js                              # A7 questions (100)
-│   ├── q_a8.js                              # A8 questions (100)
-│   └── q_g1.js                              # G1 questions (100)
+│   ├── q_a1.js                              # A1 questions (200)
+│   ├── q_a2.js                              # A2 questions (200)
+│   ├── q_a3.js                              # A3 questions (200)
+│   ├── q_a4.js                              # A4 questions (200)
+│   ├── q_a5.js                              # A5 questions (200)
+│   ├── q_a6.js                              # A6 questions (200)
+│   ├── q_a7.js                              # A7 questions (200)
+│   ├── q_a8.js                              # A8 questions (200)
+│   └── q_g1.js                              # G1 questions (200)
 │
 ├── generate_video.py                        # Video generation scripts
 ├── generate_video_brakes.py
@@ -123,12 +123,12 @@ A single-page web application for practicing ASE certification exam questions wi
 ### 3.4 Data Architecture
 
 #### Question Files (`q_a1.js` through `q_a8.js`, `q_g1.js`)
-Each file exports a JavaScript array variable (`questionsA1`, `questionsA2`, etc.) containing 100 question objects per section.
+Each file exports a JavaScript array variable (`questionsA1`, `questionsA2`, etc.) containing 200 question objects per section (1,800 total across all 9 sections).
 
 **Question Object Schema:**
 ```javascript
 {
-  id: Number,                    // Unique ID within section (1–100)
+  id: Number,                    // Unique ID within section (1–200)
   q: String,                     // Question text (English)
   qChinese: String,              // Question text (Simplified Chinese)
   options: [String, String, String, String],  // 4 answer options (English)
@@ -186,10 +186,10 @@ Exports a `termsGlossary` object keyed by term ID strings.
 - **Question Card**: Main content area (max-width: 900px, centered)
 
 #### Question Flow
-1. User clicks a tab → loads and shuffles that section's 100 questions
+1. User clicks a tab → loads and shuffles that section's 200 questions
 2. Random unanswered question displayed with bilingual text
-3. User selects an option (highlights in blue)
-4. User clicks "Show Answer" button
+3. User optionally selects an option (highlights in blue)
+4. User clicks "Show Answer" button (always enabled, works with or without a selection)
 5. Correct option shows green checkmark, wrong selection shows red X
 6. Explanation panel slides in with:
    - Correct/Incorrect status (bilingual)
@@ -216,7 +216,8 @@ Exports a `termsGlossary` object keyed by term ID strings.
 #### AI Lookup Modal (PHP-only feature)
 - Triggered by clicking highlighted terms in question/explanation text
 - **Also triggered by text selection**: When user highlights/selects any text (2–200 chars) in the question card, explanation area, **or inside the AI modal body itself**, the AI modal updates in-place with a new streaming response for the selected text
-- Query format: `"what is {term or selected text}, explain to me in 200 words, also, please translate them to simplified chinese"`
+- Query format for clicked terms: `"what is {term.name}, explain to me in 200 words, also, please translate them to simplified chinese"`
+- Query format for highlighted/selected text: `"in the context of car mechanic, what is {the highlighted text}, explain to me in 200 words, also, please translate them to simplified chinese"`
 - Shows loading spinner while streaming
 - PHP backend streams response from Ollama API (`gemma2:2b`) via HTTP
 - Response rendered as Markdown → HTML using built-in renderer, then post-processed to highlight known glossary terms as clickable spans
@@ -231,8 +232,9 @@ Exports a `termsGlossary` object keyed by term ID strings.
   - "Submit" button on the right
   - On submit, sends query: `"please answer the question: {question}, explain to me in 200 words, also, please translate them to simplified chinese"`
   - Response streams into the same modal body below the input
-- **History Navigation**: Previous/Next buttons (browser-like history) at the top of the modal allow navigating back and forth through all AI queries made in the current session
+- **History Navigation**: Previous/Next buttons (browser-like history) at the top of the modal allow navigating back and forth through all AI queries made in the session
   - History tracks each query's display name, query text, and completed response
+  - History is persisted in localStorage (max 100 entries, key: `aiPopupHistory`), survives popup close and page reload
   - "Prev" and "Next" buttons with position indicator (e.g., "3 / 7")
   - Starting a new query from a back-navigated position trims forward history (like a browser)
   - Navigating history aborts any in-flight streaming request

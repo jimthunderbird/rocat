@@ -305,7 +305,7 @@ task {
   status: "completed"
 }
 
-task {
+task.highlited_keywords_search {
   in ./ase_study_q, after i highlighted a piece of text in either the question section or the answer section {
     issue a request to index.php?q="what is {the highlighted text}, explain to me in 200 words, also, please translate them to simplified chinese"
 
@@ -353,7 +353,29 @@ task {
   status: "completed"
 }
 
-task {
+task.popup_history {
   in the popup in task.sticky_popup, please add previous and next level, allowing me to go to the previous or next message, kind of like a browser history
+  status: "completed"
+}
+
+task {
+  in ./ase_study_q, the "Show Answer" button should be enabled all the time, even though I did not select a choice
+  status: "completed"
+}
+
+task {
+  from A1 to A8, and G1, please add 100 more questions per section
+  status: "completed"
+}
+
+task {
+  in task.popup_history, please keep a history of maximum 100 messages, those history should be kept regardless of the popup is opened or closed
+  status: "completed"
+}
+
+task {
+  in task.highlited_keywords_search {
+    when keywords are highlited, send the request to index.php?q="in the context of car mechanic, what is {the highlighted text}, explain to me in 200 words, also, please translate them to simplified chinese"
+  }
   status: "completed"
 }

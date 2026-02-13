@@ -2511,5 +2511,2513 @@ const questionsG1 = [
       "D) 冷却系统加注过多"
     ],
     explanationChinese: "蒸发器排水管堵塞是最可能的原因。蒸发器从车厢空气中去除湿气，冷凝水通常通过排水管排到车外。当排水管被杂物堵塞时，水会积聚并滴到车内副驾驶侧地板上。",
-  }
+  },
+  // ===== G1 ADDITIONAL QUESTIONS (101–200) =====
+  // ===== ENGINE OIL SERVICE (Questions 101–115) =====
+  {
+    id: 101,
+    q: "What does the 'W' stand for in a multi-viscosity oil rating such as 5W-30?",
+    options: [
+      "A) Weight",
+      "B) Winter",
+      "C) Width",
+      "D) Wax"
+    ],
+    answer: 1,
+    explanation: "The 'W' in a multi-viscosity oil rating stands for Winter. The number before the W indicates the oil's cold-temperature flow characteristics. A lower W number means the oil flows more easily when cold, providing better cold-start protection and faster lubrication at startup.",
+    diagram: "",
+    terms: ["engine_oil", "oil_filter"],
+    image: "https://upload.wikimedia.org/wikipedia/commons/thumb/2/23/Motor_oil_refill_with_funnel.JPG/640px-Motor_oil_refill_with_funnel.JPG",
+    youtube: "https://www.youtube.com/watch?v=O1hF25Cowv8",
+    youtubeTitle: "Understanding Motor Oil Viscosity Ratings",
+    qChinese: "在多级机油等级如5W-30中，'W'代表什么？",
+    optionsChinese: [
+      "A) 重量",
+      "B) 冬季",
+      "C) 宽度",
+      "D) 蜡"
+    ],
+    explanationChinese: "'W'在多级机油等级中代表冬季（Winter）。W前面的数字表示机油在低温下的流动特性。W数字越低，机油在寒冷时流动性越好，可在启动时提供更好的冷启动保护和更快的润滑。",
+  },
+  {
+    id: 102,
+    q: "A customer asks for a synthetic blend oil change. Which statement about synthetic blend oil is correct?",
+    options: [
+      "A) It is 100% chemically engineered oil",
+      "B) It is a mixture of conventional and full synthetic oil",
+      "C) It is the same as conventional oil with additives",
+      "D) It cannot be used in high-mileage engines"
+    ],
+    answer: 1,
+    explanation: "Synthetic blend oil is a mixture of conventional mineral-based oil and full synthetic oil. It offers improved protection and performance over conventional oil at a lower cost than full synthetic. It is suitable for light trucks and SUVs or drivers who want better protection than conventional oil provides.",
+    diagram: "",
+    terms: ["engine_oil", "oil_filter"],
+    image: "https://upload.wikimedia.org/wikipedia/commons/thumb/2/23/Motor_oil_refill_with_funnel.JPG/640px-Motor_oil_refill_with_funnel.JPG",
+    youtube: "https://www.youtube.com/watch?v=O1hF25Cowv8",
+    youtubeTitle: "Synthetic vs Conventional Motor Oil",
+    qChinese: "客户要求更换半合成机油。关于半合成机油，哪项说法是正确的？",
+    optionsChinese: [
+      "A) 它是100%化学合成的机油",
+      "B) 它是矿物油和全合成油的混合物",
+      "C) 它与添加了添加剂的矿物油相同",
+      "D) 它不能用于高里程发动机"
+    ],
+    explanationChinese: "半合成机油是矿物基础油和全合成油的混合物。它以低于全合成油的价格提供比矿物油更好的保护和性能。适用于轻型卡车和SUV，或希望获得比矿物油更好保护的驾驶者。",
+  },
+  {
+    id: 103,
+    q: "What is the PRIMARY purpose of the oil filter bypass valve?",
+    options: [
+      "A) To filter debris from the oil more effectively",
+      "B) To allow oil to flow to the engine when the filter is clogged",
+      "C) To regulate oil pressure in the system",
+      "D) To prevent oil from draining back into the pan"
+    ],
+    answer: 1,
+    explanation: "The oil filter bypass valve allows oil to flow around a clogged filter so the engine still receives lubrication. Without this valve, a severely clogged filter could starve the engine of oil, causing catastrophic damage. Unfiltered oil is better than no oil at all for engine survival.",
+    diagram: "",
+    terms: ["oil_filter", "engine_oil"],
+    image: "https://upload.wikimedia.org/wikipedia/commons/thumb/d/d0/Oil_filter_-_after_1000_km.jpg/640px-Oil_filter_-_after_1000_km.jpg",
+    youtube: "https://www.youtube.com/watch?v=O1hF25Cowv8",
+    youtubeTitle: "How Oil Filters Work",
+    qChinese: "机油滤清器旁通阀的主要目的是什么？",
+    optionsChinese: [
+      "A) 更有效地过滤机油中的杂质",
+      "B) 当滤清器堵塞时允许机油流向发动机",
+      "C) 调节系统中的机油压力",
+      "D) 防止机油回流到油底壳"
+    ],
+    explanationChinese: "机油滤清器旁通阀允许机油绕过堵塞的滤清器，使发动机仍能获得润滑。没有此阀门，严重堵塞的滤清器可能使发动机缺少机油，导致灾难性损坏。未过滤的机油总比没有机油对发动机生存更好。",
+  },
+  {
+    id: 104,
+    q: "When installing a new spin-on oil filter, how should the gasket be prepared?",
+    options: [
+      "A) Leave the gasket dry for a tight seal",
+      "B) Apply a thin film of clean engine oil to the gasket",
+      "C) Apply thread sealant to the gasket",
+      "D) Apply silicone RTV to the gasket surface"
+    ],
+    answer: 1,
+    explanation: "Before installing a spin-on oil filter, a thin film of clean engine oil should be applied to the rubber gasket. This ensures a proper seal, prevents the gasket from twisting or tearing during installation, and allows easier removal at the next oil change service interval.",
+    diagram: "",
+    terms: ["oil_filter", "engine_oil"],
+    image: "https://upload.wikimedia.org/wikipedia/commons/thumb/d/d0/Oil_filter_-_after_1000_km.jpg/640px-Oil_filter_-_after_1000_km.jpg",
+    youtube: "https://www.youtube.com/watch?v=O1hF25Cowv8",
+    youtubeTitle: "Proper Oil Filter Installation",
+    qChinese: "安装新的旋装式机油滤清器时，应如何处理密封垫圈？",
+    optionsChinese: [
+      "A) 保持密封垫圈干燥以获得紧密密封",
+      "B) 在密封垫圈上涂抹一薄层清洁的发动机机油",
+      "C) 在密封垫圈上涂抹螺纹密封剂",
+      "D) 在密封垫圈表面涂抹硅酮RTV密封胶"
+    ],
+    explanationChinese: "安装旋装式机油滤清器之前，应在橡胶密封垫圈上涂抹一薄层清洁的发动机机油。这可确保正确密封，防止密封垫圈在安装过程中扭曲或撕裂，并在下次换油保养时更容易拆卸。",
+  },
+  {
+    id: 105,
+    q: "An engine oil dipstick reading shows the oil level is above the full mark. What is the MOST likely concern?",
+    options: [
+      "A) The engine is running too hot",
+      "B) Overfilling can cause foaming, leading to reduced lubrication and possible seal damage",
+      "C) The dipstick is reading incorrectly due to temperature",
+      "D) The oil filter needs immediate replacement"
+    ],
+    answer: 1,
+    explanation: "Overfilling the engine with oil can cause the crankshaft to whip the oil into foam. Foamy oil does not lubricate properly and can cause bearing damage. Excess oil pressure from overfilling can also damage seals and gaskets, leading to oil leaks and potential engine damage.",
+    diagram: "",
+    terms: ["engine_oil", "oil_filter"],
+    image: "https://upload.wikimedia.org/wikipedia/commons/thumb/2/23/Motor_oil_refill_with_funnel.JPG/640px-Motor_oil_refill_with_funnel.JPG",
+    youtube: "https://www.youtube.com/watch?v=O1hF25Cowv8",
+    youtubeTitle: "Checking Engine Oil Level Correctly",
+    qChinese: "发动机机油尺读数显示油位超过满刻度线。最可能的问题是什么？",
+    optionsChinese: [
+      "A) 发动机运行温度过高",
+      "B) 加注过多会导致机油起泡，降低润滑效果并可能损坏密封件",
+      "C) 由于温度原因，机油尺读数不正确",
+      "D) 机油滤清器需要立即更换"
+    ],
+    explanationChinese: "发动机机油加注过多会导致曲轴将机油搅成泡沫。泡沫状的机油无法正常润滑，可能导致轴承损坏。过多的机油压力还可能损坏密封件和垫圈，导致机油泄漏和潜在的发动机损坏。",
+  },
+  {
+    id: 106,
+    q: "Which API service category indicates an oil is designed for current gasoline engines?",
+    options: [
+      "A) API GL-5",
+      "B) API SP",
+      "C) API CK-4",
+      "D) API CF"
+    ],
+    answer: 1,
+    explanation: "API SP is the current service category for gasoline engine oils. It provides improved protection against low-speed pre-ignition, timing chain wear, and high-temperature deposits. API CK-4 and CF categories are for diesel engines, while GL-5 is a gear lubricant classification.",
+    diagram: "",
+    terms: ["engine_oil", "oil_filter"],
+    image: "https://upload.wikimedia.org/wikipedia/commons/thumb/2/23/Motor_oil_refill_with_funnel.JPG/640px-Motor_oil_refill_with_funnel.JPG",
+    youtube: "https://www.youtube.com/watch?v=O1hF25Cowv8",
+    youtubeTitle: "Understanding API Oil Ratings",
+    qChinese: "哪个API服务类别表示机油是为当前汽油发动机设计的？",
+    optionsChinese: [
+      "A) API GL-5",
+      "B) API SP",
+      "C) API CK-4",
+      "D) API CF"
+    ],
+    explanationChinese: "API SP是当前汽油发动机机油的服务类别。它提供了改进的低速预点火保护、正时链磨损保护和高温沉积物保护。API CK-4和CF类别用于柴油发动机，而GL-5是齿轮润滑油分类。",
+  },
+  {
+    id: 107,
+    q: "After draining the engine oil, the technician notices the old oil filter gasket is stuck to the engine block. What should be done?",
+    options: [
+      "A) Install the new filter on top of the old gasket",
+      "B) Remove the old gasket before installing the new filter",
+      "C) Apply extra sealant to the new filter gasket",
+      "D) Use a thicker replacement gasket"
+    ],
+    answer: 1,
+    explanation: "The old gasket must be completely removed before installing the new filter. Installing a new filter over an old gasket creates a double-gasket condition that will cause a severe oil leak, potentially resulting in total oil loss and catastrophic engine failure within minutes of startup.",
+    diagram: "",
+    terms: ["oil_filter", "engine_oil"],
+    image: "https://upload.wikimedia.org/wikipedia/commons/thumb/d/d0/Oil_filter_-_after_1000_km.jpg/640px-Oil_filter_-_after_1000_km.jpg",
+    youtube: "https://www.youtube.com/watch?v=O1hF25Cowv8",
+    youtubeTitle: "Avoiding Double Gasket Oil Filter Mistakes",
+    qChinese: "排出发动机机油后，技师发现旧机油滤清器密封垫圈粘在发动机缸体上。应该怎么做？",
+    optionsChinese: [
+      "A) 在旧密封垫圈上安装新滤清器",
+      "B) 在安装新滤清器之前拆除旧密封垫圈",
+      "C) 在新滤清器密封垫圈上涂抹额外的密封剂",
+      "D) 使用更厚的替换密封垫圈"
+    ],
+    explanationChinese: "在安装新滤清器之前必须完全拆除旧密封垫圈。在旧密封垫圈上安装新滤清器会造成双垫圈情况，导致严重的机油泄漏，可能在启动几分钟内导致机油完全流失和灾难性的发动机故障。",
+  },
+  {
+    id: 108,
+    q: "A vehicle requires 0W-20 oil but the technician only has 5W-30 available. What is the correct action?",
+    options: [
+      "A) Use the 5W-30 since it is close enough",
+      "B) Do not substitute; obtain the correct 0W-20 oil specified by the manufacturer",
+      "C) Mix the two oils together to approximate the correct viscosity",
+      "D) Use 5W-30 and add an oil viscosity reducer additive"
+    ],
+    answer: 1,
+    explanation: "Always use the oil viscosity specified by the vehicle manufacturer. Modern engines are designed with tight tolerances and specific oil passage sizes. Using incorrect viscosity can affect variable valve timing systems, reduce fuel economy, and potentially void the manufacturer's warranty.",
+    diagram: "",
+    terms: ["engine_oil", "oil_filter"],
+    image: "https://upload.wikimedia.org/wikipedia/commons/thumb/2/23/Motor_oil_refill_with_funnel.JPG/640px-Motor_oil_refill_with_funnel.JPG",
+    youtube: "https://www.youtube.com/watch?v=O1hF25Cowv8",
+    youtubeTitle: "Choosing the Right Motor Oil",
+    qChinese: "一辆车需要0W-20机油，但技师只有5W-30可用。正确的做法是什么？",
+    optionsChinese: [
+      "A) 使用5W-30因为足够接近",
+      "B) 不要替代；获取制造商指定的正确0W-20机油",
+      "C) 将两种机油混合以接近正确的粘度",
+      "D) 使用5W-30并添加机油粘度降低剂"
+    ],
+    explanationChinese: "始终使用车辆制造商指定的机油粘度。现代发动机设计有严格的公差和特定的油道尺寸。使用不正确的粘度会影响可变气门正时系统，降低燃油经济性，并可能使制造商的保修失效。",
+  },
+  {
+    id: 109,
+    q: "How should used engine oil be disposed of at the shop?",
+    options: [
+      "A) Pour it into the storm drain",
+      "B) Collect it in an approved container and arrange for recycling by a licensed waste hauler",
+      "C) Mix it with other waste fluids and dispose in regular trash",
+      "D) Burn it in a waste oil heater without any permits"
+    ],
+    answer: 1,
+    explanation: "Used engine oil must be collected in approved containers and recycled by a licensed waste hauler per EPA regulations. Pouring oil into drains or soil is illegal and harmful. Some shops use permitted waste oil heaters, but proper permits and equipment are required by local regulations.",
+    diagram: "",
+    terms: ["engine_oil", "oil_filter"],
+    image: "https://upload.wikimedia.org/wikipedia/commons/thumb/2/23/Motor_oil_refill_with_funnel.JPG/640px-Motor_oil_refill_with_funnel.JPG",
+    youtube: "https://www.youtube.com/watch?v=O1hF25Cowv8",
+    youtubeTitle: "Proper Used Oil Disposal Procedures",
+    qChinese: "在车间应如何处理废旧发动机机油？",
+    optionsChinese: [
+      "A) 倒入雨水排水沟",
+      "B) 收集在认可的容器中，并安排由持证废物运输商回收",
+      "C) 与其他废液混合并放入普通垃圾处理",
+      "D) 无需任何许可证即可在废油加热器中燃烧"
+    ],
+    explanationChinese: "废旧发动机机油必须按照EPA法规收集在认可的容器中，并由持证废物运输商回收。将机油倒入排水沟或土壤是违法且有害的。一些车间使用获许可的废油加热器，但当地法规要求必须有适当的许可证和设备。",
+  },
+  {
+    id: 110,
+    q: "What does the oil life monitoring system in modern vehicles measure to determine when an oil change is needed?",
+    options: [
+      "A) Only the mileage driven since the last oil change",
+      "B) Engine operating conditions such as temperature, RPM, and load to calculate oil degradation",
+      "C) The color of the oil through an optical sensor",
+      "D) The oil level in the crankcase only"
+    ],
+    answer: 1,
+    explanation: "Modern oil life monitoring systems use algorithms that track engine operating conditions including temperature, RPM, load, cold starts, and trip length to calculate how much the oil has degraded. This is more accurate than simple mileage-based intervals and helps optimize oil change frequency.",
+    diagram: "",
+    terms: ["engine_oil", "oil_filter"],
+    image: "https://upload.wikimedia.org/wikipedia/commons/thumb/2/23/Motor_oil_refill_with_funnel.JPG/640px-Motor_oil_refill_with_funnel.JPG",
+    youtube: "https://www.youtube.com/watch?v=O1hF25Cowv8",
+    youtubeTitle: "How Oil Life Monitors Work",
+    qChinese: "现代车辆中的机油寿命监测系统通过测量什么来确定何时需要换油？",
+    optionsChinese: [
+      "A) 仅测量自上次换油以来的行驶里程",
+      "B) 发动机运行条件如温度、转速和负荷来计算机油降解程度",
+      "C) 通过光学传感器检测机油颜色",
+      "D) 仅测量曲轴箱中的机油液位"
+    ],
+    explanationChinese: "现代机油寿命监测系统使用算法跟踪发动机运行条件，包括温度、转速、负荷、冷启动和行程长度，以计算机油降解程度。这比简单的基于里程的间隔更准确，有助于优化换油频率。",
+  },
+  {
+    id: 111,
+    q: "After completing an oil change, the oil pressure warning light remains on after starting the engine. What should the technician do FIRST?",
+    options: [
+      "A) Continue running the engine to build oil pressure",
+      "B) Shut off the engine immediately and verify the oil level and filter installation",
+      "C) Add an oil pressure additive",
+      "D) Replace the oil pressure sending unit"
+    ],
+    answer: 1,
+    explanation: "If the oil pressure light stays on after an oil change, the engine should be shut off immediately to prevent damage. The technician should verify the correct oil level and check that the oil filter is properly installed and not leaking. Running without oil pressure causes rapid engine damage.",
+    diagram: "",
+    terms: ["engine_oil", "oil_filter"],
+    image: "https://upload.wikimedia.org/wikipedia/commons/thumb/d/d0/Oil_filter_-_after_1000_km.jpg/640px-Oil_filter_-_after_1000_km.jpg",
+    youtube: "https://www.youtube.com/watch?v=O1hF25Cowv8",
+    youtubeTitle: "Oil Pressure Warning Light Diagnosis",
+    qChinese: "完成换油后，启动发动机后机油压力警告灯仍然亮着。技师应首先做什么？",
+    optionsChinese: [
+      "A) 继续运转发动机以建立机油压力",
+      "B) 立即关闭发动机并验证机油液位和滤清器安装",
+      "C) 添加机油压力添加剂",
+      "D) 更换机油压力传感器"
+    ],
+    explanationChinese: "如果换油后机油压力灯仍然亮着，应立即关闭发动机以防止损坏。技师应验证正确的机油液位并检查机油滤清器是否正确安装且没有泄漏。在没有机油压力的情况下运转会导致发动机迅速损坏。",
+  },
+  {
+    id: 112,
+    q: "What is the purpose of the anti-drain back valve in an oil filter?",
+    options: [
+      "A) To regulate the flow of oil through the filter",
+      "B) To prevent oil from draining out of the filter when the engine is shut off",
+      "C) To filter out larger debris particles",
+      "D) To increase oil pressure during cold starts"
+    ],
+    answer: 1,
+    explanation: "The anti-drain back valve prevents oil from draining out of the filter when the engine is off. This ensures oil is immediately available to the engine on startup, reducing dry-start wear. Without this valve, the engine would briefly run without filtered oil each time it is started.",
+    diagram: "",
+    terms: ["oil_filter", "engine_oil"],
+    image: "https://upload.wikimedia.org/wikipedia/commons/thumb/d/d0/Oil_filter_-_after_1000_km.jpg/640px-Oil_filter_-_after_1000_km.jpg",
+    youtube: "https://www.youtube.com/watch?v=O1hF25Cowv8",
+    youtubeTitle: "Oil Filter Components Explained",
+    qChinese: "机油滤清器中防回流阀的目的是什么？",
+    optionsChinese: [
+      "A) 调节通过滤清器的机油流量",
+      "B) 防止发动机熄火时机油从滤清器中流出",
+      "C) 过滤较大的杂质颗粒",
+      "D) 在冷启动时增加机油压力"
+    ],
+    explanationChinese: "防回流阀防止发动机熄火时机油从滤清器中流出。这确保启动时机油立即可用于发动机，减少干启动磨损。没有此阀门，发动机每次启动时都会短暂在没有过滤机油的情况下运转。",
+  },
+  {
+    id: 113,
+    q: "Technician A says high-mileage oil contains seal conditioners to help reduce oil leaks. Technician B says high-mileage oil has a different viscosity than standard oil. Who is correct?",
+    options: [
+      "A) Technician A only",
+      "B) Technician B only",
+      "C) Both Technician A and Technician B",
+      "D) Neither Technician A nor Technician B"
+    ],
+    answer: 0,
+    explanation: "Technician A is correct. High-mileage oils contain seal conditioners that help soften and swell aging seals to reduce oil seepage and leaks. They are available in the same viscosity grades as standard oils, so Technician B is incorrect about having different viscosity ratings.",
+    diagram: "",
+    terms: ["engine_oil", "oil_filter"],
+    image: "https://upload.wikimedia.org/wikipedia/commons/thumb/2/23/Motor_oil_refill_with_funnel.JPG/640px-Motor_oil_refill_with_funnel.JPG",
+    youtube: "https://www.youtube.com/watch?v=O1hF25Cowv8",
+    youtubeTitle: "High Mileage Oil Benefits",
+    qChinese: "技师A说高里程机油含有密封调理剂以帮助减少机油泄漏。技师B说高里程机油与标准机油的粘度不同。谁是正确的？",
+    optionsChinese: [
+      "A) 仅技师A正确",
+      "B) 仅技师B正确",
+      "C) 技师A和技师B都正确",
+      "D) 技师A和技师B都不正确"
+    ],
+    explanationChinese: "技师A是正确的。高里程机油含有密封调理剂，可帮助软化和膨胀老化的密封件以减少机油渗漏。它们与标准机油具有相同的粘度等级，因此技师B关于粘度不同的说法是不正确的。",
+  },
+  {
+    id: 114,
+    q: "What is the recommended method for tightening a spin-on oil filter?",
+    options: [
+      "A) Use an oil filter wrench to tighten it as much as possible",
+      "B) Hand-tighten until the gasket contacts, then turn an additional 3/4 to 1 turn by hand",
+      "C) Tighten with a wrench until the filter deforms slightly",
+      "D) Apply the filter loosely to allow for expansion"
+    ],
+    answer: 1,
+    explanation: "The proper method is to hand-tighten the filter until the gasket contacts the mounting surface, then turn an additional three-quarter to one full turn by hand. Over-tightening with a wrench can crush the gasket or damage the filter, making it difficult to remove at the next service.",
+    diagram: "",
+    terms: ["oil_filter", "engine_oil"],
+    image: "https://upload.wikimedia.org/wikipedia/commons/thumb/d/d0/Oil_filter_-_after_1000_km.jpg/640px-Oil_filter_-_after_1000_km.jpg",
+    youtube: "https://www.youtube.com/watch?v=O1hF25Cowv8",
+    youtubeTitle: "How to Install an Oil Filter",
+    qChinese: "旋装式机油滤清器的推荐拧紧方法是什么？",
+    optionsChinese: [
+      "A) 使用机油滤清器扳手尽可能拧紧",
+      "B) 手动拧紧直到密封垫圈接触，然后手动再拧3/4到1圈",
+      "C) 用扳手拧紧直到滤清器略微变形",
+      "D) 松散安装滤清器以留出膨胀空间"
+    ],
+    explanationChinese: "正确的方法是手动拧紧滤清器直到密封垫圈接触安装面，然后手动再拧四分之三到一整圈。用扳手过度拧紧可能会压坏密封垫圈或损坏滤清器，使其在下次保养时难以拆卸。",
+  },
+  {
+    id: 115,
+    q: "A vehicle's engine oil appears milky white on the dipstick. What is the MOST likely cause?",
+    options: [
+      "A) The wrong type of oil was installed",
+      "B) Coolant is mixing with the engine oil due to an internal leak",
+      "C) The oil is overfilled",
+      "D) Normal condensation from short trips in cold weather only"
+    ],
+    answer: 1,
+    explanation: "Milky white engine oil typically indicates coolant contamination from an internal leak such as a blown head gasket, cracked cylinder head, or cracked block. While condensation can cause mild milkiness on the oil cap, milky oil on the dipstick warrants immediate diagnosis for coolant intrusion.",
+    diagram: "",
+    terms: ["engine_oil", "coolant", "thermostat"],
+    image: "https://upload.wikimedia.org/wikipedia/commons/thumb/2/23/Motor_oil_refill_with_funnel.JPG/640px-Motor_oil_refill_with_funnel.JPG",
+    youtube: "https://www.youtube.com/watch?v=O1hF25Cowv8",
+    youtubeTitle: "Milky Oil Diagnosis - Head Gasket Failure",
+    qChinese: "车辆发动机机油在机油尺上呈乳白色。最可能的原因是什么？",
+    optionsChinese: [
+      "A) 安装了错误类型的机油",
+      "B) 由于内部泄漏，冷却液与发动机机油混合",
+      "C) 机油加注过多",
+      "D) 仅在寒冷天气短途行驶时的正常冷凝"
+    ],
+    explanationChinese: "乳白色的发动机机油通常表示冷却液由于内部泄漏而污染机油，如气缸垫损坏、气缸盖开裂或缸体开裂。虽然冷凝可能导致油盖上轻微的乳化，但机油尺上的乳白色机油需要立即诊断冷却液入侵。",
+  },
+  // ===== COOLING SYSTEM SERVICE (Questions 116–130) =====
+  {
+    id: 116,
+    q: "What is the PRIMARY function of the thermostat in an engine cooling system?",
+    options: [
+      "A) To pump coolant through the engine",
+      "B) To regulate engine temperature by controlling coolant flow to the radiator",
+      "C) To pressurize the cooling system",
+      "D) To mix coolant with water"
+    ],
+    answer: 1,
+    explanation: "The thermostat regulates engine operating temperature by controlling coolant flow to the radiator. It stays closed when the engine is cold to allow faster warm-up and opens at a preset temperature to allow coolant circulation through the radiator for cooling. This improves efficiency and reduces emissions.",
+    diagram: "",
+    terms: ["thermostat", "coolant", "water_pump"],
+    image: "https://upload.wikimedia.org/wikipedia/commons/thumb/5/5f/Radiator.jpg/640px-Radiator.jpg",
+    youtube: "https://www.youtube.com/watch?v=pqFZY6v6OQI",
+    youtubeTitle: "How a Thermostat Works",
+    qChinese: "发动机冷却系统中恒温器的主要功能是什么？",
+    optionsChinese: [
+      "A) 将冷却液泵送通过发动机",
+      "B) 通过控制冷却液流向散热器来调节发动机温度",
+      "C) 对冷却系统加压",
+      "D) 将冷却液与水混合"
+    ],
+    explanationChinese: "恒温器通过控制冷却液流向散热器来调节发动机运行温度。当发动机冷时它保持关闭以允许更快预热，在预设温度时打开以允许冷却液通过散热器循环进行冷却。这提高了效率并减少了排放。",
+  },
+  {
+    id: 117,
+    q: "What type of coolant should NEVER be mixed with another type?",
+    options: [
+      "A) Distilled water and any coolant type",
+      "B) Organic Acid Technology (OAT) coolant with Inorganic Acid Technology (IAT) coolant",
+      "C) Pre-mixed coolant with concentrate coolant of the same type",
+      "D) Coolant from the same manufacturer in different containers"
+    ],
+    answer: 1,
+    explanation: "OAT and IAT coolants should never be mixed. OAT coolant uses organic acids for long-life corrosion protection, while IAT uses silicates and phosphates. Mixing them creates a gel-like substance that can clog the cooling system, reduce heat transfer, and cause engine overheating damage.",
+    diagram: "",
+    terms: ["coolant", "thermostat", "water_pump"],
+    image: "https://upload.wikimedia.org/wikipedia/commons/thumb/5/5f/Radiator.jpg/640px-Radiator.jpg",
+    youtube: "https://www.youtube.com/watch?v=pqFZY6v6OQI",
+    youtubeTitle: "Types of Engine Coolant Explained",
+    qChinese: "哪种类型的冷却液绝对不能与另一种类型混合？",
+    optionsChinese: [
+      "A) 蒸馏水和任何类型的冷却液",
+      "B) 有机酸技术（OAT）冷却液与无机酸技术（IAT）冷却液",
+      "C) 预混冷却液与相同类型的浓缩冷却液",
+      "D) 同一制造商不同容器的冷却液"
+    ],
+    explanationChinese: "OAT和IAT冷却液绝不能混合。OAT冷却液使用有机酸进行长效防腐保护，而IAT使用硅酸盐和磷酸盐。混合它们会产生凝胶状物质，可能堵塞冷却系统，降低散热效率，并导致发动机过热损坏。",
+  },
+  {
+    id: 118,
+    q: "A radiator pressure cap is rated at 16 psi. What happens if it is replaced with a 10 psi cap?",
+    options: [
+      "A) Nothing, the engine will run the same",
+      "B) The coolant boiling point will be lower, increasing the risk of overheating",
+      "C) The engine will warm up faster",
+      "D) The water pump will work more efficiently"
+    ],
+    answer: 1,
+    explanation: "A lower pressure cap reduces the system pressure, which lowers the coolant boiling point. For every pound of pressure, the boiling point increases about 3 degrees Fahrenheit. Using a 10 psi cap instead of 16 psi reduces the boiling point by approximately 18 degrees, increasing overheating risk.",
+    diagram: "",
+    terms: ["coolant", "thermostat", "water_pump"],
+    image: "https://upload.wikimedia.org/wikipedia/commons/thumb/5/5f/Radiator.jpg/640px-Radiator.jpg",
+    youtube: "https://www.youtube.com/watch?v=pqFZY6v6OQI",
+    youtubeTitle: "Radiator Pressure Cap Function",
+    qChinese: "散热器压力盖额定为16 psi。如果更换为10 psi的压力盖会怎样？",
+    optionsChinese: [
+      "A) 没有影响，发动机运行相同",
+      "B) 冷却液沸点会降低，增加过热风险",
+      "C) 发动机会更快预热",
+      "D) 水泵会更高效地工作"
+    ],
+    explanationChinese: "较低压力的盖会降低系统压力，从而降低冷却液沸点。每增加一磅压力，沸点约升高3华氏度。使用10 psi的盖代替16 psi会使沸点降低约18度，增加过热风险。",
+  },
+  {
+    id: 119,
+    q: "When performing a cooling system flush, what is the correct procedure for refilling with new coolant?",
+    options: [
+      "A) Fill rapidly to save time",
+      "B) Fill slowly and bleed air from the system using the bleeder valve or by following the manufacturer's procedure",
+      "C) Fill only with water first, then add coolant concentrate later",
+      "D) Fill to the top of the radiator and ignore the overflow reservoir"
+    ],
+    answer: 1,
+    explanation: "When refilling the cooling system, coolant should be added slowly while bleeding trapped air using bleeder valves or the manufacturer's specified procedure. Air pockets can cause hot spots leading to overheating, inaccurate temperature gauge readings, and potential heater core performance issues.",
+    diagram: "",
+    terms: ["coolant", "thermostat", "water_pump"],
+    image: "https://upload.wikimedia.org/wikipedia/commons/thumb/5/5f/Radiator.jpg/640px-Radiator.jpg",
+    youtube: "https://www.youtube.com/watch?v=pqFZY6v6OQI",
+    youtubeTitle: "Cooling System Flush and Refill",
+    qChinese: "进行冷却系统冲洗时，加注新冷却液的正确程序是什么？",
+    optionsChinese: [
+      "A) 快速加注以节省时间",
+      "B) 缓慢加注并使用放气阀或按照制造商程序排出系统中的空气",
+      "C) 先只加水，然后再添加冷却液浓缩液",
+      "D) 加注到散热器顶部并忽略溢流储液壶"
+    ],
+    explanationChinese: "重新加注冷却系统时，应缓慢添加冷却液，同时使用放气阀或制造商指定的程序排出滞留的空气。气泡会导致热点从而引起过热、温度表读数不准确以及潜在的暖风水箱性能问题。",
+  },
+  {
+    id: 120,
+    q: "A coolant hydrometer or refractometer is used to test what property of the coolant?",
+    options: [
+      "A) The flow rate of the coolant",
+      "B) The freeze point and boil-over protection level of the coolant mixture",
+      "C) The pH level of the coolant",
+      "D) The color of the coolant"
+    ],
+    answer: 1,
+    explanation: "A coolant hydrometer or refractometer tests the concentration of antifreeze in the coolant mixture to determine its freeze point and boil-over protection. The typical recommended mixture is 50/50 antifreeze and water, providing protection to approximately minus 34 degrees Fahrenheit.",
+    diagram: "",
+    terms: ["coolant", "thermostat"],
+    image: "https://upload.wikimedia.org/wikipedia/commons/thumb/5/5f/Radiator.jpg/640px-Radiator.jpg",
+    youtube: "https://www.youtube.com/watch?v=pqFZY6v6OQI",
+    youtubeTitle: "Testing Coolant Concentration",
+    qChinese: "冷却液比重计或折光仪用于测试冷却液的什么特性？",
+    optionsChinese: [
+      "A) 冷却液的流速",
+      "B) 冷却液混合物的冰点和防沸保护水平",
+      "C) 冷却液的pH值",
+      "D) 冷却液的颜色"
+    ],
+    explanationChinese: "冷却液比重计或折光仪测试冷却液混合物中防冻液的浓度，以确定其冰点和防沸保护。典型的推荐混合比例是50/50防冻液和水，可提供约零下34华氏度的保护。",
+  },
+  {
+    id: 121,
+    q: "A vehicle is overheating and the upper radiator hose is cold while the engine is hot. What is the MOST likely cause?",
+    options: [
+      "A) A faulty water pump",
+      "B) A thermostat stuck in the closed position",
+      "C) A clogged radiator",
+      "D) A faulty radiator fan"
+    ],
+    answer: 1,
+    explanation: "A cold upper radiator hose with a hot engine indicates the thermostat is stuck closed, preventing hot coolant from flowing to the radiator. If the water pump were faulty, there would still be some heat transfer. A clogged radiator or faulty fan would still allow hot coolant into the hose.",
+    diagram: "",
+    terms: ["thermostat", "coolant", "water_pump"],
+    image: "https://upload.wikimedia.org/wikipedia/commons/thumb/5/5f/Radiator.jpg/640px-Radiator.jpg",
+    youtube: "https://www.youtube.com/watch?v=pqFZY6v6OQI",
+    youtubeTitle: "Diagnosing a Stuck Thermostat",
+    qChinese: "车辆过热，发动机很热但上水管是冷的。最可能的原因是什么？",
+    optionsChinese: [
+      "A) 水泵故障",
+      "B) 恒温器卡在关闭位置",
+      "C) 散热器堵塞",
+      "D) 散热器风扇故障"
+    ],
+    explanationChinese: "发动机很热但上水管冷表明恒温器卡在关闭位置，阻止了热冷却液流向散热器。如果水泵故障，仍然会有一些热量传递。散热器堵塞或风扇故障仍会允许热冷却液进入水管。",
+  },
+  {
+    id: 122,
+    q: "What is the correct coolant-to-water ratio for most vehicles in normal climates?",
+    options: [
+      "A) 70% coolant and 30% water",
+      "B) 50% coolant and 50% water",
+      "C) 30% coolant and 70% water",
+      "D) 100% coolant with no water"
+    ],
+    answer: 1,
+    explanation: "The standard recommended ratio is 50% coolant and 50% distilled water for most vehicles. This mixture provides freeze protection to about minus 34 degrees Fahrenheit and boil-over protection to about 265 degrees Fahrenheit. Pure coolant actually transfers heat less efficiently than a proper mixture.",
+    diagram: "",
+    terms: ["coolant", "thermostat"],
+    image: "https://upload.wikimedia.org/wikipedia/commons/thumb/5/5f/Radiator.jpg/640px-Radiator.jpg",
+    youtube: "https://www.youtube.com/watch?v=pqFZY6v6OQI",
+    youtubeTitle: "Correct Coolant Mixing Ratio",
+    qChinese: "在正常气候条件下，大多数车辆的正确冷却液与水的比例是多少？",
+    optionsChinese: [
+      "A) 70%冷却液和30%水",
+      "B) 50%冷却液和50%水",
+      "C) 30%冷却液和70%水",
+      "D) 100%冷却液不加水"
+    ],
+    explanationChinese: "大多数车辆的标准推荐比例是50%冷却液和50%蒸馏水。这种混合物提供约零下34华氏度的防冻保护和约265华氏度的防沸保护。纯冷却液的散热效率实际上低于正确比例的混合物。",
+  },
+  {
+    id: 123,
+    q: "A technician notices coolant weeping from the water pump weep hole. What does this indicate?",
+    options: [
+      "A) Normal operation to relieve excess pressure",
+      "B) The water pump internal seal is failing and the pump should be replaced",
+      "C) The cooling system has too much pressure",
+      "D) The coolant level is too high"
+    ],
+    answer: 1,
+    explanation: "Coolant weeping from the water pump weep hole indicates that the internal shaft seal is failing. The weep hole is designed to allow coolant to escape externally rather than contaminating the engine oil through the bearing. The pump should be replaced before complete seal failure occurs.",
+    diagram: "",
+    terms: ["water_pump", "coolant", "serpentine_belt"],
+    image: "https://upload.wikimedia.org/wikipedia/commons/thumb/5/5f/Radiator.jpg/640px-Radiator.jpg",
+    youtube: "https://www.youtube.com/watch?v=pqFZY6v6OQI",
+    youtubeTitle: "Water Pump Failure Signs",
+    qChinese: "技师注意到冷却液从水泵泄漏孔渗出。这表明什么？",
+    optionsChinese: [
+      "A) 正常运行以释放过多压力",
+      "B) 水泵内部密封件正在失效，应更换水泵",
+      "C) 冷却系统压力过高",
+      "D) 冷却液液位太高"
+    ],
+    explanationChinese: "冷却液从水泵泄漏孔渗出表明内部轴密封件正在失效。泄漏孔的设计目的是让冷却液向外部泄漏，而不是通过轴承污染发动机机油。应在密封完全失效之前更换水泵。",
+  },
+  {
+    id: 124,
+    q: "Before removing the radiator cap on a hot engine, what MUST the technician do?",
+    options: [
+      "A) Remove the cap quickly to release pressure all at once",
+      "B) Allow the engine to cool down, then carefully release pressure by turning the cap to the first stop",
+      "C) Pour cold water on the radiator cap to cool it",
+      "D) Squeeze the upper radiator hose to check for pressure"
+    ],
+    answer: 1,
+    explanation: "The technician must allow the engine to cool before removing the radiator cap. A hot cooling system is under pressure and removing the cap while hot can cause superheated coolant to spray out, causing severe burns. Turn the cap to the first stop to release pressure before fully removing it.",
+    diagram: "",
+    terms: ["coolant", "thermostat"],
+    image: "https://upload.wikimedia.org/wikipedia/commons/thumb/5/5f/Radiator.jpg/640px-Radiator.jpg",
+    youtube: "https://www.youtube.com/watch?v=pqFZY6v6OQI",
+    youtubeTitle: "Safe Radiator Cap Removal",
+    qChinese: "在热发动机上拆卸散热器盖之前，技师必须做什么？",
+    optionsChinese: [
+      "A) 快速拆卸盖子以一次性释放压力",
+      "B) 等发动机冷却后，小心地将盖转到第一挡以释放压力",
+      "C) 将冷水倒在散热器盖上使其冷却",
+      "D) 挤压上水管以检查是否有压力"
+    ],
+    explanationChinese: "技师必须在拆卸散热器盖之前等发动机冷却。热的冷却系统处于压力之下，在热时拆卸盖子可能导致过热的冷却液喷出，造成严重烫伤。将盖转到第一挡以释放压力，然后再完全拆卸。",
+  },
+  {
+    id: 125,
+    q: "What is the purpose of the coolant overflow reservoir (expansion tank)?",
+    options: [
+      "A) To store extra coolant for emergencies",
+      "B) To allow coolant to expand when hot and return to the radiator when the engine cools",
+      "C) To filter debris from the coolant",
+      "D) To add pressure to the cooling system"
+    ],
+    answer: 1,
+    explanation: "The overflow reservoir allows coolant to expand as it heats up, storing the excess. When the engine cools, a vacuum draws the coolant back into the radiator, maintaining the proper level. This prevents coolant loss from thermal expansion and keeps the system properly filled at all times.",
+    diagram: "",
+    terms: ["coolant", "thermostat"],
+    image: "https://upload.wikimedia.org/wikipedia/commons/thumb/5/5f/Radiator.jpg/640px-Radiator.jpg",
+    youtube: "https://www.youtube.com/watch?v=pqFZY6v6OQI",
+    youtubeTitle: "Coolant Reservoir Function",
+    qChinese: "冷却液溢流储液壶（膨胀箱）的目的是什么？",
+    optionsChinese: [
+      "A) 储存额外冷却液以备紧急情况",
+      "B) 允许冷却液在热时膨胀，并在发动机冷却时返回散热器",
+      "C) 过滤冷却液中的杂质",
+      "D) 为冷却系统增加压力"
+    ],
+    explanationChinese: "溢流储液壶允许冷却液在加热时膨胀，存储多余的冷却液。当发动机冷却时，真空将冷却液吸回散热器，维持正确的液位。这防止了热膨胀造成的冷却液损失，并始终保持系统正确加注。",
+  },
+  {
+    id: 126,
+    q: "A cooling system pressure test shows the system will not hold pressure. The radiator hoses and cap test okay. What should be checked NEXT?",
+    options: [
+      "A) The thermostat",
+      "B) The heater core, water pump, freeze plugs, and head gasket for leaks",
+      "C) The coolant temperature sensor",
+      "D) The radiator fan clutch"
+    ],
+    answer: 1,
+    explanation: "If hoses and the radiator cap pass the pressure test, other components should be checked for leaks. The heater core, water pump seals, freeze plugs, and head gasket are common sources of coolant leaks. A UV dye test or visual inspection under pressure can help locate the leak source.",
+    diagram: "",
+    terms: ["coolant", "water_pump", "thermostat"],
+    image: "https://upload.wikimedia.org/wikipedia/commons/thumb/5/5f/Radiator.jpg/640px-Radiator.jpg",
+    youtube: "https://www.youtube.com/watch?v=pqFZY6v6OQI",
+    youtubeTitle: "Cooling System Pressure Testing",
+    qChinese: "冷却系统压力测试显示系统无法保持压力。散热器水管和盖测试正常。接下来应检查什么？",
+    optionsChinese: [
+      "A) 恒温器",
+      "B) 暖风水箱、水泵、防冻塞和气缸垫是否泄漏",
+      "C) 冷却液温度传感器",
+      "D) 散热器风扇离合器"
+    ],
+    explanationChinese: "如果水管和散热器盖通过了压力测试，应检查其他部件是否泄漏。暖风水箱、水泵密封件、防冻塞和气缸垫是常见的冷却液泄漏源。紫外线染料测试或在压力下进行目视检查可以帮助定位泄漏源。",
+  },
+  {
+    id: 127,
+    q: "What tool is used to perform a cooling system pressure test?",
+    options: [
+      "A) A vacuum pump",
+      "B) A cooling system pressure tester with adapter fittings",
+      "C) A compression gauge",
+      "D) A fuel pressure gauge"
+    ],
+    answer: 1,
+    explanation: "A cooling system pressure tester with the correct adapter fitting is used to pressurize the system to the cap rating and check for leaks. The tester connects to the radiator or reservoir neck. If pressure drops, there is a leak in the system that must be found and repaired.",
+    diagram: "",
+    terms: ["coolant", "water_pump"],
+    image: "https://upload.wikimedia.org/wikipedia/commons/thumb/5/5f/Radiator.jpg/640px-Radiator.jpg",
+    youtube: "https://www.youtube.com/watch?v=pqFZY6v6OQI",
+    youtubeTitle: "How to Pressure Test a Cooling System",
+    qChinese: "什么工具用于进行冷却系统压力测试？",
+    optionsChinese: [
+      "A) 真空泵",
+      "B) 带适配器接头的冷却系统压力测试仪",
+      "C) 压缩测试表",
+      "D) 燃油压力表"
+    ],
+    explanationChinese: "带有正确适配器接头的冷却系统压力测试仪用于将系统加压到压力盖额定值并检查泄漏。测试仪连接到散热器或储液壶口。如果压力下降，则系统中存在泄漏，必须找到并修复。",
+  },
+  {
+    id: 128,
+    q: "A radiator hose feels soft and spongy when squeezed. What does this indicate?",
+    options: [
+      "A) The hose is in good condition",
+      "B) The hose is deteriorating internally and should be replaced",
+      "C) The cooling system pressure is too low",
+      "D) The coolant concentration is too weak"
+    ],
+    answer: 1,
+    explanation: "A soft, spongy radiator hose indicates internal deterioration of the rubber material. The hose may be breaking down from the inside, with particles potentially clogging the radiator or heater core. It should be replaced before it fails and causes a coolant leak or engine overheating.",
+    diagram: "",
+    terms: ["coolant", "thermostat"],
+    image: "https://upload.wikimedia.org/wikipedia/commons/thumb/5/5f/Radiator.jpg/640px-Radiator.jpg",
+    youtube: "https://www.youtube.com/watch?v=pqFZY6v6OQI",
+    youtubeTitle: "Inspecting Radiator Hoses",
+    qChinese: "散热器水管在挤压时感觉柔软和海绵状。这表明什么？",
+    optionsChinese: [
+      "A) 水管状况良好",
+      "B) 水管内部正在老化，应更换",
+      "C) 冷却系统压力太低",
+      "D) 冷却液浓度太低"
+    ],
+    explanationChinese: "柔软、海绵状的散热器水管表明橡胶材料内部正在老化。水管可能从内部分解，颗粒可能堵塞散热器或暖风水箱。应在其失效并导致冷却液泄漏或发动机过热之前更换。",
+  },
+  {
+    id: 129,
+    q: "Technician A says the electric cooling fan should turn on when the A/C is engaged. Technician B says the cooling fan only runs when the engine temperature is above normal. Who is correct?",
+    options: [
+      "A) Technician A only",
+      "B) Technician B only",
+      "C) Both Technician A and Technician B",
+      "D) Neither Technician A nor Technician B"
+    ],
+    answer: 0,
+    explanation: "Technician A is correct. The electric cooling fan is designed to turn on whenever the A/C is engaged to provide airflow across the condenser, regardless of engine temperature. It also turns on when coolant temperature reaches a set threshold, but it is not limited to only high-temperature situations.",
+    diagram: "",
+    terms: ["coolant", "thermostat"],
+    image: "https://upload.wikimedia.org/wikipedia/commons/thumb/5/5f/Radiator.jpg/640px-Radiator.jpg",
+    youtube: "https://www.youtube.com/watch?v=pqFZY6v6OQI",
+    youtubeTitle: "Electric Cooling Fan Operation",
+    qChinese: "技师A说当空调开启时电动冷却风扇应该打开。技师B说冷却风扇仅在发动机温度高于正常时运转。谁是正确的？",
+    optionsChinese: [
+      "A) 仅技师A正确",
+      "B) 仅技师B正确",
+      "C) 技师A和技师B都正确",
+      "D) 技师A和技师B都不正确"
+    ],
+    explanationChinese: "技师A是正确的。电动冷却风扇设计为在空调开启时启动，以提供通过冷凝器的气流，与发动机温度无关。它也会在冷却液温度达到设定阈值时启动，但不仅限于高温情况。",
+  },
+  {
+    id: 130,
+    q: "During a coolant flush, why is it important to flush the heater core as well?",
+    options: [
+      "A) The heater core has its own separate coolant supply",
+      "B) Deposits and debris in the heater core can restrict flow and reduce cabin heating performance",
+      "C) The heater core filters the coolant",
+      "D) Flushing the heater core resets the climate control computer"
+    ],
+    answer: 1,
+    explanation: "The heater core is part of the cooling system and can accumulate deposits and debris that restrict flow and reduce heating performance. Flushing ensures all old coolant and contaminants are removed from the entire system, restoring proper flow through the heater core for effective cabin heating.",
+    diagram: "",
+    terms: ["coolant", "thermostat"],
+    image: "https://upload.wikimedia.org/wikipedia/commons/thumb/5/5f/Radiator.jpg/640px-Radiator.jpg",
+    youtube: "https://www.youtube.com/watch?v=pqFZY6v6OQI",
+    youtubeTitle: "Heater Core Flushing Procedure",
+    qChinese: "在进行冷却液冲洗时，为什么冲洗暖风水箱也很重要？",
+    optionsChinese: [
+      "A) 暖风水箱有自己独立的冷却液供应",
+      "B) 暖风水箱中的沉积物和杂质会限制流量并降低车厢供暖性能",
+      "C) 暖风水箱过滤冷却液",
+      "D) 冲洗暖风水箱会重置空调控制电脑"
+    ],
+    explanationChinese: "暖风水箱是冷却系统的一部分，可能积累沉积物和杂质，限制流量并降低供暖性能。冲洗确保从整个系统中清除所有旧冷却液和污染物，恢复通过暖风水箱的正常流量以实现有效的车厢供暖。",
+  },
+  // ===== BATTERY SERVICE (Questions 131–140) =====
+  {
+    id: 131,
+    q: "What instrument is used to test a battery's state of charge by measuring the specific gravity of the electrolyte?",
+    options: [
+      "A) A digital multimeter",
+      "B) A battery hydrometer",
+      "C) An ammeter",
+      "D) A load tester"
+    ],
+    answer: 1,
+    explanation: "A battery hydrometer measures the specific gravity of the battery electrolyte to determine its state of charge. A fully charged battery has a specific gravity of about 1.265. This test is only applicable to serviceable batteries with removable cell caps and not sealed maintenance-free batteries.",
+    diagram: "",
+    terms: ["battery"],
+    image: "https://upload.wikimedia.org/wikipedia/commons/thumb/4/4d/Varta_car_battery.jpg/640px-Varta_car_battery.jpg",
+    youtube: "https://www.youtube.com/watch?v=LGB6ZEjGm7Q",
+    youtubeTitle: "Battery Testing Methods Explained",
+    qChinese: "什么仪器通过测量电解液比重来测试电池的充电状态？",
+    optionsChinese: [
+      "A) 数字万用表",
+      "B) 电池比重计",
+      "C) 电流表",
+      "D) 负载测试仪"
+    ],
+    explanationChinese: "电池比重计测量电池电解液的比重以确定其充电状态。完全充电的电池比重约为1.265。此测试仅适用于带有可拆卸电池盖的可维护电池，不适用于密封免维护电池。",
+  },
+  {
+    id: 132,
+    q: "When jump-starting a vehicle, what is the correct order for connecting the jumper cables?",
+    options: [
+      "A) Connect negative cables first, then positive cables",
+      "B) Connect positive to dead battery, positive to good battery, negative to good battery, negative to engine ground on dead vehicle",
+      "C) Connect both cables to the dead battery first",
+      "D) Connect negative to dead battery, positive to dead battery, then to good battery"
+    ],
+    answer: 1,
+    explanation: "The correct order is: positive cable to dead battery positive terminal, positive cable to good battery positive terminal, negative cable to good battery negative terminal, then negative cable to an engine ground on the dead vehicle away from the battery to prevent sparks near hydrogen gas.",
+    diagram: "",
+    terms: ["battery"],
+    image: "https://upload.wikimedia.org/wikipedia/commons/thumb/4/4d/Varta_car_battery.jpg/640px-Varta_car_battery.jpg",
+    youtube: "https://www.youtube.com/watch?v=LGB6ZEjGm7Q",
+    youtubeTitle: "How to Jump Start a Car Safely",
+    qChinese: "搭电启动车辆时，连接跨接电缆的正确顺序是什么？",
+    optionsChinese: [
+      "A) 先连接负极电缆，再连接正极电缆",
+      "B) 正极连亏电电池，正极连好电池，负极连好电池，负极连亏电车辆的发动机接地",
+      "C) 先将两根电缆都连接到亏电电池",
+      "D) 负极连亏电电池，正极连亏电电池，然后再连接好电池"
+    ],
+    explanationChinese: "正确的顺序是：正极电缆连接亏电电池正极端子，正极电缆连接好电池正极端子，负极电缆连接好电池负极端子，然后负极电缆连接亏电车辆远离电池的发动机接地点，以防止在氢气附近产生火花。",
+  },
+  {
+    id: 133,
+    q: "A battery load test is performed. The battery voltage drops below 9.6 volts during the test. What does this indicate?",
+    options: [
+      "A) The battery is in good condition",
+      "B) The battery has failed the load test and should be replaced",
+      "C) The battery needs to be recharged and retested",
+      "D) The alternator is not charging properly"
+    ],
+    answer: 1,
+    explanation: "During a battery load test, if the voltage drops below 9.6 volts at 70 degrees Fahrenheit while applying a load equal to half the CCA rating for 15 seconds, the battery has failed and should be replaced. A good battery maintains voltage above 9.6 volts under load conditions.",
+    diagram: "",
+    terms: ["battery"],
+    image: "https://upload.wikimedia.org/wikipedia/commons/thumb/4/4d/Varta_car_battery.jpg/640px-Varta_car_battery.jpg",
+    youtube: "https://www.youtube.com/watch?v=LGB6ZEjGm7Q",
+    youtubeTitle: "Battery Load Test Procedure",
+    qChinese: "进行电池负载测试。测试期间电池电压降到9.6伏以下。这表明什么？",
+    optionsChinese: [
+      "A) 电池状况良好",
+      "B) 电池未通过负载测试，应更换",
+      "C) 电池需要充电后重新测试",
+      "D) 发电机充电不正常"
+    ],
+    explanationChinese: "在电池负载测试中，如果在70华氏度下施加等于CCA额定值一半的负载15秒，电压降到9.6伏以下，则电池未通过测试，应更换。良好的电池在负载条件下保持电压高于9.6伏。",
+  },
+  {
+    id: 134,
+    q: "What should be disconnected FIRST when removing a vehicle battery?",
+    options: [
+      "A) The positive terminal",
+      "B) The negative terminal",
+      "C) Either terminal, order does not matter",
+      "D) The battery hold-down clamp"
+    ],
+    answer: 1,
+    explanation: "Always disconnect the negative terminal first when removing a battery. This eliminates the risk of accidentally shorting the positive terminal to ground with a wrench. If the positive were removed first, touching the wrench to any metal part of the vehicle would create a dangerous short circuit.",
+    diagram: "",
+    terms: ["battery"],
+    image: "https://upload.wikimedia.org/wikipedia/commons/thumb/4/4d/Varta_car_battery.jpg/640px-Varta_car_battery.jpg",
+    youtube: "https://www.youtube.com/watch?v=LGB6ZEjGm7Q",
+    youtubeTitle: "Safe Battery Removal and Installation",
+    qChinese: "拆卸车辆电池时应先断开什么？",
+    optionsChinese: [
+      "A) 正极端子",
+      "B) 负极端子",
+      "C) 任一端子，顺序无关",
+      "D) 电池固定夹"
+    ],
+    explanationChinese: "拆卸电池时始终先断开负极端子。这消除了用扳手意外将正极端子短路到接地的风险。如果先拆正极，扳手触碰到车辆任何金属部分都会造成危险的短路。",
+  },
+  {
+    id: 135,
+    q: "White or greenish corrosion is found on the battery terminals. What is the recommended cleaning method?",
+    options: [
+      "A) Scrape it off with a flathead screwdriver only",
+      "B) Clean with a baking soda and water solution, then use a battery terminal brush",
+      "C) Spray it with brake cleaner",
+      "D) Ignore it if the vehicle still starts"
+    ],
+    answer: 1,
+    explanation: "Battery terminal corrosion should be cleaned using a baking soda and water solution to neutralize the acid, followed by scrubbing with a battery terminal brush or post cleaner. After cleaning, apply terminal protectant or dielectric grease to prevent future corrosion buildup.",
+    diagram: "",
+    terms: ["battery"],
+    image: "https://upload.wikimedia.org/wikipedia/commons/thumb/4/4d/Varta_car_battery.jpg/640px-Varta_car_battery.jpg",
+    youtube: "https://www.youtube.com/watch?v=LGB6ZEjGm7Q",
+    youtubeTitle: "Cleaning Battery Terminal Corrosion",
+    qChinese: "在电池端子上发现白色或绿色腐蚀。推荐的清洁方法是什么？",
+    optionsChinese: [
+      "A) 仅用平头螺丝刀刮掉",
+      "B) 用小苏打和水溶液清洁，然后使用电池端子刷",
+      "C) 用刹车清洁剂喷洒",
+      "D) 如果车辆仍能启动就忽略它"
+    ],
+    explanationChinese: "电池端子腐蚀应使用小苏打和水溶液清洁以中和酸液，然后用电池端子刷或柱桩清洁器擦洗。清洁后，涂抹端子保护剂或绝缘脂以防止未来腐蚀积聚。",
+  },
+  {
+    id: 136,
+    q: "A fully charged 12-volt automotive battery should read approximately what voltage with no load?",
+    options: [
+      "A) 11.0 volts",
+      "B) 12.6 volts",
+      "C) 13.5 volts",
+      "D) 14.2 volts"
+    ],
+    answer: 1,
+    explanation: "A fully charged 12-volt automotive battery should read approximately 12.6 volts with no load (open circuit voltage). A reading of 12.4 volts indicates about 75% charge, 12.2 volts about 50%, and 12.0 volts about 25%. Below 12.0 volts the battery is considered discharged.",
+    diagram: "",
+    terms: ["battery"],
+    image: "https://upload.wikimedia.org/wikipedia/commons/thumb/4/4d/Varta_car_battery.jpg/640px-Varta_car_battery.jpg",
+    youtube: "https://www.youtube.com/watch?v=LGB6ZEjGm7Q",
+    youtubeTitle: "Testing Battery Voltage with a Multimeter",
+    qChinese: "完全充电的12伏汽车电池在无负载时应读取大约多少伏特？",
+    optionsChinese: [
+      "A) 11.0伏",
+      "B) 12.6伏",
+      "C) 13.5伏",
+      "D) 14.2伏"
+    ],
+    explanationChinese: "完全充电的12伏汽车电池在无负载（开路电压）时应读取约12.6伏。12.4伏表示约75%充电，12.2伏约50%，12.0伏约25%。低于12.0伏的电池被认为已放电。",
+  },
+  {
+    id: 137,
+    q: "What does CCA stand for on a battery rating label?",
+    options: [
+      "A) Current Charging Amperage",
+      "B) Cold Cranking Amps",
+      "C) Continuous Current Availability",
+      "D) Cranking Capacity Assessment"
+    ],
+    answer: 1,
+    explanation: "CCA stands for Cold Cranking Amps. It measures the number of amps a battery can deliver at 0 degrees Fahrenheit for 30 seconds while maintaining at least 7.2 volts. A higher CCA rating indicates better cold-weather starting ability, which is critical in colder climates.",
+    diagram: "",
+    terms: ["battery"],
+    image: "https://upload.wikimedia.org/wikipedia/commons/thumb/4/4d/Varta_car_battery.jpg/640px-Varta_car_battery.jpg",
+    youtube: "https://www.youtube.com/watch?v=LGB6ZEjGm7Q",
+    youtubeTitle: "Understanding Battery CCA Ratings",
+    qChinese: "电池标签上的CCA代表什么？",
+    optionsChinese: [
+      "A) 电流充电安培数",
+      "B) 冷启动安培数",
+      "C) 持续电流可用性",
+      "D) 启动容量评估"
+    ],
+    explanationChinese: "CCA代表冷启动安培数（Cold Cranking Amps）。它测量电池在0华氏度下能在30秒内提供的安培数，同时保持至少7.2伏。更高的CCA额定值表示更好的寒冷天气启动能力，这在较冷的气候中至关重要。",
+  },
+  {
+    id: 138,
+    q: "When charging a battery with an external charger, what safety precaution is MOST important?",
+    options: [
+      "A) Charge the battery as quickly as possible using the highest amperage setting",
+      "B) Ensure adequate ventilation because charging produces hydrogen gas which is explosive",
+      "C) Remove the battery from the vehicle before charging",
+      "D) Disconnect only the positive terminal before charging"
+    ],
+    answer: 1,
+    explanation: "Adequate ventilation is critical when charging a battery because the process produces hydrogen gas, which is highly flammable and explosive. Charging should be done in a well-ventilated area away from sparks, flames, and ignition sources. Slow charging at lower amperage is also preferred for battery health.",
+    diagram: "",
+    terms: ["battery"],
+    image: "https://upload.wikimedia.org/wikipedia/commons/thumb/4/4d/Varta_car_battery.jpg/640px-Varta_car_battery.jpg",
+    youtube: "https://www.youtube.com/watch?v=LGB6ZEjGm7Q",
+    youtubeTitle: "Safe Battery Charging Procedures",
+    qChinese: "使用外部充电器给电池充电时，最重要的安全预防措施是什么？",
+    optionsChinese: [
+      "A) 使用最高安培设置尽快充电",
+      "B) 确保充分通风，因为充电会产生易爆的氢气",
+      "C) 充电前从车辆上拆卸电池",
+      "D) 充电前仅断开正极端子"
+    ],
+    explanationChinese: "充电时充分通风至关重要，因为充电过程会产生高度易燃和易爆的氢气。应在通风良好的地方远离火花、明火和点火源进行充电。以较低安培数慢速充电也更有利于电池健康。",
+  },
+  {
+    id: 139,
+    q: "After replacing a battery, what electronic systems may need to be reset or relearned?",
+    options: [
+      "A) Only the clock needs to be reset",
+      "B) Radio presets, power window positions, idle relearn, and security system may need attention",
+      "C) No systems are affected by battery replacement",
+      "D) Only the tire pressure monitoring system"
+    ],
+    answer: 1,
+    explanation: "After battery replacement, many electronic systems may need resetting or relearning, including radio presets, clock, power window auto-up positions, idle speed relearn, security or anti-theft system, and memory seats. Some vehicles may require a scan tool for proper initialization procedures.",
+    diagram: "",
+    terms: ["battery"],
+    image: "https://upload.wikimedia.org/wikipedia/commons/thumb/4/4d/Varta_car_battery.jpg/640px-Varta_car_battery.jpg",
+    youtube: "https://www.youtube.com/watch?v=LGB6ZEjGm7Q",
+    youtubeTitle: "Resetting Systems After Battery Replacement",
+    qChinese: "更换电池后，哪些电子系统可能需要重置或重新学习？",
+    optionsChinese: [
+      "A) 只需重置时钟",
+      "B) 收音机预设、电动车窗位置、怠速重新学习和防盗系统可能需要处理",
+      "C) 更换电池不影响任何系统",
+      "D) 仅轮胎压力监测系统"
+    ],
+    explanationChinese: "更换电池后，许多电子系统可能需要重置或重新学习，包括收音机预设、时钟、电动车窗自动升降位置、怠速重新学习、防盗系统和记忆座椅。某些车辆可能需要诊断工具进行正确的初始化程序。",
+  },
+  {
+    id: 140,
+    q: "A vehicle with a good battery cranks slowly on a cold morning. What should the technician check FIRST?",
+    options: [
+      "A) The ignition switch",
+      "B) Battery cable connections for corrosion or looseness",
+      "C) The fuel pump",
+      "D) The engine compression"
+    ],
+    answer: 1,
+    explanation: "Slow cranking with a good battery often indicates high resistance in the electrical connections. The technician should first check battery cable connections for corrosion, looseness, or damage. Corroded or loose connections increase resistance and reduce the current available to the starter motor.",
+    diagram: "",
+    terms: ["battery"],
+    image: "https://upload.wikimedia.org/wikipedia/commons/thumb/4/4d/Varta_car_battery.jpg/640px-Varta_car_battery.jpg",
+    youtube: "https://www.youtube.com/watch?v=LGB6ZEjGm7Q",
+    youtubeTitle: "Diagnosing Slow Crank Conditions",
+    qChinese: "一辆电池良好的车辆在寒冷早晨启动缓慢。技师应首先检查什么？",
+    optionsChinese: [
+      "A) 点火开关",
+      "B) 电池电缆连接是否有腐蚀或松动",
+      "C) 燃油泵",
+      "D) 发动机压缩"
+    ],
+    explanationChinese: "电池良好但启动缓慢通常表明电气连接中存在高电阻。技师应首先检查电池电缆连接是否有腐蚀、松动或损坏。腐蚀或松动的连接会增加电阻，减少可供起动机使用的电流。",
+  },
+  // ===== TIRE SERVICE (Questions 141–155) =====
+  {
+    id: 141,
+    q: "What is the PRIMARY purpose of tire rotation?",
+    options: [
+      "A) To improve fuel economy",
+      "B) To promote even tread wear and extend tire life",
+      "C) To improve vehicle handling in wet conditions",
+      "D) To reset the tire pressure monitoring system"
+    ],
+    answer: 1,
+    explanation: "The primary purpose of tire rotation is to promote even tread wear across all four tires and extend their useful life. Different wheel positions cause different wear patterns. Regular rotation ensures all tires wear evenly, maximizing tire investment and maintaining consistent traction and handling.",
+    diagram: "",
+    terms: ["tire_rotation", "tire_pressure"],
+    image: "https://upload.wikimedia.org/wikipedia/commons/thumb/5/56/Tire_valve_stem.jpg/640px-Tire_valve_stem.jpg",
+    youtube: "https://www.youtube.com/watch?v=NDqpgT5Yl1o",
+    youtubeTitle: "How to Rotate Your Tires",
+    qChinese: "轮胎换位的主要目的是什么？",
+    optionsChinese: [
+      "A) 提高燃油经济性",
+      "B) 促进胎面均匀磨损并延长轮胎寿命",
+      "C) 改善车辆在湿滑条件下的操控性",
+      "D) 重置轮胎压力监测系统"
+    ],
+    explanationChinese: "轮胎换位的主要目的是促进所有四个轮胎的胎面均匀磨损并延长其使用寿命。不同的车轮位置会导致不同的磨损模式。定期换位确保所有轮胎均匀磨损，最大化轮胎投资并保持一致的抓地力和操控性。",
+  },
+  {
+    id: 142,
+    q: "What is the recommended tire rotation pattern for a front-wheel-drive vehicle with non-directional tires?",
+    options: [
+      "A) Rotate side to side only",
+      "B) Front tires move straight to the rear; rear tires cross to the opposite front positions",
+      "C) All tires rotate clockwise one position",
+      "D) Only rotate the front tires to the rear"
+    ],
+    answer: 1,
+    explanation: "For front-wheel-drive vehicles with non-directional tires, the forward cross pattern is recommended. The front tires move straight to the rear positions, and the rear tires cross to the opposite front positions. This pattern accounts for the higher wear on the front driving and steering tires.",
+    diagram: "",
+    terms: ["tire_rotation", "tire_pressure"],
+    image: "https://upload.wikimedia.org/wikipedia/commons/thumb/5/56/Tire_valve_stem.jpg/640px-Tire_valve_stem.jpg",
+    youtube: "https://www.youtube.com/watch?v=NDqpgT5Yl1o",
+    youtubeTitle: "Tire Rotation Patterns Explained",
+    qChinese: "前轮驱动车辆使用非定向轮胎时，推荐的轮胎换位模式是什么？",
+    optionsChinese: [
+      "A) 仅左右互换",
+      "B) 前轮直接移到后方；后轮交叉移到对面前方位置",
+      "C) 所有轮胎顺时针旋转一个位置",
+      "D) 仅将前轮换到后方"
+    ],
+    explanationChinese: "对于配备非定向轮胎的前轮驱动车辆，推荐前交叉换位模式。前轮直接移到后方位置，后轮交叉移到对面前方位置。此模式考虑了前驱动和转向轮胎的较高磨损。",
+  },
+  {
+    id: 143,
+    q: "A tire is marked P215/65R15 95H. What does the '65' represent?",
+    options: [
+      "A) The tire width in millimeters",
+      "B) The aspect ratio, meaning the sidewall height is 65% of the tire width",
+      "C) The rim diameter in inches",
+      "D) The load index of the tire"
+    ],
+    answer: 1,
+    explanation: "The number 65 is the aspect ratio, which means the sidewall height is 65 percent of the tire width. In this case, the sidewall height is 65 percent of 215 millimeters, equaling approximately 140 millimeters. A lower aspect ratio indicates a shorter sidewall for sportier handling characteristics.",
+    diagram: "",
+    terms: ["tire_pressure", "tire_rotation"],
+    image: "https://upload.wikimedia.org/wikipedia/commons/thumb/5/56/Tire_valve_stem.jpg/640px-Tire_valve_stem.jpg",
+    youtube: "https://www.youtube.com/watch?v=NDqpgT5Yl1o",
+    youtubeTitle: "Reading Tire Size Numbers",
+    qChinese: "轮胎标记为P215/65R15 95H。'65'代表什么？",
+    optionsChinese: [
+      "A) 轮胎宽度（毫米）",
+      "B) 扁平比，表示侧壁高度是轮胎宽度的65%",
+      "C) 轮辋直径（英寸）",
+      "D) 轮胎的载荷指数"
+    ],
+    explanationChinese: "数字65是扁平比，表示侧壁高度是轮胎宽度的65%。在这种情况下，侧壁高度是215毫米的65%，约等于140毫米。较低的扁平比表示较短的侧壁，具有更运动化的操控特性。",
+  },
+  {
+    id: 144,
+    q: "Where should a technician look to find the correct tire pressure specification for a vehicle?",
+    options: [
+      "A) The tire sidewall maximum pressure rating",
+      "B) The vehicle's tire information placard on the driver's door jamb",
+      "C) The tire manufacturer's website only",
+      "D) The floor mat label"
+    ],
+    answer: 1,
+    explanation: "The correct tire pressure for a specific vehicle is found on the tire information placard located on the driver's door jamb or in the owner's manual. The pressure on the tire sidewall is the maximum pressure the tire can safely hold, not the recommended operating pressure for the vehicle.",
+    diagram: "",
+    terms: ["tire_pressure", "tpms"],
+    image: "https://upload.wikimedia.org/wikipedia/commons/thumb/5/56/Tire_valve_stem.jpg/640px-Tire_valve_stem.jpg",
+    youtube: "https://www.youtube.com/watch?v=NDqpgT5Yl1o",
+    youtubeTitle: "Finding Correct Tire Pressure",
+    qChinese: "技师应在哪里找到车辆的正确轮胎压力规格？",
+    optionsChinese: [
+      "A) 轮胎侧壁上的最大压力额定值",
+      "B) 驾驶员门框上的车辆轮胎信息标牌",
+      "C) 仅在轮胎制造商的网站上",
+      "D) 脚垫标签"
+    ],
+    explanationChinese: "特定车辆的正确轮胎压力可在驾驶员门框上的轮胎信息标牌或车主手册中找到。轮胎侧壁上的压力是轮胎可以安全承受的最大压力，而不是车辆的推荐运行压力。",
+  },
+  {
+    id: 145,
+    q: "What is the MINIMUM legal tread depth for passenger vehicle tires in most states?",
+    options: [
+      "A) 1/16 inch (2/32 inch)",
+      "B) 2/32 inch (1/16 inch)",
+      "C) 4/32 inch",
+      "D) 6/32 inch"
+    ],
+    answer: 1,
+    explanation: "The minimum legal tread depth for passenger vehicle tires in most states is 2/32 of an inch. Tires have built-in tread wear indicators (wear bars) that become visible at this depth. Driving on tires below this depth significantly increases the risk of hydroplaning and reduces braking effectiveness.",
+    diagram: "",
+    terms: ["tire_pressure", "tire_rotation"],
+    image: "https://upload.wikimedia.org/wikipedia/commons/thumb/5/56/Tire_valve_stem.jpg/640px-Tire_valve_stem.jpg",
+    youtube: "https://www.youtube.com/watch?v=NDqpgT5Yl1o",
+    youtubeTitle: "Checking Tire Tread Depth",
+    qChinese: "大多数州对乘用车轮胎的最低合法胎面深度是多少？",
+    optionsChinese: [
+      "A) 1/16英寸（2/32英寸）",
+      "B) 2/32英寸（1/16英寸）",
+      "C) 4/32英寸",
+      "D) 6/32英寸"
+    ],
+    explanationChinese: "大多数州乘用车轮胎的最低合法胎面深度为2/32英寸。轮胎有内置的胎面磨损指示器（磨损条），在此深度时变得可见。使用低于此深度的轮胎会显著增加水漂风险并降低制动效果。",
+  },
+  {
+    id: 146,
+    q: "The TPMS warning light is illuminated on the dashboard. What does this indicate?",
+    options: [
+      "A) The tires need rotation",
+      "B) One or more tires have pressure significantly below the recommended level",
+      "C) The tires are worn and need replacement",
+      "D) The wheel alignment is off"
+    ],
+    answer: 1,
+    explanation: "The TPMS (Tire Pressure Monitoring System) warning light illuminates when one or more tires have pressure that is 25 percent or more below the manufacturer's recommended pressure. The technician should check all tire pressures with a gauge, adjust as needed, and inspect for leaks or damage.",
+    diagram: "",
+    terms: ["tpms", "tire_pressure"],
+    image: "https://upload.wikimedia.org/wikipedia/commons/thumb/5/56/Tire_valve_stem.jpg/640px-Tire_valve_stem.jpg",
+    youtube: "https://www.youtube.com/watch?v=NDqpgT5Yl1o",
+    youtubeTitle: "TPMS Warning Light Explained",
+    qChinese: "仪表板上TPMS警告灯亮起。这表明什么？",
+    optionsChinese: [
+      "A) 轮胎需要换位",
+      "B) 一个或多个轮胎的压力明显低于推荐水平",
+      "C) 轮胎磨损需要更换",
+      "D) 车轮定位偏差"
+    ],
+    explanationChinese: "TPMS（轮胎压力监测系统）警告灯在一个或多个轮胎的压力低于制造商推荐压力25%或更多时亮起。技师应使用气压表检查所有轮胎压力，根据需要调整，并检查是否有泄漏或损坏。",
+  },
+  {
+    id: 147,
+    q: "When should tire pressure be checked for the most accurate reading?",
+    options: [
+      "A) After driving at highway speed for at least 30 minutes",
+      "B) When the tires are cold, before the vehicle has been driven",
+      "C) After the tires have been in direct sunlight",
+      "D) Immediately after inflating the tires"
+    ],
+    answer: 1,
+    explanation: "Tire pressure should be checked when the tires are cold, meaning the vehicle has not been driven for at least three hours or driven less than one mile. Driving heats the tires and increases pressure readings by several PSI, giving a falsely high reading that does not reflect the base inflation pressure.",
+    diagram: "",
+    terms: ["tire_pressure", "tpms"],
+    image: "https://upload.wikimedia.org/wikipedia/commons/thumb/5/56/Tire_valve_stem.jpg/640px-Tire_valve_stem.jpg",
+    youtube: "https://www.youtube.com/watch?v=NDqpgT5Yl1o",
+    youtubeTitle: "When to Check Tire Pressure",
+    qChinese: "什么时候检查轮胎压力能获得最准确的读数？",
+    optionsChinese: [
+      "A) 在高速公路行驶至少30分钟后",
+      "B) 在轮胎冷态时，车辆尚未行驶前",
+      "C) 轮胎在阳光直射后",
+      "D) 给轮胎充气后立即检查"
+    ],
+    explanationChinese: "应在轮胎冷态时检查轮胎压力，即车辆至少三小时未行驶或行驶不超过一英里。行驶会加热轮胎并使压力读数增加几个PSI，给出不反映基础充气压力的偏高读数。",
+  },
+  {
+    id: 148,
+    q: "What causes excessive wear on both edges of a tire tread?",
+    options: [
+      "A) Over-inflation",
+      "B) Under-inflation",
+      "C) Excessive positive camber",
+      "D) Excessive toe-out"
+    ],
+    answer: 1,
+    explanation: "Under-inflation causes excessive wear on both outer edges of the tire tread. When a tire is under-inflated, the center of the tread lifts off the road surface, causing the edges to carry more of the vehicle's weight. This leads to rapid shoulder wear and reduced tire life and fuel economy.",
+    diagram: "",
+    terms: ["tire_pressure", "tire_rotation"],
+    image: "https://upload.wikimedia.org/wikipedia/commons/thumb/5/56/Tire_valve_stem.jpg/640px-Tire_valve_stem.jpg",
+    youtube: "https://www.youtube.com/watch?v=NDqpgT5Yl1o",
+    youtubeTitle: "Tire Wear Patterns and Causes",
+    qChinese: "什么原因导致轮胎胎面两边缘过度磨损？",
+    optionsChinese: [
+      "A) 过度充气",
+      "B) 充气不足",
+      "C) 过度正外倾",
+      "D) 过度前束外张"
+    ],
+    explanationChinese: "充气不足导致轮胎胎面两个外缘过度磨损。当轮胎充气不足时，胎面中心抬离路面，导致边缘承受更多车辆重量。这导致胎肩快速磨损，缩短轮胎寿命并降低燃油经济性。",
+  },
+  {
+    id: 149,
+    q: "What causes excessive wear in the CENTER of a tire tread?",
+    options: [
+      "A) Under-inflation",
+      "B) Over-inflation",
+      "C) Negative camber",
+      "D) Worn shock absorbers"
+    ],
+    answer: 1,
+    explanation: "Over-inflation causes excessive wear in the center of the tire tread. When a tire is over-inflated, the center of the tread bulges outward and makes more contact with the road than the edges. This leads to faster center wear, reduced traction, and a harsher ride quality.",
+    diagram: "",
+    terms: ["tire_pressure", "tire_rotation"],
+    image: "https://upload.wikimedia.org/wikipedia/commons/thumb/5/56/Tire_valve_stem.jpg/640px-Tire_valve_stem.jpg",
+    youtube: "https://www.youtube.com/watch?v=NDqpgT5Yl1o",
+    youtubeTitle: "Over-Inflation Tire Wear",
+    qChinese: "什么原因导致轮胎胎面中心过度磨损？",
+    optionsChinese: [
+      "A) 充气不足",
+      "B) 过度充气",
+      "C) 负外倾",
+      "D) 减振器磨损"
+    ],
+    explanationChinese: "过度充气导致轮胎胎面中心过度磨损。当轮胎过度充气时，胎面中心向外凸起，与路面接触多于边缘。这导致中心磨损加快、抓地力降低和行驶质量变差。",
+  },
+  {
+    id: 150,
+    q: "What is the purpose of wheel balancing?",
+    options: [
+      "A) To align the wheels for straight tracking",
+      "B) To equalize the weight distribution around the tire and wheel assembly to eliminate vibration",
+      "C) To adjust the tire pressure to the correct level",
+      "D) To measure the tread depth on all tires"
+    ],
+    answer: 1,
+    explanation: "Wheel balancing equalizes the weight distribution around the tire and wheel assembly by adding small counterweights. An unbalanced wheel causes vibration, typically felt in the steering wheel at highway speeds. Proper balancing extends tire life, reduces vibration, and improves ride comfort.",
+    diagram: "",
+    terms: ["tire_rotation", "tire_pressure"],
+    image: "https://upload.wikimedia.org/wikipedia/commons/thumb/5/56/Tire_valve_stem.jpg/640px-Tire_valve_stem.jpg",
+    youtube: "https://www.youtube.com/watch?v=NDqpgT5Yl1o",
+    youtubeTitle: "Wheel Balancing Explained",
+    qChinese: "车轮平衡的目的是什么？",
+    optionsChinese: [
+      "A) 调整车轮使其直线行驶",
+      "B) 均衡轮胎和车轮组件周围的重量分布以消除振动",
+      "C) 将轮胎压力调整到正确水平",
+      "D) 测量所有轮胎的胎面深度"
+    ],
+    explanationChinese: "车轮平衡通过添加小配重块来均衡轮胎和车轮组件周围的重量分布。不平衡的车轮会引起振动，通常在高速公路速度下通过方向盘感受到。适当的平衡延长轮胎寿命，减少振动并改善乘坐舒适性。",
+  },
+  {
+    id: 151,
+    q: "A direct TPMS system uses what component to monitor tire pressure?",
+    options: [
+      "A) The ABS wheel speed sensors",
+      "B) Pressure sensors mounted inside each tire on the valve stem or wheel",
+      "C) A pressure gauge built into the dashboard",
+      "D) Temperature sensors in the brake calipers"
+    ],
+    answer: 1,
+    explanation: "Direct TPMS systems use individual pressure sensors mounted inside each tire, typically on the valve stem assembly or banded to the wheel. These sensors wirelessly transmit real-time pressure and temperature data to the vehicle's TPMS module for display and warning activation.",
+    diagram: "",
+    terms: ["tpms", "tire_pressure"],
+    image: "https://upload.wikimedia.org/wikipedia/commons/thumb/5/56/Tire_valve_stem.jpg/640px-Tire_valve_stem.jpg",
+    youtube: "https://www.youtube.com/watch?v=NDqpgT5Yl1o",
+    youtubeTitle: "Direct vs Indirect TPMS Systems",
+    qChinese: "直接式TPMS系统使用什么组件来监测轮胎压力？",
+    optionsChinese: [
+      "A) ABS车轮速度传感器",
+      "B) 安装在每个轮胎内部气门嘴或车轮上的压力传感器",
+      "C) 内置在仪表板中的压力表",
+      "D) 制动卡钳中的温度传感器"
+    ],
+    explanationChinese: "直接式TPMS系统使用安装在每个轮胎内部的独立压力传感器，通常安装在气门嘴组件上或绑在车轮上。这些传感器将实时压力和温度数据无线传输到车辆的TPMS模块以供显示和警告激活。",
+  },
+  {
+    id: 152,
+    q: "After performing a tire rotation on a vehicle with direct TPMS, what additional step may be required?",
+    options: [
+      "A) No additional steps are needed",
+      "B) The TPMS sensors may need to be relearned to their new wheel positions",
+      "C) The TPMS sensors must be replaced",
+      "D) The tire pressure must be set 5 PSI higher than recommended"
+    ],
+    answer: 1,
+    explanation: "After rotating tires on a vehicle with direct TPMS, the sensors may need to be relearned to their new positions so the system displays the correct pressure for each tire location. The relearn procedure varies by manufacturer and may require a TPMS tool or a specific sequence of steps.",
+    diagram: "",
+    terms: ["tpms", "tire_rotation", "tire_pressure"],
+    image: "https://upload.wikimedia.org/wikipedia/commons/thumb/5/56/Tire_valve_stem.jpg/640px-Tire_valve_stem.jpg",
+    youtube: "https://www.youtube.com/watch?v=NDqpgT5Yl1o",
+    youtubeTitle: "TPMS Relearn After Tire Rotation",
+    qChinese: "在配备直接式TPMS的车辆上进行轮胎换位后，可能需要什么额外步骤？",
+    optionsChinese: [
+      "A) 不需要额外步骤",
+      "B) TPMS传感器可能需要重新学习到新的车轮位置",
+      "C) 必须更换TPMS传感器",
+      "D) 轮胎压力必须设置为高于推荐值5 PSI"
+    ],
+    explanationChinese: "在配备直接式TPMS的车辆上换位轮胎后，传感器可能需要重新学习到新位置，以便系统为每个轮胎位置显示正确的压力。重新学习程序因制造商而异，可能需要TPMS工具或特定的步骤序列。",
+  },
+  {
+    id: 153,
+    q: "A tire has a nail in the tread area. What is the MOST appropriate repair method?",
+    options: [
+      "A) Apply an external plug only from outside the tire",
+      "B) Remove the tire from the rim, inspect internally, and install a combination plug-patch from the inside",
+      "C) Inject tire sealant through the valve stem",
+      "D) Leave the nail in place and monitor the tire pressure"
+    ],
+    answer: 1,
+    explanation: "The industry standard for a proper tire repair is to remove the tire from the rim, inspect the interior for damage, and install a combination plug-patch from the inside. External-only plugs are considered temporary. The puncture must be in the tread area and not exceed specified size limits.",
+    diagram: "",
+    terms: ["tire_pressure", "tire_rotation"],
+    image: "https://upload.wikimedia.org/wikipedia/commons/thumb/5/56/Tire_valve_stem.jpg/640px-Tire_valve_stem.jpg",
+    youtube: "https://www.youtube.com/watch?v=NDqpgT5Yl1o",
+    youtubeTitle: "Proper Tire Puncture Repair",
+    qChinese: "轮胎胎面区域有一颗钉子。最合适的修补方法是什么？",
+    optionsChinese: [
+      "A) 仅从轮胎外部使用外部塞子",
+      "B) 将轮胎从轮辋上拆下，从内部检查，并从内部安装组合式塞子-贴片",
+      "C) 通过气门嘴注入轮胎密封剂",
+      "D) 保留钉子并监测轮胎压力"
+    ],
+    explanationChinese: "行业标准的正确轮胎修补方法是将轮胎从轮辋上拆下，检查内部是否有损坏，并从内部安装组合式塞子-贴片。仅外部塞子被认为是临时性的。穿刺必须在胎面区域且不超过规定的尺寸限制。",
+  },
+  {
+    id: 154,
+    q: "What does the 'R' in a tire size designation such as P215/65R15 indicate?",
+    options: [
+      "A) Racing tire construction",
+      "B) Radial tire construction",
+      "C) Reinforced sidewall",
+      "D) Recapped tire"
+    ],
+    answer: 1,
+    explanation: "The 'R' indicates radial tire construction, which means the tire's body plies run radially from bead to bead, perpendicular to the direction of travel. Radial construction provides better road contact, improved fuel economy, longer tread life, and a smoother ride compared to bias-ply tires.",
+    diagram: "",
+    terms: ["tire_pressure", "tire_rotation"],
+    image: "https://upload.wikimedia.org/wikipedia/commons/thumb/5/56/Tire_valve_stem.jpg/640px-Tire_valve_stem.jpg",
+    youtube: "https://www.youtube.com/watch?v=NDqpgT5Yl1o",
+    youtubeTitle: "Understanding Tire Size Designations",
+    qChinese: "轮胎尺寸标识如P215/65R15中的'R'表示什么？",
+    optionsChinese: [
+      "A) 赛车轮胎结构",
+      "B) 子午线轮胎结构",
+      "C) 加强侧壁",
+      "D) 翻新轮胎"
+    ],
+    explanationChinese: "'R'表示子午线轮胎结构，这意味着轮胎的胎体帘布层从胎圈到胎圈径向排列，垂直于行驶方向。与斜交轮胎相比，子午线结构提供更好的路面接触、改善的燃油经济性、更长的胎面寿命和更平稳的行驶。",
+  },
+  {
+    id: 155,
+    q: "When mounting a tire on a wheel, what should be applied to the tire bead?",
+    options: [
+      "A) Motor oil",
+      "B) Approved tire mounting lubricant",
+      "C) Silicone spray",
+      "D) Brake fluid"
+    ],
+    answer: 1,
+    explanation: "Approved tire mounting lubricant should be applied to the tire bead during mounting. This allows the bead to slide into position and seat properly on the rim. Using unapproved lubricants like motor oil can deteriorate the rubber and prevent proper bead seating, creating an unsafe condition.",
+    diagram: "",
+    terms: ["tire_pressure", "tire_rotation"],
+    image: "https://upload.wikimedia.org/wikipedia/commons/thumb/5/56/Tire_valve_stem.jpg/640px-Tire_valve_stem.jpg",
+    youtube: "https://www.youtube.com/watch?v=NDqpgT5Yl1o",
+    youtubeTitle: "Proper Tire Mounting Technique",
+    qChinese: "将轮胎安装到车轮上时，应在轮胎胎唇上涂抹什么？",
+    optionsChinese: [
+      "A) 发动机机油",
+      "B) 认可的轮胎安装润滑剂",
+      "C) 硅酮喷雾",
+      "D) 制动液"
+    ],
+    explanationChinese: "安装时应在轮胎胎唇上涂抹认可的轮胎安装润滑剂。这允许胎唇滑入位置并正确坐落在轮辋上。使用未经批准的润滑剂如机油可能会使橡胶劣化并阻止胎唇正确就位，造成不安全状况。",
+  },
+  // ===== BRAKE SERVICE (Questions 156–170) =====
+  {
+    id: 156,
+    q: "What is the MINIMUM acceptable thickness for most brake rotors determined by?",
+    options: [
+      "A) The technician's experience and judgment",
+      "B) The discard or minimum thickness specification stamped on the rotor",
+      "C) Measuring the brake pad thickness",
+      "D) The vehicle's mileage"
+    ],
+    answer: 1,
+    explanation: "The minimum acceptable rotor thickness is determined by the discard specification stamped or cast into the rotor. Operating a rotor below this thickness is unsafe as it may overheat, warp, or crack under braking. Always measure rotor thickness with a micrometer and compare to the specification.",
+    diagram: "",
+    terms: ["brake_pads", "brake_fluid"],
+    image: "https://upload.wikimedia.org/wikipedia/commons/thumb/3/3b/Disc_brake.jpg/640px-Disc_brake.jpg",
+    youtube: "https://www.youtube.com/watch?v=lGqExDIaMhU",
+    youtubeTitle: "Measuring Brake Rotor Thickness",
+    qChinese: "大多数制动盘的最小可接受厚度由什么决定？",
+    optionsChinese: [
+      "A) 技师的经验和判断",
+      "B) 刻在制动盘上的报废或最小厚度规格",
+      "C) 测量制动片厚度",
+      "D) 车辆的里程数"
+    ],
+    explanationChinese: "制动盘的最小可接受厚度由刻印或铸造在制动盘上的报废规格决定。使用低于此厚度的制动盘是不安全的，因为它可能在制动时过热、变形或开裂。始终使用千分尺测量制动盘厚度并与规格进行比较。",
+  },
+  {
+    id: 157,
+    q: "What tool is used to measure brake rotor thickness?",
+    options: [
+      "A) A ruler",
+      "B) A micrometer",
+      "C) A dial indicator",
+      "D) A tape measure"
+    ],
+    answer: 1,
+    explanation: "A micrometer is used to accurately measure brake rotor thickness. Measurements should be taken at multiple points around the rotor to check for thickness variation (parallelism). A rotor that varies in thickness beyond specification will cause brake pedal pulsation during braking.",
+    diagram: "",
+    terms: ["brake_pads", "brake_fluid"],
+    image: "https://upload.wikimedia.org/wikipedia/commons/thumb/3/3b/Disc_brake.jpg/640px-Disc_brake.jpg",
+    youtube: "https://www.youtube.com/watch?v=lGqExDIaMhU",
+    youtubeTitle: "Using a Micrometer on Brake Rotors",
+    qChinese: "什么工具用于测量制动盘厚度？",
+    optionsChinese: [
+      "A) 直尺",
+      "B) 千分尺",
+      "C) 百分表",
+      "D) 卷尺"
+    ],
+    explanationChinese: "千分尺用于精确测量制动盘厚度。应在制动盘周围多个点进行测量以检查厚度变化（平行度）。厚度变化超出规格的制动盘会在制动时导致制动踏板脉动。",
+  },
+  {
+    id: 158,
+    q: "Brake pedal pulsation during braking is MOST commonly caused by what condition?",
+    options: [
+      "A) Air in the brake lines",
+      "B) Rotor thickness variation (parallelism issue)",
+      "C) Worn brake pads",
+      "D) Low brake fluid level"
+    ],
+    answer: 1,
+    explanation: "Brake pedal pulsation is most commonly caused by rotor thickness variation, where the rotor is not uniform in thickness around its circumference. As the rotor turns, the thicker and thinner spots push the pads in and out, creating a pulsation felt through the brake pedal during braking.",
+    diagram: "",
+    terms: ["brake_pads", "brake_fluid"],
+    image: "https://upload.wikimedia.org/wikipedia/commons/thumb/3/3b/Disc_brake.jpg/640px-Disc_brake.jpg",
+    youtube: "https://www.youtube.com/watch?v=lGqExDIaMhU",
+    youtubeTitle: "Causes of Brake Pedal Pulsation",
+    qChinese: "制动时制动踏板脉动最常见的原因是什么？",
+    optionsChinese: [
+      "A) 制动管路中有空气",
+      "B) 制动盘厚度变化（平行度问题）",
+      "C) 制动片磨损",
+      "D) 制动液液位低"
+    ],
+    explanationChinese: "制动踏板脉动最常见的原因是制动盘厚度变化，即制动盘在其圆周上厚度不均匀。当制动盘转动时，较厚和较薄的部分将制动片推进推出，产生制动时通过制动踏板感受到的脉动。",
+  },
+  {
+    id: 159,
+    q: "What is the correct DOT rating for brake fluid commonly used in most passenger vehicles?",
+    options: [
+      "A) DOT 1",
+      "B) DOT 3 or DOT 4",
+      "C) DOT 6",
+      "D) ATF"
+    ],
+    answer: 1,
+    explanation: "DOT 3 and DOT 4 are the most commonly used brake fluid types in passenger vehicles. DOT 4 has a higher boiling point than DOT 3. Both are glycol-based and hygroscopic, meaning they absorb moisture over time. Always use the type specified by the vehicle manufacturer for safe brake operation.",
+    diagram: "",
+    terms: ["brake_fluid", "brake_pads"],
+    image: "https://upload.wikimedia.org/wikipedia/commons/thumb/3/3b/Disc_brake.jpg/640px-Disc_brake.jpg",
+    youtube: "https://www.youtube.com/watch?v=lGqExDIaMhU",
+    youtubeTitle: "Brake Fluid Types Explained",
+    qChinese: "大多数乘用车常用的制动液正确DOT等级是什么？",
+    optionsChinese: [
+      "A) DOT 1",
+      "B) DOT 3或DOT 4",
+      "C) DOT 6",
+      "D) ATF"
+    ],
+    explanationChinese: "DOT 3和DOT 4是乘用车中最常用的制动液类型。DOT 4的沸点高于DOT 3。两者都是乙二醇基的吸湿性液体，会随时间吸收水分。始终使用车辆制造商指定的类型以确保安全的制动操作。",
+  },
+  {
+    id: 160,
+    q: "Why is it important to keep brake fluid containers sealed when not in use?",
+    options: [
+      "A) To prevent evaporation",
+      "B) Because brake fluid is hygroscopic and absorbs moisture from the air, which lowers its boiling point",
+      "C) To prevent the fluid from changing color",
+      "D) To keep insects and debris out of the container"
+    ],
+    answer: 1,
+    explanation: "Brake fluid is hygroscopic, meaning it readily absorbs moisture from the atmosphere. Moisture contamination lowers the fluid's boiling point, which can cause brake fade or vapor lock under heavy braking. Sealed containers prevent moisture absorption, maintaining the fluid's performance characteristics.",
+    diagram: "",
+    terms: ["brake_fluid", "brake_pads"],
+    image: "https://upload.wikimedia.org/wikipedia/commons/thumb/3/3b/Disc_brake.jpg/640px-Disc_brake.jpg",
+    youtube: "https://www.youtube.com/watch?v=lGqExDIaMhU",
+    youtubeTitle: "Why Brake Fluid Absorbs Moisture",
+    qChinese: "为什么不使用时保持制动液容器密封很重要？",
+    optionsChinese: [
+      "A) 防止蒸发",
+      "B) 因为制动液是吸湿性的，会从空气中吸收水分，从而降低其沸点",
+      "C) 防止液体变色",
+      "D) 防止昆虫和杂物进入容器"
+    ],
+    explanationChinese: "制动液是吸湿性的，意味着它容易从大气中吸收水分。水分污染会降低液体的沸点，在重度制动时可能导致制动衰退或气阻。密封容器防止水分吸收，维持液体的性能特性。",
+  },
+  {
+    id: 161,
+    q: "When replacing disc brake pads, why should the caliper piston be pushed back into the caliper bore?",
+    options: [
+      "A) To test the caliper for proper operation",
+      "B) To create clearance so the caliper can fit over the new, thicker brake pads",
+      "C) To check the brake fluid level",
+      "D) To release air from the brake system"
+    ],
+    answer: 1,
+    explanation: "The caliper piston must be pushed back into the bore to create clearance for the new thicker brake pads. As pads wear, the piston extends further out. New pads are thicker than worn ones, so the piston must be retracted. Always open the bleeder or monitor the fluid reservoir to prevent overflow.",
+    diagram: "",
+    terms: ["brake_pads", "brake_fluid"],
+    image: "https://upload.wikimedia.org/wikipedia/commons/thumb/3/3b/Disc_brake.jpg/640px-Disc_brake.jpg",
+    youtube: "https://www.youtube.com/watch?v=lGqExDIaMhU",
+    youtubeTitle: "How to Replace Brake Pads",
+    qChinese: "更换盘式制动片时，为什么需要将卡钳活塞推回卡钳缸孔？",
+    optionsChinese: [
+      "A) 测试卡钳是否正常工作",
+      "B) 创造间隙使卡钳能够安装在新的更厚的制动片上",
+      "C) 检查制动液液位",
+      "D) 从制动系统中释放空气"
+    ],
+    explanationChinese: "必须将卡钳活塞推回缸孔以为新的更厚的制动片创造间隙。随着制动片磨损，活塞会进一步伸出。新制动片比磨损的更厚，因此必须回缩活塞。始终打开放气阀或监控液体储液壶以防止溢出。",
+  },
+  {
+    id: 162,
+    q: "A vehicle pulls to one side when braking. What is a likely cause?",
+    options: [
+      "A) Worn engine mounts",
+      "B) A sticking caliper or uneven brake pad wear on one side",
+      "C) A bad oxygen sensor",
+      "D) Low transmission fluid"
+    ],
+    answer: 1,
+    explanation: "A vehicle pulling to one side during braking often indicates a sticking caliper, collapsed brake hose, or uneven brake pad wear. The side with more braking force pulls the vehicle toward it. A thorough inspection of brake components on both sides is needed to identify the cause.",
+    diagram: "",
+    terms: ["brake_pads", "brake_fluid"],
+    image: "https://upload.wikimedia.org/wikipedia/commons/thumb/3/3b/Disc_brake.jpg/640px-Disc_brake.jpg",
+    youtube: "https://www.youtube.com/watch?v=lGqExDIaMhU",
+    youtubeTitle: "Diagnosing Brake Pull",
+    qChinese: "车辆制动时向一侧偏移。可能的原因是什么？",
+    optionsChinese: [
+      "A) 发动机支架磨损",
+      "B) 一侧卡钳卡滞或制动片磨损不均",
+      "C) 氧传感器故障",
+      "D) 变速箱油液位低"
+    ],
+    explanationChinese: "车辆制动时向一侧偏移通常表明卡钳卡滞、制动软管塌陷或制动片磨损不均。制动力较大的一侧将车辆拉向该侧。需要对两侧的制动部件进行全面检查以确定原因。",
+  },
+  {
+    id: 163,
+    q: "What is the purpose of brake bleeding?",
+    options: [
+      "A) To replace the brake pads",
+      "B) To remove air from the hydraulic brake system to restore proper pedal feel and braking",
+      "C) To adjust the parking brake",
+      "D) To lubricate the brake caliper slides"
+    ],
+    answer: 1,
+    explanation: "Brake bleeding removes air bubbles trapped in the hydraulic brake system. Air is compressible, unlike brake fluid, so air in the lines causes a soft or spongy brake pedal and reduced braking effectiveness. Bleeding restores a firm pedal and proper hydraulic pressure transfer to the brakes.",
+    diagram: "",
+    terms: ["brake_fluid", "brake_pads"],
+    image: "https://upload.wikimedia.org/wikipedia/commons/thumb/3/3b/Disc_brake.jpg/640px-Disc_brake.jpg",
+    youtube: "https://www.youtube.com/watch?v=lGqExDIaMhU",
+    youtubeTitle: "How to Bleed Brakes Properly",
+    qChinese: "制动排气的目的是什么？",
+    optionsChinese: [
+      "A) 更换制动片",
+      "B) 从液压制动系统中排出空气以恢复正常的踏板感觉和制动力",
+      "C) 调整驻车制动",
+      "D) 润滑制动卡钳导销"
+    ],
+    explanationChinese: "制动排气可去除液压制动系统中滞留的气泡。空气是可压缩的，与制动液不同，因此管路中的空气会导致制动踏板软绵绵的并降低制动效果。排气可恢复坚实的踏板感觉和正确的液压压力传递。",
+  },
+  {
+    id: 164,
+    q: "Technician A says drum brake shoes should be replaced when the lining is worn to the rivets. Technician B says bonded drum brake linings should be replaced when the lining thickness reaches 1/16 inch. Who is correct?",
+    options: [
+      "A) Technician A only",
+      "B) Technician B only",
+      "C) Both Technician A and Technician B",
+      "D) Neither Technician A nor Technician B"
+    ],
+    answer: 2,
+    explanation: "Both technicians are correct. Riveted brake shoe linings should be replaced before they wear down to the rivets, as exposed rivets will score the drum. Bonded linings, which are glued directly to the shoe, should be replaced when they reach a minimum thickness of 1/16 inch for safe operation.",
+    diagram: "",
+    terms: ["brake_pads", "brake_fluid"],
+    image: "https://upload.wikimedia.org/wikipedia/commons/thumb/3/3b/Disc_brake.jpg/640px-Disc_brake.jpg",
+    youtube: "https://www.youtube.com/watch?v=lGqExDIaMhU",
+    youtubeTitle: "Drum Brake Shoe Inspection",
+    qChinese: "技师A说鼓式制动蹄片在衬片磨损到铆钉时应更换。技师B说粘合式鼓式制动衬片在衬片厚度达到1/16英寸时应更换。谁是正确的？",
+    optionsChinese: [
+      "A) 仅技师A正确",
+      "B) 仅技师B正确",
+      "C) 技师A和技师B都正确",
+      "D) 技师A和技师B都不正确"
+    ],
+    explanationChinese: "两位技师都正确。铆接式制动蹄衬片应在磨损到铆钉之前更换，因为露出的铆钉会划伤制动鼓。粘合式衬片直接粘合在蹄片上，应在达到最小厚度1/16英寸时更换以确保安全操作。",
+  },
+  {
+    id: 165,
+    q: "What should a technician inspect when performing a visual brake inspection?",
+    options: [
+      "A) Only the brake pad thickness",
+      "B) Pad/shoe thickness, rotor/drum condition, brake lines and hoses, fluid level, and hardware condition",
+      "C) Only the brake fluid color",
+      "D) Only the brake pedal height"
+    ],
+    answer: 1,
+    explanation: "A complete visual brake inspection includes checking pad and shoe thickness, rotor and drum condition for scoring or cracks, brake lines and hoses for leaks or damage, fluid level and condition, caliper and wheel cylinder operation, and hardware such as springs, clips, and slide pins.",
+    diagram: "",
+    terms: ["brake_pads", "brake_fluid"],
+    image: "https://upload.wikimedia.org/wikipedia/commons/thumb/3/3b/Disc_brake.jpg/640px-Disc_brake.jpg",
+    youtube: "https://www.youtube.com/watch?v=lGqExDIaMhU",
+    youtubeTitle: "Complete Brake Inspection Guide",
+    qChinese: "技师在进行目视制动检查时应检查什么？",
+    optionsChinese: [
+      "A) 仅制动片厚度",
+      "B) 片/蹄厚度、盘/鼓状况、制动管路和软管、液位以及硬件状况",
+      "C) 仅制动液颜色",
+      "D) 仅制动踏板高度"
+    ],
+    explanationChinese: "完整的目视制动检查包括检查制动片和蹄片厚度、制动盘和鼓的刻痕或裂纹状况、制动管路和软管是否泄漏或损坏、液位和状况、卡钳和轮缸操作，以及弹簧、卡扣和导销等硬件。",
+  },
+  {
+    id: 166,
+    q: "After replacing brake pads, the brake pedal goes to the floor on the first application. What is the MOST likely cause?",
+    options: [
+      "A) The brake pads are defective",
+      "B) The caliper pistons need to be pumped out to contact the new pads against the rotor",
+      "C) The master cylinder has failed",
+      "D) The brake booster is not working"
+    ],
+    answer: 1,
+    explanation: "After brake pad replacement, the pistons are pushed fully back and there is a gap between the pads and rotor. The brake pedal must be pumped several times to move the pistons out and bring the pads into contact with the rotors. This is a normal and expected step after pad replacement.",
+    diagram: "",
+    terms: ["brake_pads", "brake_fluid"],
+    image: "https://upload.wikimedia.org/wikipedia/commons/thumb/3/3b/Disc_brake.jpg/640px-Disc_brake.jpg",
+    youtube: "https://www.youtube.com/watch?v=lGqExDIaMhU",
+    youtubeTitle: "After Brake Pad Replacement Tips",
+    qChinese: "更换制动片后，第一次踩制动踏板时踏板踩到底。最可能的原因是什么？",
+    optionsChinese: [
+      "A) 制动片有缺陷",
+      "B) 卡钳活塞需要通过踩踏板泵出以使新制动片接触制动盘",
+      "C) 主缸故障",
+      "D) 制动助力器不工作"
+    ],
+    explanationChinese: "更换制动片后，活塞被完全推回，制动片和制动盘之间有间隙。必须多次踩制动踏板以将活塞移出，使制动片与制动盘接触。这是更换制动片后正常且预期的步骤。",
+  },
+  {
+    id: 167,
+    q: "What is the purpose of caliper slide pin lubrication during a brake service?",
+    options: [
+      "A) To prevent the caliper from making noise",
+      "B) To ensure the caliper slides freely so brake pads wear evenly",
+      "C) To reduce brake dust",
+      "D) To protect the caliper from corrosion only"
+    ],
+    answer: 1,
+    explanation: "Caliper slide pins must be lubricated with high-temperature brake grease to ensure the caliper floats freely on the bracket. If the slide pins are dry or seized, the caliper cannot center over the rotor, causing uneven pad wear, reduced braking, and potential pulling to one side.",
+    diagram: "",
+    terms: ["brake_pads", "brake_fluid"],
+    image: "https://upload.wikimedia.org/wikipedia/commons/thumb/3/3b/Disc_brake.jpg/640px-Disc_brake.jpg",
+    youtube: "https://www.youtube.com/watch?v=lGqExDIaMhU",
+    youtubeTitle: "Lubricating Brake Caliper Slide Pins",
+    qChinese: "制动保养期间卡钳导销润滑的目的是什么？",
+    optionsChinese: [
+      "A) 防止卡钳产生噪音",
+      "B) 确保卡钳自由滑动以使制动片均匀磨损",
+      "C) 减少制动灰尘",
+      "D) 仅保护卡钳免受腐蚀"
+    ],
+    explanationChinese: "卡钳导销必须用高温制动脂润滑，以确保卡钳在支架上自由浮动。如果导销干燥或卡死，卡钳无法在制动盘上居中，导致制动片磨损不均、制动力降低以及可能向一侧偏移。",
+  },
+  {
+    id: 168,
+    q: "A spongy brake pedal that slowly sinks to the floor with steady pressure indicates what problem?",
+    options: [
+      "A) Worn brake pads",
+      "B) An internal leak in the master cylinder",
+      "C) A sticking caliper",
+      "D) Glazed brake rotors"
+    ],
+    answer: 1,
+    explanation: "A brake pedal that feels spongy and slowly sinks to the floor under steady pressure typically indicates an internal leak in the master cylinder. Internal seals are bypassing fluid rather than holding pressure. This is a safety-critical condition requiring immediate master cylinder replacement.",
+    diagram: "",
+    terms: ["brake_fluid", "brake_pads"],
+    image: "https://upload.wikimedia.org/wikipedia/commons/thumb/3/3b/Disc_brake.jpg/640px-Disc_brake.jpg",
+    youtube: "https://www.youtube.com/watch?v=lGqExDIaMhU",
+    youtubeTitle: "Master Cylinder Failure Symptoms",
+    qChinese: "在稳定压力下制动踏板发软并缓慢下沉到底表明什么问题？",
+    optionsChinese: [
+      "A) 制动片磨损",
+      "B) 主缸内部泄漏",
+      "C) 卡钳卡滞",
+      "D) 制动盘釉化"
+    ],
+    explanationChinese: "制动踏板在稳定压力下发软并缓慢下沉到底通常表明主缸内部泄漏。内部密封件绕过液体而不是保持压力。这是一个关键的安全状况，需要立即更换主缸。",
+  },
+  {
+    id: 169,
+    q: "What type of measurement tool is used to check brake rotor lateral runout?",
+    options: [
+      "A) A micrometer",
+      "B) A dial indicator",
+      "C) A brake gauge",
+      "D) A feeler gauge"
+    ],
+    answer: 1,
+    explanation: "A dial indicator is used to measure brake rotor lateral runout (wobble). The indicator base is clamped to a fixed point and the plunger contacts the rotor face. The rotor is then rotated by hand and the dial shows the total runout. Excessive runout causes brake pedal pulsation.",
+    diagram: "",
+    terms: ["brake_pads", "brake_fluid"],
+    image: "https://upload.wikimedia.org/wikipedia/commons/thumb/3/3b/Disc_brake.jpg/640px-Disc_brake.jpg",
+    youtube: "https://www.youtube.com/watch?v=lGqExDIaMhU",
+    youtubeTitle: "Measuring Brake Rotor Runout",
+    qChinese: "什么类型的测量工具用于检查制动盘横向跳动？",
+    optionsChinese: [
+      "A) 千分尺",
+      "B) 百分表",
+      "C) 制动量规",
+      "D) 塞规"
+    ],
+    explanationChinese: "百分表用于测量制动盘横向跳动（摆动）。指示器底座夹紧在固定点上，探针接触制动盘表面。然后用手旋转制动盘，百分表显示总跳动量。过大的跳动会导致制动踏板脉动。",
+  },
+  {
+    id: 170,
+    q: "What is the FIRST step before beginning any brake service work?",
+    options: [
+      "A) Remove the wheels",
+      "B) Safely raise and support the vehicle on jack stands or a lift",
+      "C) Loosen the lug nuts",
+      "D) Pump the brake pedal"
+    ],
+    answer: 1,
+    explanation: "Safety is the first priority. Before any brake work, the vehicle must be safely raised and supported on jack stands or a vehicle lift. Lug nuts should be loosened while the vehicle is still on the ground, but the vehicle must be secure before removing wheels and working underneath.",
+    diagram: "",
+    terms: ["brake_pads", "brake_fluid"],
+    image: "https://upload.wikimedia.org/wikipedia/commons/thumb/3/3b/Disc_brake.jpg/640px-Disc_brake.jpg",
+    youtube: "https://www.youtube.com/watch?v=lGqExDIaMhU",
+    youtubeTitle: "Safe Vehicle Lifting for Brake Work",
+    qChinese: "在开始任何制动保养工作之前的第一步是什么？",
+    optionsChinese: [
+      "A) 拆卸车轮",
+      "B) 安全地将车辆升起并用千斤顶支架或举升机支撑",
+      "C) 松开车轮螺母",
+      "D) 踩制动踏板"
+    ],
+    explanationChinese: "安全是第一优先事项。在进行任何制动工作之前，必须安全地将车辆升起并用千斤顶支架或车辆举升机支撑。车轮螺母应在车辆仍在地面上时松开，但在拆卸车轮和在底部工作之前车辆必须固定好。",
+  },
+  // ===== FLUID CHECKS AND SERVICE (Questions 171–180) =====
+  {
+    id: 171,
+    q: "How is automatic transmission fluid level typically checked on most vehicles?",
+    options: [
+      "A) With the engine off and the vehicle cold",
+      "B) With the engine running, transmission in park or neutral, and at normal operating temperature",
+      "C) By removing the transmission pan",
+      "D) Using a scan tool only"
+    ],
+    answer: 1,
+    explanation: "On most vehicles with a dipstick, automatic transmission fluid is checked with the engine running, the transmission in park or neutral, and at normal operating temperature. This ensures the torque converter is filled and fluid is circulating, giving an accurate level reading on the dipstick.",
+    diagram: "",
+    terms: ["transmission_fluid"],
+    image: "https://upload.wikimedia.org/wikipedia/commons/thumb/4/40/Automatikgetriebe.jpg/640px-Automatikgetriebe.jpg",
+    youtube: "https://www.youtube.com/watch?v=O1hF25Cowv8",
+    youtubeTitle: "Checking Automatic Transmission Fluid",
+    qChinese: "大多数车辆上自动变速箱油液位通常如何检查？",
+    optionsChinese: [
+      "A) 发动机熄火且车辆冷态时",
+      "B) 发动机运转、变速箱在P或N档且在正常工作温度下",
+      "C) 通过拆卸变速箱油底壳",
+      "D) 仅使用诊断工具"
+    ],
+    explanationChinese: "在大多数有量油尺的车辆上，自动变速箱油在发动机运转、变速箱在P或N档且在正常工作温度下检查。这确保液力变矩器已充满且液体在循环，在量油尺上给出准确的液位读数。",
+  },
+  {
+    id: 172,
+    q: "Normal automatic transmission fluid should be what color?",
+    options: [
+      "A) Dark brown or black",
+      "B) Red or pink and translucent",
+      "C) Green",
+      "D) Milky white"
+    ],
+    answer: 1,
+    explanation: "Normal automatic transmission fluid is typically red or pink and translucent when in good condition. Dark brown or black fluid with a burnt smell indicates overheating and degradation, requiring a fluid change. Milky or foamy fluid suggests water contamination, requiring further diagnosis.",
+    diagram: "",
+    terms: ["transmission_fluid"],
+    image: "https://upload.wikimedia.org/wikipedia/commons/thumb/4/40/Automatikgetriebe.jpg/640px-Automatikgetriebe.jpg",
+    youtube: "https://www.youtube.com/watch?v=O1hF25Cowv8",
+    youtubeTitle: "Transmission Fluid Color Guide",
+    qChinese: "正常的自动变速箱油应该是什么颜色？",
+    optionsChinese: [
+      "A) 深棕色或黑色",
+      "B) 红色或粉红色且半透明",
+      "C) 绿色",
+      "D) 乳白色"
+    ],
+    explanationChinese: "正常的自动变速箱油在良好状态下通常是红色或粉红色且半透明的。带有烧焦气味的深棕色或黑色液体表明过热和降解，需要更换液体。乳白色或泡沫状液体表明水污染，需要进一步诊断。",
+  },
+  {
+    id: 173,
+    q: "Power steering fluid is low. Before topping off, what should the technician do?",
+    options: [
+      "A) Simply add fluid and move on",
+      "B) Inspect the power steering system for leaks at the pump, hoses, rack, and connections",
+      "C) Flush the entire power steering system",
+      "D) Replace the power steering pump"
+    ],
+    answer: 1,
+    explanation: "Before adding fluid, the technician should inspect the system for leaks since power steering fluid does not normally decrease. Check the pump, hoses, fittings, rack or gear seals, and cooler lines for leaks. Simply topping off without investigating the cause will lead to repeated low levels.",
+    diagram: "",
+    terms: ["power_steering_fluid"],
+    image: "https://upload.wikimedia.org/wikipedia/commons/thumb/8/8a/2015_Nissan_VQ35DE_engine.jpg/640px-2015_Nissan_VQ35DE_engine.jpg",
+    youtube: "https://www.youtube.com/watch?v=O1hF25Cowv8",
+    youtubeTitle: "Checking Power Steering Fluid",
+    qChinese: "助力转向液液位低。在添加之前，技师应该做什么？",
+    optionsChinese: [
+      "A) 只需添加液体并继续",
+      "B) 检查助力转向系统的泵、软管、齿条和接头是否泄漏",
+      "C) 冲洗整个助力转向系统",
+      "D) 更换助力转向泵"
+    ],
+    explanationChinese: "在添加液体之前，技师应检查系统是否泄漏，因为助力转向液通常不会减少。检查泵、软管、接头、齿条或齿轮密封件和冷却管路是否泄漏。不调查原因就简单添加液体会导致液位反复偏低。",
+  },
+  {
+    id: 174,
+    q: "What type of fluid is typically used in a conventional hydraulic power steering system?",
+    options: [
+      "A) Engine oil",
+      "B) Power steering fluid or the manufacturer-specified ATF",
+      "C) Brake fluid",
+      "D) Gear oil"
+    ],
+    answer: 1,
+    explanation: "Conventional hydraulic power steering systems use power steering fluid or the manufacturer-specified automatic transmission fluid. Using the wrong fluid type can damage seals and components. Always check the reservoir cap or owner's manual for the correct fluid specification for the vehicle.",
+    diagram: "",
+    terms: ["power_steering_fluid"],
+    image: "https://upload.wikimedia.org/wikipedia/commons/thumb/8/8a/2015_Nissan_VQ35DE_engine.jpg/640px-2015_Nissan_VQ35DE_engine.jpg",
+    youtube: "https://www.youtube.com/watch?v=O1hF25Cowv8",
+    youtubeTitle: "Power Steering Fluid Types",
+    qChinese: "传统液压助力转向系统通常使用什么类型的液体？",
+    optionsChinese: [
+      "A) 发动机机油",
+      "B) 助力转向液或制造商指定的ATF",
+      "C) 制动液",
+      "D) 齿轮油"
+    ],
+    explanationChinese: "传统液压助力转向系统使用助力转向液或制造商指定的自动变速箱油。使用错误类型的液体会损坏密封件和组件。始终检查储液壶盖或车主手册以确认车辆的正确液体规格。",
+  },
+  {
+    id: 175,
+    q: "What fluid is used in a manual transmission or transaxle?",
+    options: [
+      "A) Automatic transmission fluid only",
+      "B) The manufacturer-specified gear oil or manual transmission fluid",
+      "C) Engine oil in all cases",
+      "D) Power steering fluid"
+    ],
+    answer: 1,
+    explanation: "Manual transmissions use manufacturer-specified gear oil or manual transmission fluid. Some modern manuals require specific synthetic fluids or even ATF. Using the wrong fluid can cause shifting problems, gear damage, or synchronizer failure. Always consult the service manual for the correct specification.",
+    diagram: "",
+    terms: ["transmission_fluid"],
+    image: "https://upload.wikimedia.org/wikipedia/commons/thumb/4/40/Automatikgetriebe.jpg/640px-Automatikgetriebe.jpg",
+    youtube: "https://www.youtube.com/watch?v=O1hF25Cowv8",
+    youtubeTitle: "Manual Transmission Fluid Types",
+    qChinese: "手动变速箱或变速驱动桥使用什么液体？",
+    optionsChinese: [
+      "A) 仅自动变速箱油",
+      "B) 制造商指定的齿轮油或手动变速箱油",
+      "C) 所有情况下都用发动机机油",
+      "D) 助力转向液"
+    ],
+    explanationChinese: "手动变速箱使用制造商指定的齿轮油或手动变速箱油。一些现代手动变速箱需要特定的合成油甚至ATF。使用错误的液体会导致换挡问题、齿轮损坏或同步器故障。始终查阅维修手册以获取正确的规格。",
+  },
+  {
+    id: 176,
+    q: "Differential fluid should be changed at what interval?",
+    options: [
+      "A) Every oil change",
+      "B) According to the manufacturer's recommended maintenance schedule",
+      "C) Only when the differential makes noise",
+      "D) It never needs to be changed"
+    ],
+    answer: 1,
+    explanation: "Differential fluid should be changed according to the manufacturer's recommended maintenance schedule, which varies by vehicle and driving conditions. Severe-duty conditions like towing or off-road use typically require more frequent changes. Neglected differential fluid loses its protective properties over time.",
+    diagram: "",
+    terms: ["transmission_fluid"],
+    image: "https://upload.wikimedia.org/wikipedia/commons/thumb/4/40/Automatikgetriebe.jpg/640px-Automatikgetriebe.jpg",
+    youtube: "https://www.youtube.com/watch?v=O1hF25Cowv8",
+    youtubeTitle: "Differential Fluid Change",
+    qChinese: "差速器油应按什么间隔更换？",
+    optionsChinese: [
+      "A) 每次换油时",
+      "B) 按照制造商推荐的保养计划",
+      "C) 仅在差速器产生噪音时",
+      "D) 永远不需要更换"
+    ],
+    explanationChinese: "差速器油应按照制造商推荐的保养计划更换，该计划因车辆和驾驶条件而异。拖拽或越野等重负荷条件通常需要更频繁地更换。被忽视的差速器油会随时间失去其保护性能。",
+  },
+  {
+    id: 177,
+    q: "Windshield washer fluid is not spraying. The reservoir is full. What should be checked NEXT?",
+    options: [
+      "A) The wiper blade condition",
+      "B) The washer pump, hoses for clogs or disconnection, and nozzles for blockage",
+      "C) The windshield for cracks",
+      "D) The headlight fluid level"
+    ],
+    answer: 1,
+    explanation: "If the reservoir is full but fluid is not spraying, check the washer pump for operation by listening for the motor when activated. Then check the hoses for kinks, disconnections, or cracks, and the spray nozzles for blockage from debris or wax. A blown fuse could also disable the pump.",
+    diagram: "",
+    terms: ["wiper_blades"],
+    image: "https://upload.wikimedia.org/wikipedia/commons/thumb/8/8a/2015_Nissan_VQ35DE_engine.jpg/640px-2015_Nissan_VQ35DE_engine.jpg",
+    youtube: "https://www.youtube.com/watch?v=O1hF25Cowv8",
+    youtubeTitle: "Windshield Washer System Diagnosis",
+    qChinese: "挡风玻璃清洗液不喷射。储液壶是满的。接下来应该检查什么？",
+    optionsChinese: [
+      "A) 雨刷片状况",
+      "B) 清洗泵、软管是否堵塞或断开，以及喷嘴是否堵塞",
+      "C) 挡风玻璃是否有裂纹",
+      "D) 大灯液液位"
+    ],
+    explanationChinese: "如果储液壶满了但液体不喷射，激活时倾听电机以检查清洗泵是否工作。然后检查软管是否有扭结、断开或裂纹，以及喷嘴是否被杂物或蜡堵塞。保险丝烧断也可能禁用泵。",
+  },
+  {
+    id: 178,
+    q: "What is the purpose of the transfer case fluid in a four-wheel-drive vehicle?",
+    options: [
+      "A) To cool the engine",
+      "B) To lubricate the gears, chains, and bearings that distribute power between the front and rear axles",
+      "C) To clean the fuel system",
+      "D) To cool the transmission"
+    ],
+    answer: 1,
+    explanation: "Transfer case fluid lubricates the internal gears, chains or gear sets, and bearings that split engine power between the front and rear axles. Proper fluid level and condition are essential for smooth operation. Low or contaminated fluid can cause noise, binding, and component failure.",
+    diagram: "",
+    terms: ["transmission_fluid"],
+    image: "https://upload.wikimedia.org/wikipedia/commons/thumb/4/40/Automatikgetriebe.jpg/640px-Automatikgetriebe.jpg",
+    youtube: "https://www.youtube.com/watch?v=O1hF25Cowv8",
+    youtubeTitle: "Transfer Case Fluid Service",
+    qChinese: "四轮驱动车辆中分动箱油的目的是什么？",
+    optionsChinese: [
+      "A) 冷却发动机",
+      "B) 润滑在前后轴之间分配动力的齿轮、链条和轴承",
+      "C) 清洁燃油系统",
+      "D) 冷却变速箱"
+    ],
+    explanationChinese: "分动箱油润滑在前后轴之间分配发动机动力的内部齿轮、链条或齿轮组和轴承。适当的液位和状况对于平稳运行至关重要。液位低或污染的液体会导致噪音、卡滞和组件故障。",
+  },
+  {
+    id: 179,
+    q: "When checking fluid levels during a multi-point inspection, which fluids should be checked?",
+    options: [
+      "A) Only engine oil",
+      "B) Engine oil, coolant, brake fluid, power steering fluid, transmission fluid, and washer fluid",
+      "C) Only coolant and oil",
+      "D) Only brake fluid and transmission fluid"
+    ],
+    answer: 1,
+    explanation: "A thorough multi-point inspection includes checking all vehicle fluids: engine oil, coolant, brake fluid, power steering fluid, automatic transmission fluid, differential fluid if accessible, and windshield washer fluid. Each fluid should be checked for proper level and condition as part of preventive maintenance.",
+    diagram: "",
+    terms: ["engine_oil", "coolant", "brake_fluid", "power_steering_fluid", "transmission_fluid"],
+    image: "https://upload.wikimedia.org/wikipedia/commons/thumb/8/8a/2015_Nissan_VQ35DE_engine.jpg/640px-2015_Nissan_VQ35DE_engine.jpg",
+    youtube: "https://www.youtube.com/watch?v=O1hF25Cowv8",
+    youtubeTitle: "Multi-Point Vehicle Inspection Guide",
+    qChinese: "在多点检查中检查液位时，应检查哪些液体？",
+    optionsChinese: [
+      "A) 仅发动机机油",
+      "B) 发动机机油、冷却液、制动液、助力转向液、变速箱油和清洗液",
+      "C) 仅冷却液和机油",
+      "D) 仅制动液和变速箱油"
+    ],
+    explanationChinese: "全面的多点检查包括检查所有车辆液体：发动机机油、冷却液、制动液、助力转向液、自动变速箱油、如果可以接触到的差速器油以及挡风玻璃清洗液。每种液体都应检查适当的液位和状况，作为预防性维护的一部分。",
+  },
+  {
+    id: 180,
+    q: "What color is typical new DOT 3 brake fluid?",
+    options: [
+      "A) Red",
+      "B) Clear to light amber",
+      "C) Dark brown",
+      "D) Green"
+    ],
+    answer: 1,
+    explanation: "New DOT 3 brake fluid is typically clear to light amber in color. As it ages and absorbs moisture, it gradually darkens to a darker amber or brown color. Dark brown or black brake fluid indicates it is contaminated and has exceeded its useful life, requiring a brake fluid flush.",
+    diagram: "",
+    terms: ["brake_fluid"],
+    image: "https://upload.wikimedia.org/wikipedia/commons/thumb/3/3b/Disc_brake.jpg/640px-Disc_brake.jpg",
+    youtube: "https://www.youtube.com/watch?v=lGqExDIaMhU",
+    youtubeTitle: "Brake Fluid Condition Inspection",
+    qChinese: "新的DOT 3制动液通常是什么颜色？",
+    optionsChinese: [
+      "A) 红色",
+      "B) 透明至浅琥珀色",
+      "C) 深棕色",
+      "D) 绿色"
+    ],
+    explanationChinese: "新的DOT 3制动液通常是透明至浅琥珀色。随着老化和吸收水分，它会逐渐变暗为较深的琥珀色或棕色。深棕色或黑色的制动液表明它已被污染并超过了使用寿命，需要进行制动液冲洗。",
+  },
+  // ===== BELT/HOSE INSPECTION, FILTERS, WIPERS, LIGHTS, SAFETY (Questions 181–200) =====
+  {
+    id: 181,
+    q: "What is the recommended method for inspecting a serpentine belt?",
+    options: [
+      "A) Only check for cracks on the ribbed side",
+      "B) Check for cracks, fraying, glazing, chunking, and proper tension on both sides of the belt",
+      "C) Only measure the belt width",
+      "D) Spray water on it to check for slipping"
+    ],
+    answer: 1,
+    explanation: "A thorough serpentine belt inspection includes checking both sides for cracks, fraying, glazing, oil contamination, chunking (missing pieces), and proper tension. Modern EPDM belts may wear without visible cracks, so a belt wear gauge should be used to measure rib depth for accurate assessment.",
+    diagram: "",
+    terms: ["serpentine_belt"],
+    image: "https://upload.wikimedia.org/wikipedia/commons/thumb/8/8a/2015_Nissan_VQ35DE_engine.jpg/640px-2015_Nissan_VQ35DE_engine.jpg",
+    youtube: "https://www.youtube.com/watch?v=W7_3viOGo18",
+    youtubeTitle: "Serpentine Belt Inspection Guide",
+    qChinese: "检查蛇形皮带的推荐方法是什么？",
+    optionsChinese: [
+      "A) 仅检查肋面是否有裂纹",
+      "B) 检查皮带两面是否有裂纹、磨损、老化光泽、碎裂，以及是否有适当的张力",
+      "C) 仅测量皮带宽度",
+      "D) 在上面喷水以检查是否打滑"
+    ],
+    explanationChinese: "全面的蛇形皮带检查包括检查两面是否有裂纹、磨损、老化光泽、油污、碎裂（缺失部分）以及适当的张力。现代EPDM皮带可能在没有可见裂纹的情况下磨损，因此应使用皮带磨损量规测量肋深度以进行准确评估。",
+  },
+  {
+    id: 182,
+    q: "A squealing noise from the engine bay that changes with engine RPM is MOST likely caused by what?",
+    options: [
+      "A) A faulty exhaust system",
+      "B) A worn or loose serpentine belt or a failing belt tensioner",
+      "C) A bad spark plug",
+      "D) Low engine oil"
+    ],
+    answer: 1,
+    explanation: "A squealing noise that varies with engine RPM typically indicates a worn, loose, or glazed serpentine belt, or a failing belt tensioner that is not maintaining proper belt tension. The noise is caused by the belt slipping on the pulleys. The belt and tensioner should be inspected and replaced as needed.",
+    diagram: "",
+    terms: ["serpentine_belt"],
+    image: "https://upload.wikimedia.org/wikipedia/commons/thumb/8/8a/2015_Nissan_VQ35DE_engine.jpg/640px-2015_Nissan_VQ35DE_engine.jpg",
+    youtube: "https://www.youtube.com/watch?v=W7_3viOGo18",
+    youtubeTitle: "Diagnosing Belt Squeal Noise",
+    qChinese: "发动机舱中随发动机转速变化的尖叫声最可能由什么引起？",
+    optionsChinese: [
+      "A) 排气系统故障",
+      "B) 蛇形皮带磨损或松动，或皮带张紧器故障",
+      "C) 火花塞不良",
+      "D) 发动机机油不足"
+    ],
+    explanationChinese: "随发动机转速变化的尖叫声通常表明蛇形皮带磨损、松动或老化光泽，或皮带张紧器故障未能保持适当的皮带张力。噪音是由皮带在皮带轮上打滑引起的。应检查皮带和张紧器，并根据需要更换。",
+  },
+  {
+    id: 183,
+    q: "What is the PRIMARY purpose of the engine air filter?",
+    options: [
+      "A) To regulate engine temperature",
+      "B) To prevent dirt, dust, and debris from entering the engine intake and causing wear",
+      "C) To improve exhaust emissions",
+      "D) To control engine noise"
+    ],
+    answer: 1,
+    explanation: "The engine air filter prevents dirt, dust, insects, and other debris from entering the engine through the air intake. Contaminants can cause accelerated wear of cylinder walls, pistons, and rings. A clean air filter ensures proper airflow for optimal engine performance and fuel efficiency.",
+    diagram: "",
+    terms: ["air_filter"],
+    image: "https://upload.wikimedia.org/wikipedia/commons/thumb/6/6e/Air_filter.jpg/640px-Air_filter.jpg",
+    youtube: "https://www.youtube.com/watch?v=O1hF25Cowv8",
+    youtubeTitle: "Engine Air Filter Replacement",
+    qChinese: "发动机空气滤清器的主要目的是什么？",
+    optionsChinese: [
+      "A) 调节发动机温度",
+      "B) 防止灰尘、尘土和杂物进入发动机进气道并造成磨损",
+      "C) 改善排放",
+      "D) 控制发动机噪音"
+    ],
+    explanationChinese: "发动机空气滤清器防止灰尘、尘土、昆虫和其他杂物通过进气道进入发动机。污染物会导致气缸壁、活塞和活塞环加速磨损。清洁的空气滤清器确保适当的气流以获得最佳发动机性能和燃油效率。",
+  },
+  {
+    id: 184,
+    q: "What is the difference between the engine air filter and the cabin air filter?",
+    options: [
+      "A) They are the same filter",
+      "B) The engine air filter cleans air entering the engine; the cabin air filter cleans air entering the passenger compartment",
+      "C) The cabin air filter is only found in diesel vehicles",
+      "D) The engine air filter also filters the cabin air"
+    ],
+    answer: 1,
+    explanation: "The engine air filter cleans the air that enters the engine for combustion, while the cabin air filter cleans the air that enters the passenger compartment through the HVAC system. They serve different systems and are located in different areas. Both should be replaced at manufacturer-recommended intervals.",
+    diagram: "",
+    terms: ["air_filter", "cabin_air_filter"],
+    image: "https://upload.wikimedia.org/wikipedia/commons/thumb/6/6e/Air_filter.jpg/640px-Air_filter.jpg",
+    youtube: "https://www.youtube.com/watch?v=O1hF25Cowv8",
+    youtubeTitle: "Engine Air Filter vs Cabin Air Filter",
+    qChinese: "发动机空气滤清器和车厢空调滤清器有什么区别？",
+    optionsChinese: [
+      "A) 它们是同一个滤清器",
+      "B) 发动机空气滤清器过滤进入发动机的空气；车厢空调滤清器过滤进入乘客舱的空气",
+      "C) 车厢空调滤清器仅在柴油车中使用",
+      "D) 发动机空气滤清器也过滤车厢空气"
+    ],
+    explanationChinese: "发动机空气滤清器过滤进入发动机用于燃烧的空气，而车厢空调滤清器过滤通过HVAC系统进入乘客舱的空气。它们服务于不同的系统并位于不同的区域。两者都应按制造商推荐的间隔更换。",
+  },
+  {
+    id: 185,
+    q: "A dirty cabin air filter can cause which of the following symptoms?",
+    options: [
+      "A) Engine misfires",
+      "B) Reduced airflow from the HVAC vents, musty odor, and foggy windows",
+      "C) Transmission shifting problems",
+      "D) Engine overheating"
+    ],
+    answer: 1,
+    explanation: "A dirty cabin air filter restricts airflow through the HVAC system, resulting in reduced air volume from the vents. It can also cause musty or unpleasant odors and contribute to foggy windows due to poor air circulation. Replacing the cabin filter restores proper airflow and air quality.",
+    diagram: "",
+    terms: ["cabin_air_filter", "air_filter"],
+    image: "https://upload.wikimedia.org/wikipedia/commons/thumb/6/6e/Air_filter.jpg/640px-Air_filter.jpg",
+    youtube: "https://www.youtube.com/watch?v=O1hF25Cowv8",
+    youtubeTitle: "Cabin Air Filter Replacement",
+    qChinese: "脏的车厢空调滤清器可能导致以下哪种症状？",
+    optionsChinese: [
+      "A) 发动机缺火",
+      "B) HVAC出风口气流减少、异味和车窗起雾",
+      "C) 变速箱换挡问题",
+      "D) 发动机过热"
+    ],
+    explanationChinese: "脏的车厢空调滤清器限制通过HVAC系统的气流，导致出风口气量减少。它还可能导致霉味或不愉快的气味，并因空气流通不良而导致车窗起雾。更换车厢滤清器可恢复正常气流和空气质量。",
+  },
+  {
+    id: 186,
+    q: "When should wiper blades be replaced?",
+    options: [
+      "A) Only when they completely fall off",
+      "B) When they streak, chatter, skip, or leave areas unwiped on the windshield",
+      "C) Every 5,000 miles with the oil change",
+      "D) Only during the annual state inspection"
+    ],
+    answer: 1,
+    explanation: "Wiper blades should be replaced when they show signs of deterioration such as streaking, chattering, skipping, smearing, or leaving unwiped areas on the windshield. Wiper blades typically last six to twelve months depending on climate and use. Worn blades compromise visibility and safety.",
+    diagram: "",
+    terms: ["wiper_blades"],
+    image: "https://upload.wikimedia.org/wikipedia/commons/thumb/8/8a/2015_Nissan_VQ35DE_engine.jpg/640px-2015_Nissan_VQ35DE_engine.jpg",
+    youtube: "https://www.youtube.com/watch?v=O1hF25Cowv8",
+    youtubeTitle: "When to Replace Wiper Blades",
+    qChinese: "什么时候应该更换雨刷片？",
+    optionsChinese: [
+      "A) 仅在它们完全脱落时",
+      "B) 当它们在挡风玻璃上出现条纹、颤动、跳动或留下未擦净区域时",
+      "C) 每5000英里随换油一起更换",
+      "D) 仅在年度国家检查期间"
+    ],
+    explanationChinese: "雨刷片应在出现劣化迹象时更换，如条纹、颤动、跳动、涂抹或在挡风玻璃上留下未擦净区域。雨刷片通常根据气候和使用情况持续六到十二个月。磨损的雨刷片会影响能见度和安全性。",
+  },
+  {
+    id: 187,
+    q: "A headlight bulb needs replacement. Which safety precaution is important when handling halogen bulbs?",
+    options: [
+      "A) Wear rubber boots",
+      "B) Do not touch the glass part of the bulb with bare fingers as skin oils can cause the bulb to fail prematurely",
+      "C) Only replace bulbs with the engine running",
+      "D) Wear ear protection"
+    ],
+    answer: 1,
+    explanation: "When handling halogen bulbs, never touch the glass envelope with bare fingers. Oils from skin create hot spots on the glass that can cause the bulb to overheat and fail prematurely. Handle the bulb by its base or use clean gloves. If touched, clean with rubbing alcohol before installation.",
+    diagram: "",
+    terms: ["wiper_blades"],
+    image: "https://upload.wikimedia.org/wikipedia/commons/thumb/8/8a/2015_Nissan_VQ35DE_engine.jpg/640px-2015_Nissan_VQ35DE_engine.jpg",
+    youtube: "https://www.youtube.com/watch?v=O1hF25Cowv8",
+    youtubeTitle: "Headlight Bulb Replacement Tips",
+    qChinese: "大灯灯泡需要更换。处理卤素灯泡时哪项安全注意事项很重要？",
+    optionsChinese: [
+      "A) 穿橡胶靴",
+      "B) 不要用裸手触摸灯泡玻璃部分，因为皮肤油脂会导致灯泡过早失效",
+      "C) 仅在发动机运转时更换灯泡",
+      "D) 佩戴耳部保护"
+    ],
+    explanationChinese: "处理卤素灯泡时，切勿用裸手触摸玻璃外壳。皮肤上的油脂会在玻璃上产生热点，可能导致灯泡过热和过早失效。应通过底座握住灯泡或使用干净手套。如果触摸了，安装前用酒精擦拭清洁。",
+  },
+  {
+    id: 188,
+    q: "What personal protective equipment (PPE) should be worn when working with automotive batteries?",
+    options: [
+      "A) Only work gloves",
+      "B) Safety glasses and acid-resistant gloves to protect from acid and explosion hazards",
+      "C) A dust mask only",
+      "D) Steel-toed boots only"
+    ],
+    answer: 1,
+    explanation: "When working with batteries, safety glasses and acid-resistant gloves should be worn. Battery acid (sulfuric acid) can cause severe chemical burns to skin and eyes. Batteries also produce hydrogen gas during charging which is explosive. Proper PPE protects against acid splashes and potential explosions.",
+    diagram: "",
+    terms: ["battery"],
+    image: "https://upload.wikimedia.org/wikipedia/commons/thumb/4/4d/Varta_car_battery.jpg/640px-Varta_car_battery.jpg",
+    youtube: "https://www.youtube.com/watch?v=LGB6ZEjGm7Q",
+    youtubeTitle: "Battery Safety Precautions",
+    qChinese: "处理汽车电池时应佩戴什么个人防护装备（PPE）？",
+    optionsChinese: [
+      "A) 仅工作手套",
+      "B) 安全眼镜和耐酸手套以防止酸液和爆炸危险",
+      "C) 仅防尘口罩",
+      "D) 仅钢头靴"
+    ],
+    explanationChinese: "处理电池时应佩戴安全眼镜和耐酸手套。电池酸（硫酸）会对皮肤和眼睛造成严重的化学灼伤。电池在充电过程中还会产生易爆的氢气。适当的PPE可保护免受酸液飞溅和潜在爆炸的伤害。",
+  },
+  {
+    id: 189,
+    q: "What is the correct procedure for using a floor jack to lift a vehicle?",
+    options: [
+      "A) Place the jack under any part of the vehicle's body",
+      "B) Position the jack under the manufacturer-specified lift points and always use jack stands before working under the vehicle",
+      "C) Use the floor jack as the sole support while working underneath",
+      "D) Jack the vehicle from the bumper"
+    ],
+    answer: 1,
+    explanation: "The floor jack must be positioned at manufacturer-specified lift points to prevent damage to the vehicle. After lifting, jack stands must be placed under designated support points before anyone works under the vehicle. A floor jack alone is not a safe support as it can fail or be released accidentally.",
+    diagram: "",
+    terms: ["battery"],
+    image: "https://upload.wikimedia.org/wikipedia/commons/thumb/8/8a/2015_Nissan_VQ35DE_engine.jpg/640px-2015_Nissan_VQ35DE_engine.jpg",
+    youtube: "https://www.youtube.com/watch?v=O1hF25Cowv8",
+    youtubeTitle: "Safe Vehicle Lifting Procedures",
+    qChinese: "使用地板千斤顶举升车辆的正确程序是什么？",
+    optionsChinese: [
+      "A) 将千斤顶放在车辆车身的任何部分下面",
+      "B) 将千斤顶放在制造商指定的举升点下方，在车辆下方工作前始终使用千斤顶支架",
+      "C) 在底部工作时使用地板千斤顶作为唯一支撑",
+      "D) 从保险杠处举升车辆"
+    ],
+    explanationChinese: "地板千斤顶必须放置在制造商指定的举升点以防止损坏车辆。举升后，在任何人在车辆下方工作之前，必须将千斤顶支架放在指定的支撑点下。仅使用地板千斤顶不安全，因为它可能故障或被意外释放。",
+  },
+  {
+    id: 190,
+    q: "What should a technician do FIRST before starting any underhood service work?",
+    options: [
+      "A) Start the engine to warm it up",
+      "B) Verify the engine is off, the ignition is off, and remove rings, watches, and loose clothing that could get caught",
+      "C) Disconnect the battery",
+      "D) Raise the vehicle on the lift"
+    ],
+    answer: 1,
+    explanation: "Before performing underhood work, ensure the engine and ignition are off. Remove rings, watches, necklaces, and ties that could get caught in moving parts or create electrical shorts. Long hair should be tied back. These simple precautions prevent serious injuries from rotating components and electrical hazards.",
+    diagram: "",
+    terms: ["battery", "serpentine_belt"],
+    image: "https://upload.wikimedia.org/wikipedia/commons/thumb/8/8a/2015_Nissan_VQ35DE_engine.jpg/640px-2015_Nissan_VQ35DE_engine.jpg",
+    youtube: "https://www.youtube.com/watch?v=O1hF25Cowv8",
+    youtubeTitle: "Shop Safety Best Practices",
+    qChinese: "在开始任何发动机舱维修工作之前，技师应首先做什么？",
+    optionsChinese: [
+      "A) 启动发动机让其预热",
+      "B) 确认发动机关闭、点火关闭，并取下可能被卡住的戒指、手表和宽松衣物",
+      "C) 断开电池",
+      "D) 将车辆升到举升机上"
+    ],
+    explanationChinese: "在进行发动机舱工作之前，确保发动机和点火已关闭。取下可能被运动部件卡住或造成电气短路的戒指、手表、项链和领带。长发应扎好。这些简单的预防措施可防止旋转部件和电气危险造成的严重伤害。",
+  },
+  {
+    id: 191,
+    q: "A vehicle's brake warning light on the dash is illuminated. What should the technician check FIRST?",
+    options: [
+      "A) The alternator output",
+      "B) The brake fluid level in the master cylinder reservoir",
+      "C) The engine oil level",
+      "D) The tire pressure"
+    ],
+    answer: 1,
+    explanation: "The brake warning light can indicate low brake fluid, which is the first thing to check. Low fluid may be caused by worn brake pads or a leak in the system. The light can also indicate the parking brake is engaged. Check the fluid level first as it is the quickest and most common cause.",
+    diagram: "",
+    terms: ["brake_fluid", "brake_pads"],
+    image: "https://upload.wikimedia.org/wikipedia/commons/thumb/3/3b/Disc_brake.jpg/640px-Disc_brake.jpg",
+    youtube: "https://www.youtube.com/watch?v=lGqExDIaMhU",
+    youtubeTitle: "Brake Warning Light Diagnosis",
+    qChinese: "车辆仪表板上的制动警告灯亮起。技师应首先检查什么？",
+    optionsChinese: [
+      "A) 发电机输出",
+      "B) 主缸储液壶中的制动液液位",
+      "C) 发动机机油液位",
+      "D) 轮胎压力"
+    ],
+    explanationChinese: "制动警告灯可能表示制动液不足，这是首先要检查的。液位低可能是由于制动片磨损或系统泄漏。该灯也可能表示驻车制动已接合。首先检查液位，因为这是最快且最常见的原因。",
+  },
+  {
+    id: 192,
+    q: "What is the torque specification for lug nuts primarily used to ensure?",
+    options: [
+      "A) The wheels spin freely",
+      "B) Proper and even clamping force to prevent wheel loosening and rotor warping",
+      "C) The tires wear evenly",
+      "D) The TPMS sensors are calibrated"
+    ],
+    answer: 1,
+    explanation: "Lug nuts must be tightened to the manufacturer's torque specification to ensure proper and even clamping force. Under-torquing can allow wheels to loosen, while over-torquing can warp brake rotors, stretch studs, or crack wheels. A torque wrench should always be used for final tightening.",
+    diagram: "",
+    terms: ["tire_rotation", "brake_pads"],
+    image: "https://upload.wikimedia.org/wikipedia/commons/thumb/5/56/Tire_valve_stem.jpg/640px-Tire_valve_stem.jpg",
+    youtube: "https://www.youtube.com/watch?v=NDqpgT5Yl1o",
+    youtubeTitle: "Proper Lug Nut Torque Procedure",
+    qChinese: "车轮螺母的扭矩规格主要用于确保什么？",
+    optionsChinese: [
+      "A) 车轮自由旋转",
+      "B) 适当且均匀的夹紧力以防止车轮松动和制动盘变形",
+      "C) 轮胎均匀磨损",
+      "D) TPMS传感器已校准"
+    ],
+    explanationChinese: "车轮螺母必须按照制造商的扭矩规格拧紧，以确保适当且均匀的夹紧力。扭矩不足可能导致车轮松动，而过度拧紧可能使制动盘变形、螺柱拉伸或车轮开裂。最终拧紧时应始终使用扭矩扳手。",
+  },
+  {
+    id: 193,
+    q: "What pattern should be used when tightening lug nuts?",
+    options: [
+      "A) Tighten them in a clockwise circle pattern",
+      "B) Tighten them in a star (criss-cross) pattern to ensure even seating",
+      "C) Tighten the top ones first, then the bottom ones",
+      "D) Tighten them in any random order"
+    ],
+    answer: 1,
+    explanation: "Lug nuts should always be tightened in a star or criss-cross pattern. This ensures the wheel is pulled evenly against the hub, preventing warping and uneven clamping. Tightening in a circular pattern can cause the wheel to seat unevenly, leading to vibration and potential brake rotor warping.",
+    diagram: "",
+    terms: ["tire_rotation"],
+    image: "https://upload.wikimedia.org/wikipedia/commons/thumb/5/56/Tire_valve_stem.jpg/640px-Tire_valve_stem.jpg",
+    youtube: "https://www.youtube.com/watch?v=NDqpgT5Yl1o",
+    youtubeTitle: "Correct Lug Nut Tightening Pattern",
+    qChinese: "拧紧车轮螺母时应使用什么模式？",
+    optionsChinese: [
+      "A) 按顺时针圆形模式拧紧",
+      "B) 按星形（交叉）模式拧紧以确保均匀就位",
+      "C) 先拧紧上面的，再拧紧下面的",
+      "D) 按任意随机顺序拧紧"
+    ],
+    explanationChinese: "车轮螺母应始终按星形或交叉模式拧紧。这确保车轮均匀地被拉紧到轮毂上，防止变形和不均匀夹紧。按圆形模式拧紧可能导致车轮不均匀就位，导致振动和潜在的制动盘变形。",
+  },
+  {
+    id: 194,
+    q: "What should be checked during a vehicle lighting system inspection?",
+    options: [
+      "A) Only the headlights",
+      "B) Headlights, taillights, brake lights, turn signals, reverse lights, marker lights, and license plate lights",
+      "C) Only the turn signals",
+      "D) Only lights that the customer complains about"
+    ],
+    answer: 1,
+    explanation: "A complete lighting inspection includes all exterior lights: headlights on low and high beam, taillights, brake lights, turn signals, hazard flashers, reverse lights, side marker lights, fog lights if equipped, and license plate lights. All bulbs should be functional and lenses free of damage.",
+    diagram: "",
+    terms: ["wiper_blades"],
+    image: "https://upload.wikimedia.org/wikipedia/commons/thumb/8/8a/2015_Nissan_VQ35DE_engine.jpg/640px-2015_Nissan_VQ35DE_engine.jpg",
+    youtube: "https://www.youtube.com/watch?v=O1hF25Cowv8",
+    youtubeTitle: "Complete Vehicle Light Inspection",
+    qChinese: "在车辆照明系统检查中应检查什么？",
+    optionsChinese: [
+      "A) 仅大灯",
+      "B) 大灯、尾灯、制动灯、转向灯、倒车灯、示宽灯和牌照灯",
+      "C) 仅转向灯",
+      "D) 仅客户投诉的灯"
+    ],
+    explanationChinese: "完整的照明检查包括所有外部灯光：近光和远光大灯、尾灯、制动灯、转向灯、危险闪光灯、倒车灯、侧示宽灯、如有配备的雾灯以及牌照灯。所有灯泡应功能正常，灯罩无损坏。",
+  },
+  {
+    id: 195,
+    q: "What information is found on an MSDS/SDS (Material Safety Data Sheet/Safety Data Sheet)?",
+    options: [
+      "A) Only the price of the product",
+      "B) Chemical composition, health hazards, first aid measures, handling and storage procedures, and disposal information",
+      "C) Only the product manufacturer's phone number",
+      "D) Vehicle repair procedures"
+    ],
+    answer: 1,
+    explanation: "SDS sheets provide critical safety information including chemical composition, physical properties, health hazards, exposure limits, first aid procedures, firefighting measures, handling and storage guidelines, and proper disposal methods. OSHA requires SDS sheets be available for all hazardous materials in the workplace.",
+    diagram: "",
+    terms: ["engine_oil", "brake_fluid"],
+    image: "https://upload.wikimedia.org/wikipedia/commons/thumb/8/8a/2015_Nissan_VQ35DE_engine.jpg/640px-2015_Nissan_VQ35DE_engine.jpg",
+    youtube: "https://www.youtube.com/watch?v=O1hF25Cowv8",
+    youtubeTitle: "Understanding Safety Data Sheets",
+    qChinese: "MSDS/SDS（材料安全数据表/安全数据表）上有什么信息？",
+    optionsChinese: [
+      "A) 仅产品价格",
+      "B) 化学成分、健康危害、急救措施、处理和储存程序以及处置信息",
+      "C) 仅产品制造商的电话号码",
+      "D) 车辆维修程序"
+    ],
+    explanationChinese: "SDS表提供关键安全信息，包括化学成分、物理性质、健康危害、暴露限值、急救程序、消防措施、处理和储存指南以及正确的处置方法。OSHA要求工作场所所有危险材料都必须有可用的SDS表。",
+  },
+  {
+    id: 196,
+    q: "What is the correct way to dispose of used coolant?",
+    options: [
+      "A) Pour it down the shop floor drain",
+      "B) Collect it in a labeled approved container and dispose of it according to local environmental regulations",
+      "C) Mix it with used oil for disposal",
+      "D) Pour it on the ground outside the shop"
+    ],
+    answer: 1,
+    explanation: "Used coolant must be collected in a labeled approved container and disposed of according to local environmental regulations. Coolant is toxic to animals and children due to its sweet taste. It should never be poured down drains or onto the ground. Many shops recycle coolant through authorized programs.",
+    diagram: "",
+    terms: ["coolant"],
+    image: "https://upload.wikimedia.org/wikipedia/commons/thumb/5/5f/Radiator.jpg/640px-Radiator.jpg",
+    youtube: "https://www.youtube.com/watch?v=pqFZY6v6OQI",
+    youtubeTitle: "Proper Coolant Disposal",
+    qChinese: "处置废旧冷却液的正确方法是什么？",
+    optionsChinese: [
+      "A) 倒入车间地面排水沟",
+      "B) 收集在标记的认可容器中，按照当地环保法规处置",
+      "C) 与废机油混合处置",
+      "D) 倒在车间外面的地上"
+    ],
+    explanationChinese: "废旧冷却液必须收集在标记的认可容器中，并按照当地环保法规处置。冷却液因其甜味对动物和儿童有毒。绝不应倒入排水沟或地面。许多车间通过授权项目回收冷却液。",
+  },
+  {
+    id: 197,
+    q: "A fire extinguisher in the shop should be what class for use on electrical fires?",
+    options: [
+      "A) Class A",
+      "B) Class C or a multi-purpose ABC extinguisher",
+      "C) Class D",
+      "D) Class K"
+    ],
+    answer: 1,
+    explanation: "Class C fire extinguishers are rated for electrical fires. Most automotive shops use multi-purpose ABC extinguishers that handle ordinary combustibles, flammable liquids, and electrical fires. Class D is for combustible metals and Class K is for commercial kitchen fires. Technicians should know extinguisher locations.",
+    diagram: "",
+    terms: ["battery"],
+    image: "https://upload.wikimedia.org/wikipedia/commons/thumb/8/8a/2015_Nissan_VQ35DE_engine.jpg/640px-2015_Nissan_VQ35DE_engine.jpg",
+    youtube: "https://www.youtube.com/watch?v=O1hF25Cowv8",
+    youtubeTitle: "Fire Extinguisher Types for Auto Shops",
+    qChinese: "车间中用于电气火灾的灭火器应该是什么级别？",
+    optionsChinese: [
+      "A) A级",
+      "B) C级或多功能ABC灭火器",
+      "C) D级",
+      "D) K级"
+    ],
+    explanationChinese: "C级灭火器适用于电气火灾。大多数汽车维修车间使用多功能ABC灭火器，可处理普通可燃物、可燃液体和电气火灾。D级用于可燃金属，K级用于商业厨房火灾。技师应知道灭火器的位置。",
+  },
+  {
+    id: 198,
+    q: "A technician needs to use a torque wrench. What type provides the MOST accurate reading for lug nut tightening?",
+    options: [
+      "A) A breaker bar",
+      "B) A click-type or digital torque wrench",
+      "C) An impact wrench",
+      "D) A standard ratchet"
+    ],
+    answer: 1,
+    explanation: "A click-type or digital torque wrench provides the most accurate torque reading for lug nut tightening. The click-type wrench clicks when the preset torque is reached. Digital models display the exact torque in real time. Impact wrenches should not be used for final torque as they are not precise enough.",
+    diagram: "",
+    terms: ["tire_rotation"],
+    image: "https://upload.wikimedia.org/wikipedia/commons/thumb/5/56/Tire_valve_stem.jpg/640px-Tire_valve_stem.jpg",
+    youtube: "https://www.youtube.com/watch?v=NDqpgT5Yl1o",
+    youtubeTitle: "How to Use a Torque Wrench",
+    qChinese: "技师需要使用扭矩扳手。什么类型对车轮螺母拧紧提供最准确的读数？",
+    optionsChinese: [
+      "A) 断路杆",
+      "B) 卡嗒型或数字式扭矩扳手",
+      "C) 冲击扳手",
+      "D) 标准棘轮扳手"
+    ],
+    explanationChinese: "卡嗒型或数字式扭矩扳手为车轮螺母拧紧提供最准确的扭矩读数。卡嗒型扳手在达到预设扭矩时发出咔嗒声。数字型号实时显示精确扭矩。冲击扳手不应用于最终扭矩，因为它们不够精确。",
+  },
+  {
+    id: 199,
+    q: "When performing a spark plug replacement, why is it important to use the correct gap specification?",
+    options: [
+      "A) To prevent the spark plug from falling out",
+      "B) The correct gap ensures proper ignition of the air-fuel mixture for smooth engine operation",
+      "C) To change the engine's compression ratio",
+      "D) To reduce engine noise"
+    ],
+    answer: 1,
+    explanation: "The spark plug gap must be set to the manufacturer's specification to ensure a proper spark for complete combustion. Too wide a gap may cause misfires, while too narrow a gap can cause weak ignition and poor performance. Always verify the gap with a feeler gauge before installation.",
+    diagram: "",
+    terms: ["spark_plug"],
+    image: "https://upload.wikimedia.org/wikipedia/commons/thumb/8/8a/2015_Nissan_VQ35DE_engine.jpg/640px-2015_Nissan_VQ35DE_engine.jpg",
+    youtube: "https://www.youtube.com/watch?v=O1hF25Cowv8",
+    youtubeTitle: "Spark Plug Gap and Replacement",
+    qChinese: "进行火花塞更换时，为什么使用正确的间隙规格很重要？",
+    optionsChinese: [
+      "A) 防止火花塞脱落",
+      "B) 正确的间隙确保空气-燃油混合物的正常点火，以实现平稳的发动机运行",
+      "C) 改变发动机的压缩比",
+      "D) 减少发动机噪音"
+    ],
+    explanationChinese: "火花塞间隙必须设置为制造商规格，以确保完全燃烧的正确火花。间隙太宽可能导致缺火，而太窄可能导致点火弱和性能差。安装前始终用塞规验证间隙。",
+  },
+  {
+    id: 200,
+    q: "During a multi-point inspection, the technician discovers multiple maintenance items are needed. What is the correct course of action?",
+    options: [
+      "A) Perform all repairs without notifying the customer",
+      "B) Document all findings, prioritize safety items, and present a written estimate to the customer for authorization before performing any work",
+      "C) Only mention the most expensive repair to the customer",
+      "D) Ignore minor items and only address critical safety concerns"
+    ],
+    answer: 1,
+    explanation: "The technician should document all findings clearly, prioritize safety-critical items, and present the customer with a written estimate for review and authorization. No work should be performed without customer approval. This builds trust, ensures informed consent, and complies with consumer protection regulations.",
+    diagram: "",
+    terms: ["engine_oil", "brake_pads", "tire_rotation"],
+    image: "https://upload.wikimedia.org/wikipedia/commons/thumb/8/8a/2015_Nissan_VQ35DE_engine.jpg/640px-2015_Nissan_VQ35DE_engine.jpg",
+    youtube: "https://www.youtube.com/watch?v=O1hF25Cowv8",
+    youtubeTitle: "Multi-Point Inspection Best Practices",
+    qChinese: "在多点检查期间，技师发现需要多项保养项目。正确的做法是什么？",
+    optionsChinese: [
+      "A) 不通知客户就执行所有维修",
+      "B) 记录所有发现，优先处理安全项目，并在执行任何工作之前向客户提供书面估价以获得授权",
+      "C) 仅向客户提及最昂贵的维修",
+      "D) 忽略小项目，仅处理关键安全问题"
+    ],
+    explanationChinese: "技师应清楚地记录所有发现，优先处理安全关键项目，并向客户提供书面估价供审查和授权。未经客户批准不应执行任何工作。这建立信任，确保知情同意，并遵守消费者保护法规。",
+  },
 ];

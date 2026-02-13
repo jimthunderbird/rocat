@@ -906,7 +906,7 @@ body {
 
 <div class="header">
   <h1>ASE Certification Study Q&A</h1>
-  <div class="subtitle">Entry-Level Technician Certification Prep | A1-A8 & G1 | 900 Questions</div>
+  <div class="subtitle">Entry-Level Technician Certification Prep | A1-A8 & G1 | 1800 Questions</div>
 </div>
 
 <div class="tabs" id="tabs"></div>
@@ -1187,7 +1187,7 @@ function renderQuestion(q) {
 
   html += `
     <div class="btn-row">
-      <button class="btn btn-answer" id="btnAnswer" onclick="revealAnswer()" disabled>Show Answer</button>
+      <button class="btn btn-answer" id="btnAnswer" onclick="revealAnswer()">Show Answer</button>
       <button class="btn btn-next" id="btnNext" onclick="showRandomQuestion()" style="display:none">Next Question</button>
       <button class="btn btn-reset" onclick="resetSection()">Reset Section</button>
     </div>
@@ -1202,16 +1202,16 @@ function selectOption(idx) {
   selectedOption = idx;
   document.querySelectorAll('.option').forEach(o => o.classList.remove('selected'));
   document.querySelector(`.option[data-idx="${idx}"]`).classList.add('selected');
-  document.getElementById('btnAnswer').disabled = false;
 }
 
 function revealAnswer() {
-  if (answered || selectedOption === -1) return;
+  if (answered) return;
   answered = true;
 
   const q = currentQuestion;
   const score = scores[currentSection];
   const isNew = !score.answered.has(q.id);
+  const hasSelection = selectedOption !== -1;
 
   // Mark options
   document.querySelectorAll('.option').forEach(o => {
@@ -1220,13 +1220,13 @@ function revealAnswer() {
     if (idx === q.answer) {
       o.classList.add('correct');
     }
-    if (idx === selectedOption && idx !== q.answer) {
+    if (hasSelection && idx === selectedOption && idx !== q.answer) {
       o.classList.add('wrong');
     }
   });
 
-  // Update score only for new answers
-  if (isNew) {
+  // Update score only for new answers when a selection was made
+  if (isNew && hasSelection) {
     score.answered.add(q.id);
     if (selectedOption === q.answer) {
       score.correct++;
@@ -1240,8 +1240,9 @@ function revealAnswer() {
   // Show explanation
   const expEl = document.getElementById('explanation');
   const answerChinese = q.optionsChinese && q.optionsChinese[q.answer] ? ` / ${q.optionsChinese[q.answer]}` : '';
+  let resultLabel = !hasSelection ? 'Answer Revealed 答案揭晓' : (selectedOption === q.answer ? 'Correct! 正确!' : 'Incorrect 不正确');
   let expHtml = `
-    <h3>${selectedOption === q.answer ? 'Correct! 正确!' : 'Incorrect 不正确'} - The answer is ${highlightTerms(q.options[q.answer])}${answerChinese}</h3>
+    <h3>${resultLabel} - The answer is ${highlightTerms(q.options[q.answer])}${answerChinese}</h3>
     <p>${highlightTerms(q.explanation)}</p>
     ${q.explanationChinese ? `<p class="explanation-chinese">${q.explanationChinese}</p>` : ''}
   `;
@@ -1373,9 +1374,26 @@ function renderMarkdown(text) {
   return html;
 }
 
-// --- AI Popup History ---
-let aiHistory = []; // Array of { displayName, query, responseText }
-let aiHistoryIndex = -1; // Current position in history
+// --- AI Popup History (persistent, max 100) ---
+const AI_HISTORY_MAX = 100;
+const AI_HISTORY_KEY = 'aiPopupHistory';
+
+function loadAiHistory() {
+  try {
+    const saved = localStorage.getItem(AI_HISTORY_KEY);
+    if (saved) return JSON.parse(saved);
+  } catch(e) {}
+  return [];
+}
+
+function saveAiHistory() {
+  try {
+    localStorage.setItem(AI_HISTORY_KEY, JSON.stringify(aiHistory));
+  } catch(e) {}
+}
+
+let aiHistory = loadAiHistory(); // Array of { displayName, query, responseText }
+let aiHistoryIndex = aiHistory.length > 0 ? aiHistory.length - 1 : -1; // Point to latest entry
 let aiCurrentStreamAbort = null; // AbortController for current stream
 
 function updateAiNavButtons() {
@@ -1430,7 +1448,14 @@ function streamAiQuery(displayName, query) {
   // Create new history entry
   const historyEntry = { displayName: displayName, query: query, responseText: '' };
   aiHistory.push(historyEntry);
+
+  // Enforce max 100 entries
+  if (aiHistory.length > AI_HISTORY_MAX) {
+    aiHistory = aiHistory.slice(aiHistory.length - AI_HISTORY_MAX);
+  }
+
   aiHistoryIndex = aiHistory.length - 1;
+  saveAiHistory();
   updateAiNavButtons();
 
   document.getElementById('aiModalQuery').textContent = query;
@@ -1455,6 +1480,7 @@ function streamAiQuery(displayName, query) {
             aiCurrentStreamAbort = null;
             // Final render with full markdown + highlight terms for clickability
             bodyEl.innerHTML = highlightTermsInHtml(renderMarkdown(rawText));
+            saveAiHistory();
             updateAiNavButtons();
             return;
           }
@@ -1572,7 +1598,7 @@ function submitAiQuestion() {
 function askAiAboutText(text) {
   if (!text || text.trim().length === 0) return;
   const trimmed = text.trim();
-  const query = 'what is ' + trimmed + ', explain to me in 200 words, also, please translate them to simplified chinese';
+  const query = 'in the context of car mechanic, what is ' + trimmed + ', explain to me in 200 words, also, please translate them to simplified chinese';
   streamAiQuery(trimmed, query);
 }
 

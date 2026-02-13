@@ -577,7 +577,7 @@ body {
 
 <div class="header">
   <h1>ASE Certification Study Q&A</h1>
-  <div class="subtitle">Entry-Level Technician Certification Prep | A1-A8 & G1 | 900 Questions</div>
+  <div class="subtitle">Entry-Level Technician Certification Prep | A1-A8 & G1 | 1800 Questions</div>
 </div>
 
 <div class="tabs" id="tabs"></div>
@@ -772,7 +772,7 @@ function renderQuestion(q) {
 
   html += `
     <div class="btn-row">
-      <button class="btn btn-answer" id="btnAnswer" onclick="revealAnswer()" disabled>Show Answer</button>
+      <button class="btn btn-answer" id="btnAnswer" onclick="revealAnswer()">Show Answer</button>
       <button class="btn btn-next" id="btnNext" onclick="showRandomQuestion()" style="display:none">Next Question</button>
       <button class="btn btn-reset" onclick="resetSection()">Reset Section</button>
     </div>
@@ -787,16 +787,16 @@ function selectOption(idx) {
   selectedOption = idx;
   document.querySelectorAll('.option').forEach(o => o.classList.remove('selected'));
   document.querySelector(`.option[data-idx="${idx}"]`).classList.add('selected');
-  document.getElementById('btnAnswer').disabled = false;
 }
 
 function revealAnswer() {
-  if (answered || selectedOption === -1) return;
+  if (answered) return;
   answered = true;
 
   const q = currentQuestion;
   const score = scores[currentSection];
   const isNew = !score.answered.has(q.id);
+  const hasSelection = selectedOption !== -1;
 
   // Mark options
   document.querySelectorAll('.option').forEach(o => {
@@ -805,13 +805,13 @@ function revealAnswer() {
     if (idx === q.answer) {
       o.classList.add('correct');
     }
-    if (idx === selectedOption && idx !== q.answer) {
+    if (hasSelection && idx === selectedOption && idx !== q.answer) {
       o.classList.add('wrong');
     }
   });
 
-  // Update score only for new answers
-  if (isNew) {
+  // Update score only for new answers when a selection was made
+  if (isNew && hasSelection) {
     score.answered.add(q.id);
     if (selectedOption === q.answer) {
       score.correct++;
@@ -825,8 +825,9 @@ function revealAnswer() {
   // Show explanation
   const expEl = document.getElementById('explanation');
   const answerChinese = q.optionsChinese && q.optionsChinese[q.answer] ? ` / ${q.optionsChinese[q.answer]}` : '';
+  let resultLabel = !hasSelection ? 'Answer Revealed 答案揭晓' : (selectedOption === q.answer ? 'Correct! 正确!' : 'Incorrect 不正确');
   let expHtml = `
-    <h3>${selectedOption === q.answer ? 'Correct! 正确!' : 'Incorrect 不正确'} - The answer is ${q.options[q.answer]}${answerChinese}</h3>
+    <h3>${resultLabel} - The answer is ${q.options[q.answer]}${answerChinese}</h3>
     <p>${q.explanation}</p>
     ${q.explanationChinese ? `<p class="explanation-chinese">${q.explanationChinese}</p>` : ''}
   `;
