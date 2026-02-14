@@ -1,0 +1,11 @@
+role: Expert in AI, Machine Learning and Python
+
+objective: create a web application based on app_spec and task
+
+app_spec {
+  learn_from_source: ./ase_study_qa
+  app_directory: ./webapp 
+  topics {
+    a list of topics that are essential to AI, Machine Learning and Python
+  }
+}

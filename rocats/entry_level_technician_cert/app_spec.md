@@ -199,8 +199,10 @@ Exports a `termsGlossary` object keyed by term ID strings.
    - Reference image
    - YouTube video link (styled card with play icon)
    - Related terms as clickable pill-shaped badges
-7. "Next Question" button appears → loads next random question
-8. "Reset Section" button available to restart
+7. Three buttons always visible: "Previous Question", "Show Answer", "Next Question"
+   - "Previous Question": navigates back through question history (disabled when at start)
+   - "Next Question": if at end of history, picks a new random question; otherwise navigates forward in history
+   - Question history works like browser history per section — going back and then picking a new question trims forward history
 
 #### Term Highlighting System
 - All mechanic-related terms in question text, options, and explanations are auto-detected and highlighted
@@ -215,9 +217,9 @@ Exports a `termsGlossary` object keyed by term ID strings.
 
 #### AI Lookup Modal (PHP-only feature)
 - Triggered by clicking highlighted terms in question/explanation text
-- **Also triggered by text selection**: When user highlights/selects any text (2–200 chars) in the question card, explanation area, **or inside the AI modal body itself**, the AI modal updates in-place with a new streaming response for the selected text
-- Query format for clicked terms: `"what is {term.name}, explain to me in 200 words, also, please translate them to simplified chinese"`
-- Query format for highlighted/selected text: `"in the context of car mechanic, what is {the highlighted text}, explain to me in 200 words, also, please translate them to simplified chinese"`
+- **Also triggered by text selection**: When user highlights/selects any text (2–200 chars) in the question card, explanation area, **inside the AI modal body itself**, **or inside the Term Glossary modal popup** (triggered from "Related Terms"), the AI modal updates in-place with a new streaming response for the selected text
+- Query format for clicked terms: `"in the context of car mechanic, what is {term.name}, explain to me in 200 words, show me the pronunciation of {term.name}, also, please translate the explanation to simplified chinese"`
+- Query format for highlighted/selected text: `"in the context of car mechanic, what is {the highlighted text}, explain to me in 200 words, show me the pronunciation of {the highlighted text}, also, please translate the explanation to simplified chinese"`
 - Shows loading spinner while streaming
 - PHP backend streams response from Ollama API (`gemma2:2b`) via HTTP
 - Response rendered as Markdown → HTML using built-in renderer, then post-processed to highlight known glossary terms as clickable spans
@@ -278,16 +280,20 @@ GET index.php?q={question}
 - `sections[]` — Array of section config objects with id, label, and data function
 - `scores{}` — Per-section tracking: correct count, wrong count, answered Set, question pool
 - `currentSection`, `currentQuestion`, `selectedOption`, `answered` — State
+- `questionHistory{}` — Per-section array of visited question objects (browser-like history)
+- `questionHistoryIdx{}` — Per-section current index in question history
 
 **Key Functions:**
 | Function | Description |
 |----------|-------------|
 | `selectSection(sectionId)` | Loads section, shuffles questions, shows first random |
-| `showRandomQuestion()` | Picks unanswered question (or random for review) |
+| `pickRandomQuestion()` | Picks unanswered question (or random for review) |
+| `showRandomQuestion()` | Picks new random question, pushes to history, renders it |
+| `showPreviousQuestion()` | Navigates back in question history for current section |
+| `showNextQuestion()` | Navigates forward in history or picks new random question |
 | `renderQuestion(q)` | Renders question card HTML with term highlighting |
 | `selectOption(idx)` | Highlights selected option, enables Answer button |
 | `revealAnswer()` | Shows correct/wrong, explanation, media, related terms |
-| `resetSection()` | Clears section scores, re-shuffles |
 | `highlightTerms(text)` | Scans text for glossary terms, wraps in clickable spans |
 | `showTermModal(termKey)` | Opens glossary modal for a term |
 | `streamAiQuery(displayName, query)` | Core streaming function — sends query to Ollama, streams response into AI modal with progressive Markdown rendering, highlights terms in final output |

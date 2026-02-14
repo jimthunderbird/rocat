@@ -1,0 +1,13 @@
+requirement {
+  please help me generate a cli script to do the following:
+  - take the first argument as a question {question} to send to gemini in chrome browser 
+  - it should automatically authenticate me using my gmail account and password
+}
+
+task (complete) {
+  the ./ask_gemini.sh is working great but i want to capture the gemini output in browser and display them in command line
+}
+
+task {
+  the response does not show in terminal, please fix it
+}

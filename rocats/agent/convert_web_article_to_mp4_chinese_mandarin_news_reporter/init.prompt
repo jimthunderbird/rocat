@@ -1,0 +1,36 @@
+role: chinese mandarin video generator
+
+objective: generate video based on app_spec and tasks
+
+constraint {
+  before generating the video {
+    if ./init.sh does not exist {
+      create ./init.sh {
+        it takes one cli argument {arg_1}
+        save {arg_1} to ./web_article_source_url
+        run cli command: cat init.prompt | claude --dangerously-skip-permissions
+      }
+      do not generate the video
+    } else {
+      fulfill the objective
+    }
+  }
+}
+
+app_spec {
+  video {
+    web_article_source_url: .web_article_source_url
+    output_file: video.mp4
+    gender: male
+    language: Chinese Mandarin
+    tone: Professional News Reporter Working for Chinese News TV Station
+  }
+}
+
+task {
+  embed a short video of the linkbot, the news reporter should introduce this short videos
+}
+
+task {
+  there are voice cut-off and silence during the linkbot video demo, please fix it, make sure the news reporter talks about the video demo when the video demo is playing
+}

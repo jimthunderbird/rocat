@@ -308,11 +308,12 @@ body {
   color: #fff;
 }
 .btn-next:hover { transform: translateY(-2px); box-shadow: 0 4px 15px rgba(78,204,163,0.4); }
-.btn-reset {
+.btn-prev {
   background: linear-gradient(135deg, #f0c040, #d4a017);
   color: #1a1a2e;
 }
-.btn-reset:hover { transform: translateY(-2px); box-shadow: 0 4px 15px rgba(240,192,64,0.4); }
+.btn-prev:hover:not(:disabled) { transform: translateY(-2px); box-shadow: 0 4px 15px rgba(240,192,64,0.4); }
+.btn-prev:disabled { opacity: 0.4; cursor: not-allowed; transform: none; box-shadow: none; }
 .explanation {
   margin-top: 20px;
   padding: 20px;
@@ -1074,9 +1075,15 @@ let selectedOption = -1;
 let answered = false;
 let scores = {};
 
+// Question history per section (like browser history)
+let questionHistory = {};   // sectionId -> array of question objects
+let questionHistoryIdx = {}; // sectionId -> current index in history
+
 // Initialize scores for each section
 sections.forEach(s => {
   scores[s.id] = { correct: 0, wrong: 0, answered: new Set(), pool: [] };
+  questionHistory[s.id] = [];
+  questionHistoryIdx[s.id] = -1;
 });
 
 // Build tabs
@@ -1127,7 +1134,7 @@ function selectSection(sectionId) {
   showRandomQuestion();
 }
 
-function showRandomQuestion() {
+function pickRandomQuestion() {
   const sectionId = currentSection;
   const score = scores[sectionId];
   const pool = score.pool;
@@ -1138,9 +1145,24 @@ function showRandomQuestion() {
   if (unanswered.length > 0) {
     q = unanswered[Math.floor(Math.random() * unanswered.length)];
   } else {
-    // All answered, pick random for review
     q = pool[Math.floor(Math.random() * pool.length)];
   }
+  return q;
+}
+
+function showRandomQuestion() {
+  const sectionId = currentSection;
+  const history = questionHistory[sectionId];
+  const idx = questionHistoryIdx[sectionId];
+
+  // Trim any forward history if we navigated back
+  if (idx < history.length - 1) {
+    questionHistory[sectionId] = history.slice(0, idx + 1);
+  }
+
+  const q = pickRandomQuestion();
+  questionHistory[sectionId].push(q);
+  questionHistoryIdx[sectionId] = questionHistory[sectionId].length - 1;
 
   currentQuestion = q;
   answered = false;
@@ -1148,6 +1170,44 @@ function showRandomQuestion() {
 
   updateScoreDisplay();
   renderQuestion(q);
+}
+
+function showPreviousQuestion() {
+  const sectionId = currentSection;
+  if (!sectionId) return;
+  const idx = questionHistoryIdx[sectionId];
+  if (idx <= 0) return;
+
+  questionHistoryIdx[sectionId] = idx - 1;
+  const q = questionHistory[sectionId][idx - 1];
+
+  currentQuestion = q;
+  answered = false;
+  selectedOption = -1;
+
+  updateScoreDisplay();
+  renderQuestion(q);
+}
+
+function showNextQuestion() {
+  const sectionId = currentSection;
+  if (!sectionId) return;
+  const idx = questionHistoryIdx[sectionId];
+  const history = questionHistory[sectionId];
+
+  if (idx < history.length - 1) {
+    // Go forward in existing history
+    questionHistoryIdx[sectionId] = idx + 1;
+    const q = history[idx + 1];
+    currentQuestion = q;
+    answered = false;
+    selectedOption = -1;
+    updateScoreDisplay();
+    renderQuestion(q);
+  } else {
+    // At end of history, pick a new random question
+    showRandomQuestion();
+  }
 }
 
 function updateScoreDisplay() {
@@ -1185,11 +1245,12 @@ function renderQuestion(q) {
   });
   html += `</div>`;
 
+  const canGoPrev = questionHistoryIdx[currentSection] > 0;
   html += `
     <div class="btn-row">
+      <button class="btn btn-prev" id="btnPrev" onclick="showPreviousQuestion()" ${canGoPrev ? '' : 'disabled'}>&larr; Previous Question</button>
       <button class="btn btn-answer" id="btnAnswer" onclick="revealAnswer()">Show Answer</button>
-      <button class="btn btn-next" id="btnNext" onclick="showRandomQuestion()" style="display:none">Next Question</button>
-      <button class="btn btn-reset" onclick="resetSection()">Reset Section</button>
+      <button class="btn btn-next" id="btnNext" onclick="showNextQuestion()">Next Question &rarr;</button>
     </div>
     <div class="explanation" id="explanation"></div>
   `;
@@ -1275,16 +1336,9 @@ function revealAnswer() {
   expEl.innerHTML = expHtml;
   expEl.classList.add('show');
 
-  // Show next button, hide answer button
-  document.getElementById('btnAnswer').style.display = 'none';
-  document.getElementById('btnNext').style.display = 'inline-block';
-}
-
-function resetSection() {
-  if (!currentSection) return;
-  scores[currentSection] = { correct: 0, wrong: 0, answered: new Set(), pool: scores[currentSection].pool };
-  scores[currentSection].pool = shuffle(scores[currentSection].pool);
-  showRandomQuestion();
+  // Disable answer button after revealing
+  document.getElementById('btnAnswer').disabled = true;
+  document.getElementById('btnAnswer').style.opacity = '0.5';
 }
 
 // Term modal functions
@@ -1575,7 +1629,7 @@ function askAiAboutTerm(termKey) {
   const termData = termsGlossary[termKey];
   if (!termData) return;
   const termName = termData.term;
-  const query = 'what is ' + termName + ', explain to me in 200 words, also, please translate them to simplified chinese';
+  const query = 'in the context of car mechanic, what is ' + termName + ', explain to me in 200 words, show me the pronunciation of ' + termName + ', also, please translate the explanation to simplified chinese';
   streamAiQuery(termName, query);
 }
 
@@ -1598,7 +1652,7 @@ function submitAiQuestion() {
 function askAiAboutText(text) {
   if (!text || text.trim().length === 0) return;
   const trimmed = text.trim();
-  const query = 'in the context of car mechanic, what is ' + trimmed + ', explain to me in 200 words, also, please translate them to simplified chinese';
+  const query = 'in the context of car mechanic, what is ' + trimmed + ', explain to me in 200 words, show me the pronunciation of ' + trimmed + ', also, please translate the explanation to simplified chinese';
   streamAiQuery(trimmed, query);
 }
 
@@ -1619,11 +1673,13 @@ document.addEventListener('mouseup', function(e) {
     const questionCard = document.getElementById('questionCard');
     const explanation = document.getElementById('explanation');
     const aiModalBody = document.getElementById('aiModalBody');
+    const termModalOverlay = document.getElementById('termModalOverlay');
     const isInQuestion = questionCard && questionCard.contains(anchorNode);
     const isInExplanation = explanation && explanation.contains(anchorNode);
     const isInAiPopup = aiModalBody && aiModalBody.contains(anchorNode);
+    const isInTermModal = termModalOverlay && termModalOverlay.contains(anchorNode);
 
-    if (isInQuestion || isInExplanation || isInAiPopup) {
+    if (isInQuestion || isInExplanation || isInAiPopup || isInTermModal) {
       askAiAboutText(selectedText);
       // Clear selection after triggering
       sel.removeAllRanges();
