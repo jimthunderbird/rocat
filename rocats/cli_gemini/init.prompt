@@ -47,7 +47,7 @@ task (completed){
   please fix it!!!
 }
 
-task {
+task (completed){
   i got the following:
   ./ask_gemini.sh "What is php"      
   What is php                                                                                                                                       
@@ -61,4 +61,9 @@ task {
   (Error: Question does not appear to have been submitted.)
   (Check that Chrome is open and Gemini page loaded correctly.)
   ============================================
+}
+
+task {
+  after opening the gemini url, record the session id, the session id usually will be https://gemini.google.com/app/{session_id} 
+  when asking the next question, resume the session with {session_id}
 }

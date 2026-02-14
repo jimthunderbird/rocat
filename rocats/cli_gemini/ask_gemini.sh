@@ -4,17 +4,48 @@
 #
 # PREREQUISITE: In Chrome, enable View > Developer > Allow JavaScript from Apple Events
 
-QUESTION="$1"
+SESSION_FILE="$HOME/.gemini_session_id"
+NEW_SESSION=false
+
+# Parse arguments
+while [[ $# -gt 0 ]]; do
+    case "$1" in
+        --new|-n)
+            NEW_SESSION=true
+            shift
+            ;;
+        *)
+            QUESTION="$1"
+            shift
+            ;;
+    esac
+done
 
 if [ -z "$QUESTION" ]; then
-    echo "Usage: $0 \"your question here\""
+    echo "Usage: $0 [--new] \"your question here\""
+    echo "  --new, -n    Start a new conversation (ignore saved session)"
     echo "Example: $0 \"What is the capital of France?\""
     exit 1
 fi
 
+# Load or clear session ID
+SESSION_ID=""
+if [ "$NEW_SESSION" = false ] && [ -f "$SESSION_FILE" ]; then
+    SESSION_ID=$(cat "$SESSION_FILE")
+fi
+
+if [ -n "$SESSION_ID" ]; then
+    GEMINI_URL="https://gemini.google.com/app/${SESSION_ID}"
+    echo "(Resuming session: $SESSION_ID)"
+else
+    GEMINI_URL="https://gemini.google.com/app"
+    echo "(Starting new conversation)"
+fi
+
 # --- Step 1: Navigate to Gemini ---
-osascript > /dev/null 2>&1 <<'APPLESCRIPT'
+osascript > /dev/null 2>&1 <<APPLESCRIPT
 tell application "Google Chrome"
+    set targetURL to "${GEMINI_URL}"
     set foundTab to false
     repeat with w in windows
         set tabIndex to 0
@@ -34,7 +65,7 @@ tell application "Google Chrome"
             make new window
         end if
         tell window 1
-            make new tab with properties {URL:"https://gemini.google.com/app"}
+            make new tab with properties {URL:targetURL}
         end tell
     end if
 
@@ -43,13 +74,16 @@ tell application "Google Chrome"
 end tell
 APPLESCRIPT
 
-# --- Step 2: Ensure we are on a fresh Gemini page ---
-# Navigate to /app to get a clean input (new conversation)
-osascript > /dev/null 2>&1 <<'NAVSCRIPT'
+# --- Step 2: Navigate to the correct Gemini page (session or new) ---
+osascript > /dev/null 2>&1 <<NAVSCRIPT
 tell application "Google Chrome"
     set curURL to URL of active tab of window 1
-    if curURL does not contain "gemini.google.com/app" or curURL contains "/app/" then
-        set URL of active tab of window 1 to "https://gemini.google.com/app"
+    set targetURL to "${GEMINI_URL}"
+    if curURL does not contain "gemini.google.com/app" then
+        set URL of active tab of window 1 to targetURL
+        delay 3
+    else if curURL is not equal to targetURL and curURL does not start with targetURL then
+        set URL of active tab of window 1 to targetURL
         delay 3
     end if
 end tell
@@ -440,6 +474,22 @@ if [ "$STARTED" = false ] && [ "$NOT_SUBMITTED_COUNT" -lt 12 ]; then
     echo ""
     echo "Tip: Make sure 'Allow JavaScript from Apple Events' is enabled in Chrome:"
     echo "     Chrome menu > View > Developer > Allow JavaScript from Apple Events"
+fi
+
+# --- Step 8: Capture and save the session ID from the URL ---
+NEW_SESSION_URL=$(osascript 2>/dev/null <<'SESSIONSCRIPT'
+tell application "Google Chrome"
+    set curURL to URL of active tab of window 1
+    return curURL
+end tell
+SESSIONSCRIPT
+)
+
+# Extract session ID from URL like https://gemini.google.com/app/{session_id}
+if [[ "$NEW_SESSION_URL" =~ gemini\.google\.com/app/([a-zA-Z0-9_-]+) ]]; then
+    CAPTURED_ID="${BASH_REMATCH[1]}"
+    echo "$CAPTURED_ID" > "$SESSION_FILE"
+    echo "(Session saved: $CAPTURED_ID)"
 fi
 
 echo "============================================"
