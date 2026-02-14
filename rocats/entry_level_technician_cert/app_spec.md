@@ -233,7 +233,8 @@ Exports a `termsGlossary` object keyed by term ID strings.
 
 #### AI Lookup Modal (PHP-only feature)
 - Triggered by clicking highlighted terms in question/explanation text
-- **Also triggered by text selection**: When user highlights/selects any text (2–200 chars) in the question card, explanation area, **inside the AI modal body itself**, **or inside the Term Glossary modal popup** (triggered from "Related Terms"), the AI modal updates in-place with a new streaming response for the selected text
+- **Also triggered by text selection**: When user highlights/selects any text (2–200 chars) in the question card, explanation area, **inside the AI modal body itself**, **inside the Term Glossary modal popup** (triggered from "Related Terms"), **or inside the Tutorial modal body** (both section tutorial and mini tutorial popups), the AI modal updates in-place with a new streaming response for the selected text
+- **Z-index layering**: The AI modal (z-index: 1300/1301) is always rendered on top of the Tutorial modal (z-index: 1200), so when text is highlighted in the tutorial popup, the AI response popup appears above it. The AI overlay uses a semi-transparent background (`rgba(0,0,0,0.45)`) so the tutorial remains partially visible behind the AI popup
 - Query format for clicked terms: `"in the context of car mechanic, what is {term.name}, explain to me in 200 words, show me the pronunciation of {term.name}, also, please translate the explanation to simplified chinese"`
 - Query format for highlighted/selected text: `"in the context of car mechanic, what is {the highlighted text}, explain to me in 200 words, show me the pronunciation of {the highlighted text}, also, please translate the explanation to simplified chinese"`
 - Shows loading spinner while streaming

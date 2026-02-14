@@ -636,8 +636,8 @@ body {
   display: none;
   position: fixed;
   top: 0; left: 0; right: 0; bottom: 0;
-  background: rgba(0,0,0,0.75);
-  z-index: 1100;
+  background: rgba(0,0,0,0.45);
+  z-index: 1300;
   animation: fadeIn 0.3s ease;
 }
 .ai-modal-overlay.show {
@@ -656,7 +656,7 @@ body {
   animation: fadeIn 0.3s ease;
   display: flex;
   flex-direction: column;
-  z-index: 1101;
+  z-index: 1301;
 }
 .ai-modal-header {
   padding: 20px 25px 15px;
@@ -1901,12 +1901,14 @@ document.addEventListener('mouseup', function(e) {
     const explanation = document.getElementById('explanation');
     const aiModalBody = document.getElementById('aiModalBody');
     const termModalOverlay = document.getElementById('termModalOverlay');
+    const tutorialModalBody = document.getElementById('tutorialModalBody');
     const isInQuestion = questionCard && questionCard.contains(anchorNode);
     const isInExplanation = explanation && explanation.contains(anchorNode);
     const isInAiPopup = aiModalBody && aiModalBody.contains(anchorNode);
     const isInTermModal = termModalOverlay && termModalOverlay.contains(anchorNode);
+    const isInTutorial = tutorialModalBody && tutorialModalBody.contains(anchorNode);
 
-    if (isInQuestion || isInExplanation || isInAiPopup || isInTermModal) {
+    if (isInQuestion || isInExplanation || isInAiPopup || isInTermModal || isInTutorial) {
       askAiAboutText(selectedText);
       // Clear selection after triggering
       sel.removeAllRanges();

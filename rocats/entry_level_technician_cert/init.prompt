@@ -435,3 +435,23 @@ task {
   }
   status: "completed"
 }
+
+task {
+  in ./entry_level_technician_cert/ase_study_qa {
+    in the section tutorial popup and mini tutorial pop {
+      when keywords are highligted, send the request to index.php?q="in the context of car mechanic, what is {the highlighted text}, explain to me in 200 words, show me the prounciation of {the highligted text}, also, please translate the explanation to simplified chinese"
+    }
+  }
+  status: "completed"
+}
+
+task {
+  in ./entry_level_technician_cert/ase_study_qa {
+    in the section tutorial popup {
+      when keywords are highligted, send the request to index.php?q="in the context of car mechanic, what is {the highlighted text}, explain to me in 200 words, show me the prounciation of {the highligted text}, also, please translate the explanation to simplified chinese"
+
+      then the response should be displayed in the question popup, but the question popup should appear on top of the section tutorial popup
+    }
+  }
+  status: "completed"
+}
