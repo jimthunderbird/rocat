@@ -8,10 +8,57 @@ task (complete) {
   the ./ask_gemini.sh is working great but i want to capture the gemini output in browser and display them in command line
 }
 
-task.fix_termini_display (complete){
+task.fix_termini_display (completed){
   the response does not show in terminal, please fix it
 }
 
-task {
+task (completed){
   task.fix_termini_display is working great, but can we have a "streaming" effect so that i can see the response as soon as it's possible instead of waiting for a long time?
+}
+
+task (completed){
+  every time when I run ./ask_gemini.sh "my question here", chrome will be open, can we not have chrome open or keep chrome minimized?
+}
+
+task (completed) {
+  the answer is not right, seems like keeping chrome in the foreground works
+  can we have chrome works in foreground a bit but quickly minimized?
+}
+
+task (completed){
+  it does not work, the answer is not right, i got:
+  "Where should we start?"
+}
+
+task (completed){
+  when i run:
+  ./ask_gemini.sh "What is php"       
+  i got: "
+  missing value
+  Question sent to Gemini: What is php
+  Waiting for response...
+
+  ============================================
+  Gemini Response:
+  ============================================
+  Hi Jim
+  Where should we start?
+  ============================================"
+  please fix it!!!
+}
+
+task {
+  i got the following:
+  ./ask_gemini.sh "What is php"      
+  What is php                                                                                                                                       
+  Question sent to Gemini: What is php
+  Waiting for response...
+
+  ============================================
+  Gemini Response:
+  ============================================
+  ...........
+  (Error: Question does not appear to have been submitted.)
+  (Check that Chrome is open and Gemini page loaded correctly.)
+  ============================================
 }
