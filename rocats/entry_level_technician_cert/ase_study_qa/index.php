@@ -1,4 +1,59 @@
 <?php
+// Handle image search proxy - fetches first image from Google Image search
+if (isset($_GET['img']) && !empty(trim($_GET['img']))) {
+    header('Content-Type: application/json; charset=utf-8');
+    $keyword = trim($_GET['img']);
+    $searchUrl = 'https://www.google.com/search?q=' . urlencode($keyword) . '&udm=2&tbs=isz:lt,islt:4mp,ic:color';
+
+    $ch = curl_init($searchUrl);
+    curl_setopt_array($ch, [
+        CURLOPT_RETURNTRANSFER => true,
+        CURLOPT_TIMEOUT => 10,
+        CURLOPT_FOLLOWLOCATION => true,
+        CURLOPT_USERAGENT => 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36',
+        CURLOPT_HTTPHEADER => ['Accept-Language: en-US,en;q=0.9'],
+    ]);
+    $html = curl_exec($ch);
+    $httpCode = curl_getinfo($ch, CURLINFO_HTTP_CODE);
+    curl_close($ch);
+
+    $imageUrl = '';
+    if ($html && $httpCode === 200) {
+        // Try to extract image URLs from Google Image search results
+        // Google embeds image data in script tags as base64 or URLs
+        // Method 1: Look for image URLs in data attributes
+        if (preg_match_all('/\["(https?:\/\/[^"]+\.(?:jpg|jpeg|png|gif|webp)[^"]*)",\s*\d+,\s*\d+\]/', $html, $matches)) {
+            // Filter out Google's own URLs
+            foreach ($matches[1] as $url) {
+                if (strpos($url, 'google.com') === false && strpos($url, 'gstatic.com') === false && strpos($url, 'googleapis.com') === false) {
+                    $imageUrl = $url;
+                    break;
+                }
+            }
+        }
+        // Method 2: Look for og:image or thumbnail URLs
+        if (empty($imageUrl) && preg_match('/\["(https?:\/\/encrypted-tbn0\.gstatic\.com\/images\?[^"]+)"/', $html, $m)) {
+            $imageUrl = $m[1];
+        }
+        // Method 3: Any https image URL from the page
+        if (empty($imageUrl) && preg_match_all('/(https?:\/\/[^\s"\'<>]+\.(?:jpg|jpeg|png|gif|webp))/', $html, $matches)) {
+            foreach ($matches[1] as $url) {
+                if (strpos($url, 'google.com') === false && strpos($url, 'gstatic.com') === false) {
+                    $imageUrl = $url;
+                    break;
+                }
+            }
+        }
+        // Method 4: Use Google thumbnail as fallback
+        if (empty($imageUrl) && preg_match('/(https?:\/\/encrypted-tbn0\.gstatic\.com\/images\?[^\s"\'<>]+)/', $html, $m)) {
+            $imageUrl = html_entity_decode($m[1]);
+        }
+    }
+
+    echo json_encode(['imageUrl' => $imageUrl, 'searchUrl' => $searchUrl]);
+    exit;
+}
+
 // Handle AI query via ollama HTTP API with streaming (much faster than CLI shell_exec)
 if (isset($_GET['q']) && !empty(trim($_GET['q']))) {
     header('Content-Type: text/plain; charset=utf-8');
@@ -708,6 +763,37 @@ body {
   font-size: 1.05rem;
   line-height: 1.8;
   word-wrap: break-word;
+}
+.ai-modal-image {
+  text-align: center;
+  margin-bottom: 15px;
+  border-bottom: 1px solid #0f3460;
+  padding-bottom: 12px;
+}
+.ai-modal-image img {
+  max-width: 100%;
+  max-height: 200px;
+  border-radius: 8px;
+  border: 1px solid #0f3460;
+  object-fit: contain;
+  cursor: pointer;
+  transition: transform 0.2s, box-shadow 0.2s;
+}
+.ai-modal-image img:hover {
+  transform: scale(1.02);
+  box-shadow: 0 4px 15px rgba(69,183,209,0.3);
+}
+.ai-modal-image .img-caption {
+  color: #8090b0;
+  font-size: 0.8rem;
+  margin-top: 6px;
+}
+.ai-modal-image .img-caption a {
+  color: #45b7d1;
+  text-decoration: none;
+}
+.ai-modal-image .img-caption a:hover {
+  text-decoration: underline;
 }
 .ai-modal-body h1, .ai-modal-body h2, .ai-modal-body h3 {
   color: #45b7d1;
@@ -1698,7 +1784,8 @@ function aiHistoryBack() {
   const entry = aiHistory[aiHistoryIndex];
   document.getElementById('aiModalQuery').textContent = entry.query;
   const bodyEl = document.getElementById('aiModalBody');
-  bodyEl.innerHTML = highlightTermsInHtml(renderMarkdown(entry.responseText));
+  const imgHtml = (entry.imageUrl) ? buildImageHtml(entry.imageUrl, entry.imageSearchUrl, entry.displayName) : '';
+  bodyEl.innerHTML = imgHtml + highlightTermsInHtml(renderMarkdown(entry.responseText));
   bodyEl.scrollTop = 0;
   updateAiNavButtons();
 }
@@ -1711,7 +1798,8 @@ function aiHistoryForward() {
   const entry = aiHistory[aiHistoryIndex];
   document.getElementById('aiModalQuery').textContent = entry.query;
   const bodyEl = document.getElementById('aiModalBody');
-  bodyEl.innerHTML = highlightTermsInHtml(renderMarkdown(entry.responseText));
+  const imgHtml = (entry.imageUrl) ? buildImageHtml(entry.imageUrl, entry.imageSearchUrl, entry.displayName) : '';
+  bodyEl.innerHTML = imgHtml + highlightTermsInHtml(renderMarkdown(entry.responseText));
   bodyEl.scrollTop = 0;
   updateAiNavButtons();
 }
@@ -1727,7 +1815,7 @@ function streamAiQuery(displayName, query) {
   }
 
   // Create new history entry
-  const historyEntry = { displayName: displayName, query: query, responseText: '' };
+  const historyEntry = { displayName: displayName, query: query, responseText: '', imageUrl: '', imageSearchUrl: '' };
   aiHistory.push(historyEntry);
 
   // Enforce max 100 entries
@@ -1745,35 +1833,55 @@ function streamAiQuery(displayName, query) {
 
   const bodyEl = document.getElementById('aiModalBody');
   let rawText = '';
+  let imageHtml = '';
   const abortCtrl = new AbortController();
   aiCurrentStreamAbort = abortCtrl;
+
+  // Fetch image from Google Image search in parallel
+  fetch('index.php?img=' + encodeURIComponent(displayName))
+    .then(r => r.json())
+    .then(data => {
+      if (data.imageUrl) {
+        historyEntry.imageUrl = data.imageUrl;
+        historyEntry.imageSearchUrl = data.searchUrl;
+        imageHtml = buildImageHtml(data.imageUrl, data.searchUrl, displayName);
+        // Update the body to include the image at the top
+        const currentContent = bodyEl.innerHTML;
+        const existingImg = bodyEl.querySelector('.ai-modal-image');
+        if (!existingImg) {
+          bodyEl.insertAdjacentHTML('afterbegin', imageHtml);
+        }
+        saveAiHistory();
+      }
+    })
+    .catch(() => { /* silently ignore image fetch errors */ });
 
   fetch('index.php?q=' + encodeURIComponent(query), { signal: abortCtrl.signal })
     .then(response => {
       if (!response.ok) throw new Error('HTTP ' + response.status);
       const reader = response.body.getReader();
       const decoder = new TextDecoder();
-      bodyEl.innerHTML = '';
+      bodyEl.innerHTML = imageHtml;
       function readChunk() {
         reader.read().then(({ done, value }) => {
           if (done) {
             historyEntry.responseText = rawText;
             aiCurrentStreamAbort = null;
             // Final render with full markdown + highlight terms for clickability
-            bodyEl.innerHTML = highlightTermsInHtml(renderMarkdown(rawText));
+            bodyEl.innerHTML = imageHtml + highlightTermsInHtml(renderMarkdown(rawText));
             saveAiHistory();
             updateAiNavButtons();
             return;
           }
           rawText += decoder.decode(value, { stream: true });
           historyEntry.responseText = rawText;
-          bodyEl.innerHTML = renderMarkdown(rawText);
+          bodyEl.innerHTML = imageHtml + renderMarkdown(rawText);
           readChunk();
         }).catch(err => {
           if (err.name === 'AbortError') return;
           rawText += '\n\n[Stream error: ' + err.message + ']';
           historyEntry.responseText = rawText;
-          bodyEl.innerHTML = renderMarkdown(rawText);
+          bodyEl.innerHTML = imageHtml + renderMarkdown(rawText);
         });
       }
       readChunk();
@@ -1782,8 +1890,16 @@ function streamAiQuery(displayName, query) {
       if (err.name === 'AbortError') return;
       const errText = 'Error: Could not reach the AI backend. Make sure PHP server is running and ollama is available.\n\n' + err.message;
       historyEntry.responseText = errText;
-      bodyEl.innerHTML = renderMarkdown(errText);
+      bodyEl.innerHTML = imageHtml + renderMarkdown(errText);
     });
+}
+
+// Build image HTML for the AI modal
+function buildImageHtml(imageUrl, searchUrl, keyword) {
+  return '<div class="ai-modal-image">' +
+    '<img src="' + imageUrl.replace(/"/g, '&quot;') + '" alt="' + keyword.replace(/"/g, '&quot;') + '" onerror="this.parentElement.style.display=\'none\'" onclick="window.open(\'' + searchUrl.replace(/'/g, "\\'") + '\', \'_blank\')">' +
+    '<div class="img-caption"><a href="' + searchUrl.replace(/"/g, '&quot;') + '" target="_blank">View more images for "' + keyword.replace(/</g, '&lt;') + '"</a></div>' +
+    '</div>';
 }
 
 // Highlight known terms inside already-rendered HTML (only in text nodes, not inside tags)

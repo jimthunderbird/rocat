@@ -251,8 +251,9 @@ Exports a `termsGlossary` object keyed by term ID strings.
   - "Submit" button on the right
   - On submit, sends query: `"please answer the question: {question}, explain to me in 200 words, also, please translate them to simplified chinese"`
   - Response streams into the same modal body below the input
+- **Google Image Search**: When the AI popup is opened for a keyword, a Google Image search is performed in parallel (`index.php?img={keyword}`) using the URL format `https://www.google.com/search?q={keyword}&udm=2&tbs=isz:lt,islt:4mp,ic:color`. The first image result is displayed at the top of the popup body. Clicking the image opens the full Google Image search in a new tab. Images are cached in history entries for back/forward navigation.
 - **History Navigation**: Previous/Next buttons (browser-like history) at the top of the modal allow navigating back and forth through all AI queries made in the session
-  - History tracks each query's display name, query text, and completed response
+  - History tracks each query's display name, query text, completed response, and associated image URL
   - History is persisted in localStorage (max 100 entries, key: `aiPopupHistory`), survives popup close and page reload
   - "Prev" and "Next" buttons with position indicator (e.g., "3 / 7")
   - Starting a new query from a back-navigated position trims forward history (like a browser)
@@ -305,8 +306,19 @@ GET index.php?q={question}
 - Returns plain text content type
 - Exits immediately after query response (no HTML rendered)
 
+**Image Search Proxy:**
+```
+GET index.php?img={keyword}
+```
+- Detects `$_GET['img']` parameter
+- Fetches Google Image search page: `https://www.google.com/search?q={keyword}&udm=2&tbs=isz:lt,islt:4mp,ic:color`
+- Parses HTML to extract the first image URL from search results
+- Returns JSON: `{ "imageUrl": "...", "searchUrl": "..." }`
+- Falls back to Google thumbnail URLs if no direct image URL found
+- Uses `onerror` handler on `<img>` to gracefully hide if image fails to load
+
 **HTML Page:**
-- When no `?q=` parameter, serves the full HTML application
+- When no `?q=` or `?img=` parameter, serves the full HTML application
 - All CSS is inline in `<style>` tags (no external stylesheets)
 - All JS is inline in `<script>` tags plus external data files
 
@@ -343,7 +355,8 @@ GET index.php?q={question}
 | `revealAnswer()` | Shows correct/wrong, explanation, media, related terms |
 | `highlightTerms(text)` | Scans text for glossary terms, wraps in clickable spans |
 | `showTermModal(termKey)` | Opens glossary modal for a term |
-| `streamAiQuery(displayName, query)` | Core streaming function — sends query to Ollama, streams response into AI modal with progressive Markdown rendering, highlights terms in final output |
+| `streamAiQuery(displayName, query)` | Core streaming function — sends query to Ollama, streams response into AI modal with progressive Markdown rendering, highlights terms in final output. Also fetches Google Image search result in parallel and displays it at the top of the popup |
+| `buildImageHtml(imageUrl, searchUrl, keyword)` | Builds HTML for the image display at the top of the AI modal — clickable image that opens Google Image search in new tab |
 | `highlightTermsInHtml(html)` | Post-processes rendered HTML to add clickable term highlights in text nodes (skips code/pre blocks) |
 | `askAiAboutTerm(termKey)` | Opens AI modal, streams Ollama response for a glossary term |
 | `askAiAboutText(text)` | Opens AI modal, streams Ollama response for arbitrary selected text |

@@ -455,3 +455,8 @@ task {
   }
   status: "completed"
 }
+
+task {
+  when showing the highlighted keywords in the popup, also show me the first image of "https://www.google.com/search?q={the highlighted text}&udm=2&tbs=isz:lt,islt:4mp,ic:color"
+  status: "completed"
+}
