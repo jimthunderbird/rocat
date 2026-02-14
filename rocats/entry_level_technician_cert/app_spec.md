@@ -214,7 +214,8 @@ Exports a `termsGlossary` object keyed by term ID strings.
    - Reference image
    - YouTube video link (styled card with play icon)
    - Related terms as clickable pill-shaped badges
-7. Three buttons always visible: "Previous Question", "Show Answer", "Next Question"
+7. **Mini Tutorial Button**: A gold pill-shaped button next to the question number and section badge, labeled "Mini Tutorial". On click, sends a request to Ollama: `"Please give me a tutorial in 400 words explaining the knowledge and related terms behind the question: {question}"` and displays the streaming response in the AI modal
+8. Three buttons always visible: "Previous Question", "Show Answer", "Next Question"
    - "Previous Question": navigates back through question history (disabled when at start)
    - "Next Question": if at end of history, picks a new random question; otherwise navigates forward in history
    - Question history works like browser history per section — going back and then picking a new question trims forward history
@@ -355,6 +356,7 @@ GET index.php?q={question}
 | `openTutorial()` | Opens tutorial modal for current section, builds module nav buttons, loads first module |
 | `loadTutorialModule(idx)` | Fetches and renders a tutorial module markdown file (with caching) |
 | `renderTutorialMarkdown(text)` | Delegates to `renderMarkdown()` to convert tutorial Markdown to HTML |
+| `showMiniTutorial()` | Sends the current question to Ollama for a 400-word tutorial explaining the knowledge and related terms behind it |
 | `closeTutorial(event)` | Closes tutorial modal overlay |
 
 ---

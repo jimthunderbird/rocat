@@ -421,3 +421,17 @@ task {
   }
   status: "completed"
 }
+
+task {
+  in ./entry_level_technician_cert/ase_study_qa {
+    for each question {
+      next to the "Question #{question_number} of 200" and {section_name}, add a "Mini Tutorial" button {
+        when click {
+          let prompt = "Please give me a tutorial in 400 words explaining the knowledge and related terms behind the question: {question}"
+          send a request to index.php?q="{prompt}"
+        }
+      }
+    }
+  }
+  status: "completed"
+}

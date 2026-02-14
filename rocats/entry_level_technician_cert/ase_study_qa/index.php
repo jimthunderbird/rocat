@@ -887,6 +887,29 @@ body {
   animation: spin 0.8s linear infinite;
 }
 
+/* Mini Tutorial Button */
+.btn-mini-tutorial {
+  display: inline-block;
+  background: linear-gradient(135deg, #f0c040, #d4a017);
+  color: #1a1a2e;
+  padding: 4px 14px;
+  border-radius: 20px;
+  font-size: 0.78rem;
+  font-weight: 700;
+  cursor: pointer;
+  border: none;
+  margin-left: 8px;
+  margin-bottom: 15px;
+  vertical-align: middle;
+  transition: all 0.3s;
+  letter-spacing: 0.5px;
+}
+.btn-mini-tutorial:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(240, 192, 64, 0.4);
+  background: linear-gradient(135deg, #f5d060, #e0b020);
+}
+
 /* Tutorial Button */
 .tutorial-btn-container {
   text-align: center;
@@ -1433,6 +1456,7 @@ function renderQuestion(q) {
   let html = `
     <div class="question-number">Question #${q.id} of ${score.pool.length}</div>
     <span class="question-topic">${currentSection}${isReview ? ' (Review)' : ''}</span>
+    <button class="btn-mini-tutorial" onclick="showMiniTutorial()">Mini Tutorial</button>
     <p class="question-text">${highlightTerms(q.q)}</p>
     ${q.qChinese ? `<p class="question-text-chinese">${q.qChinese}</p>` : ''}
   `;
@@ -2079,6 +2103,14 @@ selectSection = function(sectionId) {
     btn.style.display = 'none';
   }
 };
+
+// Mini Tutorial - asks AI for a 400-word tutorial about the current question
+function showMiniTutorial() {
+  if (!currentQuestion) return;
+  const questionText = currentQuestion.q;
+  const prompt = 'Please give me a tutorial in 400 words explaining the knowledge and related terms behind the question: ' + questionText;
+  streamAiQuery('Mini Tutorial', prompt);
+}
 
 // Auto-select first tab
 // selectSection('A1');
