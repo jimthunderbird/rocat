@@ -85,7 +85,7 @@ if [ "$INPUT_READY" = false ]; then
 fi
 
 # Extra wait for UI to be fully interactive
-sleep 2
+sleep 1
 
 # --- Step 4: Type question using execCommand (works with Quill/contenteditable) ---
 # Escape question for safe embedding in JavaScript string
@@ -230,7 +230,7 @@ ENTERSCRIPT
 fi
 
 # --- Step 6: Bring terminal back to the foreground ---
-sleep 2
+sleep 1
 osascript > /dev/null 2>&1 <<'FOCUSTERM'
 tell application "System Events"
     set termApp to ""
@@ -351,14 +351,14 @@ JS_EXTRACT_ESCAPED=$(escape_js_for_applescript "$JS_EXTRACT")
 JS_IS_GENERATING_ESCAPED=$(escape_js_for_applescript "$JS_IS_GENERATING")
 
 # Wait for Gemini to start generating
-sleep 4
+sleep 1
 
 PREV_LEN=0
 PREV_RESPONSE=""
 STABLE_COUNT=0
 MAX_CHECKS=120
 POLL_INTERVAL=0.8
-STABLE_THRESHOLD=4
+STABLE_THRESHOLD=2
 STARTED=false
 NOT_SUBMITTED_COUNT=0
 
