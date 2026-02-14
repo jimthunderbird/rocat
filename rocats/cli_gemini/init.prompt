@@ -8,6 +8,10 @@ task (complete) {
   the ./ask_gemini.sh is working great but i want to capture the gemini output in browser and display them in command line
 }
 
-task {
+task.fix_termini_display (complete){
   the response does not show in terminal, please fix it
+}
+
+task {
+  task.fix_termini_display is working great, but can we have a "streaming" effect so that i can see the response as soon as it's possible instead of waiting for a long time?
 }

@@ -143,11 +143,18 @@ JS_IS_GENERATING_ESCAPED=$(escape_js_for_applescript "$JS_IS_GENERATING")
 # Wait a bit for Gemini to start generating
 sleep 4
 
+PREV_LEN=0           # number of characters already printed
 PREV_RESPONSE=""
 STABLE_COUNT=0
-MAX_CHECKS=60        # max polling iterations
-POLL_INTERVAL=2      # seconds between checks
-STABLE_THRESHOLD=3   # consecutive identical checks before declaring done
+MAX_CHECKS=120       # max polling iterations (more checks since interval is shorter)
+POLL_INTERVAL=0.8    # seconds between checks (faster polling for streaming feel)
+STABLE_THRESHOLD=4   # consecutive identical checks before declaring done
+STARTED=false
+
+echo ""
+echo "============================================"
+echo "Gemini Response:"
+echo "============================================"
 
 for ((i=0; i<MAX_CHECKS; i++)); do
     # Get current response text
@@ -168,34 +175,43 @@ end tell
 GENSCHRIPT
     )
 
-    # Debug: show progress dots
-    printf "." >&2
-
-    # If we have content and it's the same as last check
+    # If we have meaningful content, stream the new portion
     if [ -n "$CURRENT" ] && [ "$CURRENT" != "missing value" ] && [ "${#CURRENT}" -gt 5 ]; then
-        if [ "$CURRENT" = "$PREV_RESPONSE" ] && [ "$GENERATING" != "true" ]; then
-            STABLE_COUNT=$((STABLE_COUNT + 1))
-            if [ "$STABLE_COUNT" -ge "$STABLE_THRESHOLD" ]; then
-                break
-            fi
-        else
+        CUR_LEN=${#CURRENT}
+        if [ "$CUR_LEN" -gt "$PREV_LEN" ]; then
+            # Print only the newly arrived text (substring from PREV_LEN onward)
+            NEW_TEXT="${CURRENT:$PREV_LEN}"
+            printf '%s' "$NEW_TEXT"
+            PREV_LEN=$CUR_LEN
             STABLE_COUNT=0
+            STARTED=true
+        else
+            # Content length unchanged
+            if [ "$STARTED" = true ] && [ "$GENERATING" != "true" ]; then
+                STABLE_COUNT=$((STABLE_COUNT + 1))
+                if [ "$STABLE_COUNT" -ge "$STABLE_THRESHOLD" ]; then
+                    break
+                fi
+            fi
         fi
         PREV_RESPONSE="$CURRENT"
+    else
+        # No content yet — show a waiting dot
+        if [ "$STARTED" = false ]; then
+            printf "." >&2
+        fi
     fi
 
     sleep "$POLL_INTERVAL"
 done
-echo "" >&2
 
-echo ""
-echo "============================================"
-echo "Gemini Response:"
-echo "============================================"
+# Ensure a trailing newline after streamed output
+if [ "$STARTED" = true ]; then
+    echo ""
+fi
 
-if [ -n "$CURRENT" ] && [ "$CURRENT" != "missing value" ] && [ "${#CURRENT}" -gt 5 ]; then
-    echo "$CURRENT"
-else
+# If nothing was captured at all, show debug info
+if [ "$STARTED" = false ]; then
     echo "(Could not capture response. Attempting DOM debug...)"
     echo ""
     # Debug: dump page element info to help identify correct selectors
