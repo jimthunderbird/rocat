@@ -401,3 +401,23 @@ task {
   }
   status: "completed"
 }
+
+task {
+  in ./entry_level_technician_cert/ase_study_qa {
+    if ./entry_level_technician_cert/ase_study_qa/tutorial directory does not exist {
+      generate tutorials markdown file in ./entry_level_technician_cert/ase_study_qa/tutorial from A1 to A8 and G1
+      the tutorial file should be like: ./entry_level_technician_cert/ase_study_qa/tutorial/A1.md, ...etc
+      please make the tutorial modular and also progressive, each module should be on its own markdown file like A1-module-1.md ... etc
+      in each module markdown file, explain all related topic assuming that I have no background knowledge in car mechanic, each topic should be about 50-100 words
+    }
+    for each section A1 to A8, and G1, add a button "Tutorial" on top of div.class:score-bar {
+      align in center
+      when click {
+        open up a popup {
+          show the tutorial related to the current section, load from ./entry_level_technician_cert/ase_study_qa/tutorial/{current section}.md
+        }
+      }
+    }
+  }
+  status: "completed"
+}

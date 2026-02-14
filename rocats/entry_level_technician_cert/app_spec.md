@@ -89,7 +89,22 @@ entry_level_technician_cert/
 │   ├── q_a6.js                              # A6 questions (200)
 │   ├── q_a7.js                              # A7 questions (200)
 │   ├── q_a8.js                              # A8 questions (200)
-│   └── q_g1.js                              # G1 questions (200)
+│   ├── q_g1.js                              # G1 questions (200)
+│   └── tutorial/                            # Tutorial markdown files
+│       ├── A1.md                            # A1 overview (links to modules)
+│       ├── A1-module-1.md                   # A1 Module 1: General Engine Diagnosis
+│       ├── A1-module-2.md                   # A1 Module 2: Cylinder Head & Valve Train
+│       ├── A1-module-3.md                   # A1 Module 3: Engine Block
+│       ├── A1-module-4.md                   # A1 Module 4: Lubrication & Cooling
+│       ├── A2.md ... A8.md, G1.md           # Overview files for each section
+│       ├── A2-module-1.md ... A2-module-3.md # A2 modules (3)
+│       ├── A3-module-1.md ... A3-module-3.md # A3 modules (3)
+│       ├── A4-module-1.md ... A4-module-3.md # A4 modules (3)
+│       ├── A5-module-1.md ... A5-module-3.md # A5 modules (3)
+│       ├── A6-module-1.md ... A6-module-3.md # A6 modules (3)
+│       ├── A7-module-1.md ... A7-module-3.md # A7 modules (3)
+│       ├── A8-module-1.md ... A8-module-3.md # A8 modules (3)
+│       └── G1-module-1.md ... G1-module-3.md # G1 modules (3)
 │
 ├── generate_video.py                        # Video generation scripts
 ├── generate_video_brakes.py
@@ -243,6 +258,36 @@ Exports a `termsGlossary` object keyed by term ID strings.
   - Buttons are disabled at boundaries (Prev disabled at first entry, Next disabled at latest)
 - Close via X button, overlay click, or Escape key
 
+#### Tutorial System
+- **Tutorial Button**: Centered above the score bar, labeled "{section} Tutorial" (e.g., "A1 Tutorial")
+  - Dynamically updates when switching sections via `selectSection` override
+  - Triggers `openTutorial()` on click
+- **Tutorial Modal**: Full-screen overlay with centered modal (max 800px wide, 80vh height)
+  - **Header**: Shows title (e.g., "A1 - Engine Repair Tutorial") and close button (×)
+  - **Navigation**: Horizontal button bar for switching between modules
+    - Active module button highlighted in primary accent color (#e94560)
+    - Buttons labeled from the `tutorialModules` config (e.g., "Overview", "Module 1: General Diagnosis")
+  - **Body**: Scrollable area rendering tutorial Markdown as HTML via `renderMarkdown()`
+    - Supports headers, bold, italic, lists, code blocks, blockquotes, horizontal rules
+  - **Caching**: Tutorial files cached in `tutorialCache` object to avoid refetching
+  - Close via × button, overlay click, or Escape key
+- **Tutorial Files**: Stored in `./ase_study_qa/tutorial/` as Markdown files
+  - **Overview files**: `A1.md` through `A8.md` and `G1.md` — section overview with links to modules
+  - **Module files**: `{section}-module-{n}.md` — detailed topic explanations (50–100 words per topic, assumes no background knowledge)
+  - **Structure per section**:
+    | Section | Modules | Topics |
+    |---------|---------|--------|
+    | A1 | 4 | General Engine Diagnosis, Cylinder Head & Valve Train, Engine Block, Lubrication & Cooling |
+    | A2 | 3 | Transmission Diagnosis, Maintenance & Adjustment, Repair |
+    | A3 | 3 | Clutch, Transmission & Transaxle, Drive Shaft & Differential |
+    | A4 | 3 | Steering, Suspension, Alignment & Tires |
+    | A5 | 3 | Hydraulic System, Disc & Drum Brakes, Power Assist & Electronic |
+    | A6 | 3 | Electrical & Battery, Starting & Charging, Lighting & Accessories |
+    | A7 | 3 | A/C Fundamentals, A/C Diagnosis & Service, Heating & Controls |
+    | A8 | 3 | Ignition & Fuel, Emission Control, Computer Controls |
+    | G1 | 3 | Engine & Drivetrain, Brakes & Suspension, Electrical & HVAC |
+  - Total: 9 overview files + 28 module files = 37 tutorial files
+
 ### 3.6 PHP Backend (`index.php`)
 
 **Query Handling:**
@@ -307,6 +352,10 @@ GET index.php?q={question}
 | `aiHistoryForward()` | Navigates to next entry in AI popup history |
 | `updateAiNavButtons()` | Updates enabled/disabled state and position indicator for history nav buttons |
 | `closeAiModal(event)` | Closes AI modal |
+| `openTutorial()` | Opens tutorial modal for current section, builds module nav buttons, loads first module |
+| `loadTutorialModule(idx)` | Fetches and renders a tutorial module markdown file (with caching) |
+| `renderTutorialMarkdown(text)` | Delegates to `renderMarkdown()` to convert tutorial Markdown to HTML |
+| `closeTutorial(event)` | Closes tutorial modal overlay |
 
 ---
 
@@ -497,6 +546,7 @@ Generate `./ase_study_qa/` per Section 3 spec:
    - Markdown rendering for AI responses
    - Bilingual support throughout
 4. **`index.html`**: Static fallback version (same UI, no AI features, no term highlighting)
+5. **`tutorial/`**: Generate 37 tutorial Markdown files (9 overview + 28 modules) covering A1–A8 and G1 with beginner-friendly explanations (50–100 words per topic). Add Tutorial button and modal popup to `index.php` with module navigation and Markdown rendering
 
 ### Step 8: Videos (Optional)
 Generate study videos using Python scripts with:

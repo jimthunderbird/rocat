@@ -887,6 +887,190 @@ body {
   animation: spin 0.8s linear infinite;
 }
 
+/* Tutorial Button */
+.tutorial-btn-container {
+  text-align: center;
+  margin-bottom: 12px;
+}
+.btn-tutorial {
+  padding: 12px 36px;
+  background: linear-gradient(135deg, #45b7d1, #2e8bc0);
+  color: #fff;
+  border: none;
+  border-radius: 10px;
+  font-size: 1.05rem;
+  font-weight: 700;
+  cursor: pointer;
+  transition: all 0.3s;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  display: none;
+}
+.btn-tutorial:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(69, 183, 209, 0.4);
+  background: linear-gradient(135deg, #5cc8e0, #3a9dd0);
+}
+
+/* Tutorial Modal */
+.tutorial-modal-overlay {
+  display: none;
+  position: fixed;
+  top: 0; left: 0; right: 0; bottom: 0;
+  background: rgba(0,0,0,0.8);
+  z-index: 1200;
+  animation: fadeIn 0.3s ease;
+}
+.tutorial-modal-overlay.show {
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  padding-top: 30px;
+}
+.tutorial-modal {
+  background: #16213e;
+  border: 2px solid #45b7d1;
+  border-radius: 16px;
+  max-width: 850px;
+  width: 94%;
+  max-height: 85vh;
+  box-shadow: 0 16px 50px rgba(0, 0, 0, 0.6);
+  display: flex;
+  flex-direction: column;
+  animation: fadeIn 0.3s ease;
+}
+.tutorial-modal-header {
+  padding: 20px 25px 15px;
+  border-bottom: 1px solid #0f3460;
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+.tutorial-modal-header h2 {
+  color: #45b7d1;
+  font-size: 1.3rem;
+  margin: 0;
+}
+.tutorial-modal-close {
+  font-size: 1.8rem;
+  color: #a0a0c0;
+  cursor: pointer;
+  border: none;
+  background: none;
+  transition: color 0.3s;
+  padding: 0 5px;
+}
+.tutorial-modal-close:hover { color: #e94560; }
+.tutorial-modal-nav {
+  display: flex;
+  gap: 6px;
+  padding: 12px 20px;
+  background: #1a1a2e;
+  border-bottom: 1px solid #0f3460;
+  flex-shrink: 0;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+.tutorial-nav-btn {
+  padding: 8px 16px;
+  background: #0f3460;
+  color: #a0a0c0;
+  border: 1px solid #45b7d1;
+  border-radius: 8px;
+  font-size: 0.85rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+.tutorial-nav-btn:hover {
+  background: #45b7d1;
+  color: #1a1a2e;
+}
+.tutorial-nav-btn.active {
+  background: #45b7d1;
+  color: #1a1a2e;
+  font-weight: 700;
+}
+.tutorial-modal-body {
+  padding: 25px;
+  overflow-y: auto;
+  flex: 1;
+  color: #d0d0e0;
+  font-size: 1.05rem;
+  line-height: 1.8;
+}
+.tutorial-modal-body h1 {
+  color: #45b7d1;
+  font-size: 1.4rem;
+  margin: 20px 0 12px;
+  border-bottom: 2px solid #0f3460;
+  padding-bottom: 8px;
+}
+.tutorial-modal-body h1:first-child {
+  margin-top: 0;
+}
+.tutorial-modal-body h2 {
+  color: #f0c040;
+  font-size: 1.15rem;
+  margin: 18px 0 8px;
+}
+.tutorial-modal-body h3 {
+  color: #4ecca3;
+  font-size: 1.05rem;
+  margin: 14px 0 6px;
+}
+.tutorial-modal-body p {
+  margin: 8px 0;
+}
+.tutorial-modal-body ul, .tutorial-modal-body ol {
+  margin: 8px 0 8px 20px;
+  padding-left: 10px;
+}
+.tutorial-modal-body li {
+  margin: 4px 0;
+}
+.tutorial-modal-body strong, .tutorial-modal-body b {
+  color: #f0c040;
+}
+.tutorial-modal-body em, .tutorial-modal-body i {
+  color: #a0c0e0;
+}
+.tutorial-modal-body code {
+  background: #0f3460;
+  color: #4ecca3;
+  padding: 2px 6px;
+  border-radius: 4px;
+  font-size: 0.95em;
+}
+.tutorial-modal-body blockquote {
+  border-left: 3px solid #e94560;
+  margin: 10px 0;
+  padding: 8px 16px;
+  color: #a0a0c0;
+  background: rgba(15, 52, 96, 0.5);
+  border-radius: 0 8px 8px 0;
+}
+.tutorial-modal-body hr {
+  border: none;
+  border-top: 1px solid #0f3460;
+  margin: 16px 0;
+}
+.tutorial-modal-body::-webkit-scrollbar {
+  width: 8px;
+}
+.tutorial-modal-body::-webkit-scrollbar-track {
+  background: #0f3460;
+  border-radius: 4px;
+}
+.tutorial-modal-body::-webkit-scrollbar-thumb {
+  background: #45b7d1;
+  border-radius: 4px;
+}
+.tutorial-modal-body::-webkit-scrollbar-thumb:hover {
+  background: #7dd3e8;
+}
+
 /* Mobile responsive */
 @media (max-width: 600px) {
   .tabs { gap: 3px; padding: 8px 5px; }
@@ -900,6 +1084,8 @@ body {
   .term-modal-image img { max-height: 150px; }
   .ai-modal { width: 96%; max-height: 85vh; }
   .ai-modal-body { font-size: 0.95rem; height: 400px; }
+  .tutorial-modal { width: 98%; max-height: 90vh; }
+  .tutorial-modal-body { padding: 15px; font-size: 0.95rem; }
 }
 </style>
 </head>
@@ -913,6 +1099,9 @@ body {
 <div class="tabs" id="tabs"></div>
 
 <div class="main">
+  <div class="tutorial-btn-container">
+    <button class="btn-tutorial" id="btnTutorial" onclick="openTutorial()">Tutorial</button>
+  </div>
   <div class="score-bar" id="scoreBar">
     <div class="score-item">
       <div class="label">Correct</div>
@@ -978,6 +1167,20 @@ body {
     </div>
     <div class="ai-modal-body" id="aiModalBody">
       <div class="ai-loading"><div class="spinner"></div>Asking AI...</div>
+    </div>
+  </div>
+</div>
+
+<!-- Tutorial Modal -->
+<div class="tutorial-modal-overlay" id="tutorialModalOverlay" onclick="closeTutorial(event)">
+  <div class="tutorial-modal">
+    <div class="tutorial-modal-header">
+      <h2 id="tutorialModalTitle">Tutorial</h2>
+      <button class="tutorial-modal-close" onclick="closeTutorial()">&times;</button>
+    </div>
+    <div class="tutorial-modal-nav" id="tutorialModalNav"></div>
+    <div class="tutorial-modal-body" id="tutorialModalBody">
+      <p>Loading tutorial...</p>
     </div>
   </div>
 </div>
@@ -1689,6 +1892,7 @@ document.addEventListener('mouseup', function(e) {
 
 document.addEventListener('keydown', (e) => {
   if (e.key === 'Escape') {
+    closeTutorial();
     closeAiModal();
     closeTermModal();
   }
@@ -1773,6 +1977,108 @@ document.addEventListener('keydown', (e) => {
   });
   observer.observe(overlay, { attributes: true });
 })();
+
+// --- Tutorial System ---
+const tutorialModules = {
+  'A1': { title: 'A1 - Engine Repair Tutorial', files: ['A1.md', 'A1-module-1.md', 'A1-module-2.md', 'A1-module-3.md', 'A1-module-4.md'], labels: ['Overview', 'Engine Diagnosis', 'Cylinder Head & Valve Train', 'Engine Block', 'Lubrication & Cooling'] },
+  'A2': { title: 'A2 - Auto Transmission Tutorial', files: ['A2.md', 'A2-module-1.md', 'A2-module-2.md', 'A2-module-3.md'], labels: ['Overview', 'Transmission Diagnosis', 'Maintenance & Adjustment', 'Repair'] },
+  'A3': { title: 'A3 - Manual Drive Train Tutorial', files: ['A3.md', 'A3-module-1.md', 'A3-module-2.md', 'A3-module-3.md'], labels: ['Overview', 'Clutch', 'Transmission & Transaxle', 'Drive Shaft & Differential'] },
+  'A4': { title: 'A4 - Suspension & Steering Tutorial', files: ['A4.md', 'A4-module-1.md', 'A4-module-2.md', 'A4-module-3.md'], labels: ['Overview', 'Steering Systems', 'Suspension Systems', 'Alignment & Tires'] },
+  'A5': { title: 'A5 - Brakes Tutorial', files: ['A5.md', 'A5-module-1.md', 'A5-module-2.md', 'A5-module-3.md'], labels: ['Overview', 'Hydraulic System', 'Disc & Drum Brakes', 'Power Assist & Electronic'] },
+  'A6': { title: 'A6 - Electrical Systems Tutorial', files: ['A6.md', 'A6-module-1.md', 'A6-module-2.md', 'A6-module-3.md'], labels: ['Overview', 'Electrical & Battery', 'Starting & Charging', 'Lighting & Accessories'] },
+  'A7': { title: 'A7 - HVAC Tutorial', files: ['A7.md', 'A7-module-1.md', 'A7-module-2.md', 'A7-module-3.md'], labels: ['Overview', 'A/C Fundamentals', 'A/C Diagnosis & Service', 'Heating & Controls'] },
+  'A8': { title: 'A8 - Engine Performance Tutorial', files: ['A8.md', 'A8-module-1.md', 'A8-module-2.md', 'A8-module-3.md'], labels: ['Overview', 'Ignition & Fuel', 'Emission Control', 'Computer Controls'] },
+  'G1': { title: 'G1 - Maintenance & Light Repair Tutorial', files: ['G1.md', 'G1-module-1.md', 'G1-module-2.md', 'G1-module-3.md'], labels: ['Overview', 'Engine & Drivetrain', 'Brakes & Suspension', 'Electrical & HVAC'] }
+};
+
+let tutorialCache = {}; // cache fetched markdown
+let currentTutorialSection = null;
+let currentTutorialModuleIdx = 0;
+
+function openTutorial() {
+  if (!currentSection) return;
+  const config = tutorialModules[currentSection];
+  if (!config) return;
+  currentTutorialSection = currentSection;
+  currentTutorialModuleIdx = 0;
+
+  document.getElementById('tutorialModalTitle').textContent = config.title;
+
+  // Build nav buttons
+  const navEl = document.getElementById('tutorialModalNav');
+  navEl.innerHTML = '';
+  config.labels.forEach((label, idx) => {
+    const btn = document.createElement('button');
+    btn.className = 'tutorial-nav-btn' + (idx === 0 ? ' active' : '');
+    btn.textContent = label;
+    btn.onclick = () => loadTutorialModule(idx);
+    navEl.appendChild(btn);
+  });
+
+  document.getElementById('tutorialModalOverlay').classList.add('show');
+  loadTutorialModule(0);
+}
+
+function loadTutorialModule(idx) {
+  const config = tutorialModules[currentTutorialSection];
+  if (!config || idx < 0 || idx >= config.files.length) return;
+  currentTutorialModuleIdx = idx;
+
+  // Update nav active state
+  const navBtns = document.querySelectorAll('.tutorial-nav-btn');
+  navBtns.forEach((btn, i) => {
+    btn.classList.toggle('active', i === idx);
+  });
+
+  const file = config.files[idx];
+  const cacheKey = currentTutorialSection + '/' + file;
+  const bodyEl = document.getElementById('tutorialModalBody');
+
+  if (tutorialCache[cacheKey]) {
+    bodyEl.innerHTML = renderTutorialMarkdown(tutorialCache[cacheKey]);
+    bodyEl.scrollTop = 0;
+    return;
+  }
+
+  bodyEl.innerHTML = '<div class="ai-loading"><div class="spinner"></div>Loading tutorial...</div>';
+
+  fetch('tutorial/' + file)
+    .then(resp => {
+      if (!resp.ok) throw new Error('File not found');
+      return resp.text();
+    })
+    .then(text => {
+      tutorialCache[cacheKey] = text;
+      bodyEl.innerHTML = renderTutorialMarkdown(text);
+      bodyEl.scrollTop = 0;
+    })
+    .catch(err => {
+      bodyEl.innerHTML = '<p style="color:#e94560;">Could not load tutorial file: ' + file + '<br>' + err.message + '</p>';
+    });
+}
+
+function renderTutorialMarkdown(text) {
+  // Reuse the existing renderMarkdown function
+  return renderMarkdown(text);
+}
+
+function closeTutorial(event) {
+  if (event && event.target !== event.currentTarget) return;
+  document.getElementById('tutorialModalOverlay').classList.remove('show');
+}
+
+// Show/hide tutorial button when section changes
+const origSelectSection = selectSection;
+selectSection = function(sectionId) {
+  origSelectSection(sectionId);
+  const btn = document.getElementById('btnTutorial');
+  if (tutorialModules[sectionId]) {
+    btn.style.display = 'inline-block';
+    btn.textContent = sectionId + ' Tutorial';
+  } else {
+    btn.style.display = 'none';
+  }
+};
 
 // Auto-select first tab
 // selectSection('A1');
