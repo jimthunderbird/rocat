@@ -3,7 +3,7 @@
 if (isset($_GET['img']) && !empty(trim($_GET['img']))) {
     header('Content-Type: application/json; charset=utf-8');
     $keyword = trim($_GET['img']);
-    $searchQuery = $keyword . ' car mechanic';
+    $searchQuery = $keyword . ' computer science artificial intelligence';
     $searchUrl = 'https://www.google.com/search?q=' . urlencode($searchQuery) . '&udm=2&tbs=isz:lt,islt:4mp,ic:color';
 
     $ch = curl_init($searchUrl);
@@ -21,7 +21,6 @@ if (isset($_GET['img']) && !empty(trim($_GET['img']))) {
     $httpCode = curl_getinfo($ch, CURLINFO_HTTP_CODE);
     curl_close($ch);
 
-    // Helper to decode unicode-escaped URLs from Google's HTML (e.g. \u003d -> =)
     function decodeGoogleUrl($url) {
         $url = preg_replace_callback('/\\\\u([0-9a-fA-F]{4})/', function($m) {
             return mb_convert_encoding(pack('H*', $m[1]), 'UTF-8', 'UTF-16BE');
@@ -30,7 +29,6 @@ if (isset($_GET['img']) && !empty(trim($_GET['img']))) {
         return $url;
     }
 
-    // Helper to check if URL is from Google's own domains
     function isGoogleDomain($url) {
         return strpos($url, 'google.com') !== false
             || strpos($url, 'gstatic.com') !== false
@@ -41,50 +39,31 @@ if (isset($_GET['img']) && !empty(trim($_GET['img']))) {
     $imageUrls = [];
     $maxImages = 4;
     if ($html && $httpCode === 200) {
-        // Collect candidate image URLs from all methods
         $candidates = [];
-
-        // Method 1: Look for image URLs in JSON-like arrays with dimensions (Google's main image data)
         if (preg_match_all('/\["(https?:\/\/[^"]+\.(?:jpg|jpeg|png|gif|webp)[^"]*)",\s*\d+,\s*\d+\]/', $html, $matches)) {
             foreach ($matches[1] as $url) {
                 $decoded = decodeGoogleUrl($url);
-                if (!isGoogleDomain($decoded)) {
-                    $candidates[] = $decoded;
-                }
+                if (!isGoogleDomain($decoded)) { $candidates[] = $decoded; }
             }
         }
-        // Method 2: Look for image URLs in JSON arrays without dimension format
         if (preg_match_all('/"(https?:\/\/[^"]*\.(?:jpg|jpeg|png|gif|webp)[^"]*)"/', $html, $matches)) {
             foreach ($matches[1] as $url) {
                 $decoded = decodeGoogleUrl($url);
-                if (!isGoogleDomain($decoded) && strlen($decoded) > 30) {
-                    $candidates[] = $decoded;
-                }
+                if (!isGoogleDomain($decoded) && strlen($decoded) > 30) { $candidates[] = $decoded; }
             }
         }
-        // Method 3: Look for any https image URL from the page source
         if (preg_match_all('/(https?:\/\/[^\s"\'<>\\\\]+\.(?:jpg|jpeg|png|gif|webp)[^\s"\'<>\\\\]*)/', $html, $matches)) {
             foreach ($matches[1] as $url) {
                 $decoded = decodeGoogleUrl($url);
-                if (!isGoogleDomain($decoded) && strlen($decoded) > 30) {
-                    $candidates[] = $decoded;
-                }
+                if (!isGoogleDomain($decoded) && strlen($decoded) > 30) { $candidates[] = $decoded; }
             }
         }
-        // Method 4: Use Google's encrypted thumbnails as fallback
         if (preg_match_all('/"(https?:\/\/encrypted-tbn0\.gstatic\.com\/images\?[^"]+)"/', $html, $matches)) {
-            foreach ($matches[1] as $url) {
-                $candidates[] = decodeGoogleUrl($url);
-            }
+            foreach ($matches[1] as $url) { $candidates[] = decodeGoogleUrl($url); }
         }
-        // Method 5: Any encrypted thumbnail URL
         if (preg_match_all('/(https?:\/\/encrypted-tbn0\.gstatic\.com\/images\?[^\s"\'<>\\\\]+)/', $html, $matches)) {
-            foreach ($matches[1] as $url) {
-                $candidates[] = decodeGoogleUrl($url);
-            }
+            foreach ($matches[1] as $url) { $candidates[] = decodeGoogleUrl($url); }
         }
-
-        // Deduplicate and pick up to 4 unique images
         $seen = [];
         foreach ($candidates as $url) {
             if (!in_array($url, $seen)) {
@@ -94,23 +73,19 @@ if (isset($_GET['img']) && !empty(trim($_GET['img']))) {
             }
         }
     }
-
-    // Return both legacy imageUrl (first one) and imageUrls array
     echo json_encode(['imageUrl' => !empty($imageUrls) ? $imageUrls[0] : '', 'imageUrls' => $imageUrls, 'searchUrl' => $searchUrl]);
     exit;
 }
 
-// Handle AI query via ollama HTTP API with streaming (much faster than CLI shell_exec)
+// Handle AI query via ollama HTTP API with streaming
 if (isset($_GET['q']) && !empty(trim($_GET['q']))) {
     header('Content-Type: text/plain; charset=utf-8');
-    header('X-Accel-Buffering: no'); // Disable nginx buffering if behind nginx
-    // Disable output buffering for real-time streaming
+    header('X-Accel-Buffering: no');
     while (ob_get_level()) { ob_end_flush(); }
     ob_implicit_flush(true);
 
     $question = trim($_GET['q']);
 
-    // Use Ollama REST API with streaming for real-time output
     $ch = curl_init('http://localhost:11434/api/generate');
     curl_setopt_array($ch, [
         CURLOPT_POST => true,
@@ -123,7 +98,6 @@ if (isset($_GET['q']) && !empty(trim($_GET['q']))) {
         CURLOPT_RETURNTRANSFER => false,
         CURLOPT_TIMEOUT => 60,
         CURLOPT_WRITEFUNCTION => function($ch, $data) {
-            // Each chunk is a JSON line from ollama streaming API
             $lines = explode("\n", $data);
             foreach ($lines as $line) {
                 $line = trim($line);
@@ -153,7 +127,7 @@ if (isset($_GET['q']) && !empty(trim($_GET['q']))) {
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>ASE Study Q&A - A1 to A8 & G1</title>
+<title>UCSD BS AI Study Q&A</title>
 <style>
 * { margin: 0; padding: 0; box-sizing: border-box; }
 body {
@@ -537,8 +511,8 @@ body {
   border: 2px solid #45b7d1;
   border-radius: 16px;
   padding: 30px;
-  max-width: 572px;
-  width: 92%;
+  max-width: 520px;
+  width: 90%;
   box-shadow: 0 12px 40px rgba(0, 0, 0, 0.5);
   position: relative;
   animation: fadeIn 0.3s ease;
@@ -749,9 +723,9 @@ body {
   border: 2px solid #e94560;
   border-radius: 16px;
   padding: 0;
-  max-width: 682px;
-  width: 96%;
-  max-height: 88vh;
+  max-width: 620px;
+  width: 92%;
+  max-height: 80vh;
   box-shadow: 0 16px 50px rgba(0, 0, 0, 0.6);
   position: fixed;
   animation: fadeIn 0.3s ease;
@@ -803,7 +777,7 @@ body {
 .ai-modal-body {
   padding: 20px 25px 25px;
   overflow-y: auto;
-  height: 440px;
+  height: 400px;
   flex-shrink: 0;
   color: #d0d0e0;
   font-size: 1.05rem;
@@ -931,58 +905,6 @@ body {
 }
 .ai-modal-carousel .img-caption a:hover {
   text-decoration: underline;
-}
-/* Carousel & single-image zoom overlay */
-.carousel-track,
-.ai-modal-image {
-  position: relative;
-}
-.carousel-track .carousel-img-wrapper,
-.ai-modal-image .img-zoom-wrapper {
-  position: relative;
-  display: inline-block;
-}
-.img-zoom-controls {
-  position: absolute;
-  bottom: 10px;
-  right: 10px;
-  display: none;
-  gap: 6px;
-  z-index: 6;
-}
-.carousel-track:hover .img-zoom-controls,
-.ai-modal-image:hover .img-zoom-controls {
-  display: flex;
-}
-.img-zoom-btn {
-  width: 32px;
-  height: 32px;
-  border: 2px solid #45b7d1;
-  border-radius: 8px;
-  background: rgba(15, 52, 96, 0.9);
-  color: #45b7d1;
-  font-size: 1.1rem;
-  font-weight: 700;
-  cursor: pointer;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  transition: all 0.2s;
-  line-height: 1;
-}
-.img-zoom-btn:hover {
-  background: #45b7d1;
-  color: #1a1a2e;
-  box-shadow: 0 2px 10px rgba(69, 183, 209, 0.5);
-}
-.img-zoom-btn svg {
-  width: 18px;
-  height: 18px;
-  fill: none;
-  stroke: currentColor;
-  stroke-width: 2;
-  stroke-linecap: round;
-  stroke-linejoin: round;
 }
 .ai-modal-body h1, .ai-modal-body h2, .ai-modal-body h3 {
   color: #45b7d1;
@@ -1229,9 +1151,9 @@ body {
   background: #16213e;
   border: 2px solid #45b7d1;
   border-radius: 16px;
-  max-width: 935px;
-  width: 96%;
-  max-height: 93vh;
+  max-width: 850px;
+  width: 94%;
+  max-height: 85vh;
   box-shadow: 0 16px 50px rgba(0, 0, 0, 0.6);
   display: flex;
   flex-direction: column;
@@ -1399,14 +1321,11 @@ body {
 .modal-minmax-btn.btn-minimize { font-size: 1.2rem; line-height: 1; }
 .modal-minmax-btn.btn-maximize { font-size: 0.85rem; }
 
-/* Term Modal min/max button positioning */
 .term-modal .modal-minmax-btns { right: 48px; }
-/* AI Modal min/max button positioning */
 .ai-modal .modal-minmax-btns { right: 48px; }
-/* Tutorial Modal min/max button positioning */
 .tutorial-modal .modal-minmax-btns { right: 48px; }
 
-/* Minimized state - small bar at bottom */
+/* Minimized state */
 .modal-minimized-bar {
   position: fixed;
   bottom: 10px;
@@ -1464,12 +1383,11 @@ body {
 }
 .modal-minimized-bar .min-bar-close:hover { color: #e94560; }
 
-/* Minimized bar positioning for multiple bars */
 #termMinBar { right: 10px; }
 #aiMinBar { right: 200px; }
 #tutorialMinBar { left: 10px; }
 
-/* Maximized state for Term Modal */
+/* Maximized states */
 .term-modal-overlay.maximized {
   align-items: stretch;
   justify-content: stretch;
@@ -1483,8 +1401,6 @@ body {
   max-height: 100vh;
   overflow-y: auto;
 }
-
-/* Maximized state for AI Modal */
 .ai-modal.maximized {
   max-width: 100vw !important;
   width: 100vw !important;
@@ -1497,8 +1413,6 @@ body {
 .ai-modal.maximized .ai-modal-body {
   height: calc(100vh - 200px) !important;
 }
-
-/* Maximized state for Tutorial Modal */
 .tutorial-modal-overlay.maximized {
   padding-top: 0;
   align-items: stretch;
@@ -1525,9 +1439,9 @@ body {
   .score-bar { flex-wrap: wrap; gap: 8px; }
   .explanation-image img { max-height: 200px; }
   .term-modal-image img { max-height: 150px; }
-  .ai-modal { width: 98%; max-height: 93vh; }
-  .ai-modal-body { font-size: 0.95rem; height: 440px; }
-  .tutorial-modal { width: 99%; max-height: 96vh; }
+  .ai-modal { width: 96%; max-height: 85vh; }
+  .ai-modal-body { font-size: 0.95rem; height: 400px; }
+  .tutorial-modal { width: 98%; max-height: 90vh; }
   .tutorial-modal-body { padding: 15px; font-size: 0.95rem; }
 }
 </style>
@@ -1535,8 +1449,8 @@ body {
 <body>
 
 <div class="header">
-  <h1>ASE Certification Study Q&A</h1>
-  <div class="subtitle">Entry-Level Technician Certification Prep | A1-A8 & G1 | 1800 Questions</div>
+  <h1>UCSD BS Artificial Intelligence Study Q&A</h1>
+  <div class="subtitle">BS in Artificial Intelligence Program Prep | 8 Topic Areas | 160 Questions</div>
 </div>
 
 <div class="tabs" id="tabs"></div>
@@ -1560,7 +1474,7 @@ body {
     </div>
     <div class="score-item">
       <div class="label">Remaining</div>
-      <div class="value" id="scoreRemaining">100</div>
+      <div class="value" id="scoreRemaining">20</div>
     </div>
     <div class="score-item" style="flex: 1; max-width: 200px;">
       <div class="label">Progress</div>
@@ -1570,8 +1484,8 @@ body {
 
   <div class="question-card" id="questionCard">
     <div class="no-questions">
-      <h2>Select a test section above to begin</h2>
-      <p>Choose from A1-A8 or G1 to start studying</p>
+      <h2>Select a topic area above to begin</h2>
+      <p>Choose from PROG, MATH, DSA, SYS, AIF, ML, CV, or NLP to start studying</p>
     </div>
   </div>
 </div>
@@ -1641,37 +1555,31 @@ body {
 </div>
 
 <script src="terms_glossary.js"></script>
-<script src="q_a1.js"></script>
-<script src="q_a2.js"></script>
-<script src="q_a3.js"></script>
-<script src="q_a4.js"></script>
-<script src="q_a5.js"></script>
-<script src="q_a6.js"></script>
-<script src="q_a7.js"></script>
-<script src="q_a8.js"></script>
-<script src="q_g1.js"></script>
+<script src="q_prog.js"></script>
+<script src="q_math.js"></script>
+<script src="q_dsa.js"></script>
+<script src="q_sys.js"></script>
+<script src="q_aif.js"></script>
+<script src="q_ml.js"></script>
+<script src="q_cv.js"></script>
+<script src="q_nlp.js"></script>
 
 <script>
 // Build a lookup map: term display name -> glossary key
-// Sort by term length descending so longer terms match first
 const termLookup = [];
 for (const key in termsGlossary) {
   const t = termsGlossary[key];
-  // Add main term name
   termLookup.push({ name: t.term, key: key });
-  // Also add the short name without parenthetical for matching
   const shortName = t.term.replace(/\s*\(.*?\)\s*/g, '').trim();
   if (shortName !== t.term && shortName.length > 3) {
     termLookup.push({ name: shortName, key: key });
   }
 }
-// Sort by name length descending to match longest terms first
 termLookup.sort((a, b) => b.name.length - a.name.length);
 
-// Highlight mechanic terms in text - returns HTML string
+// Highlight CS/AI terms in text - returns HTML string
 function highlightTerms(text) {
   if (!text) return text;
-  // Use a marker system to avoid replacing inside already-replaced segments
   let result = text;
   const replacements = [];
   const lowerText = result.toLowerCase();
@@ -1683,13 +1591,11 @@ function highlightTerms(text) {
       const idx = lowerText.indexOf(termLower, searchFrom);
       if (idx === -1) break;
       const end = idx + entry.name.length;
-      // Check word boundaries
       const charBefore = idx > 0 ? lowerText[idx - 1] : ' ';
       const charAfter = end < lowerText.length ? lowerText[end] : ' ';
       const isBoundaryBefore = /[\s,.:;!?()/"'\-]/.test(charBefore) || idx === 0;
       const isBoundaryAfter = /[\s,.:;!?()/"'\-]/.test(charAfter) || end === lowerText.length;
       if (isBoundaryBefore && isBoundaryAfter) {
-        // Check overlap with existing replacements
         let overlaps = false;
         for (const r of replacements) {
           if (idx < r.end && end > r.start) { overlaps = true; break; }
@@ -1702,7 +1608,6 @@ function highlightTerms(text) {
     }
   }
 
-  // Sort replacements by position (reverse) to replace from end to start
   replacements.sort((a, b) => b.start - a.start);
   for (const r of replacements) {
     const original = result.substring(r.start, r.end);
@@ -1715,15 +1620,14 @@ function highlightTerms(text) {
 }
 
 const sections = [
-  { id: 'A1', label: 'Engine Repair', data: () => questionsA1 },
-  { id: 'A2', label: 'Auto Trans', data: () => questionsA2 },
-  { id: 'A3', label: 'Manual Drive', data: () => questionsA3 },
-  { id: 'A4', label: 'Susp & Steer', data: () => questionsA4 },
-  { id: 'A5', label: 'Brakes', data: () => questionsA5 },
-  { id: 'A6', label: 'Electrical', data: () => questionsA6 },
-  { id: 'A7', label: 'HVAC', data: () => questionsA7 },
-  { id: 'A8', label: 'Engine Perf', data: () => questionsA8 },
-  { id: 'G1', label: 'Maint & Lt Repair', data: () => questionsG1 }
+  { id: 'PROG', label: 'Programming', data: () => questionsPROG },
+  { id: 'MATH', label: 'Mathematics', data: () => questionsMATH },
+  { id: 'DSA', label: 'DS & Algorithms', data: () => questionsDSA },
+  { id: 'SYS', label: 'Systems', data: () => questionsSYS },
+  { id: 'AIF', label: 'AI Foundations', data: () => questionsAIF },
+  { id: 'ML', label: 'Machine Learning', data: () => questionsML },
+  { id: 'CV', label: 'Computer Vision', data: () => questionsCV },
+  { id: 'NLP', label: 'NLP & Apps', data: () => questionsNLP }
 ];
 
 let currentSection = null;
@@ -1733,11 +1637,9 @@ let selectedOption = -1;
 let answered = false;
 let scores = {};
 
-// Question history per section (like browser history)
-let questionHistory = {};   // sectionId -> array of question objects
-let questionHistoryIdx = {}; // sectionId -> current index in history
+let questionHistory = {};
+let questionHistoryIdx = {};
 
-// Initialize scores for each section
 sections.forEach(s => {
   scores[s.id] = { correct: 0, wrong: 0, answered: new Set(), pool: [] };
   questionHistory[s.id] = [];
@@ -1768,11 +1670,9 @@ function selectSection(sectionId) {
   currentSection = sectionId;
   const section = sections.find(s => s.id === sectionId);
 
-  // Update tab active state
   document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
   document.getElementById(`tab-${sectionId}`).classList.add('active');
 
-  // Initialize pool if needed
   if (scores[sectionId].pool.length === 0) {
     try {
       const allQ = section.data();
@@ -1797,7 +1697,6 @@ function pickRandomQuestion() {
   const score = scores[sectionId];
   const pool = score.pool;
 
-  // Find unanswered questions first, otherwise pick any random one
   let unanswered = pool.filter(q => !score.answered.has(q.id));
   let q;
   if (unanswered.length > 0) {
@@ -1813,7 +1712,6 @@ function showRandomQuestion() {
   const history = questionHistory[sectionId];
   const idx = questionHistoryIdx[sectionId];
 
-  // Trim any forward history if we navigated back
   if (idx < history.length - 1) {
     questionHistory[sectionId] = history.slice(0, idx + 1);
   }
@@ -1854,7 +1752,6 @@ function showNextQuestion() {
   const history = questionHistory[sectionId];
 
   if (idx < history.length - 1) {
-    // Go forward in existing history
     questionHistoryIdx[sectionId] = idx + 1;
     const q = history[idx + 1];
     currentQuestion = q;
@@ -1863,7 +1760,6 @@ function showNextQuestion() {
     updateScoreDisplay();
     renderQuestion(q);
   } else {
-    // At end of history, pick a new random question
     showRandomQuestion();
   }
 }
@@ -1873,7 +1769,7 @@ function updateScoreDisplay() {
   document.getElementById('scoreCorrect').textContent = score.correct;
   document.getElementById('scoreWrong').textContent = score.wrong;
   document.getElementById('scoreAnswered').textContent = score.answered.size;
-  const total = score.pool.length || 100;
+  const total = score.pool.length || 20;
   const remaining = total - score.answered.size;
   document.getElementById('scoreRemaining').textContent = Math.max(0, remaining);
   const pct = (score.answered.size / total) * 100;
@@ -1933,7 +1829,6 @@ function revealAnswer() {
   const isNew = !score.answered.has(q.id);
   const hasSelection = selectedOption !== -1;
 
-  // Mark options
   document.querySelectorAll('.option').forEach(o => {
     o.classList.add('disabled');
     const idx = parseInt(o.dataset.idx);
@@ -1945,7 +1840,6 @@ function revealAnswer() {
     }
   });
 
-  // Update score only for new answers when a selection was made
   if (isNew && hasSelection) {
     score.answered.add(q.id);
     if (selectedOption === q.answer) {
@@ -1957,7 +1851,6 @@ function revealAnswer() {
 
   updateScoreDisplay();
 
-  // Show explanation
   const expEl = document.getElementById('explanation');
   const answerChinese = q.optionsChinese && q.optionsChinese[q.answer] ? ` / ${q.optionsChinese[q.answer]}` : '';
   let resultLabel = !hasSelection ? 'Answer Revealed 答案揭晓' : (selectedOption === q.answer ? 'Correct! 正确!' : 'Incorrect 不正确');
@@ -1969,7 +1862,6 @@ function revealAnswer() {
   if (q.diagram && q.diagram.length > 0) {
     expHtml += `<div class="diagram-explain">${q.diagram}</div>`;
   }
-  // Show image and YouTube video
   if ((q.image && q.image.length > 0) || (q.youtube && q.youtube.length > 0)) {
     expHtml += `<div class="explanation-media">`;
     if (q.image && q.image.length > 0) {
@@ -1981,7 +1873,6 @@ function revealAnswer() {
     }
     expHtml += `</div>`;
   }
-  // Show related terms
   if (q.terms && q.terms.length > 0) {
     expHtml += `<div class="related-terms"><h4>Related Terms</h4>`;
     q.terms.forEach(termKey => {
@@ -1995,7 +1886,6 @@ function revealAnswer() {
   expEl.innerHTML = expHtml;
   expEl.classList.add('show');
 
-  // Disable answer button after revealing
   document.getElementById('btnAnswer').disabled = true;
   document.getElementById('btnAnswer').style.opacity = '0.5';
 }
@@ -2011,7 +1901,6 @@ function showTermModal(termKey) {
   document.getElementById('termModalBody').textContent = termData.definition;
   document.getElementById('termModalBodyChinese').textContent = termData.definitionChinese || '';
   document.getElementById('termModalBodyChinese').style.display = termData.definitionChinese ? 'block' : 'none';
-  // Show term image
   const imgEl = document.getElementById('termModalImage');
   if (termData.image && termData.image.length > 0) {
     imgEl.innerHTML = `<img src="${termData.image}" alt="${termData.term}" onerror="this.parentElement.style.display='none'">`;
@@ -2019,7 +1908,6 @@ function showTermModal(termKey) {
   } else {
     imgEl.style.display = 'none';
   }
-  // Show term YouTube video
   const vidEl = document.getElementById('termModalVideo');
   if (termData.youtube && termData.youtube.length > 0) {
     const ytTitle = termData.youtubeTitle || 'Watch Video About ' + termData.term;
@@ -2043,40 +1931,24 @@ function closeTermModal(event) {
 function renderMarkdown(text) {
   if (!text) return '';
   let html = text;
-  // Escape HTML entities first
   html = html.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
-  // Code blocks (``` ... ```)
   html = html.replace(/```(\w*)\n([\s\S]*?)```/g, '<pre><code>$2</code></pre>');
-  // Inline code
   html = html.replace(/`([^`]+)`/g, '<code>$1</code>');
-  // Headers
   html = html.replace(/^### (.+)$/gm, '<h3>$1</h3>');
   html = html.replace(/^## (.+)$/gm, '<h2>$1</h2>');
   html = html.replace(/^# (.+)$/gm, '<h1>$1</h1>');
-  // Bold
   html = html.replace(/\*\*([^*]+)\*\*/g, '<strong>$1</strong>');
-  // Italic
   html = html.replace(/\*([^*]+)\*/g, '<em>$1</em>');
-  // Blockquotes
   html = html.replace(/^> (.+)$/gm, '<blockquote>$1</blockquote>');
-  // Horizontal rules
   html = html.replace(/^---$/gm, '<hr>');
-  // Unordered lists
   html = html.replace(/^\* (.+)$/gm, '<li>$1</li>');
   html = html.replace(/^- (.+)$/gm, '<li>$1</li>');
-  // Ordered lists
   html = html.replace(/^\d+\. (.+)$/gm, '<li>$1</li>');
-  // Wrap consecutive <li> in <ul>
   html = html.replace(/((?:<li>.*<\/li>\n?)+)/g, '<ul>$1</ul>');
-  // Paragraphs - split by double newlines
   html = html.replace(/\n\n+/g, '</p><p>');
-  // Single newlines to <br> (except inside pre/code blocks)
   html = html.replace(/(?<!<\/h[123]>|<\/pre>|<\/ul>|<\/blockquote>|<\/li>|<hr>|<\/p>|<p>)\n/g, '<br>');
-  // Wrap in paragraph
   html = '<p>' + html + '</p>';
-  // Clean up empty paragraphs
   html = html.replace(/<p>\s*<\/p>/g, '');
-  // Clean up paragraphs around block elements
   html = html.replace(/<p>(<h[123]>)/g, '$1');
   html = html.replace(/(<\/h[123]>)<\/p>/g, '$1');
   html = html.replace(/<p>(<pre>)/g, '$1');
@@ -2108,9 +1980,9 @@ function saveAiHistory() {
   } catch(e) {}
 }
 
-let aiHistory = loadAiHistory(); // Array of { displayName, query, responseText }
-let aiHistoryIndex = aiHistory.length > 0 ? aiHistory.length - 1 : -1; // Point to latest entry
-let aiCurrentStreamAbort = null; // AbortController for current stream
+let aiHistory = loadAiHistory();
+let aiHistoryIndex = aiHistory.length > 0 ? aiHistory.length - 1 : -1;
+let aiCurrentStreamAbort = null;
 
 function updateAiNavButtons() {
   const prevBtn = document.getElementById('aiNavPrev');
@@ -2127,7 +1999,6 @@ function updateAiNavButtons() {
 
 function aiHistoryBack() {
   if (aiHistoryIndex <= 0) return;
-  // Abort any current stream
   if (aiCurrentStreamAbort) { aiCurrentStreamAbort.abort(); aiCurrentStreamAbort = null; }
   aiHistoryIndex--;
   const entry = aiHistory[aiHistoryIndex];
@@ -2142,7 +2013,6 @@ function aiHistoryBack() {
 
 function aiHistoryForward() {
   if (aiHistoryIndex >= aiHistory.length - 1) return;
-  // Abort any current stream
   if (aiCurrentStreamAbort) { aiCurrentStreamAbort.abort(); aiCurrentStreamAbort = null; }
   aiHistoryIndex++;
   const entry = aiHistory[aiHistoryIndex];
@@ -2155,21 +2025,17 @@ function aiHistoryForward() {
   updateAiNavButtons();
 }
 
-// Shared streaming AI function - streams into the existing AI modal
+// Shared streaming AI function
 function streamAiQuery(displayName, query) {
-  // Abort any ongoing stream
   if (aiCurrentStreamAbort) { aiCurrentStreamAbort.abort(); aiCurrentStreamAbort = null; }
 
-  // If we navigated back and then start a new query, trim forward history
   if (aiHistoryIndex < aiHistory.length - 1) {
     aiHistory = aiHistory.slice(0, aiHistoryIndex + 1);
   }
 
-  // Create new history entry
   const historyEntry = { displayName: displayName, query: query, responseText: '', imageUrls: [], imageSearchUrl: '' };
   aiHistory.push(historyEntry);
 
-  // Enforce max 200 entries
   if (aiHistory.length > AI_HISTORY_MAX) {
     aiHistory = aiHistory.slice(aiHistory.length - AI_HISTORY_MAX);
   }
@@ -2197,7 +2063,6 @@ function streamAiQuery(displayName, query) {
         historyEntry.imageUrls = urls;
         historyEntry.imageSearchUrl = data.searchUrl;
         imageHtml = buildImageHtml(urls, data.searchUrl, displayName);
-        // Update the body to include the carousel at the top
         const existingCarousel = bodyEl.querySelector('.ai-modal-carousel') || bodyEl.querySelector('.ai-modal-image');
         if (!existingCarousel) {
           bodyEl.insertAdjacentHTML('afterbegin', imageHtml);
@@ -2205,7 +2070,7 @@ function streamAiQuery(displayName, query) {
         saveAiHistory();
       }
     })
-    .catch(() => { /* silently ignore image fetch errors */ });
+    .catch(() => {});
 
   fetch('index.php?q=' + encodeURIComponent(query), { signal: abortCtrl.signal })
     .then(response => {
@@ -2218,7 +2083,6 @@ function streamAiQuery(displayName, query) {
           if (done) {
             historyEntry.responseText = rawText;
             aiCurrentStreamAbort = null;
-            // Final render with full markdown + highlight terms for clickability
             bodyEl.innerHTML = imageHtml + highlightTermsInHtml(renderMarkdown(rawText));
             saveAiHistory();
             updateAiNavButtons();
@@ -2245,9 +2109,8 @@ function streamAiQuery(displayName, query) {
     });
 }
 
-// Build image carousel HTML for the AI modal (supports 1-4 images)
+// Build image carousel HTML
 function buildImageHtml(imageUrls, searchUrl, keyword) {
-  // Handle legacy single imageUrl string
   if (typeof imageUrls === 'string') {
     imageUrls = imageUrls ? [imageUrls] : [];
   }
@@ -2258,34 +2121,21 @@ function buildImageHtml(imageUrls, searchUrl, keyword) {
   const carouselId = 'carousel-' + Date.now() + '-' + Math.floor(Math.random() * 10000);
 
   if (imageUrls.length === 1) {
-    // Single image - no carousel needed, with zoom controls
-    const singleId = 'single-img-' + Date.now();
     return '<div class="ai-modal-image">' +
-      '<img id="' + singleId + '" src="' + imageUrls[0].replace(/"/g, '&quot;') + '" alt="' + safeKeyword + '" onerror="this.parentElement.style.display=\'none\'" onclick="window.open(\'' + searchUrl.replace(/'/g, "\\'") + '\', \'_blank\')" style="transition:transform 0.2s">' +
-      '<div class="img-zoom-controls">' +
-        '<button class="img-zoom-btn" onclick="event.stopPropagation();imgZoom(\'' + singleId + '\',1)" title="Zoom In"><svg viewBox="0 0 24 24"><circle cx="11" cy="11" r="7"/><line x1="16.5" y1="16.5" x2="22" y2="22"/><line x1="8" y1="11" x2="14" y2="11"/><line x1="11" y1="8" x2="11" y2="14"/></svg></button>' +
-        '<button class="img-zoom-btn" onclick="event.stopPropagation();imgZoom(\'' + singleId + '\',-1)" title="Zoom Out"><svg viewBox="0 0 24 24"><circle cx="11" cy="11" r="7"/><line x1="16.5" y1="16.5" x2="22" y2="22"/><line x1="8" y1="11" x2="14" y2="11"/></svg></button>' +
-      '</div>' +
+      '<img src="' + imageUrls[0].replace(/"/g, '&quot;') + '" alt="' + safeKeyword + '" onerror="this.parentElement.style.display=\'none\'" onclick="window.open(\'' + searchUrl.replace(/'/g, "\\'") + '\', \'_blank\')">' +
       '<div class="img-caption"><a href="' + safeSUrl + '" target="_blank">View more images for "' + safeKeyword + '"</a></div>' +
       '</div>';
   }
 
-  // Build carousel for multiple images
   let html = '<div class="ai-modal-carousel" id="' + carouselId + '">';
   html += '<div class="carousel-track">';
   html += '<button class="carousel-btn prev" onclick="carouselNav(\'' + carouselId + '\', -1)">&lsaquo;</button>';
   imageUrls.forEach((url, i) => {
     const display = i === 0 ? 'block' : 'none';
-    const imgId = carouselId + '-img-' + i;
-    html += '<img class="carousel-img" id="' + imgId + '" data-idx="' + i + '" src="' + url.replace(/"/g, '&quot;') + '" alt="' + safeKeyword + ' (' + (i+1) + ')" style="display:' + display + ';transition:transform 0.2s" onerror="this.style.display=\'none\'" onclick="window.open(\'' + searchUrl.replace(/'/g, "\\'") + '\', \'_blank\')">';
+    html += '<img class="carousel-img" data-idx="' + i + '" src="' + url.replace(/"/g, '&quot;') + '" alt="' + safeKeyword + ' (' + (i+1) + ')" style="display:' + display + '" onerror="this.style.display=\'none\'" onclick="window.open(\'' + searchUrl.replace(/'/g, "\\'") + '\', \'_blank\')">';
   });
-  html += '<div class="img-zoom-controls">' +
-    '<button class="img-zoom-btn" onclick="event.stopPropagation();carouselZoom(\'' + carouselId + '\',1)" title="Zoom In"><svg viewBox="0 0 24 24"><circle cx="11" cy="11" r="7"/><line x1="16.5" y1="16.5" x2="22" y2="22"/><line x1="8" y1="11" x2="14" y2="11"/><line x1="11" y1="8" x2="11" y2="14"/></svg></button>' +
-    '<button class="img-zoom-btn" onclick="event.stopPropagation();carouselZoom(\'' + carouselId + '\',-1)" title="Zoom Out"><svg viewBox="0 0 24 24"><circle cx="11" cy="11" r="7"/><line x1="16.5" y1="16.5" x2="22" y2="22"/><line x1="8" y1="11" x2="14" y2="11"/></svg></button>' +
-    '</div>';
   html += '<button class="carousel-btn next" onclick="carouselNav(\'' + carouselId + '\', 1)">&rsaquo;</button>';
   html += '</div>';
-  // Dots
   html += '<div class="carousel-dots">';
   imageUrls.forEach((_, i) => {
     html += '<span class="carousel-dot' + (i === 0 ? ' active' : '') + '" onclick="carouselGoTo(\'' + carouselId + '\', ' + i + ')"></span>';
@@ -2297,16 +2147,13 @@ function buildImageHtml(imageUrls, searchUrl, keyword) {
   return html;
 }
 
-// Carousel navigation functions
 function carouselNav(carouselId, direction) {
   const carousel = document.getElementById(carouselId);
   if (!carousel) return;
   const imgs = carousel.querySelectorAll('.carousel-img');
-  const dots = carousel.querySelectorAll('.carousel-dot');
   const total = imgs.length;
   if (total === 0) return;
 
-  // Find current visible image
   let currentIdx = 0;
   imgs.forEach((img, i) => { if (img.style.display !== 'none') currentIdx = i; });
 
@@ -2329,31 +2176,7 @@ function carouselGoTo(carouselId, idx) {
   if (counter) counter.textContent = (idx + 1) + ' / ' + imgs.length;
 }
 
-// Zoom for carousel images (finds the currently visible image)
-function carouselZoom(carouselId, direction) {
-  const carousel = document.getElementById(carouselId);
-  if (!carousel) return;
-  const imgs = carousel.querySelectorAll('.carousel-img');
-  let visibleImg = null;
-  imgs.forEach(img => { if (img.style.display !== 'none') visibleImg = img; });
-  if (visibleImg) imgZoom(visibleImg.id, direction);
-}
-
-// Zoom in/out for a single image by id
-function imgZoom(imgId, direction) {
-  const img = document.getElementById(imgId);
-  if (!img) return;
-  let scale = parseFloat(img.dataset.zoomScale || '1');
-  if (direction > 0) {
-    scale = Math.min(scale + 0.25, 3);
-  } else {
-    scale = Math.max(scale - 0.25, 0.5);
-  }
-  img.dataset.zoomScale = scale;
-  img.style.transform = 'scale(' + scale + ')';
-}
-
-// Highlight known terms inside already-rendered HTML (only in text nodes, not inside tags)
+// Highlight known terms inside already-rendered HTML
 function highlightTermsInHtml(html) {
   const container = document.createElement('div');
   container.innerHTML = html;
@@ -2409,7 +2232,6 @@ function highlightTermsInHtml(html) {
       }
       node.parentNode.replaceChild(frag, node);
     } else if (node.nodeType === Node.ELEMENT_NODE && !['CODE', 'PRE', 'SCRIPT', 'STYLE'].includes(node.tagName)) {
-      // Walk children in reverse to handle replacements safely
       const children = Array.from(node.childNodes);
       children.forEach(child => walkTextNodes(child));
     }
@@ -2423,7 +2245,7 @@ function askAiAboutTerm(termKey) {
   const termData = termsGlossary[termKey];
   if (!termData) return;
   const termName = termData.term;
-  const query = 'in the context of car mechanic, what is ' + termName + ', explain to me in 200 words, show me the pronunciation of ' + termName + ', also, please translate the explanation to simplified chinese';
+  const query = 'in the context of computer science and artificial intelligence, what is ' + termName + ', explain to me in 200 words, also, please translate the explanation to simplified chinese';
   streamAiQuery(termName, query);
 }
 
@@ -2435,7 +2257,6 @@ function closeAiModal(event) {
   if (bar) bar.style.display = 'none';
 }
 
-// Submit custom question from the Ask Question textbox
 function submitAiQuestion() {
   const input = document.getElementById('aiAskInput');
   const question = input.value.trim();
@@ -2445,24 +2266,21 @@ function submitAiQuestion() {
   input.value = '';
 }
 
-// Ask AI about arbitrary highlighted text
 function askAiAboutText(text) {
   if (!text || text.trim().length === 0) return;
   const trimmed = text.trim();
-  const query = 'in the context of car mechanic, what is ' + trimmed + ', explain to me in 200 words, show me the pronunciation of ' + trimmed + ', also, please translate the explanation to simplified chinese';
+  const query = 'in the context of computer science and artificial intelligence, what is ' + trimmed + ', explain to me in 200 words, also, please translate the explanation to simplified chinese';
   streamAiQuery(trimmed, query);
 }
 
-// Detect text selection in question/answer areas AND in the AI popup, trigger AI lookup
+// Detect text selection in question/answer areas AND in the AI popup
 document.addEventListener('mouseup', function(e) {
-  // Small delay to let the browser finalize the selection
   setTimeout(function() {
     const sel = window.getSelection();
     if (!sel || sel.isCollapsed) return;
     const selectedText = sel.toString().trim();
     if (selectedText.length < 2 || selectedText.length > 200) return;
 
-    // Check if selection is inside the question card area
     const anchorNode = sel.anchorNode;
     const focusNode = sel.focusNode;
     if (!anchorNode || !focusNode) return;
@@ -2480,7 +2298,6 @@ document.addEventListener('mouseup', function(e) {
 
     if (isInQuestion || isInExplanation || isInAiPopup || isInTermModal || isInTutorial) {
       askAiAboutText(selectedText);
-      // Clear selection after triggering
       sel.removeAllRanges();
     }
   }, 10);
@@ -2501,19 +2318,16 @@ document.addEventListener('keydown', (e) => {
   let isDragging = false;
   let dragOffsetX = 0, dragOffsetY = 0;
 
-  // Save position to localStorage
   function saveModalPosition() {
     const rect = modal.getBoundingClientRect();
     localStorage.setItem('aiModalPos', JSON.stringify({ left: rect.left, top: rect.top }));
   }
 
-  // Restore saved position, or center if none saved
   function restoreModalPosition() {
     const saved = localStorage.getItem('aiModalPos');
     if (saved) {
       try {
         const pos = JSON.parse(saved);
-        // Clamp to viewport bounds
         const maxLeft = window.innerWidth - modal.offsetWidth;
         const maxTop = window.innerHeight - modal.offsetHeight;
         const left = Math.max(0, Math.min(pos.left, maxLeft));
@@ -2523,7 +2337,6 @@ document.addEventListener('keydown', (e) => {
         return;
       } catch(e) {}
     }
-    // Default: center
     centerModal();
   }
 
@@ -2535,7 +2348,6 @@ document.addEventListener('keydown', (e) => {
   }
 
   header.addEventListener('mousedown', function(e) {
-    // Don't drag when clicking the close button or minmax buttons, or when maximized
     if (e.target.classList.contains('ai-modal-close')) return;
     if (e.target.classList.contains('modal-minmax-btn')) return;
     if (modal.classList.contains('maximized')) return;
@@ -2550,7 +2362,6 @@ document.addEventListener('keydown', (e) => {
     if (!isDragging) return;
     let newLeft = e.clientX - dragOffsetX;
     let newTop = e.clientY - dragOffsetY;
-    // Clamp so modal stays on screen
     newLeft = Math.max(0, Math.min(newLeft, window.innerWidth - modal.offsetWidth));
     newTop = Math.max(0, Math.min(newTop, window.innerHeight - 40));
     modal.style.left = newLeft + 'px';
@@ -2564,7 +2375,6 @@ document.addEventListener('keydown', (e) => {
     }
   });
 
-  // Observe when the overlay becomes visible to position the modal
   const overlay = document.getElementById('aiModalOverlay');
   const observer = new MutationObserver(function(mutations) {
     mutations.forEach(function(m) {
@@ -2578,18 +2388,17 @@ document.addEventListener('keydown', (e) => {
 
 // --- Tutorial System ---
 const tutorialModules = {
-  'A1': { title: 'A1 - Engine Repair Tutorial', files: ['A1.md', 'A1-module-1.md', 'A1-module-2.md', 'A1-module-3.md', 'A1-module-4.md'], labels: ['Overview', 'Engine Diagnosis', 'Cylinder Head & Valve Train', 'Engine Block', 'Lubrication & Cooling'] },
-  'A2': { title: 'A2 - Auto Transmission Tutorial', files: ['A2.md', 'A2-module-1.md', 'A2-module-2.md', 'A2-module-3.md'], labels: ['Overview', 'Transmission Diagnosis', 'Maintenance & Adjustment', 'Repair'] },
-  'A3': { title: 'A3 - Manual Drive Train Tutorial', files: ['A3.md', 'A3-module-1.md', 'A3-module-2.md', 'A3-module-3.md'], labels: ['Overview', 'Clutch', 'Transmission & Transaxle', 'Drive Shaft & Differential'] },
-  'A4': { title: 'A4 - Suspension & Steering Tutorial', files: ['A4.md', 'A4-module-1.md', 'A4-module-2.md', 'A4-module-3.md'], labels: ['Overview', 'Steering Systems', 'Suspension Systems', 'Alignment & Tires'] },
-  'A5': { title: 'A5 - Brakes Tutorial', files: ['A5.md', 'A5-module-1.md', 'A5-module-2.md', 'A5-module-3.md'], labels: ['Overview', 'Hydraulic System', 'Disc & Drum Brakes', 'Power Assist & Electronic'] },
-  'A6': { title: 'A6 - Electrical Systems Tutorial', files: ['A6.md', 'A6-module-1.md', 'A6-module-2.md', 'A6-module-3.md'], labels: ['Overview', 'Electrical & Battery', 'Starting & Charging', 'Lighting & Accessories'] },
-  'A7': { title: 'A7 - HVAC Tutorial', files: ['A7.md', 'A7-module-1.md', 'A7-module-2.md', 'A7-module-3.md'], labels: ['Overview', 'A/C Fundamentals', 'A/C Diagnosis & Service', 'Heating & Controls'] },
-  'A8': { title: 'A8 - Engine Performance Tutorial', files: ['A8.md', 'A8-module-1.md', 'A8-module-2.md', 'A8-module-3.md'], labels: ['Overview', 'Ignition & Fuel', 'Emission Control', 'Computer Controls'] },
-  'G1': { title: 'G1 - Maintenance & Light Repair Tutorial', files: ['G1.md', 'G1-module-1.md', 'G1-module-2.md', 'G1-module-3.md'], labels: ['Overview', 'Engine & Drivetrain', 'Brakes & Suspension', 'Electrical & HVAC'] }
+  'PROG': { title: 'PROG - Programming Fundamentals Tutorial', files: ['PROG.md', 'PROG-module-1.md', 'PROG-module-2.md', 'PROG-module-3.md'], labels: ['Overview', 'Variables & Control Flow', 'Functions & Recursion', 'OOP & Data Structures'] },
+  'MATH': { title: 'MATH - Mathematics for CS Tutorial', files: ['MATH.md', 'MATH-module-1.md', 'MATH-module-2.md', 'MATH-module-3.md'], labels: ['Overview', 'Calculus Essentials', 'Linear Algebra', 'Discrete Math'] },
+  'DSA': { title: 'DSA - Data Structures & Algorithms Tutorial', files: ['DSA.md', 'DSA-module-1.md', 'DSA-module-2.md', 'DSA-module-3.md'], labels: ['Overview', 'Trees & Graphs', 'Sorting & Searching', 'DP & Greedy'] },
+  'SYS': { title: 'SYS - Systems Programming Tutorial', files: ['SYS.md', 'SYS-module-1.md', 'SYS-module-2.md', 'SYS-module-3.md'], labels: ['Overview', 'C & Memory', 'Computer Organization', 'OS Concepts'] },
+  'AIF': { title: 'AIF - AI Foundations Tutorial', files: ['AIF.md', 'AIF-module-1.md', 'AIF-module-2.md', 'AIF-module-3.md'], labels: ['Overview', 'Search & Planning', 'Logic & Reasoning', 'Probabilistic AI'] },
+  'ML': { title: 'ML - Machine Learning Tutorial', files: ['ML.md', 'ML-module-1.md', 'ML-module-2.md', 'ML-module-3.md'], labels: ['Overview', 'Supervised Learning', 'Neural Networks & DL', 'Evaluation & Regularization'] },
+  'CV': { title: 'CV - Computer Vision Tutorial', files: ['CV.md', 'CV-module-1.md', 'CV-module-2.md', 'CV-module-3.md'], labels: ['Overview', 'Image Processing', 'Feature Extraction', 'Deep Learning for Vision'] },
+  'NLP': { title: 'NLP - NLP & Applications Tutorial', files: ['NLP.md', 'NLP-module-1.md', 'NLP-module-2.md', 'NLP-module-3.md'], labels: ['Overview', 'Text Processing', 'Transformers', 'Recommender Systems'] }
 };
 
-let tutorialCache = {}; // cache fetched markdown
+let tutorialCache = {};
 let currentTutorialSection = null;
 let currentTutorialModuleIdx = 0;
 
@@ -2602,7 +2411,6 @@ function openTutorial() {
 
   document.getElementById('tutorialModalTitle').textContent = config.title;
 
-  // Build nav buttons
   const navEl = document.getElementById('tutorialModalNav');
   navEl.innerHTML = '';
   config.labels.forEach((label, idx) => {
@@ -2622,7 +2430,6 @@ function loadTutorialModule(idx) {
   if (!config || idx < 0 || idx >= config.files.length) return;
   currentTutorialModuleIdx = idx;
 
-  // Update nav active state
   const navBtns = document.querySelectorAll('.tutorial-nav-btn');
   navBtns.forEach((btn, i) => {
     btn.classList.toggle('active', i === idx);
@@ -2656,7 +2463,6 @@ function loadTutorialModule(idx) {
 }
 
 function renderTutorialMarkdown(text) {
-  // Reuse the existing renderMarkdown function
   return renderMarkdown(text);
 }
 
@@ -2681,7 +2487,7 @@ selectSection = function(sectionId) {
   }
 };
 
-// Mini Tutorial - asks AI for a 400-word tutorial about the current question
+// Mini Tutorial
 function showMiniTutorial() {
   if (!currentQuestion) return;
   const questionText = currentQuestion.q;
@@ -2689,15 +2495,10 @@ function showMiniTutorial() {
   streamAiQuery('Mini Tutorial', prompt);
 }
 
-// Auto-select first tab
-// selectSection('A1');
-
 // --- Minimize / Maximize for All Modals ---
 (function() {
-  // Track maximized state
   const maximizedState = { term: false, ai: false, tutorial: false };
 
-  // Create minimized bars (appended to body)
   function createMinBar(id, title, restoreFn, closeFn) {
     let bar = document.getElementById(id);
     if (bar) return bar;
@@ -2717,11 +2518,8 @@ function showMiniTutorial() {
     return bar;
   }
 
-  // Term Modal
   createMinBar('termMinBar', 'Term Details', function() { restoreModal('term'); }, function() { closeMinBar('term'); });
-  // AI Modal
   createMinBar('aiMinBar', 'AI Lookup', function() { restoreModal('ai'); }, function() { closeMinBar('ai'); });
-  // Tutorial Modal
   createMinBar('tutorialMinBar', 'Tutorial', function() { restoreModal('tutorial'); }, function() { closeMinBar('tutorial'); });
 
   window.minimizeModal = function(type) {
@@ -2757,7 +2555,6 @@ function showMiniTutorial() {
   function closeMinBar(type) {
     const bar = document.getElementById(type + 'MinBar');
     bar.style.display = 'none';
-    // Reset maximized state
     maximizedState[type] = false;
     if (type === 'term') {
       document.getElementById('termModalOverlay').classList.remove('maximized');
@@ -2779,7 +2576,6 @@ function showMiniTutorial() {
         aiModal.style.left = '0';
         aiModal.style.top = '0';
       } else {
-        // Restore saved position
         const saved = localStorage.getItem('aiModalPos');
         if (saved) {
           try {

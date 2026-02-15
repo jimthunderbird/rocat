@@ -1,0 +1,11 @@
+role: University College Professor
+
+objective: clone the functionalities from ase_study_qa and apply app_spec and perform task
+
+app_spec {
+  topics: extracted list of main topics from https://cse.ucsd.edu/undergraduate/bs-artificial-intelligence-0
+}
+
+task {
+  increase each section's questions to 300
+}

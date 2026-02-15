@@ -243,7 +243,7 @@ Exports a `termsGlossary` object keyed by term ID strings.
 - Supports: headers, bold, italic, code blocks, lists, blockquotes, horizontal rules
 - **Clickable terms in popup**: After streaming completes, known mechanic terms in the AI response are highlighted and clickable — clicking them triggers a new AI query in the same popup
 - Modal has vertical scrolling, stays at top during streaming (no auto-scroll)
-- Fixed height of 400px for the modal body (no dynamic resizing during streaming)
+- Fixed height of 440px for the modal body (no dynamic resizing during streaming)
 - **Draggable**: Modal can be dragged by its header (grab cursor). Position is saved to `localStorage` and restored on next open, so the modal always appears at the user's last-dragged position
 - **Ask Question Box**: Sticky input area at the top of the modal body (always visible regardless of scrolling) with:
   - "Ask Question" label on the left
@@ -251,21 +251,29 @@ Exports a `termsGlossary` object keyed by term ID strings.
   - "Submit" button on the right
   - On submit, sends query: `"please answer the question: {question}, explain to me in 200 words, also, please translate them to simplified chinese"`
   - Response streams into the same modal body below the input
-- **Google Image Search**: When the AI popup is opened for a keyword, a Google Image search is performed in parallel (`index.php?img={keyword}`) using the URL format `https://www.google.com/search?q={keyword}&udm=2&tbs=isz:lt,islt:4mp,ic:color`. The first image result is displayed at the top of the popup body. Clicking the image opens the full Google Image search in a new tab. Images are cached in history entries for back/forward navigation.
+- **Google Image Search Carousel**: When the AI popup is opened for a keyword, a Google Image search is performed in parallel (`index.php?img={keyword}`) using the URL format `https://www.google.com/search?q={keyword} car mechanic&udm=2&tbs=isz:lt,islt:4mp,ic:color`. The search query appends "car mechanic" to ensure relevant automotive images. The **first 3 unique image results** are fetched and displayed as an **image carousel** at the top of the popup body with left/right arrow navigation buttons, dot indicators, and a counter (e.g., "1 / 3"). For single images, a simple image display is used instead. Unicode-escaped URLs from Google's HTML (e.g. `\u003d`) are decoded. Clicking any image opens the full Google Image search in a new tab. Image arrays are cached in history entries for back/forward navigation. **Zoom Controls**: On hover over the carousel track or single image, Zoom In (magnifying glass with +) and Zoom Out (magnifying glass with −) buttons appear in the bottom-right corner. Images scale from 0.5× to 3× in 0.25 steps.
 - **History Navigation**: Previous/Next buttons (browser-like history) at the top of the modal allow navigating back and forth through all AI queries made in the session
   - History tracks each query's display name, query text, completed response, and associated image URL
-  - History is persisted in localStorage (max 100 entries, key: `aiPopupHistory`), survives popup close and page reload
+  - History is persisted in localStorage (max 200 entries, key: `aiPopupHistory`), survives popup close and page reload
   - "Prev" and "Next" buttons with position indicator (e.g., "3 / 7")
   - Starting a new query from a back-navigated position trims forward history (like a browser)
   - Navigating history aborts any in-flight streaming request
   - Buttons are disabled at boundaries (Prev disabled at first entry, Next disabled at latest)
 - Close via X button, overlay click, or Escape key
 
+#### Minimize / Maximize (All Modals)
+All three modals (Term Glossary, AI Lookup, Tutorial) include **Minimize** and **Maximize** buttons in their header area, next to the close (×) button:
+- **Minimize** (─ icon): Hides the modal and shows a small floating bar at the bottom of the screen with the modal's title/query. The bar has a Restore button (□) to bring the modal back, and a Close button (×) to dismiss it entirely. Clicking anywhere on the bar also restores the modal.
+  - Bar positions: Term Details (bottom-right), AI Lookup (bottom-center-right), Tutorial (bottom-left)
+- **Maximize** (□ icon): Expands the modal to fill the entire viewport (100vw × 100vh, no border-radius). Clicking again restores to normal size. When the AI modal is maximized, dragging is disabled and the body height expands to fill the screen.
+- Close functions (`closeTermModal`, `closeAiModal`, `closeTutorial`) also reset maximized state and hide any minimized bar.
+- JavaScript functions: `minimizeModal(type)`, `restoreModal(type)`, `toggleMaximizeModal(type)` where type is `'term'`, `'ai'`, or `'tutorial'`
+
 #### Tutorial System
 - **Tutorial Button**: Centered above the score bar, labeled "{section} Tutorial" (e.g., "A1 Tutorial")
   - Dynamically updates when switching sections via `selectSection` override
   - Triggers `openTutorial()` on click
-- **Tutorial Modal**: Full-screen overlay with centered modal (max 800px wide, 80vh height)
+- **Tutorial Modal**: Full-screen overlay with centered modal (max 935px wide, 93vh height)
   - **Header**: Shows title (e.g., "A1 - Engine Repair Tutorial") and close button (×)
   - **Navigation**: Horizontal button bar for switching between modules
     - Active module button highlighted in primary accent color (#e94560)
@@ -311,10 +319,14 @@ GET index.php?q={question}
 GET index.php?img={keyword}
 ```
 - Detects `$_GET['img']` parameter
-- Fetches Google Image search page: `https://www.google.com/search?q={keyword}&udm=2&tbs=isz:lt,islt:4mp,ic:color`
-- Parses HTML to extract the first image URL from search results
-- Returns JSON: `{ "imageUrl": "...", "searchUrl": "..." }`
-- Falls back to Google thumbnail URLs if no direct image URL found
+- Appends " car mechanic" to the keyword for automotive-relevant results
+- Fetches Google Image search page: `https://www.google.com/search?q={keyword} car mechanic&udm=2&tbs=isz:lt,islt:4mp,ic:color`
+- Decodes Unicode-escaped URLs from Google's HTML (e.g. `\u003d` to `=`)
+- Parses HTML with 5 extraction methods to collect candidate image URLs
+- Deduplicates candidates and returns up to 4 unique image URLs
+- Returns JSON: `{ "imageUrl": "...", "imageUrls": ["...", "...", "...", "..."], "searchUrl": "..." }`
+- `imageUrl` contains the first result (legacy compatibility), `imageUrls` contains up to 4 results
+- Falls back to Google encrypted thumbnail URLs if no direct image URLs found
 - Uses `onerror` handler on `<img>` to gracefully hide if image fails to load
 
 **HTML Page:**
@@ -332,6 +344,7 @@ GET index.php?img={keyword}
 - AI badge: red gradient
 - Font: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif
 - Responsive: mobile breakpoint at 600px
+- **Modal Sizes**: Term modal (max 572px, 92% width), AI modal (max 682px, 96% width, 88vh max-height, 440px body), Tutorial modal (max 935px, 96% width, 93vh max-height)
 
 ### 3.8 JavaScript Architecture
 
@@ -356,7 +369,11 @@ GET index.php?img={keyword}
 | `highlightTerms(text)` | Scans text for glossary terms, wraps in clickable spans |
 | `showTermModal(termKey)` | Opens glossary modal for a term |
 | `streamAiQuery(displayName, query)` | Core streaming function — sends query to Ollama, streams response into AI modal with progressive Markdown rendering, highlights terms in final output. Also fetches Google Image search result in parallel and displays it at the top of the popup |
-| `buildImageHtml(imageUrl, searchUrl, keyword)` | Builds HTML for the image display at the top of the AI modal — clickable image that opens Google Image search in new tab |
+| `buildImageHtml(imageUrls, searchUrl, keyword)` | Builds HTML for the image carousel at the top of the AI modal — supports 1-4 images with carousel navigation (arrows, dots, counter). For single images, renders a simple display. Clicking images opens Google Image search in new tab |
+| `carouselNav(carouselId, direction)` | Navigates the image carousel left (-1) or right (+1) with wrapping |
+| `carouselGoTo(carouselId, idx)` | Jumps to a specific image index in the carousel |
+| `carouselZoom(carouselId, direction)` | Zooms the currently visible carousel image in (+1) or out (-1) |
+| `imgZoom(imgId, direction)` | Zooms a single image by ID — scales from 0.5× to 3× in 0.25 steps |
 | `highlightTermsInHtml(html)` | Post-processes rendered HTML to add clickable term highlights in text nodes (skips code/pre blocks) |
 | `askAiAboutTerm(termKey)` | Opens AI modal, streams Ollama response for a glossary term |
 | `askAiAboutText(text)` | Opens AI modal, streams Ollama response for arbitrary selected text |
@@ -371,7 +388,10 @@ GET index.php?img={keyword}
 | `loadTutorialModule(idx)` | Fetches and renders a tutorial module markdown file (with caching) |
 | `renderTutorialMarkdown(text)` | Delegates to `renderMarkdown()` to convert tutorial Markdown to HTML |
 | `showMiniTutorial()` | Sends the current question to Ollama for a 400-word tutorial explaining the knowledge and related terms behind it |
-| `closeTutorial(event)` | Closes tutorial modal overlay |
+| `closeTutorial(event)` | Closes tutorial modal overlay, resets maximized state, hides minimized bar |
+| `minimizeModal(type)` | Minimizes the specified modal ('term', 'ai', or 'tutorial') — hides modal, shows floating bar at bottom |
+| `restoreModal(type)` | Restores a minimized modal from its floating bar |
+| `toggleMaximizeModal(type)` | Toggles fullscreen maximize state for the specified modal |
 
 ---
 

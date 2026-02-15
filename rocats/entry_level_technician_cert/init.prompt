@@ -457,6 +457,24 @@ task {
 }
 
 task {
-  when showing the highlighted keywords in the popup, also show me the first image of "https://www.google.com/search?q={the highlighted text}&udm=2&tbs=isz:lt,islt:4mp,ic:color"
+  when showing the highlighted keywords in the popup, also show me the first image of "https://www.google.com/search?q={the highlighted text} car mechanic&udm=2&tbs=isz:lt,islt:4mp,ic:color"
+  status: "completed"
+}
+
+task {
+  in task.popup_history, please keep a history of maximum 200 messages
+  when showing the highlighted keywords in the popup, also show me the first 4 images of "https://www.google.com/search?q={the highlighted text} car mechanic&udm=2&tbs=isz:lt,islt:4mp,ic:color"
+  render the images like a carousel, there should be a left and right arrows in the carousel to control the image rolling
+  status: "completed"
+}
+
+task {
+  for every single one of the popup, please add minimum and maximize button allowing user to minimize and maximum it
+  status: "completed"
+}
+
+task {
+  increase every single popup width and height in ./entry_level_technician_cert/ase_study_qa by 10%
+  for the google image carousel, when hover on each image, show "zoom in" and "zoom out" button with zoom-in and zoom-out icon
   status: "completed"
 }
