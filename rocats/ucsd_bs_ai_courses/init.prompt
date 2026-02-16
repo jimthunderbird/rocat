@@ -6,6 +6,28 @@ app_spec {
   topics: extracted list of main topics from https://cse.ucsd.edu/undergraduate/bs-artificial-intelligence-0
 }
 
-task {
+task (completed){
   increase each section's questions to 300
+}
+
+task (completed) {
+  for ./study_qa/q_aif.js, set the number of question/answer entries to 40
+}
+
+task.fix_ml_tab (completed){
+  when clicking on "ML (Maching Learning)" tab, it said: "
+  Loading questions...
+  Questions for ML are still loading. Please try again.
+  "
+  please fix it
+}
+
+task (completed) {
+  learn from task.fix_ml_tab, take a look at all other tabs, fix it as well
+}
+
+task (completed){
+  i found some problems has issue:
+  'What does class="term-highlight" onclick="askAiAboutTerm('big_o_notation')">Big O notation represent?'
+  please fix them
 }

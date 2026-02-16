@@ -445,15 +445,54 @@ function updateScoreDisplay() {
 }
 
 function highlightTerms(text) {
-  if (!termsGlossary) return text;
-  const termKeys = Object.keys(termsGlossary).sort((a, b) => termsGlossary[b].term.length - termsGlossary[a].term.length);
+  if (!termsGlossary || !text) return text;
+  const termLookup = [];
+  for (const key in termsGlossary) {
+    const t = termsGlossary[key];
+    termLookup.push({ name: t.term, key: key });
+    const shortName = t.term.replace(/\s*\(.*?\)\s*/g, '').trim();
+    if (shortName !== t.term && shortName.length > 3) {
+      termLookup.push({ name: shortName, key: key });
+    }
+  }
+  termLookup.sort((a, b) => b.name.length - a.name.length);
+
   let result = text;
-  termKeys.forEach(key => {
-    const term = termsGlossary[key];
-    const escaped = term.term.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
-    const regex = new RegExp(`\\b(${escaped})\\b`, 'gi');
-    result = result.replace(regex, `<span class="term-highlight" onclick="askAiAboutTerm('${key}')">$1</span>`);
-  });
+  const replacements = [];
+  const lowerText = result.toLowerCase();
+
+  for (const entry of termLookup) {
+    const termLower = entry.name.toLowerCase();
+    let searchFrom = 0;
+    while (true) {
+      const idx = lowerText.indexOf(termLower, searchFrom);
+      if (idx === -1) break;
+      const end = idx + entry.name.length;
+      const charBefore = idx > 0 ? lowerText[idx - 1] : ' ';
+      const charAfter = end < lowerText.length ? lowerText[end] : ' ';
+      const isBoundaryBefore = /[\s,.:;!?()/"'\-]/.test(charBefore) || idx === 0;
+      const isBoundaryAfter = /[\s,.:;!?()/"'\-]/.test(charAfter) || end === lowerText.length;
+      if (isBoundaryBefore && isBoundaryAfter) {
+        let overlaps = false;
+        for (const r of replacements) {
+          if (idx < r.end && end > r.start) { overlaps = true; break; }
+        }
+        if (!overlaps) {
+          replacements.push({ start: idx, end: end, key: entry.key, name: entry.name });
+        }
+      }
+      searchFrom = idx + 1;
+    }
+  }
+
+  replacements.sort((a, b) => b.start - a.start);
+  for (const r of replacements) {
+    const original = result.substring(r.start, r.end);
+    const escaped = r.key.replace(/'/g, "\\'");
+    result = result.substring(0, r.start) +
+      '<span class="term-highlight" onclick="askAiAboutTerm(\'' + escaped + '\')" title="Click to ask AI about this term">' + original + '</span>' +
+      result.substring(r.end);
+  }
   return result;
 }
 
