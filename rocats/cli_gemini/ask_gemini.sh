@@ -36,10 +36,8 @@ fi
 
 if [ -n "$SESSION_ID" ]; then
     GEMINI_URL="https://gemini.google.com/app/${SESSION_ID}"
-    echo "(Resuming session: $SESSION_ID)"
 else
     GEMINI_URL="https://gemini.google.com/app"
-    echo "(Starting new conversation)"
 fi
 
 # --- Step 1: Navigate to Gemini ---
@@ -285,10 +283,6 @@ tell application "System Events"
 end tell
 FOCUSTERM
 
-echo "Question sent to Gemini: $QUESTION"
-echo "(Editor: $SUBMIT_RESULT | Send: $SEND_RESULT)" >&2
-echo "Waiting for response..."
-
 # --- Step 7: Poll for the response with streaming output ---
 
 # JavaScript to extract the last Gemini model response
@@ -396,11 +390,6 @@ STABLE_THRESHOLD=2
 STARTED=false
 NOT_SUBMITTED_COUNT=0
 
-echo ""
-echo "============================================"
-echo "Gemini Response:"
-echo "============================================"
-
 for ((i=0; i<MAX_CHECKS; i++)); do
     # Get current response text
     CURRENT=$(osascript 2>/dev/null <<POLLSCRIPT
@@ -489,7 +478,4 @@ SESSIONSCRIPT
 if [[ "$NEW_SESSION_URL" =~ gemini\.google\.com/app/([a-zA-Z0-9_-]+) ]]; then
     CAPTURED_ID="${BASH_REMATCH[1]}"
     echo "$CAPTURED_ID" > "$SESSION_FILE"
-    echo "(Session saved: $CAPTURED_ID)"
 fi
-
-echo "============================================"
