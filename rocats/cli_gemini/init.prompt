@@ -63,7 +63,62 @@ task (completed){
   ============================================
 }
 
-task {
+task (completed){
   after opening the gemini url, record the session id, the session id usually will be https://gemini.google.com/app/{session_id} 
   when asking the next question, resume the session with {session_id}
+}
+
+task (completed){
+  I have a prompt like the following prompt "
+  role: Python 3 and Computer Algorithm Expert
+
+  objective: write a python script to perform bubble sort
+
+  constraint {
+    display codeblock only
+    no explanation
+    no extra words
+    proper formatted python code
+  } 
+  "
+  but it does not work, please fix it!
+}
+
+task (completed){
+  when running: sh ask_gemini.sh -f python_bubblesort_gemini.prompt {
+    do not display the prompt in terminal
+    just display the result of the prompt
+  } 
+}
+
+task.no_prompt (completed) {
+  when running: 
+  sh ask_gemini.sh -f python_bubblesort_gemini.prompt                                 
+  i still got: 
+  role: Python 3 and Computer Algorithm Expert
+
+  objective: write a python script to perform bubble sort
+
+  constraint {
+    display codeblock only
+    no explanation
+    no extra words
+    proper formatted python code
+  }def bubble_sort(arr):
+  n = len(arr)
+  for i in range(n):
+  swapped = False
+  for j in range(0, n - i - 1):
+  if arr[j] > arr[j + 1]:
+  arr[j], arr[j + 1] = arr[j + 1], arr[j]
+  swapped = True
+  if not swapped:
+  break
+  return arr
+
+  noticed the prompt content still shows up, please fix it!
+}
+
+task {
+  the task.no_prompt is still not fixed, i still see the prompt content shows up! it should not show the prompt content
 }

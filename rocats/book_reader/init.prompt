@@ -1,0 +1,52 @@
+role: Pure HTML/CSS/Javascript Single Page Application Expert
+
+objective: create a single page app based on app_spec and task
+
+constraint {
+  entrypoint must be index.php
+}
+
+app_spec {
+  let book_content = (use php to read the file content from "https://www.gutenberg.org/cache/epub/1661/pg1661.txt")
+  
+  div.book_content.innerHTML = {book_content}
+
+  when text are highlighted in div.book_content {
+    let search_text = (20 words before the highlighted text) + (highlighted text) + (20 words after the highlighted text)
+    let result = (send a request to index.php?q="what does {the highlighted text} mean in the context of {search text}, show me the pronounciation of {the highlighted text} in International Phonetic Alphabet , explain the meaning of {the highlighted text} in 50 words, also, please translate the explanation to simplified chinese")
+    display {result} in a popup modal with veritcal scrolling
+    when we have index.php?q={question} {
+      use php to execute cli command 'ollama run gemma2:2b "{question}"'
+      return the response as string and print it out
+      do php exit
+    }
+    stream the result so that the first chunk will show immediately in the popup modal
+  }
+}
+
+task (completed) {
+  in the popup, i got message in weird characters like "[?2026h[?25l[1G⠙ [K[?25h[?2026l[?2026h[?25l[1G⠹ [K[?25h[?2026l[?25l[?2026h[?25l[1G[K[?25h[?2026l[2K[1G[?25hHe[?25l[?25h sees[?25l[?25h her[?25l"
+  please fix it
+}
+
+task (completed){
+  please display markdown properly in nice html format in the popup
+}
+
+task (completed){
+  in the top bar, create a textbox similar to google's search bar {
+    when entering an url of a book or article, it will have php read the content and then display the content in div.book_content
+  }
+}
+
+task (completed){
+  inside of the popup, when text are highlighted {
+    let search_text = (highlighted text) 
+    let result = (send a request to index.php?q="what is {the highlighted text}, show me the pronounciation in International Phonetic Alphabet, explain to me in 50 words, also, translate the explanation to simplified chinese")
+    display {result} in a popup modal
+  }
+}
+
+task {
+  please display markdown properly in nice html format in the popup
+}
