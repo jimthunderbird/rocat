@@ -42,6 +42,7 @@ $bookcontent = file_get_contents("https://www.gutenberg.org/cache/epub/1661/pg16
         body {
             background-color: #FAFAD2;
             font-family: Georgia, serif;
+            font-size: 22px;
             padding: 20px;
             margin: 0;
         }

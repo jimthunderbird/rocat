@@ -5,7 +5,7 @@
 读取如下url："https://www.gutenberg.org/cache/epub/1661/pg1661.txt"
 存于变量bookcontent
 创建新层曰bookdiv, 悉数嵌入bookcontent
-页面背景为淡黄，字体名曰Georgia,serif，内边距20像素
+页面背景为淡黄，字体名曰Georgia,serif，大小22像素，内边距20像素
 
 层曰bookdiv新功能：
 今有变量llm_model:"gemma2:2b"
