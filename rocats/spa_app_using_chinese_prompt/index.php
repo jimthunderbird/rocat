@@ -77,6 +77,18 @@ $bookcontent = file_get_contents("https://www.gutenberg.org/cache/epub/1661/pg16
             font-weight: bold;
             font-size: 17px;
             color: #5B3A1A;
+            margin-right: 8px;
+        }
+        #worddef-ipa {
+            color: #8B0000;
+            background: #FFF0E0;
+            font-family: 'Lucida Sans Unicode', 'Segoe UI', sans-serif;
+            font-weight: 600;
+            padding: 2px 7px;
+            border-radius: 4px;
+            border: 1px solid #E8C8A0;
+            font-size: 15px;
+            letter-spacing: 0.5px;
         }
         #worddef-close {
             cursor: pointer;
@@ -98,6 +110,17 @@ $bookcontent = file_get_contents("https://www.gutenberg.org/cache/epub/1661/pg16
         #worddef-body pre code { background: none; padding: 0; }
         #worddef-body ul, #worddef-body ol { margin: 4px 0; padding-left: 20px; }
         #worddef-body strong { color: #5B3A1A; }
+        .ipa {
+            color: #8B0000;
+            background: #FFF0E0;
+            font-family: 'Lucida Sans Unicode', 'Segoe UI', sans-serif;
+            font-weight: 600;
+            padding: 1px 5px;
+            border-radius: 3px;
+            border: 1px solid #E8C8A0;
+            font-size: 14px;
+            letter-spacing: 0.5px;
+        }
         .spinner {
             display: inline-block;
             width: 14px;
@@ -119,7 +142,10 @@ $bookcontent = file_get_contents("https://www.gutenberg.org/cache/epub/1661/pg16
 
     <div id="worddef">
         <div id="worddef-header">
-            <span id="worddef-title"></span>
+            <div style="display:flex;align-items:center;gap:6px;flex-wrap:wrap;">
+                <span id="worddef-title"></span>
+                <span id="worddef-ipa"></span>
+            </div>
             <button id="worddef-close">&times;</button>
         </div>
         <div id="worddef-body"></div>
@@ -168,7 +194,11 @@ $bookcontent = file_get_contents("https://www.gutenberg.org/cache/epub/1661/pg16
             const body = document.getElementById('worddef-body');
 
             title.textContent = word;
+            document.getElementById('worddef-ipa').textContent = '';
             body.innerHTML = '<span class="spinner"></span> Looking up...';
+
+            // Fetch IPA from free dictionary API
+            fetchIPA(word);
 
             // Position popup below the highlighted word (absolute positioning, document coords)
             let top = rect.bottom + window.scrollY + 8;
@@ -183,6 +213,27 @@ $bookcontent = file_get_contents("https://www.gutenberg.org/cache/epub/1661/pg16
 
             // Stream from backend
             fetchStream(word, currentController.signal);
+        }
+
+        function colorizeIPA(html) {
+            // Match IPA between /.../ or [...]
+            // IPA contains characters like: ə ɪ ɑ ɔ ʃ ʒ θ ð ŋ ʌ æ ɛ ɜ ː ˈ ˌ etc.
+            return html.replace(/([\/\[])([^\/\[\]]*?[əɪɑɔʃʒθðŋʌæɛɜːˈˌɒʊɡɹɾʔɫɵʉɐɯɤɨʝçɲɱβɸʁʀχħʕɦɬɮɻʂʐɕʑɥɰǀǁǂǃ˥˦˧˨˩]+[^\/\[\]]*?)([\/\]])/g,
+                '<span class="ipa">$1$2$3</span>');
+        }
+
+        async function fetchIPA(word) {
+            const ipaSpan = document.getElementById('worddef-ipa');
+            try {
+                const res = await fetch('https://api.dictionaryapi.dev/api/v2/entries/en/' + encodeURIComponent(word));
+                if (!res.ok) { ipaSpan.textContent = ''; return; }
+                const data = await res.json();
+                const phonetics = data[0]?.phonetics || [];
+                const ipa = phonetics.find(p => p.text)?.text || data[0]?.phonetic || '';
+                ipaSpan.textContent = ipa;
+            } catch (e) {
+                ipaSpan.textContent = '';
+            }
         }
 
         async function fetchStream(word, signal) {
@@ -215,7 +266,7 @@ $bookcontent = file_get_contents("https://www.gutenberg.org/cache/epub/1661/pg16
                             const json = JSON.parse(line);
                             if (json.response) {
                                 fullText += json.response;
-                                body.innerHTML = marked.parse(fullText);
+                                body.innerHTML = colorizeIPA(marked.parse(fullText));
                                 const popup = document.getElementById('worddef');
                                 popup.scrollTop = popup.scrollHeight;
                             }
