@@ -9,28 +9,34 @@ if (isset($_GET['q']) && !empty($_GET['q'])) {
     while (ob_get_level()) ob_end_clean();
 
     $question = $_GET['q'];
-    $escaped = escapeshellarg($question);
-    $command = "TERM=dumb NOCOLOR=1 ollama run gemma2:2b $escaped 2>/dev/null";
 
-    $handle = popen($command, 'r');
-    if ($handle) {
-        while (!feof($handle)) {
-            $chunk = fread($handle, 256);
-            if ($chunk !== false && $chunk !== '') {
-                // Strip ANSI escape sequences and terminal control codes
-                $chunk = preg_replace('/\x1b\[[0-9;]*[a-zA-Z]/', '', $chunk);
-                $chunk = preg_replace('/\x1b\[\?[0-9;]*[a-zA-Z]/', '', $chunk);
-                $chunk = preg_replace('/[\x00-\x08\x0e-\x1f]/', '', $chunk);
-                if ($chunk !== '') {
-                    echo $chunk;
-                    flush();
-                }
+    $ch = curl_init('http://127.0.0.1:11434/api/generate');
+    curl_setopt($ch, CURLOPT_POST, true);
+    curl_setopt($ch, CURLOPT_HTTPHEADER, ['Content-Type: application/json']);
+    curl_setopt($ch, CURLOPT_POSTFIELDS, json_encode([
+        'model' => 'gemma2:2b',
+        'prompt' => $question,
+        'stream' => true
+    ]));
+    curl_setopt($ch, CURLOPT_RETURNTRANSFER, false);
+    curl_setopt($ch, CURLOPT_WRITEFUNCTION, function($ch, $data) {
+        foreach (explode("\n", $data) as $line) {
+            $line = trim($line);
+            if ($line === '') continue;
+            $json = json_decode($line, true);
+            if ($json && isset($json['response'])) {
+                echo $json['response'];
+                flush();
             }
         }
-        pclose($handle);
-    } else {
-        echo 'Error: Could not execute AI model.';
+        return strlen($data);
+    });
+
+    $result = curl_exec($ch);
+    if ($result === false) {
+        echo 'Error: Could not connect to Ollama server at 127.0.0.1:11434.';
     }
+    curl_close($ch);
     exit;
 }
 
@@ -243,6 +249,50 @@ body {
     color: #3e2723;
     margin-top: 4px;
     word-break: break-word;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.voice-btn {
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: 4px;
+    border-radius: 50%;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    transition: background 0.2s;
+    flex-shrink: 0;
+}
+
+.voice-btn:hover {
+    background: rgba(62, 39, 35, 0.1);
+}
+
+.voice-btn svg {
+    width: 20px;
+    height: 20px;
+    fill: #5d4037;
+}
+
+.ipa-voice-btn {
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: 2px;
+    border-radius: 50%;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    transition: background 0.2s;
+    vertical-align: middle;
+    margin-left: 4px;
+}
+
+.ipa-voice-btn:hover {
+    background: rgba(62, 39, 35, 0.15);
 }
 
 #modal-body {
@@ -464,6 +514,9 @@ body {
     color: #5d4037;
     margin-top: 3px;
     word-break: break-word;
+    display: flex;
+    align-items: center;
+    gap: 8px;
 }
 
 #nested-modal-body {
@@ -627,7 +680,7 @@ marked.setOptions({
         </div>
         <div id="modal-word">
             <div class="label">Selected text</div>
-            <div class="text" id="modal-selected-text"></div>
+            <div class="text"><span id="modal-selected-text"></span><button class="voice-btn" id="modal-voice-btn" title="Listen to pronunciation"><svg viewBox="0 0 24 24"><path d="M3 9v6h4l5 5V4L7 9H3zm13.5 3c0-1.77-1.02-3.29-2.5-4.03v8.05c1.48-.73 2.5-2.25 2.5-4.02zM14 3.23v2.06c2.89.86 5 3.54 5 6.71s-2.11 5.85-5 6.71v2.06c4.01-.91 7-4.49 7-8.77s-2.99-7.86-7-8.77z"/></svg></button></div>
         </div>
         <div id="modal-body"></div>
         <div id="modal-hint">Highlight text here to look up</div>
@@ -643,7 +696,7 @@ marked.setOptions({
         </div>
         <div id="nested-modal-word">
             <div class="label">Selected text</div>
-            <div class="text" id="nested-modal-selected-text"></div>
+            <div class="text"><span id="nested-modal-selected-text"></span><button class="voice-btn" id="nested-modal-voice-btn" title="Listen to pronunciation"><svg viewBox="0 0 24 24"><path d="M3 9v6h4l5 5V4L7 9H3zm13.5 3c0-1.77-1.02-3.29-2.5-4.03v8.05c1.48-.73 2.5-2.25 2.5-4.02zM14 3.23v2.06c2.89.86 5 3.54 5 6.71s-2.11 5.85-5 6.71v2.06c4.01-.91 7-4.49 7-8.77s-2.99-7.86-7-8.77z"/></svg></button></div>
         </div>
         <div id="nested-modal-body"></div>
         <div id="nested-modal-hint">Highlight text here for another lookup</div>
@@ -729,12 +782,44 @@ function getSurroundingContext(highlighted) {
     const idx = fullText.indexOf(highlighted);
     if (idx === -1) return highlighted;
 
-    const before = fullText.substring(0, idx).trim().split(/\s+/).slice(-20).join(' ');
-    const after = fullText.substring(idx + highlighted.length).trim().split(/\s+/).slice(0, 20).join(' ');
+    const before = fullText.substring(0, idx).trim().split(/\s+/).slice(-30).join(' ');
+    const after = fullText.substring(idx + highlighted.length).trim().split(/\s+/).slice(0, 30).join(' ');
     return (before + ' ' + highlighted + ' ' + after).trim();
 }
 
-async function streamAIResponse(question, targetBody, controller) {
+function injectVoiceIcons(targetBody, word) {
+    const html = targetBody.innerHTML;
+    const escaped = word.replace(/&/g, '&amp;').replace(/"/g, '&quot;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
+    const newHtml = html.replace(/\/([^\/\n]{1,50})\//g, function(match, inner) {
+        if (/[ˈˌːʃʒθðŋæɑɒɔəɜɪʊʌɛɐɾ]/.test(inner)) {
+            return match + '<button class="ipa-voice-btn" data-word="' + escaped + '" title="Listen to pronunciation"><svg viewBox="0 0 24 24" width="16" height="16"><path fill="#5d4037" d="M3 9v6h4l5 5V4L7 9H3zm13.5 3c0-1.77-1.02-3.29-2.5-4.03v8.05c1.48-.73 2.5-2.25 2.5-4.02zM14 3.23v2.06c2.89.86 5 3.54 5 6.71s-2.11 5.85-5 6.71v2.06c4.01-.91 7-4.49 7-8.77s-2.99-7.86-7-8.77z"/></svg></button>';
+        }
+        return match;
+    });
+    if (newHtml !== html) {
+        targetBody.innerHTML = newHtml;
+    }
+}
+
+// Capture-phase mouseup to prevent voice buttons from triggering popup highlights
+document.addEventListener('mouseup', function(e) {
+    if (e.target.closest('.ipa-voice-btn') || e.target.closest('.voice-btn')) {
+        e.stopPropagation();
+    }
+}, true);
+
+// Click handler for IPA voice buttons (event delegation)
+document.addEventListener('click', function(e) {
+    const btn = e.target.closest('.ipa-voice-btn');
+    if (btn) {
+        e.stopPropagation();
+        e.preventDefault();
+        const word = btn.getAttribute('data-word');
+        if (word) speakWord(word);
+    }
+});
+
+async function streamAIResponse(question, targetBody, controller, word) {
     try {
         const resp = await fetch('index.php?q=' + encodeURIComponent(question), {
             signal: controller.signal
@@ -751,6 +836,7 @@ async function streamAIResponse(question, targetBody, controller) {
             if (done) break;
             rawText += decoder.decode(value, { stream: true });
             targetBody.innerHTML = marked.parse(rawText);
+            if (word) injectVoiceIcons(targetBody, word);
             targetBody.scrollTop = targetBody.scrollHeight;
         }
     } catch (e) {
@@ -772,10 +858,10 @@ document.getElementById('book_content').addEventListener('mouseup', async () => 
     modalBody.innerHTML = '<div class="loading-text"><div class="spinner"></div><div>Asking AI...</div></div>';
     overlay.classList.add('active');
 
-    const searchText = getSurroundingContext(highlighted);
-    const question = 'what is "' + highlighted + '" in the context of "' + searchText + '", show me the pronounciation in International Phonetic Alphabet of "' + highlighted + '", explain to me in 50 words, also, please translate them to simplified chinese';
+    const context = getSurroundingContext(highlighted);
+    const question = 'in the context of "' + context + '", show me the pronounciation of "' + highlighted + '" in International Phonetic Alphabet, show the meaning of "' + highlighted + '" in 30 words, translate the meaning of "' + highlighted + '" in simplified chinese, no extra words';
 
-    await streamAIResponse(question, modalBody, mainController);
+    await streamAIResponse(question, modalBody, mainController, highlighted);
 });
 
 // Popup body & word area: highlight to open nested popup
@@ -792,9 +878,9 @@ function handlePopupHighlight(e) {
     nestedModalBody.innerHTML = '<div class="loading-text"><div class="spinner"></div><div>Asking AI...</div></div>';
     nestedOverlay.classList.add('active');
 
-    const question = 'what is "' + highlighted + '", show me the pronounciation in International Phonetic Alphabet, explain to me in 50 words, also, translate the explanation to simplified chinese';
+    const question = 'show me the pronounciation of "' + highlighted + '" in International Phonetic Alphabet, show the meaning of "' + highlighted + '" in 30 words, translate the meaning of "' + highlighted + '" in simplified chinese, no extra words';
 
-    streamAIResponse(question, nestedModalBody, nestedController);
+    streamAIResponse(question, nestedModalBody, nestedController, highlighted);
 }
 
 modalBody.addEventListener('mouseup', handlePopupHighlight);
@@ -813,13 +899,33 @@ function handleNestedHighlight(e) {
     nestedModalSelectedText.textContent = highlighted;
     nestedModalBody.innerHTML = '<div class="loading-text"><div class="spinner"></div><div>Asking AI...</div></div>';
 
-    const question = 'what is "' + highlighted + '", show me the pronounciation in International Phonetic Alphabet, explain to me in 50 words, also, translate the explanation to simplified chinese';
+    const question = 'show me the pronounciation of "' + highlighted + '" in International Phonetic Alphabet, show the meaning of "' + highlighted + '" in 30 words, translate the meaning of "' + highlighted + '" in simplified chinese, no extra words';
 
-    streamAIResponse(question, nestedModalBody, nestedController);
+    streamAIResponse(question, nestedModalBody, nestedController, highlighted);
 }
 
 nestedModalBody.addEventListener('mouseup', handleNestedHighlight);
 document.getElementById('nested-modal-word').addEventListener('mouseup', handleNestedHighlight);
+
+// Voice pronunciation using Web Speech API
+function speakWord(text) {
+    if (!('speechSynthesis' in window)) return;
+    speechSynthesis.cancel();
+    const utterance = new SpeechSynthesisUtterance(text);
+    utterance.lang = 'en-US';
+    utterance.rate = 0.9;
+    speechSynthesis.speak(utterance);
+}
+
+document.getElementById('modal-voice-btn').addEventListener('click', (e) => {
+    e.stopPropagation();
+    speakWord(modalSelectedText.textContent);
+});
+
+document.getElementById('nested-modal-voice-btn').addEventListener('click', (e) => {
+    e.stopPropagation();
+    speakWord(nestedModalSelectedText.textContent);
+});
 </script>
 </body>
 </html>

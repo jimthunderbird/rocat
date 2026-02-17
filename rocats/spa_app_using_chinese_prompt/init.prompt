@@ -1,0 +1,8 @@
+尔乃全栈工程师，欲作单页网络应用
+应用功能如下文：
+应用入口index.php
+召唤后端php
+读取如下url："https://www.gutenberg.org/cache/epub/1661/pg1661.txt"
+存于变量bookcontent
+创建新层曰bookdiv, 悉数嵌入bookcontent
+bookdiv背景为淡黄，字体名曰Georgia,serif，内边距20像素
