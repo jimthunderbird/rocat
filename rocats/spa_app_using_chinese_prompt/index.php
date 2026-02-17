@@ -10,7 +10,7 @@ if (isset($_GET['q'])) {
 
     $payload = json_encode([
         'model' => $llm_model,
-        'prompt' => "what is " . $word . ", limited to 30 words",
+        'prompt' => "Define \"" . $word . "\" in 30 words max. Provide English definition then Chinese translation.",
         'stream' => true
     ]);
 
