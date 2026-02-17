@@ -5,4 +5,14 @@
 读取如下url："https://www.gutenberg.org/cache/epub/1661/pg1661.txt"
 存于变量bookcontent
 创建新层曰bookdiv, 悉数嵌入bookcontent
-bookdiv背景为淡黄，字体名曰Georgia,serif，内边距20像素
+页面背景为淡黄，字体名曰Georgia,serif，内边距20像素
+
+层曰bookdiv新功能：
+今有变量llm_model:"gemma2:2b"
+若遇词语高亮后，发送请求至如下：
+index.php？q={高亮词}
+于此时，发送请求至如下：127.0.0.1:11434 {model: {llm_model}, query: what is {高亮词}, limited to 30 words}
+等到结果返回时，弹出视窗曰worddef，串流结果于窗内，请将markdown渲染好
+
+今遇新问题，何解词语高亮后，不见视窗弹出来（已解）
+今遇新问题，视窗位高亮词下，如影随形（已解）
