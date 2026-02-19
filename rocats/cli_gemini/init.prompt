@@ -119,6 +119,10 @@ task.no_prompt (completed) {
   noticed the prompt content still shows up, please fix it!
 }
 
-task {
+task (completed){
   the task.no_prompt is still not fixed, i still see the prompt content shows up! it should not show the prompt content
+}
+
+task {
+  after reading the prompt file, get the prompt content, but replace all new lines with "|", the goal is to convert the multi-line string prompt into a single line string prompt    
 }

@@ -34,7 +34,7 @@ if [ -n "$PROMPT_FILE" ]; then
         echo "Error: File not found: $PROMPT_FILE"
         exit 1
     fi
-    QUESTION=$(cat "$PROMPT_FILE")
+    QUESTION=$(cat "$PROMPT_FILE" | tr '\n' '|')
     QUIET=true
 fi
 
