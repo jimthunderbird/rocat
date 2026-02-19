@@ -599,6 +599,327 @@ if [ "$STARTED" = false ] && [ "$NOT_SUBMITTED_COUNT" -lt 12 ]; then
     fi
 fi
 
+# --- Step 7b: Save response to .py file when -f flag is used ---
+if [ "$QUIET" = true ] && [ "$STARTED" = true ] && [ -n "$PROMPT_FILE" ]; then
+    # Derive output filename: {file.name}.py (replace extension with .py)
+    PROMPT_BASENAME=$(basename "$PROMPT_FILE")
+    OUTPUT_NAME="${PROMPT_BASENAME%.*}.py"
+    OUTPUT_DIR=$(dirname "$PROMPT_FILE")
+    if [ "$OUTPUT_DIR" = "." ]; then
+        OUTPUT_PATH="$OUTPUT_NAME"
+    else
+        OUTPUT_PATH="$OUTPUT_DIR/$OUTPUT_NAME"
+    fi
+
+    # Re-extract code from the browser using textContent on <pre> elements
+    # This preserves indentation that innerText loses
+    # Retry up to 3 times in case code block hasn't finished rendering
+    CODE_RESPONSE="__NO_CODE_BLOCK__"
+    for CODE_RETRY in 1 2 3; do
+        CODE_RESPONSE=$(osascript 2>/dev/null <<'CODEEXTRACT'
+tell application "Google Chrome"
+    set jsResult to execute active tab of window 1 javascript "
+        (function() {
+            // Find code blocks in the last model response
+            var responses = document.querySelectorAll('model-response');
+            var lastResp = responses.length > 0 ? responses[responses.length - 1] : document;
+
+            // Collect unique code blocks preserving indentation via textContent
+            var seen = {};
+            var codeTexts = [];
+
+            function addCode(text) {
+                if (!text) return;
+                var t = text.trimEnd();
+                // Remove leading blank lines only
+                t = t.replace(/^\\n+/, '');
+                if (t.length < 5) return;
+                // Dedup: skip if we already have this exact code
+                if (seen[t]) return;
+                seen[t] = true;
+                codeTexts.push(t);
+            }
+
+            // Selector priority list - most specific first
+            var selectors = [
+                'code-block pre code',
+                'code-block pre',
+                'code-block code',
+                '.code-block pre code',
+                '.code-block pre',
+                'pre.code-block code',
+                'pre > code',
+                'pre code',
+                'pre',
+                '[class*=\"code-container\"] code',
+                '[class*=\"code\"] pre',
+                '[class*=\"code\"] code'
+            ];
+
+            for (var s = 0; s < selectors.length; s++) {
+                try {
+                    var els = lastResp.querySelectorAll(selectors[s]);
+                    for (var i = 0; i < els.length; i++) {
+                        addCode(els[i].textContent);
+                    }
+                } catch(e) {}
+                if (codeTexts.length > 0) break;
+            }
+
+            if (codeTexts.length > 0) {
+                return codeTexts.join('\\n\\n');
+            }
+            return '__NO_CODE_BLOCK__';
+        })()
+    "
+    return jsResult
+end tell
+CODEEXTRACT
+        )
+        if [ "$CODE_RESPONSE" != "__NO_CODE_BLOCK__" ] && [ -n "$CODE_RESPONSE" ] && [ "$CODE_RESPONSE" != "missing value" ]; then
+            break
+        fi
+        sleep 1
+    done
+
+    if [ "$CODE_RESPONSE" != "__NO_CODE_BLOCK__" ] && [ -n "$CODE_RESPONSE" ] && [ "$CODE_RESPONSE" != "missing value" ]; then
+        CLEAN_RESPONSE="$CODE_RESPONSE"
+    else
+        # Fallback to the streamed response
+        FULL_RESPONSE="$PREV_RESPONSE"
+        PROMPT_LEN_CHECK=${#QUESTION}
+        RESPONSE_PREFIX_CHECK="${FULL_RESPONSE:0:$PROMPT_LEN_CHECK}"
+        if [ "$RESPONSE_PREFIX_CHECK" = "$QUESTION" ]; then
+            CLEAN_RESPONSE="${FULL_RESPONSE:$PROMPT_LEN_CHECK}"
+        else
+            CLEAN_RESPONSE="$FULL_RESPONSE"
+        fi
+    fi
+
+    if [ -n "$CLEAN_RESPONSE" ]; then
+        # Remove "Python" from the first line (case-insensitive, with optional whitespace)
+        CLEAN_RESPONSE=$(printf '%s' "$CLEAN_RESPONSE" | sed '1 s/^[[:space:]]*[Pp]ython[[:space:]]*$//' | sed '1{/^$/d;}')
+
+        # Trim leading/trailing blank lines and trailing whitespace per line (preserve indentation)
+        # Note: $(…) already strips trailing newlines, so no need for a trailing-blank-line sed
+        CLEAN_RESPONSE=$(printf '%s' "$CLEAN_RESPONSE" | sed 's/[[:space:]]*$//' | sed '/./,$!d')
+
+        # Remove markdown code fence markers (```python, ```, etc.)
+        CLEAN_RESPONSE=$(printf '%s' "$CLEAN_RESPONSE" | sed '/^```[a-z]*$/d' | sed '/^```$/d')
+
+        printf '%s\n' "$CLEAN_RESPONSE" > "$OUTPUT_PATH"
+
+        # Beautify and format the Python code
+        # Try autopep8 first, then black, then a comprehensive built-in fixer
+        if python3 -c "import autopep8" 2>/dev/null; then
+            python3 -c "
+import autopep8, sys
+with open(sys.argv[1], 'r') as f:
+    code = f.read()
+formatted = autopep8.fix_code(code, options={'aggressive': 2})
+with open(sys.argv[1], 'w') as f:
+    f.write(formatted)
+" "$OUTPUT_PATH" 2>/dev/null
+        elif python3 -c "import black" 2>/dev/null; then
+            python3 -c "
+import black, sys
+with open(sys.argv[1], 'r') as f:
+    code = f.read()
+try:
+    formatted = black.format_str(code, mode=black.Mode())
+    with open(sys.argv[1], 'w') as f:
+        f.write(formatted)
+except:
+    pass
+" "$OUTPUT_PATH" 2>/dev/null
+        else
+            # Comprehensive built-in Python formatter
+            python3 << 'PYFIXER' "$OUTPUT_PATH" 2>/dev/null
+import sys, re, textwrap
+
+filepath = sys.argv[1]
+with open(filepath, 'r') as f:
+    code = f.read()
+
+def clean_code(code):
+    """Remove duplicate functions/blocks and trailing whitespace."""
+    lines = code.strip().split('\n')
+    lines = [l.rstrip() for l in lines]
+
+    # Detect and remove exact duplicate top-level blocks
+    # Split into blocks starting with non-indented lines
+    blocks = []
+    current = []
+    for line in lines:
+        if line and not line[0].isspace() and current:
+            blocks.append('\n'.join(current))
+            current = []
+        current.append(line)
+    if current:
+        blocks.append('\n'.join(current))
+
+    # Remove exact duplicate blocks
+    seen = []
+    unique = []
+    for block in blocks:
+        normalized = block.strip()
+        if normalized not in seen:
+            seen.append(normalized)
+            unique.append(block)
+
+    return '\n'.join(unique) + '\n'
+
+def has_indentation(code):
+    """Check if the code has any indentation at all."""
+    for line in code.split('\n'):
+        if line and line[0] in (' ', '\t'):
+            return True
+    return False
+
+def fix_indentation(code):
+    """Re-indent Python code that has lost all indentation."""
+    lines = code.strip().split('\n')
+    result = []
+    indent_stack = [0]  # stack tracking indent levels
+
+    # Patterns
+    block_start = re.compile(
+        r'^(def |class |if |elif |else\s*:|for |while |try\s*:|'
+        r'except|finally\s*:|with |async\s+def |async\s+for |'
+        r'async\s+with )'
+    )
+    dedent_kw = re.compile(r'^(elif\b|else\s*:|except\b|finally\s*:)')
+    terminal_kw = re.compile(r'^(return\b|break\s*$|pass\s*$|continue\s*$|raise\b)')
+    # Top-level starters reset indent
+    toplevel = re.compile(r'^(def |class |@)')
+
+    prev_terminal = False
+
+    for line in lines:
+        stripped = line.strip()
+        if not stripped:
+            result.append('')
+            continue
+
+        # Top-level definitions reset the stack
+        if toplevel.match(stripped) and not stripped.startswith('@'):
+            indent_stack = [0]
+            prev_terminal = False
+
+        # Dedent keywords (else, elif, except, finally) go back one level
+        if dedent_kw.match(stripped):
+            if len(indent_stack) > 1:
+                indent_stack.pop()
+            prev_terminal = False
+
+        # After terminal statement, next non-dedent line should go back one level
+        elif prev_terminal:
+            if len(indent_stack) > 1:
+                indent_stack.pop()
+            prev_terminal = False
+
+        current_indent = indent_stack[-1]
+        result.append('    ' * current_indent + stripped)
+
+        # Block-starting line (ends with ':') pushes a new indent level
+        if stripped.endswith(':') and block_start.match(stripped):
+            indent_stack.append(current_indent + 1)
+            prev_terminal = False
+        elif terminal_kw.match(stripped):
+            prev_terminal = True
+        else:
+            prev_terminal = False
+
+    return '\n'.join(result) + '\n'
+
+def format_spacing(code):
+    """Add PEP 8 blank lines: 2 before top-level def/class, 1 before methods."""
+    lines = code.split('\n')
+    result = []
+    for i, line in enumerate(lines):
+        stripped = line.lstrip()
+        indent_len = len(line) - len(stripped)
+        # Add blank lines before def/class at appropriate levels
+        if i > 0 and result and result[-1].strip() != '':
+            if stripped.startswith(('def ', 'class ', 'async def ')):
+                if indent_len == 0:
+                    # Top-level: 2 blank lines before
+                    while result and result[-1].strip() == '':
+                        result.pop()
+                    result.append('')
+                    result.append('')
+                else:
+                    # Nested (method): 1 blank line before, unless prev is decorator or block opener
+                    prev_stripped = result[-1].strip() if result else ''
+                    if not prev_stripped.startswith('@') and not prev_stripped.endswith(':'):
+                        while result and result[-1].strip() == '':
+                            result.pop()
+                        result.append('')
+        result.append(line)
+    return '\n'.join(result)
+
+# Step 1: Clean up (remove duplicates, trailing whitespace)
+code = clean_code(code)
+
+# Step 2: Check if code already compiles
+try:
+    compile(code, filepath, 'exec')
+    # Already valid - just apply spacing cleanup
+    code = format_spacing(code)
+    # Final trailing whitespace cleanup
+    lines = code.rstrip().split('\n')
+    code = '\n'.join(l.rstrip() for l in lines) + '\n'
+    with open(filepath, 'w') as f:
+        f.write(code)
+    sys.exit(0)
+except SyntaxError:
+    pass
+
+# Step 3: If no indentation, try to re-indent
+if not has_indentation(code):
+    fixed = fix_indentation(code)
+    try:
+        compile(fixed, filepath, 'exec')
+        fixed = format_spacing(fixed)
+        lines = fixed.rstrip().split('\n')
+        fixed = '\n'.join(l.rstrip() for l in lines) + '\n'
+        with open(filepath, 'w') as f:
+            f.write(fixed)
+        sys.exit(0)
+    except SyntaxError:
+        # Re-indent didn't produce valid code - try brute-force approach
+        pass
+
+# Step 4: Brute-force approach - try to parse and re-indent using AST
+# This handles cases where the heuristic indenter fails
+try:
+    # Try to use ast.unparse (Python 3.9+) to reconstruct code
+    import ast
+    tree = ast.parse(code)  # may work if code is flat but parseable
+    if hasattr(ast, 'unparse'):
+        unparsed = ast.unparse(tree)
+        # ast.unparse produces valid single-line-ish code, reformat it
+        try:
+            compile(unparsed, filepath, 'exec')
+            with open(filepath, 'w') as f:
+                f.write(unparsed + '\n')
+            sys.exit(0)
+        except SyntaxError:
+            pass
+except:
+    pass
+
+# Step 5: Last resort - write the cleaned code even if it doesn't compile
+code = clean_code(code)
+with open(filepath, 'w') as f:
+    f.write(code)
+PYFIXER
+        fi
+
+        echo "Saved to: $OUTPUT_PATH" >&2
+    fi
+fi
+
 # --- Step 8: Capture and save the session ID from the URL ---
 NEW_SESSION_URL=$(osascript 2>/dev/null <<'SESSIONSCRIPT'
 tell application "Google Chrome"

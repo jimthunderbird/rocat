@@ -126,3 +126,24 @@ task (completed){
 task (completed){
   after reading the prompt file, get the prompt content, but replace all new lines with "|", the goal is to convert the multi-line string prompt into a single line string prompt    
 }
+
+task.create_python_script (completed){
+  after reading the file {file} in -f flag, create {file.name}.py by removing the "Python" in the first line the ouput, keep rest of the output and trim it, save the result to {file.name}.py
+}
+
+task (completed){
+  in task.create_python_script, make sure the python codeblock are beautified and formatted properly
+}
+
+task (completed){
+  in ./python_bubblesort_gemini.py, i see that the python code that is generated has incorrect indentation
+}
+
+task {
+  when i run sh ask_gemini.sh -f hello.prompt, i got the following:
+  role: Python 3 and Computer Algorithm Expert||objective: write a python script to print "hello"||constraint {|  display codeblock only|  no explanation|  no extra words|  proper formatted python code|}|Python
+  print("hello")
+  sed: 2: "/^[[:space:]]*$/{ $d; N ...": unexpected EOF (pending }'s)
+  Saved to: hello.py
+  please fix it!
+}
