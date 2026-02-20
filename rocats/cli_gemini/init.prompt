@@ -4,5 +4,6 @@ requirement {
   sh ask_gemini.sh -f hello.prompt
   - it should automatically authenticate me using my gmail account and password
   - it should read the content of the hello.prompt, paste it automatically to https://gemini.google.com/app's text area and trigger the submit in chrome
-  - it will then capture the result and print it on the terminal
+  - let target_python_script = {replace ".prompt" to ".py" in {prompt file name}}
+  - it will then capture the result, remove the "Python" word in the first line, save the result to {target_python_script}
 }

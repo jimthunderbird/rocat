@@ -41,7 +41,11 @@ fi
 PROMPT_CONTENT=$(cat "$PROMPT_FILE")
 printf '%s' "$PROMPT_CONTENT" | pbcopy
 
+# Compute target .py filename (replace .prompt with .py)
+TARGET_PY="${PROMPT_FILE%.prompt}.py"
+
 echo "[1/5] Prompt copied to clipboard from: $PROMPT_FILE"
+echo "       Target output file: $TARGET_PY"
 
 # Step 1: Open or focus Gemini in Chrome (always start a fresh chat)
 echo "[2/5] Opening Gemini in Chrome..."
@@ -230,38 +234,54 @@ ASCRIPT
   ELAPSED=$((ELAPSED + INTERVAL))
 done
 
-# Step 5: Extract the final response
-echo "[5/5] Capturing response..."
+# Step 5: Extract code block from the response
+echo "[5/5] Capturing code block from response..."
 
 RESULT=$(osascript <<'ASCRIPT' 2>/dev/null || echo ""
 tell application "Google Chrome"
   set jsResult to execute active tab of front window javascript "
     (function() {
-      var selectors = [
+      // Try to extract code block content specifically
+      var codeSelectors = [
+        'code-block pre',
+        'code-block code',
+        '.code-container pre',
+        '.code-container code',
+        'pre code',
+        'pre'
+      ];
+
+      var codeEl = null;
+      for (var i = 0; i < codeSelectors.length; i++) {
+        var els = document.querySelectorAll(codeSelectors[i]);
+        if (els.length > 0) {
+          codeEl = els[els.length - 1];
+          break;
+        }
+      }
+
+      if (codeEl) {
+        return codeEl.innerText || codeEl.textContent;
+      }
+
+      // Fallback: extract from full response markdown
+      var mdSelectors = [
         'message-content .markdown',
         '.model-response-text .markdown',
         '.response-container .markdown',
         '[data-message-author-role=\"model\"] .markdown-main-panel',
-        '.conversation-container .model-response-text',
         '.response-content',
         '.markdown'
       ];
 
       var responses = null;
-      for (var i = 0; i < selectors.length; i++) {
-        responses = document.querySelectorAll(selectors[i]);
+      for (var j = 0; j < mdSelectors.length; j++) {
+        responses = document.querySelectorAll(mdSelectors[j]);
         if (responses.length > 0) break;
       }
 
       if (responses && responses.length > 0) {
         return responses[responses.length - 1].innerText;
-      }
-
-      // Last resort: try to get any visible text from the response area
-      var all = document.querySelectorAll('[class*=\"response\"], [class*=\"message\"]');
-      for (var j = 0; j < all.length; j++) {
-        var text = all[j].innerText;
-        if (text && text.length > 50) return text;
       }
 
       return '';
@@ -280,6 +300,10 @@ if [ -z "$RESULT" ]; then
   exit 1
 fi
 
+# Remove "Python" from the first line if present, then save to .py file
+echo "$RESULT" | sed '1{s/^Python$//;/^$/d;}' > "$TARGET_PY"
+
 echo ""
-echo "=== Gemini Response ==="
-echo "$RESULT"
+echo "=== Saved to $TARGET_PY ==="
+echo ""
+cat "$TARGET_PY"
