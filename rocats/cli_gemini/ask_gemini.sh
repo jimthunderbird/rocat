@@ -1,936 +1,285 @@
 #!/bin/bash
-# ask_gemini.sh - Send a question to Gemini and capture the response in terminal
-# Usage: ./ask_gemini.sh "your question here"
-#        ./ask_gemini.sh -f prompt.txt
 #
-# PREREQUISITE: In Chrome, enable View > Developer > Allow JavaScript from Apple Events
+# ask_gemini.sh - Send a prompt file to Gemini via Chrome automation (macOS)
+#
+# Prerequisites:
+#   - macOS with Google Chrome installed
+#   - Already logged into your Google account in Chrome
+#   - Accessibility permissions granted for Terminal/iTerm (System Settings > Privacy > Accessibility)
+#
+# Usage:
+#   sh ask_gemini.sh -f hello.prompt
+#
 
-SESSION_FILE="$HOME/.gemini_session_id"
-NEW_SESSION=false
-PROMPT_FILE=""
-QUIET=false
+set -e
 
-# Parse arguments
-while [[ $# -gt 0 ]]; do
-    case "$1" in
-        --new|-n)
-            NEW_SESSION=true
-            shift
-            ;;
-        --file|-f)
-            PROMPT_FILE="$2"
-            shift 2
-            ;;
-        *)
-            QUESTION="$1"
-            shift
-            ;;
-    esac
-done
-
-# Read question from file if -f was provided
-if [ -n "$PROMPT_FILE" ]; then
-    if [ ! -f "$PROMPT_FILE" ]; then
-        echo "Error: File not found: $PROMPT_FILE"
-        exit 1
-    fi
-    QUESTION=$(cat "$PROMPT_FILE" | tr '\n' '|')
-    QUIET=true
-fi
-
-if [ -z "$QUESTION" ]; then
-    echo "Usage: $0 [--new] \"your question here\""
-    echo "       $0 [--new] -f prompt_file.txt"
-    echo "  --new, -n    Start a new conversation (ignore saved session)"
-    echo "  --file, -f   Read the question/prompt from a file"
-    echo "Example: $0 \"What is the capital of France?\""
-    echo "         $0 -f my_prompt.txt"
-    exit 1
-fi
-
-# Load or clear session ID
-SESSION_ID=""
-if [ "$NEW_SESSION" = false ] && [ -f "$SESSION_FILE" ]; then
-    SESSION_ID=$(cat "$SESSION_FILE")
-fi
-
-if [ -n "$SESSION_ID" ]; then
-    GEMINI_URL="https://gemini.google.com/app/${SESSION_ID}"
-else
-    GEMINI_URL="https://gemini.google.com/app"
-fi
-
-# --- Step 1: Navigate to Gemini ---
-osascript > /dev/null 2>&1 <<APPLESCRIPT
-tell application "Google Chrome"
-    set targetURL to "${GEMINI_URL}"
-    set foundTab to false
-    repeat with w in windows
-        set tabIndex to 0
-        repeat with t in tabs of w
-            set tabIndex to tabIndex + 1
-            if URL of t contains "gemini.google.com" then
-                set active tab index of w to tabIndex
-                set foundTab to true
-                exit repeat
-            end if
-        end repeat
-        if foundTab then exit repeat
-    end repeat
-
-    if not foundTab then
-        if (count of windows) = 0 then
-            make new window
-        end if
-        tell window 1
-            make new tab with properties {URL:targetURL}
-        end tell
-    end if
-
-    activate
-    delay 2
-end tell
-APPLESCRIPT
-
-# --- Step 2: Navigate to the correct Gemini page (session or new) ---
-osascript > /dev/null 2>&1 <<NAVSCRIPT
-tell application "Google Chrome"
-    set curURL to URL of active tab of window 1
-    set targetURL to "${GEMINI_URL}"
-    if curURL does not contain "gemini.google.com/app" then
-        set URL of active tab of window 1 to targetURL
-        delay 3
-    else if curURL is not equal to targetURL and curURL does not start with targetURL then
-        set URL of active tab of window 1 to targetURL
-        delay 3
-    end if
-end tell
-NAVSCRIPT
-
-# --- Step 3: Wait for the page to fully load (up to 25s) ---
-INPUT_READY=false
-for ((i=0; i<25; i++)); do
-    CHECK=$(osascript 2>/dev/null <<'CHECKSCRIPT'
-tell application "Google Chrome"
-    set jsResult to execute active tab of window 1 javascript "
-        (document.readyState === 'complete' && (
-            document.querySelector('.ql-editor') ||
-            document.querySelector('rich-textarea') ||
-            document.querySelector('[contenteditable=\"true\"]') ||
-            document.querySelector('textarea')
-        )) ? 'READY' : 'WAITING';
-    "
-    return jsResult
-end tell
-CHECKSCRIPT
-    )
-    if [ "$CHECK" = "READY" ]; then
-        INPUT_READY=true
-        break
-    fi
-    sleep 1
-done
-
-if [ "$INPUT_READY" = false ]; then
-    echo "Error: Gemini page did not load in time."
-    exit 1
-fi
-
-# Extra wait for UI to be fully interactive
-sleep 1
-
-# --- Step 4: Type question into the editor ---
-# Detect if multi-line
-MULTILINE=false
-if [[ "$QUESTION" == *$'\n'* ]]; then
-    MULTILINE=true
-fi
-
-# Activate Chrome and ensure focus
-osascript > /dev/null 2>&1 <<'ACTIVATESCRIPT'
-tell application "Google Chrome"
-    activate
-end tell
-ACTIVATESCRIPT
-
-sleep 0.5
-
-if [ "$MULTILINE" = true ]; then
-    # Multi-line: use clipboard paste (execCommand insertText doesn't handle newlines in Quill)
-    OLD_CLIPBOARD=$(pbpaste 2>/dev/null)
-    printf '%s' "$QUESTION" | pbcopy
-
-    # Focus the editor first via JS
-    FOCUS_RESULT=$(osascript 2>/dev/null <<'FOCUSEDITOR'
-tell application "Google Chrome"
-    set jsResult to execute active tab of window 1 javascript "
-        (function() {
-            var editor = document.querySelector('.ql-editor[contenteditable]');
-            if (!editor) editor = document.querySelector('rich-textarea .ql-editor');
-            if (!editor) editor = document.querySelector('rich-textarea [contenteditable]');
-            if (!editor) editor = document.querySelector('[contenteditable=\"true\"][role=\"textbox\"]');
-            if (!editor) {
-                var allCE = document.querySelectorAll('[contenteditable=\"true\"]');
-                for (var x = 0; x < allCE.length; x++) {
-                    if (allCE[x].closest('.input-area-container, rich-textarea, .text-input-field')) {
-                        editor = allCE[x]; break;
-                    }
-                }
-            }
-            if (!editor) editor = document.querySelector('[contenteditable=\"true\"]');
-            if (!editor) editor = document.querySelector('textarea');
-            if (!editor) return 'NO_EDITOR';
-            editor.focus();
-            document.execCommand('selectAll', false, null);
-            document.execCommand('delete', false, null);
-            return 'FOCUSED';
-        })()
-    "
-    return jsResult
-end tell
-FOCUSEDITOR
-    )
-
-    if [ "$FOCUS_RESULT" = "NO_EDITOR" ]; then
-        echo "Error: Could not find the Gemini text editor."
-        echo "Make sure Chrome is open with gemini.google.com."
-        printf '%s' "$OLD_CLIPBOARD" | pbcopy 2>/dev/null
-        exit 1
-    fi
-
-    # Paste from clipboard
-    osascript > /dev/null 2>&1 <<'CLIPSCRIPT'
-tell application "Google Chrome"
-    activate
-end tell
-delay 0.3
-tell application "System Events"
-    tell process "Google Chrome"
-        keystroke "v" using command down
-    end tell
-end tell
-CLIPSCRIPT
-    sleep 0.8
-    # Restore original clipboard
-    printf '%s' "$OLD_CLIPBOARD" | pbcopy 2>/dev/null
-
-    SUBMIT_RESULT="TEXT_SET"
-else
-    # Single-line: use execCommand (faster and more reliable for single lines)
-    # Escape question for safe embedding in JavaScript string
-    ESCAPED_Q=$(printf '%s' "$QUESTION" | sed "s/\\\\/\\\\\\\\/g; s/'/\\\\'/g; s/\"/\\\\\\\\\"/g; s/\`/\\\\\`/g")
-
-    SUBMIT_RESULT=$(osascript 2>/dev/null <<SUBMITSCRIPT
-tell application "Google Chrome"
-    set jsResult to execute active tab of window 1 javascript "
-        (function() {
-            var editor = document.querySelector('.ql-editor[contenteditable]');
-            if (!editor) editor = document.querySelector('rich-textarea .ql-editor');
-            if (!editor) editor = document.querySelector('rich-textarea [contenteditable]');
-            if (!editor) editor = document.querySelector('[contenteditable=\"true\"][role=\"textbox\"]');
-            if (!editor) {
-                var allCE = document.querySelectorAll('[contenteditable=\"true\"]');
-                for (var x = 0; x < allCE.length; x++) {
-                    if (allCE[x].closest('.input-area-container, rich-textarea, .text-input-field')) {
-                        editor = allCE[x]; break;
-                    }
-                }
-            }
-            if (!editor) editor = document.querySelector('[contenteditable=\"true\"]');
-            if (!editor) editor = document.querySelector('textarea');
-            if (!editor) return 'NO_EDITOR';
-
-            editor.focus();
-            window.getSelection().selectAllChildren(editor);
-            document.execCommand('selectAll', false, null);
-            document.execCommand('delete', false, null);
-            document.execCommand('insertText', false, '${ESCAPED_Q}');
-
-            return 'TEXT_SET';
-        })()
-    "
-    return jsResult
-end tell
-SUBMITSCRIPT
-    )
-
-    if [ "$SUBMIT_RESULT" = "NO_EDITOR" ]; then
-        echo "Error: Could not find the Gemini text editor."
-        echo "Make sure Chrome is open with gemini.google.com."
-        exit 1
-    fi
-
-    # If execCommand didn't work, fallback to clipboard paste
-    if [ "$SUBMIT_RESULT" != "TEXT_SET" ]; then
-        OLD_CLIPBOARD=$(pbpaste 2>/dev/null)
-        printf '%s' "$QUESTION" | pbcopy
-        osascript > /dev/null 2>&1 <<'CLIPFALLBACK'
-tell application "Google Chrome"
-    activate
-end tell
-delay 0.3
-tell application "System Events"
-    tell process "Google Chrome"
-        keystroke "a" using command down
-        delay 0.1
-        keystroke "v" using command down
-    end tell
-end tell
-CLIPFALLBACK
-        sleep 0.8
-        printf '%s' "$OLD_CLIPBOARD" | pbcopy 2>/dev/null
-    fi
-fi
-
-sleep 1
-
-# --- Step 5: Submit - try clicking send button, then fallback to Enter ---
-SEND_RESULT=$(osascript 2>/dev/null <<SENDSCRIPT
-tell application "Google Chrome"
-    set jsResult to execute active tab of window 1 javascript "
-        (function() {
-            // Try to find the send button by various selectors
-            var sendBtn = null;
-            var candidates = document.querySelectorAll('button[aria-label*=\"end\"], button[mattooltip*=\"end\"], button.send-button, [data-test-id=\"send-button\"]');
-            for (var i = 0; i < candidates.length; i++) {
-                var label = (candidates[i].getAttribute('aria-label') || '').toLowerCase();
-                var tooltip = (candidates[i].getAttribute('mattooltip') || '').toLowerCase();
-                if (label.indexOf('send') !== -1 || tooltip.indexOf('send') !== -1) {
-                    sendBtn = candidates[i];
-                    break;
-                }
-            }
-
-            // Search all buttons for send-related icons
-            if (!sendBtn) {
-                var allBtns = document.querySelectorAll('button');
-                for (var j = 0; j < allBtns.length; j++) {
-                    var icons = allBtns[j].querySelectorAll('mat-icon, .material-icons-extended, [class*=\"icon\"]');
-                    for (var k = 0; k < icons.length; k++) {
-                        var txt = (icons[k].textContent || '').trim().toLowerCase();
-                        if (txt === 'send' || txt === 'arrow_upward' || txt === 'arrow_upward_alt') {
-                            sendBtn = allBtns[j];
-                            break;
-                        }
-                    }
-                    if (sendBtn) break;
-                }
-            }
-
-            if (sendBtn && !sendBtn.disabled) {
-                sendBtn.click();
-                return 'CLICKED';
-            }
-            return 'NO_BUTTON';
-        })()
-    "
-    return jsResult
-end tell
-SENDSCRIPT
-)
-
-# If JS button click didn't work, fallback to Enter keystroke
-if [ "$SEND_RESULT" != "CLICKED" ]; then
-    osascript > /dev/null 2>&1 <<'ENTERSCRIPT'
-tell application "Google Chrome"
-    activate
-end tell
-delay 0.3
-tell application "System Events"
-    tell process "Google Chrome"
-        keystroke return
-    end tell
-end tell
-ENTERSCRIPT
-fi
-
-# --- Step 6: Bring terminal back to the foreground ---
-sleep 1
-osascript > /dev/null 2>&1 <<'FOCUSTERM'
-tell application "System Events"
-    set termApp to ""
-    if exists process "Terminal" then
-        set termApp to "Terminal"
-    else if exists process "iTerm2" then
-        set termApp to "iTerm2"
-    else if exists process "Alacritty" then
-        set termApp to "Alacritty"
-    else if exists process "kitty" then
-        set termApp to "kitty"
-    else if exists process "WezTerm" then
-        set termApp to "WezTerm"
-    end if
-    if termApp is not "" then
-        tell application termApp to activate
-    end if
-end tell
-FOCUSTERM
-
-# --- Step 7: Poll for the response with streaming output ---
-
-# JavaScript to extract the last Gemini model response
-read -r -d '' JS_EXTRACT << 'JSEOF'
-(function() {
-    var userEls = document.querySelectorAll('user-query, .user-query-text, [data-message-author-role="user"], .query-text');
-    var hasUserMsg = false;
-    for (var k = 0; k < userEls.length; k++) {
-        if ((userEls[k].innerText || '').trim().length > 0) { hasUserMsg = true; break; }
-    }
-
-    var onLandingPage = (window.location.pathname === '/app' || window.location.pathname === '/app/');
-    if (!hasUserMsg && onLandingPage) {
-        var loading = document.querySelectorAll('mat-spinner, .loading-spinner, mat-progress-bar, [aria-label*="top"]');
-        if (loading.length > 0) return '';
-        return '__NOT_SUBMITTED__';
-    }
-
-    // Collect user query text so we can strip it if it leaks into response
-    var userText = '';
-    for (var k = 0; k < userEls.length; k++) {
-        var ut = (userEls[k].innerText || '').trim();
-        if (ut.length > userText.length) userText = ut;
-    }
-
-    function isGreeting(t) {
-        if (t.indexOf('Where should we start') !== -1 && t.length < 120) return true;
-        if (t.indexOf('Hi ') === 0 && t.length < 80 && t.indexOf('Where should') !== -1) return true;
-        return false;
-    }
-
-    function stripUserQuery(t) {
-        if (userText && userText.length > 0 && t.indexOf(userText) === 0 && t.length > userText.length) {
-            return t.substring(userText.length).trim();
-        }
-        return t;
-    }
-
-    // Specific model-response selectors (should not include user query)
-    var specificSelectors = [
-        'model-response .markdown-main-panel',
-        'model-response .response-container-content',
-        'model-response .markdown',
-        'model-response'
-    ];
-    for (var i = 0; i < specificSelectors.length; i++) {
-        try {
-            var els = document.querySelectorAll(specificSelectors[i]);
-            if (els.length > 0) {
-                var text = els[els.length - 1].innerText;
-                if (text && text.trim().length > 10) {
-                    var t = text.trim();
-                    if (isGreeting(t)) continue;
-                    return t;
-                }
-            }
-        } catch(e) {}
-    }
-
-    // Broader selectors - strip user query text if it leaked in
-    var broadSelectors = [
-        '.markdown-main-panel',
-        '.response-container-content',
-        'message-content .markdown',
-        'message-content',
-        '[class*="response-content"]',
-        '[class*="model-response"]',
-        '.conv-response .text-content',
-        '.response-text'
-    ];
-    for (var i = 0; i < broadSelectors.length; i++) {
-        try {
-            var els = document.querySelectorAll(broadSelectors[i]);
-            if (els.length > 0) {
-                var text = els[els.length - 1].innerText;
-                if (text && text.trim().length > 10) {
-                    var t = stripUserQuery(text.trim());
-                    if (t.length < 5) continue;
-                    if (isGreeting(t)) continue;
-                    return t;
-                }
-            }
-        } catch(e) {}
-    }
-
-    // Fallback: search divs but exclude containers that hold user query elements
-    var allDivs = document.querySelectorAll('div');
-    var best = '';
-    for (var j = 0; j < allDivs.length; j++) {
-        var cl = allDivs[j].className || '';
-        if (typeof cl === 'string' && (cl.indexOf('response') !== -1 || cl.indexOf('markdown') !== -1)) {
-            if (allDivs[j].querySelector('user-query, .user-query-text, [data-message-author-role="user"]')) continue;
-            var t2 = allDivs[j].innerText || '';
-            if (t2.trim().length > best.length && t2.trim().length > 20) {
-                if (t2.indexOf('Where should we start') !== -1 && t2.trim().length < 120) continue;
-                var trimmed = stripUserQuery(t2.trim());
-                if (trimmed.length > best.length) best = trimmed;
-            }
-        }
-    }
-    return best;
-})()
-JSEOF
-
-# JavaScript to check if Gemini is still generating
-read -r -d '' JS_IS_GENERATING << 'JSEOF'
-(function() {
-    var indicators = document.querySelectorAll(
-        '[aria-label="Stop"], [aria-label="Stop generating"], [data-test-id="stop-button"], .loading-indicator, .response-streaming'
-    );
-    var spinners = document.querySelectorAll('mat-spinner, .loading-spinner, mat-progress-bar');
-    var buttons = document.querySelectorAll('button');
-    var hasStop = false;
-    for (var i = 0; i < buttons.length; i++) {
-        var label = (buttons[i].getAttribute('aria-label') || '').toLowerCase();
-        if (label.indexOf('stop') !== -1) { hasStop = true; break; }
-    }
-    return (indicators.length > 0 || spinners.length > 0 || hasStop) ? 'true' : 'false';
-})()
-JSEOF
-
-# Escape the JS for embedding inside AppleScript double-quoted strings
-escape_js_for_applescript() {
-    printf '%s' "$1" | sed 's/\\/\\\\/g; s/"/\\"/g'
+usage() {
+  echo "Usage: $0 -f <prompt_file>"
+  echo "  -f  Path to the prompt file to send to Gemini"
+  exit 1
 }
 
-JS_EXTRACT_ESCAPED=$(escape_js_for_applescript "$JS_EXTRACT")
-JS_IS_GENERATING_ESCAPED=$(escape_js_for_applescript "$JS_IS_GENERATING")
-
-# Wait for Gemini to start generating
-sleep 1
-
-PREV_LEN=0
-PREV_RESPONSE=""
-STABLE_COUNT=0
-MAX_CHECKS=120
-POLL_INTERVAL=0.8
-STABLE_THRESHOLD=2
-STARTED=false
-NOT_SUBMITTED_COUNT=0
-
-for ((i=0; i<MAX_CHECKS; i++)); do
-    # Get current response text
-    CURRENT=$(osascript 2>/dev/null <<POLLSCRIPT
-tell application "Google Chrome"
-    set jsResult to execute active tab of window 1 javascript "${JS_EXTRACT_ESCAPED}"
-    return jsResult
-end tell
-POLLSCRIPT
-    )
-
-    # Check if still generating
-    GENERATING=$(osascript 2>/dev/null <<GENSCHRIPT
-tell application "Google Chrome"
-    set jsResult to execute active tab of window 1 javascript "${JS_IS_GENERATING_ESCAPED}"
-    return jsResult
-end tell
-GENSCHRIPT
-    )
-
-    # If question was not submitted, track and eventually error
-    if [ "$CURRENT" = "__NOT_SUBMITTED__" ]; then
-        NOT_SUBMITTED_COUNT=$((NOT_SUBMITTED_COUNT + 1))
-        if [ "$NOT_SUBMITTED_COUNT" -ge 12 ]; then
-            if [ "$QUIET" = false ]; then echo ""; fi
-            echo "(Error: Question does not appear to have been submitted.)" >&2
-            echo "(Check that Chrome is open and Gemini page loaded correctly.)" >&2
-            break
-        fi
-        if [ "$QUIET" = false ]; then printf "." >&2; fi
-        sleep "$POLL_INTERVAL"
-        continue
-    fi
-
-    # If we have meaningful content, stream the new portion
-    if [ -n "$CURRENT" ] && [ "$CURRENT" != "missing value" ] && [ "${#CURRENT}" -gt 5 ]; then
-        # On first capture with -f flag, strip the prompt content from the beginning
-        if [ "$QUIET" = true ] && [ "$STARTED" = false ] && [ "$PREV_LEN" -eq 0 ]; then
-            PROMPT_LEN=${#QUESTION}
-            RESPONSE_PREFIX="${CURRENT:0:$PROMPT_LEN}"
-            if [ "$RESPONSE_PREFIX" = "$QUESTION" ]; then
-                PREV_LEN=$PROMPT_LEN
-            else
-                # Fuzzy match: if first line of prompt appears at start, skip prompt length
-                FIRST_LINE="${QUESTION%%$'\n'*}"
-                if [ -n "$FIRST_LINE" ] && [[ "$CURRENT" == "$FIRST_LINE"* ]]; then
-                    PREV_LEN=$PROMPT_LEN
-                fi
-            fi
-        fi
-
-        CUR_LEN=${#CURRENT}
-        if [ "$CUR_LEN" -gt "$PREV_LEN" ]; then
-            # Print only the newly arrived text
-            NEW_TEXT="${CURRENT:$PREV_LEN}"
-            printf '%s' "$NEW_TEXT"
-            PREV_LEN=$CUR_LEN
-            STABLE_COUNT=0
-            STARTED=true
-        else
-            # Content length unchanged
-            if [ "$STARTED" = true ] && [ "$GENERATING" != "true" ]; then
-                STABLE_COUNT=$((STABLE_COUNT + 1))
-                if [ "$STABLE_COUNT" -ge "$STABLE_THRESHOLD" ]; then
-                    break
-                fi
-            fi
-        fi
-        PREV_RESPONSE="$CURRENT"
-    else
-        if [ "$STARTED" = false ] && [ "$QUIET" = false ]; then
-            printf "." >&2
-        fi
-    fi
-
-    sleep "$POLL_INTERVAL"
+PROMPT_FILE=""
+while getopts "f:" opt; do
+  case $opt in
+    f) PROMPT_FILE="$OPTARG" ;;
+    *) usage ;;
+  esac
 done
 
-# Ensure a trailing newline after streamed output
-if [ "$STARTED" = true ]; then
-    echo ""
+if [ -z "$PROMPT_FILE" ]; then
+  echo "Error: -f flag is required"
+  usage
 fi
 
-# If nothing was captured at all, show debug info
-if [ "$STARTED" = false ] && [ "$NOT_SUBMITTED_COUNT" -lt 12 ]; then
-    echo "(Could not capture response.)" >&2
-    if [ "$QUIET" = false ]; then
-        echo "" >&2
-        echo "Tip: Make sure 'Allow JavaScript from Apple Events' is enabled in Chrome:" >&2
-        echo "     Chrome menu > View > Developer > Allow JavaScript from Apple Events" >&2
-    fi
+if [ ! -f "$PROMPT_FILE" ]; then
+  echo "Error: File '$PROMPT_FILE' not found"
+  exit 1
 fi
 
-# --- Step 7b: Save response to .py file when -f flag is used ---
-if [ "$QUIET" = true ] && [ "$STARTED" = true ] && [ -n "$PROMPT_FILE" ]; then
-    # Derive output filename: {file.name}.py (replace extension with .py)
-    PROMPT_BASENAME=$(basename "$PROMPT_FILE")
-    OUTPUT_NAME="${PROMPT_BASENAME%.*}.py"
-    OUTPUT_DIR=$(dirname "$PROMPT_FILE")
-    if [ "$OUTPUT_DIR" = "." ]; then
-        OUTPUT_PATH="$OUTPUT_NAME"
-    else
-        OUTPUT_PATH="$OUTPUT_DIR/$OUTPUT_NAME"
-    fi
+# Read prompt content and copy to clipboard
+PROMPT_CONTENT=$(cat "$PROMPT_FILE")
+printf '%s' "$PROMPT_CONTENT" | pbcopy
 
-    # Re-extract code from the browser using textContent on <pre> elements
-    # This preserves indentation that innerText loses
-    # Retry up to 3 times in case code block hasn't finished rendering
-    CODE_RESPONSE="__NO_CODE_BLOCK__"
-    for CODE_RETRY in 1 2 3; do
-        CODE_RESPONSE=$(osascript 2>/dev/null <<'CODEEXTRACT'
+echo "[1/5] Prompt copied to clipboard from: $PROMPT_FILE"
+
+# Step 1: Open or focus Gemini in Chrome (always start a fresh chat)
+echo "[2/5] Opening Gemini in Chrome..."
+
+osascript <<'ASCRIPT'
 tell application "Google Chrome"
-    set jsResult to execute active tab of window 1 javascript "
-        (function() {
-            // Find code blocks in the last model response
-            var responses = document.querySelectorAll('model-response');
-            var lastResp = responses.length > 0 ? responses[responses.length - 1] : document;
+  activate
 
-            // Collect unique code blocks preserving indentation via textContent
-            var seen = {};
-            var codeTexts = [];
+  set geminiURL to "https://gemini.google.com/app"
+  set foundTab to false
 
-            function addCode(text) {
-                if (!text) return;
-                var t = text.trimEnd();
-                // Remove leading blank lines only
-                t = t.replace(/^\\n+/, '');
-                if (t.length < 5) return;
-                // Dedup: skip if we already have this exact code
-                if (seen[t]) return;
-                seen[t] = true;
-                codeTexts.push(t);
-            }
+  if (count of windows) > 0 then
+    repeat with w in windows
+      set tabIdx to 0
+      repeat with t in tabs of w
+        set tabIdx to tabIdx + 1
+        if URL of t starts with "https://gemini.google.com" then
+          set active tab index of w to tabIdx
+          set index of w to 1
+          set URL of active tab of front window to geminiURL
+          set foundTab to true
+          exit repeat
+        end if
+      end repeat
+      if foundTab then exit repeat
+    end repeat
+  end if
 
-            // Selector priority list - most specific first
-            var selectors = [
-                'code-block pre code',
-                'code-block pre',
-                'code-block code',
-                '.code-block pre code',
-                '.code-block pre',
-                'pre.code-block code',
-                'pre > code',
-                'pre code',
-                'pre',
-                '[class*=\"code-container\"] code',
-                '[class*=\"code\"] pre',
-                '[class*=\"code\"] code'
-            ];
-
-            for (var s = 0; s < selectors.length; s++) {
-                try {
-                    var els = lastResp.querySelectorAll(selectors[s]);
-                    for (var i = 0; i < els.length; i++) {
-                        addCode(els[i].textContent);
-                    }
-                } catch(e) {}
-                if (codeTexts.length > 0) break;
-            }
-
-            if (codeTexts.length > 0) {
-                return codeTexts.join('\\n\\n');
-            }
-            return '__NO_CODE_BLOCK__';
-        })()
-    "
-    return jsResult
+  if not foundTab then
+    if (count of windows) = 0 then
+      make new window
+    end if
+    tell front window
+      make new tab with properties {URL:geminiURL}
+    end tell
+  end if
 end tell
-CODEEXTRACT
-        )
-        if [ "$CODE_RESPONSE" != "__NO_CODE_BLOCK__" ] && [ -n "$CODE_RESPONSE" ] && [ "$CODE_RESPONSE" != "missing value" ]; then
-            break
-        fi
-        sleep 1
-    done
+ASCRIPT
 
-    if [ "$CODE_RESPONSE" != "__NO_CODE_BLOCK__" ] && [ -n "$CODE_RESPONSE" ] && [ "$CODE_RESPONSE" != "missing value" ]; then
-        CLEAN_RESPONSE="$CODE_RESPONSE"
-    else
-        # Fallback to the streamed response
-        FULL_RESPONSE="$PREV_RESPONSE"
-        PROMPT_LEN_CHECK=${#QUESTION}
-        RESPONSE_PREFIX_CHECK="${FULL_RESPONSE:0:$PROMPT_LEN_CHECK}"
-        if [ "$RESPONSE_PREFIX_CHECK" = "$QUESTION" ]; then
-            CLEAN_RESPONSE="${FULL_RESPONSE:$PROMPT_LEN_CHECK}"
-        else
-            CLEAN_RESPONSE="$FULL_RESPONSE"
-        fi
-    fi
+# Wait for page to load
+sleep 5
 
-    if [ -n "$CLEAN_RESPONSE" ]; then
-        # Remove "Python" from the first line (case-insensitive, with optional whitespace)
-        CLEAN_RESPONSE=$(printf '%s' "$CLEAN_RESPONSE" | sed '1 s/^[[:space:]]*[Pp]ython[[:space:]]*$//' | sed '1{/^$/d;}')
-
-        # Trim leading/trailing blank lines and trailing whitespace per line (preserve indentation)
-        # Note: $(…) already strips trailing newlines, so no need for a trailing-blank-line sed
-        CLEAN_RESPONSE=$(printf '%s' "$CLEAN_RESPONSE" | sed 's/[[:space:]]*$//' | sed '/./,$!d')
-
-        # Remove markdown code fence markers (```python, ```, etc.)
-        CLEAN_RESPONSE=$(printf '%s' "$CLEAN_RESPONSE" | sed '/^```[a-z]*$/d' | sed '/^```$/d')
-
-        printf '%s\n' "$CLEAN_RESPONSE" > "$OUTPUT_PATH"
-
-        # Beautify and format the Python code
-        # Try autopep8 first, then black, then a comprehensive built-in fixer
-        if python3 -c "import autopep8" 2>/dev/null; then
-            python3 -c "
-import autopep8, sys
-with open(sys.argv[1], 'r') as f:
-    code = f.read()
-formatted = autopep8.fix_code(code, options={'aggressive': 2})
-with open(sys.argv[1], 'w') as f:
-    f.write(formatted)
-" "$OUTPUT_PATH" 2>/dev/null
-        elif python3 -c "import black" 2>/dev/null; then
-            python3 -c "
-import black, sys
-with open(sys.argv[1], 'r') as f:
-    code = f.read()
-try:
-    formatted = black.format_str(code, mode=black.Mode())
-    with open(sys.argv[1], 'w') as f:
-        f.write(formatted)
-except:
-    pass
-" "$OUTPUT_PATH" 2>/dev/null
-        else
-            # Comprehensive built-in Python formatter
-            python3 << 'PYFIXER' "$OUTPUT_PATH" 2>/dev/null
-import sys, re, textwrap
-
-filepath = sys.argv[1]
-with open(filepath, 'r') as f:
-    code = f.read()
-
-def clean_code(code):
-    """Remove duplicate functions/blocks and trailing whitespace."""
-    lines = code.strip().split('\n')
-    lines = [l.rstrip() for l in lines]
-
-    # Detect and remove exact duplicate top-level blocks
-    # Split into blocks starting with non-indented lines
-    blocks = []
-    current = []
-    for line in lines:
-        if line and not line[0].isspace() and current:
-            blocks.append('\n'.join(current))
-            current = []
-        current.append(line)
-    if current:
-        blocks.append('\n'.join(current))
-
-    # Remove exact duplicate blocks
-    seen = []
-    unique = []
-    for block in blocks:
-        normalized = block.strip()
-        if normalized not in seen:
-            seen.append(normalized)
-            unique.append(block)
-
-    return '\n'.join(unique) + '\n'
-
-def has_indentation(code):
-    """Check if the code has any indentation at all."""
-    for line in code.split('\n'):
-        if line and line[0] in (' ', '\t'):
-            return True
-    return False
-
-def fix_indentation(code):
-    """Re-indent Python code that has lost all indentation."""
-    lines = code.strip().split('\n')
-    result = []
-    indent_stack = [0]  # stack tracking indent levels
-
-    # Patterns
-    block_start = re.compile(
-        r'^(def |class |if |elif |else\s*:|for |while |try\s*:|'
-        r'except|finally\s*:|with |async\s+def |async\s+for |'
-        r'async\s+with )'
-    )
-    dedent_kw = re.compile(r'^(elif\b|else\s*:|except\b|finally\s*:)')
-    terminal_kw = re.compile(r'^(return\b|break\s*$|pass\s*$|continue\s*$|raise\b)')
-    # Top-level starters reset indent
-    toplevel = re.compile(r'^(def |class |@)')
-
-    prev_terminal = False
-
-    for line in lines:
-        stripped = line.strip()
-        if not stripped:
-            result.append('')
-            continue
-
-        # Top-level definitions reset the stack
-        if toplevel.match(stripped) and not stripped.startswith('@'):
-            indent_stack = [0]
-            prev_terminal = False
-
-        # Dedent keywords (else, elif, except, finally) go back one level
-        if dedent_kw.match(stripped):
-            if len(indent_stack) > 1:
-                indent_stack.pop()
-            prev_terminal = False
-
-        # After terminal statement, next non-dedent line should go back one level
-        elif prev_terminal:
-            if len(indent_stack) > 1:
-                indent_stack.pop()
-            prev_terminal = False
-
-        current_indent = indent_stack[-1]
-        result.append('    ' * current_indent + stripped)
-
-        # Block-starting line (ends with ':') pushes a new indent level
-        if stripped.endswith(':') and block_start.match(stripped):
-            indent_stack.append(current_indent + 1)
-            prev_terminal = False
-        elif terminal_kw.match(stripped):
-            prev_terminal = True
-        else:
-            prev_terminal = False
-
-    return '\n'.join(result) + '\n'
-
-def format_spacing(code):
-    """Add PEP 8 blank lines: 2 before top-level def/class, 1 before methods."""
-    lines = code.split('\n')
-    result = []
-    for i, line in enumerate(lines):
-        stripped = line.lstrip()
-        indent_len = len(line) - len(stripped)
-        # Add blank lines before def/class at appropriate levels
-        if i > 0 and result and result[-1].strip() != '':
-            if stripped.startswith(('def ', 'class ', 'async def ')):
-                if indent_len == 0:
-                    # Top-level: 2 blank lines before
-                    while result and result[-1].strip() == '':
-                        result.pop()
-                    result.append('')
-                    result.append('')
-                else:
-                    # Nested (method): 1 blank line before, unless prev is decorator or block opener
-                    prev_stripped = result[-1].strip() if result else ''
-                    if not prev_stripped.startswith('@') and not prev_stripped.endswith(':'):
-                        while result and result[-1].strip() == '':
-                            result.pop()
-                        result.append('')
-        result.append(line)
-    return '\n'.join(result)
-
-# Step 1: Clean up (remove duplicates, trailing whitespace)
-code = clean_code(code)
-
-# Step 2: Check if code already compiles
-try:
-    compile(code, filepath, 'exec')
-    # Already valid - just apply spacing cleanup
-    code = format_spacing(code)
-    # Final trailing whitespace cleanup
-    lines = code.rstrip().split('\n')
-    code = '\n'.join(l.rstrip() for l in lines) + '\n'
-    with open(filepath, 'w') as f:
-        f.write(code)
-    sys.exit(0)
-except SyntaxError:
-    pass
-
-# Step 3: If no indentation, try to re-indent
-if not has_indentation(code):
-    fixed = fix_indentation(code)
-    try:
-        compile(fixed, filepath, 'exec')
-        fixed = format_spacing(fixed)
-        lines = fixed.rstrip().split('\n')
-        fixed = '\n'.join(l.rstrip() for l in lines) + '\n'
-        with open(filepath, 'w') as f:
-            f.write(fixed)
-        sys.exit(0)
-    except SyntaxError:
-        # Re-indent didn't produce valid code - try brute-force approach
-        pass
-
-# Step 4: Brute-force approach - try to parse and re-indent using AST
-# This handles cases where the heuristic indenter fails
-try:
-    # Try to use ast.unparse (Python 3.9+) to reconstruct code
-    import ast
-    tree = ast.parse(code)  # may work if code is flat but parseable
-    if hasattr(ast, 'unparse'):
-        unparsed = ast.unparse(tree)
-        # ast.unparse produces valid single-line-ish code, reformat it
-        try:
-            compile(unparsed, filepath, 'exec')
-            with open(filepath, 'w') as f:
-                f.write(unparsed + '\n')
-            sys.exit(0)
-        except SyntaxError:
-            pass
-except:
-    pass
-
-# Step 5: Last resort - write the cleaned code even if it doesn't compile
-code = clean_code(code)
-with open(filepath, 'w') as f:
-    f.write(code)
-PYFIXER
-        fi
-
-        echo "Saved to: $OUTPUT_PATH" >&2
-    fi
-fi
-
-# --- Step 8: Capture and save the session ID from the URL ---
-NEW_SESSION_URL=$(osascript 2>/dev/null <<'SESSIONSCRIPT'
+# Step 2: Check if logged in
+LOGIN_CHECK=$(osascript <<'ASCRIPT' 2>/dev/null || echo "unknown"
 tell application "Google Chrome"
-    set curURL to URL of active tab of window 1
-    return curURL
+  set jsResult to execute active tab of front window javascript "
+    window.location.href.includes('accounts.google.com') ? 'not_logged_in' : 'logged_in';
+  "
+  return jsResult
 end tell
-SESSIONSCRIPT
+ASCRIPT
 )
 
-# Extract session ID from URL like https://gemini.google.com/app/{session_id}
-if [[ "$NEW_SESSION_URL" =~ gemini\.google\.com/app/([a-zA-Z0-9_-]+) ]]; then
-    CAPTURED_ID="${BASH_REMATCH[1]}"
-    echo "$CAPTURED_ID" > "$SESSION_FILE"
+if [ "$LOGIN_CHECK" = "not_logged_in" ]; then
+  echo "ERROR: You are not logged in to Google."
+  echo "Please log in manually in Chrome first, then re-run this script."
+  exit 1
 fi
+
+echo "[3/5] Gemini loaded. Pasting prompt and submitting..."
+
+# Step 3: Focus input, paste from clipboard, and submit
+osascript <<'ASCRIPT'
+tell application "Google Chrome"
+  activate
+
+  -- Try to focus the input area via JavaScript
+  execute active tab of front window javascript "
+    (function() {
+      var el = document.querySelector('div[contenteditable=\"true\"]')
+            || document.querySelector('.ql-editor')
+            || document.querySelector('rich-textarea div[contenteditable]')
+            || document.querySelector('textarea');
+      if (el) { el.focus(); el.click(); }
+    })();
+  "
+end tell
+
+delay 0.5
+
+-- Paste from clipboard
+tell application "System Events"
+  tell process "Google Chrome"
+    set frontmost to true
+    keystroke "v" using command down
+  end tell
+end tell
+
+delay 1
+
+-- Try clicking the send button via JavaScript first
+tell application "Google Chrome"
+  execute active tab of front window javascript "
+    (function() {
+      // Try various selectors for the send/submit button
+      var btn = document.querySelector('button[aria-label=\"Send message\"]')
+             || document.querySelector('button[aria-label*=\"Send\"]')
+             || document.querySelector('.send-button')
+             || document.querySelector('button.send-button')
+             || document.querySelector('[data-mat-icon-name=\"send\"]');
+
+      if (btn) {
+        btn.click();
+        return 'clicked';
+      }
+
+      // Fallback: find button with a send icon (mat-icon)
+      var icons = document.querySelectorAll('mat-icon');
+      for (var i = 0; i < icons.length; i++) {
+        if (icons[i].textContent.trim() === 'send' || icons[i].textContent.trim() === 'arrow_upward') {
+          var parent = icons[i].closest('button');
+          if (parent) { parent.click(); return 'clicked_icon'; }
+        }
+      }
+
+      return 'not_found';
+    })();
+  "
+end tell
+
+delay 0.5
+
+-- Fallback: press Enter key in case JS button click didn't work
+tell application "System Events"
+  tell process "Google Chrome"
+    key code 36
+  end tell
+end tell
+ASCRIPT
+
+echo "[4/5] Prompt submitted. Waiting for response..."
+
+# Step 4: Poll until response stabilizes
+MAX_WAIT=120
+INTERVAL=3
+ELAPSED=0
+PREV_LEN=0
+STABLE_COUNT=0
+
+# Initial wait for response to start generating
+sleep 10
+
+while [ $ELAPSED -lt $MAX_WAIT ]; do
+  CURRENT_LEN=$(osascript <<'ASCRIPT' 2>/dev/null || echo "0"
+tell application "Google Chrome"
+  set jsResult to execute active tab of front window javascript "
+    (function() {
+      var selectors = [
+        'message-content .markdown',
+        '.model-response-text .markdown',
+        '.response-container .markdown',
+        '[data-message-author-role=\"model\"] .markdown-main-panel',
+        '.conversation-container .model-response-text',
+        '.response-content',
+        '.markdown'
+      ];
+
+      var responses = null;
+      for (var i = 0; i < selectors.length; i++) {
+        responses = document.querySelectorAll(selectors[i]);
+        if (responses.length > 0) break;
+      }
+
+      if (responses && responses.length > 0) {
+        return String(responses[responses.length - 1].innerText.length);
+      }
+      return '0';
+    })();
+  "
+  return jsResult
+end tell
+ASCRIPT
+  )
+
+  if [ "$CURRENT_LEN" != "0" ] && [ "$CURRENT_LEN" = "$PREV_LEN" ]; then
+    STABLE_COUNT=$((STABLE_COUNT + 1))
+    if [ $STABLE_COUNT -ge 3 ]; then
+      break
+    fi
+  else
+    STABLE_COUNT=0
+  fi
+
+  PREV_LEN="$CURRENT_LEN"
+  sleep $INTERVAL
+  ELAPSED=$((ELAPSED + INTERVAL))
+done
+
+# Step 5: Extract the final response
+echo "[5/5] Capturing response..."
+
+RESULT=$(osascript <<'ASCRIPT' 2>/dev/null || echo ""
+tell application "Google Chrome"
+  set jsResult to execute active tab of front window javascript "
+    (function() {
+      var selectors = [
+        'message-content .markdown',
+        '.model-response-text .markdown',
+        '.response-container .markdown',
+        '[data-message-author-role=\"model\"] .markdown-main-panel',
+        '.conversation-container .model-response-text',
+        '.response-content',
+        '.markdown'
+      ];
+
+      var responses = null;
+      for (var i = 0; i < selectors.length; i++) {
+        responses = document.querySelectorAll(selectors[i]);
+        if (responses.length > 0) break;
+      }
+
+      if (responses && responses.length > 0) {
+        return responses[responses.length - 1].innerText;
+      }
+
+      // Last resort: try to get any visible text from the response area
+      var all = document.querySelectorAll('[class*=\"response\"], [class*=\"message\"]');
+      for (var j = 0; j < all.length; j++) {
+        var text = all[j].innerText;
+        if (text && text.length > 50) return text;
+      }
+
+      return '';
+    })();
+  "
+  return jsResult
+end tell
+ASCRIPT
+)
+
+if [ -z "$RESULT" ]; then
+  echo ""
+  echo "WARNING: Could not capture the response automatically."
+  echo "This usually means the DOM selectors need updating for the current Gemini UI."
+  echo "Please check Chrome manually for the response."
+  exit 1
+fi
+
+echo ""
+echo "=== Gemini Response ==="
+echo "$RESULT"
