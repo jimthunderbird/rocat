@@ -40,6 +40,51 @@ if (isset($_GET['q']) && !empty($_GET['q'])) {
     exit;
 }
 
+// API endpoint: save URL to history
+if (isset($_GET['save_url']) && !empty($_GET['save_url'])) {
+    header('Content-Type: application/json; charset=utf-8');
+    $url = $_GET['save_url'];
+    $content = @file_get_contents($url);
+    if ($content === false) {
+        http_response_code(400);
+        echo json_encode(['error' => 'Could not load content from the given URL.']);
+    } else {
+        // Extract book name from content (first non-empty line)
+        $lines = explode("\n", $content);
+        $bookName = 'Unknown';
+        foreach ($lines as $line) {
+            $line = trim($line);
+            if (!empty($line)) {
+                $bookName = substr($line, 0, 100); // Limit to 100 chars
+                break;
+            }
+        }
+
+        // Save to history.txt
+        $historyFile = __DIR__ . '/history.txt';
+        $entry = $bookName . '|' . $url . "\n";
+
+        // Read existing history
+        $existingHistory = '';
+        if (file_exists($historyFile)) {
+            $existingHistory = file_get_contents($historyFile);
+        }
+
+        // Add new entry at the top (only if not already first)
+        $lines = array_filter(explode("\n", $existingHistory));
+        $newHistory = $entry;
+        foreach ($lines as $line) {
+            if (trim($line) !== trim($entry)) {
+                $newHistory .= $line . "\n";
+            }
+        }
+
+        file_put_contents($historyFile, $newHistory);
+        echo json_encode(['success' => true, 'content' => $content]);
+    }
+    exit;
+}
+
 // API endpoint: handle ?url= requests to fetch remote content
 if (isset($_GET['url']) && !empty($_GET['url'])) {
     header('Content-Type: text/plain; charset=utf-8');
@@ -54,8 +99,49 @@ if (isset($_GET['url']) && !empty($_GET['url'])) {
     exit;
 }
 
-// Read book content from Project Gutenberg
-$book_content = @file_get_contents('https://www.gutenberg.org/cache/epub/1661/pg1661.txt');
+// API endpoint: get history
+if (isset($_GET['get_history'])) {
+    header('Content-Type: application/json; charset=utf-8');
+    $historyFile = __DIR__ . '/history.txt';
+    $history = [];
+
+    if (file_exists($historyFile)) {
+        $content = file_get_contents($historyFile);
+        $lines = array_filter(explode("\n", $content));
+
+        foreach ($lines as $line) {
+            $parts = explode('|', $line, 2);
+            if (count($parts) === 2) {
+                $history[] = [
+                    'name' => trim($parts[0]),
+                    'url' => trim($parts[1])
+                ];
+            }
+        }
+    }
+
+    echo json_encode(['history' => $history]);
+    exit;
+}
+
+// Read book content from history or default URL
+$default_url = 'https://www.gutenberg.org/cache/epub/1661/pg1661.txt';
+$book_url = $default_url;
+
+$historyFile = __DIR__ . '/history.txt';
+if (file_exists($historyFile)) {
+    $historyContent = file_get_contents($historyFile);
+    $lines = array_filter(explode("\n", $historyContent));
+    if (!empty($lines)) {
+        $firstLine = trim($lines[0]);
+        $parts = explode('|', $firstLine, 2);
+        if (count($parts) === 2) {
+            $book_url = trim($parts[1]);
+        }
+    }
+}
+
+$book_content = @file_get_contents($book_url);
 if ($book_content === false) {
     $book_content = 'Error: Could not load book content. Please refresh the page.';
 }
@@ -107,10 +193,29 @@ body {
     flex-shrink: 0;
 }
 
-#url-form {
-    flex: 1;
-    display: flex;
-    justify-content: center;
+
+
+#summarize-btn {
+    border: none;
+    background: #5d4037;
+    color: #fff;
+    padding: 6px 14px;
+    cursor: pointer;
+    font-size: 13px;
+    font-family: Arial, sans-serif;
+    border-radius: 16px;
+    transition: background 0.2s;
+    white-space: nowrap;
+    flex-shrink: 0;
+}
+
+#summarize-btn:hover {
+    background: #4e342e;
+}
+
+#summarize-btn:disabled {
+    background: #999;
+    cursor: not-allowed;
 }
 
 #url-bar {
@@ -163,6 +268,66 @@ body {
 #url-btn:disabled {
     background: #999;
     cursor: not-allowed;
+}
+
+#history-btn {
+    border: none;
+    background: #5d4037;
+    color: #fff;
+    padding: 8px 12px;
+    cursor: pointer;
+    font-size: 14px;
+    font-family: Arial, sans-serif;
+    transition: background 0.2s;
+    white-space: nowrap;
+}
+
+#history-btn:hover {
+    background: #4e342e;
+}
+
+#history-dropdown {
+    display: none;
+    position: absolute;
+    background: #fff;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+    max-width: 520px;
+    width: 100%;
+    max-height: 400px;
+    overflow-y: auto;
+    z-index: 50;
+    margin-top: 4px;
+}
+
+#history-dropdown.active {
+    display: block;
+}
+
+#history-dropdown .history-item {
+    padding: 10px 16px;
+    cursor: pointer;
+    border-bottom: 1px solid #eee;
+    transition: background 0.2s;
+    color: #000;
+    font-weight: normal;
+    font-size: 14px;
+}
+
+#history-dropdown .history-item:hover {
+    background: #f5f0e8;
+}
+
+#history-dropdown .history-item:last-child {
+    border-bottom: none;
+}
+
+#url-form {
+    flex: 1;
+    display: flex;
+    justify-content: center;
+    position: relative;
 }
 
 #book_content {
@@ -664,9 +829,12 @@ marked.setOptions({
         <div id="url-bar">
             <input type="text" id="url-input" placeholder="Enter a book or article URL..." />
             <button type="submit" id="url-btn">Go</button>
+            <button type="button" id="history-btn" onclick="toggleHistory(event)">▼</button>
         </div>
+        <div id="history-dropdown"></div>
     </form>
     <span>Highlight text to look up</span>
+    <button id="summarize-btn" onclick="summarizeBook()">Summarize</button>
 </div>
 
 <div id="book_content"><?php echo htmlspecialchars($book_content, ENT_QUOTES, 'UTF-8'); ?></div>
@@ -717,10 +885,13 @@ async function loadUrl(e) {
     bookDiv.textContent = 'Loading content...';
 
     try {
-        const resp = await fetch('index.php?url=' + encodeURIComponent(url));
+        const resp = await fetch('index.php?save_url=' + encodeURIComponent(url));
         if (!resp.ok) throw new Error('Failed to fetch');
-        const text = await resp.text();
-        bookDiv.textContent = text;
+        const result = await resp.json();
+        if (result.error) {
+            throw new Error(result.error);
+        }
+        bookDiv.textContent = result.content;
         window.scrollTo(0, 0);
     } catch (err) {
         bookDiv.textContent = 'Error: Could not load content from the given URL. Please check the URL and try again.';
@@ -925,6 +1096,83 @@ document.getElementById('modal-voice-btn').addEventListener('click', (e) => {
 document.getElementById('nested-modal-voice-btn').addEventListener('click', (e) => {
     e.stopPropagation();
     speakWord(nestedModalSelectedText.textContent);
+});
+
+// History dropdown functionality
+function toggleHistory(e) {
+    e.preventDefault();
+    const dropdown = document.getElementById('history-dropdown');
+    if (dropdown.classList.contains('active')) {
+        dropdown.classList.remove('active');
+    } else {
+        loadHistoryDropdown();
+    }
+}
+
+async function loadHistoryDropdown() {
+    const dropdown = document.getElementById('history-dropdown');
+    dropdown.innerHTML = '<div style="padding: 10px; text-align: center; color: #999;">Loading...</div>';
+    dropdown.classList.add('active');
+
+    try {
+        const resp = await fetch('index.php?get_history=1');
+        const data = await resp.json();
+
+        if (data.history && data.history.length > 0) {
+            dropdown.innerHTML = '';
+            data.history.slice(0, 10).forEach(item => {
+                const div = document.createElement('div');
+                div.className = 'history-item';
+                div.textContent = item.name;
+                div.setAttribute('data-url', item.url);
+                div.addEventListener('click', () => selectHistoryItem(item.url));
+                dropdown.appendChild(div);
+            });
+        } else {
+            dropdown.innerHTML = '<div style="padding: 10px; text-align: center; color: #999;">No history yet</div>';
+        }
+    } catch (err) {
+        dropdown.innerHTML = '<div style="padding: 10px; text-align: center; color: #c62828;">Error loading history</div>';
+    }
+}
+
+function selectHistoryItem(url) {
+    const dropdown = document.getElementById('history-dropdown');
+    dropdown.classList.remove('active');
+    document.getElementById('url-input').value = url;
+    loadUrl({ preventDefault: () => {} });
+}
+
+// Summarize book functionality
+async function summarizeBook() {
+    const bookText = document.getElementById('book_content').textContent.trim();
+    if (!bookText || bookText.length < 50) {
+        alert('No book content loaded to summarize.');
+        return;
+    }
+
+    if (mainController) mainController.abort();
+    mainController = new AbortController();
+
+    // Take first ~30000 chars of the book as context for the summary
+    const excerpt = bookText.substring(0, 30000);
+
+    modalSelectedText.textContent = 'Book Summary';
+    modalBody.innerHTML = '<div class="loading-text"><div class="spinner"></div><div>Generating summary...</div></div>';
+    overlay.classList.add('active');
+
+    const question = 'Here is the beginning of a book:\n\n' + excerpt + '\n\nBased on the text above, provide a summary of this book in about 500 words. No extra words.';
+
+    await streamAIResponse(question, modalBody, mainController, null);
+}
+
+// Close dropdown when clicking outside
+document.addEventListener('click', (e) => {
+    const dropdown = document.getElementById('history-dropdown');
+    const historyBtn = document.getElementById('history-btn');
+    if (!dropdown.contains(e.target) && e.target !== historyBtn) {
+        dropdown.classList.remove('active');
+    }
 });
 </script>
 </body>

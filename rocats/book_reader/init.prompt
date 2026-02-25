@@ -40,7 +40,44 @@ task {
     }
   }
 
-  action {
+  action (completed) {
     when clicking on the voice icon, the popup still shows up, we should not have popup show up, only voice playing
+  }
+}
+
+task {
+  action (completed) {
+    once we enter an url {url} in the textbox "input#url-input", add a new line to history.txt with the following format:
+    {name of the book}|{url}
+    then when we load the page, it will load the url that is in the first line in the history.txt
+  }
+}
+
+task {
+  action (completed) {
+    add a down arrow button with id "button#history", when click {
+      show me the top 10 book names from history.txt in a dropdown under "input#url-input"
+      when i select one of the book in the dropdown, load the book's url
+    }
+  }  
+}
+
+task {
+  action (completed) {
+    in the dropdown that triggered from the click of "input#url-input", make the font color black but not bold, make the font size 18px
+  }
+}
+
+task {
+  action (completed) {
+    in the dropdown that triggered from the click of "input#url-input", make the font size 14px 
+  }
+}
+
+task {
+  action{
+    next to "Highligh text to look up", add a "Summarize" button, when click {
+      show a popup with a 500 words summary of the book using {llm_model}
+    }
   }
 }
