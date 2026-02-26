@@ -1523,7 +1523,7 @@ async function convertToSimpleEnglish(paragraphText, wrapperEl) {
     overlay.classList.add('active');
     applyStoredPosition(mainModal, 'modalLastPos');
 
-    const prompt = 'please convert the following paragraph to a simpler version using the most common 2000 words in English, No Explanation and No Extra Words, <paragraph>' + paragraphText + '</paragraph>';
+    const prompt = 'please convert the following paragraph to a new version using the most common 2000 daily conversational words in English, use non-fiction style.No Explanation and No Extra Words, <paragraph>' + paragraphText + '</paragraph>';
 
     await streamAIResponse(prompt, modalBody, mainController, null);
 }

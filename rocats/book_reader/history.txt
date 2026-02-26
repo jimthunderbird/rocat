@@ -1,6 +1,7 @@
+﻿The Project Gutenberg eBook of The Adventures of Sherlock Holmes|https://www.gutenberg.org/cache/epub/1661/pg1661.txt
+﻿The Project Gutenberg eBook of Weird Tales. Vol. 1 (of 2)|https://www.gutenberg.org/cache/epub/31377/pg31377.txt
 ﻿The Project Gutenberg eBook of The Time Machine|https://www.gutenberg.org/cache/epub/35/pg35.txt
 ﻿The Project Gutenberg eBook of Frankenstein; or, the modern prometheus|https://www.gutenberg.org/cache/epub/84/pg84.txt
-﻿The Project Gutenberg eBook of Weird Tales. Vol. 1 (of 2)|https://www.gutenberg.org/cache/epub/31377/pg31377.txt
 ﻿The Project Gutenberg eBook of The Covenant of Salt|https://www.gutenberg.org/cache/epub/46212/pg46212.txt
 ﻿The Project Gutenberg eBook of Amusements in Mathematics|https://www.gutenberg.org/cache/epub/16713/pg16713.txt
 ﻿The Project Gutenberg eBook of The Teaching of Geometry|https://www.gutenberg.org/cache/epub/37681/pg37681.txt

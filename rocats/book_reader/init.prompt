@@ -118,13 +118,13 @@ task {
 }
 
 task {
-  action (completed) {
+  action (reopen) {
     add a new button with {
       id: "button-convert-to-simple-english"
       text: "Simple English"
       @click {
         let paragraph_text = (the paragraph's text)
-        let prompt = (please convert the following paragraph to a simpler version using the most common 2000 words in English, No Explanation and No Extra Words, <paragraph>{paragraph_text}</paragraph>)
+        let prompt = (please convert the following paragraph to a new version using the most common 2000 daily conversational words in English, use non-fiction style.No Explanation and No Extra Words, <paragraph>{paragraph_text}</paragraph>)
         let response_text = (send request to ollma server 127.0.0.1:11434 with model: {llm_model}, query: {prompt})
         show a popup model with content of {response_text}
       }
