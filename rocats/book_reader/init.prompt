@@ -118,7 +118,7 @@ task {
 }
 
 task {
-  action (reopen) {
+  action (completed) {
     add a new button with {
       id: "button-convert-to-simple-english"
       text: "Simple English"
