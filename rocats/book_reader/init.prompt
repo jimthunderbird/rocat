@@ -1,5 +1,5 @@
 book_url = "https://www.gutenberg.org/cache/epub/1661/pg1661.txt"
-llm_model = "gemma2:2b"
+llm_model = "qwen3:30b-a3b"
 
 logic.highlighted_text_in_popup_modal(text, popup_modal) {
   let context = (30 words before {text}) + {text} + (30 words after {text})
@@ -119,21 +119,6 @@ task {
 
 task {
   action (completed) {
-    add a new button with {
-      id: "button-convert-to-simple-english"
-      text: "Simple English"
-      @click {
-        let paragraph_text = (the paragraph's text)
-        let prompt = (please convert the following paragraph to a new version using the most common 2000 daily conversational words in English, use non-fiction style.No Explanation and No Extra Words, <paragraph>{paragraph_text}</paragraph>)
-        let response_text = (send request to ollma server 127.0.0.1:11434 with model: {llm_model}, query: {prompt})
-        show a popup model with content of {response_text}
-      }
-    }
-  }
-}
-
-task {
-  action (completed) {
     create a bash script ./start.sh that will do the following {
       - start the local php web server serving port 3000
       - start ollama server 127.0.0.1:11434
@@ -158,5 +143,27 @@ task {
 task {
   action (completed) {
     for each modal that pops up, do not gray out the background!
+  }
+}
+
+task.simple_english_button {
+  action (reopen) {
+    add a new button with {
+      id: "button-convert-to-simple-english"
+      text: "Simple English"
+      @click {
+        let paragraph_text = (the paragraph's text)
+        let prompt = (please convert the following paragraph to a new version using only the words in The Oxford 3000, also use non-fiction style.No Explanation and No Extra Words, <paragraph>{paragraph_text}</paragraph>)
+        let response_text = (send request to ollma server 127.0.0.1:11434 with model: {llm_model}, query: {prompt})
+        show a popup model with content of {response_text}
+      }
+    }
+  }
+}
+
+task {
+  action (completed) {
+    in task.simple_english_button, when the popup modal shows, we have the following error:
+    Fatal error: Maximum execution time of 30 seconds exceeded in ./rocat/rocats/book_reader/index.php on line 23
   }
 }

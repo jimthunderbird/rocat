@@ -7,6 +7,7 @@ if (isset($_GET['q']) && !empty($_GET['q'])) {
 
     // Disable output buffering for streaming
     while (ob_get_level()) ob_end_clean();
+    set_time_limit(0);
 
     $question = $_GET['q'];
 
@@ -14,7 +15,7 @@ if (isset($_GET['q']) && !empty($_GET['q'])) {
     curl_setopt($ch, CURLOPT_POST, true);
     curl_setopt($ch, CURLOPT_HTTPHEADER, ['Content-Type: application/json']);
     curl_setopt($ch, CURLOPT_POSTFIELDS, json_encode([
-        'model' => 'gemma2:2b',
+        'model' => 'qwen3:30b-a3b',
         'prompt' => $question,
         'stream' => true
     ]));
@@ -145,6 +146,7 @@ $book_content = @file_get_contents($book_url);
 if ($book_content === false) {
     $book_content = 'Error: Could not load book content. Please refresh the page.';
 }
+
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -1523,7 +1525,7 @@ async function convertToSimpleEnglish(paragraphText, wrapperEl) {
     overlay.classList.add('active');
     applyStoredPosition(mainModal, 'modalLastPos');
 
-    const prompt = 'please convert the following paragraph to a new version using the most common 2000 daily conversational words in English, use non-fiction style.No Explanation and No Extra Words, <paragraph>' + paragraphText + '</paragraph>';
+    const prompt = 'please convert the following paragraph to a new version using only the words in The Oxford 3000, also use non-fiction style.No Explanation and No Extra Words, <paragraph>' + paragraphText + '</paragraph>';
 
     await streamAIResponse(prompt, modalBody, mainController, null);
 }
