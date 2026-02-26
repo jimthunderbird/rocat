@@ -112,7 +112,51 @@ task {
 }
 
 task {
-  action {
+  action (completed) {
     when sending the voice sentence-by-sentence, treat each sentence as terminated by "." sign, not new line!
+  }
+}
+
+task {
+  action (completed) {
+    add a new button with {
+      id: "button-convert-to-simple-english"
+      text: "Simple English"
+      @click {
+        let paragraph_text = (the paragraph's text)
+        let prompt = (please convert the following paragraph to a simpler version using the most common 2000 words in English, No Explanation and No Extra Words, <paragraph>{paragraph_text}</paragraph>)
+        let response_text = (send request to ollma server 127.0.0.1:11434 with model: {llm_model}, query: {prompt})
+        show a popup model with content of {response_text}
+      }
+    }
+  }
+}
+
+task {
+  action (completed) {
+    create a bash script ./start.sh that will do the following {
+      - start the local php web server serving port 3000
+      - start ollama server 127.0.0.1:11434
+      - start tts_server.py
+      for all of the processes above, if there are an existing one that's running, kill it and restart a new one
+    }  
+  }
+}
+
+task {
+  action (completed) {
+    make each popup modal draggable and remember the last known location so that next time when the modal is opened, open it at the last known location
+  }
+}
+
+task {
+  action (completed) {
+    when clicking on "Simple English", the related paragraph should be highlighted
+  }
+}
+
+task {
+  action (completed) {
+    for each modal that pops up, do not gray out the background!
   }
 }

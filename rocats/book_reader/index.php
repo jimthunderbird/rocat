@@ -346,8 +346,9 @@ body {
     display: none;
     position: fixed;
     top: 0; left: 0; right: 0; bottom: 0;
-    background: rgba(0,0,0,0.5);
+    background: transparent;
     z-index: 100;
+    pointer-events: none;
     justify-content: center;
     align-items: center;
 }
@@ -366,6 +367,7 @@ body {
     flex-direction: column;
     box-shadow: 0 8px 32px rgba(0,0,0,0.3);
     overflow: hidden;
+    pointer-events: auto;
 }
 
 #modal-header {
@@ -378,6 +380,8 @@ body {
     justify-content: space-between;
     align-items: center;
     flex-shrink: 0;
+    cursor: move;
+    user-select: none;
 }
 
 #modal-close {
@@ -576,6 +580,12 @@ body {
     display: flex;
     align-items: flex-start;
     gap: 4px;
+    transition: background 0.3s;
+}
+
+.para-wrapper.highlighted {
+    background: #fff3cd;
+    border-radius: 4px;
 }
 
 .para-wrapper .para-text {
@@ -612,6 +622,27 @@ body {
     width: 16px;
     height: 16px;
     fill: #5d4037;
+}
+
+.button-convert-to-simple-english {
+    background: none;
+    border: 1px solid #5d4037;
+    cursor: pointer;
+    padding: 1px 6px;
+    border-radius: 8px;
+    font-size: 10px;
+    font-family: Arial, sans-serif;
+    color: #5d4037;
+    transition: background 0.2s, opacity 0.2s;
+    flex-shrink: 0;
+    opacity: 0.3;
+    margin-top: 2px;
+    white-space: nowrap;
+}
+
+.button-convert-to-simple-english:hover {
+    background: rgba(62, 39, 35, 0.1);
+    opacity: 1;
 }
 
 #modal-body .loading-text {
@@ -653,8 +684,9 @@ body {
     display: none;
     position: fixed;
     top: 0; left: 0; right: 0; bottom: 0;
-    background: rgba(0,0,0,0.45);
+    background: transparent;
     z-index: 200;
+    pointer-events: none;
     justify-content: center;
     align-items: center;
 }
@@ -673,6 +705,7 @@ body {
     flex-direction: column;
     box-shadow: 0 12px 40px rgba(0,0,0,0.4);
     overflow: hidden;
+    pointer-events: auto;
 }
 
 #nested-modal-header {
@@ -685,6 +718,8 @@ body {
     justify-content: space-between;
     align-items: center;
     flex-shrink: 0;
+    cursor: move;
+    user-select: none;
 }
 
 #nested-modal-close {
@@ -977,6 +1012,8 @@ document.addEventListener('keydown', (e) => {
 function closeMainModal() {
     overlay.classList.remove('active');
     closeNestedModal();
+    // Clear paragraph highlight
+    document.querySelectorAll('.para-wrapper.highlighted').forEach(el => el.classList.remove('highlighted'));
     if (mainController) {
         mainController.abort();
         mainController = null;
@@ -990,6 +1027,70 @@ function closeNestedModal() {
         nestedController = null;
     }
 }
+
+// Draggable modals with remembered positions
+function makeModalDraggable(modalEl, headerEl, storageKey) {
+    let isDragging = false;
+    let offsetX = 0, offsetY = 0;
+
+    headerEl.addEventListener('mousedown', (e) => {
+        if (e.target.tagName === 'BUTTON') return;
+        isDragging = true;
+        const rect = modalEl.getBoundingClientRect();
+        offsetX = e.clientX - rect.left;
+        offsetY = e.clientY - rect.top;
+        // Switch to absolute positioning on first drag
+        modalEl.style.position = 'absolute';
+        modalEl.style.left = rect.left + 'px';
+        modalEl.style.top = rect.top + 'px';
+        modalEl.style.margin = '0';
+        e.preventDefault();
+    });
+
+    document.addEventListener('mousemove', (e) => {
+        if (!isDragging) return;
+        let newLeft = e.clientX - offsetX;
+        let newTop = e.clientY - offsetY;
+        // Clamp to viewport
+        newLeft = Math.max(0, Math.min(newLeft, window.innerWidth - 100));
+        newTop = Math.max(0, Math.min(newTop, window.innerHeight - 50));
+        modalEl.style.left = newLeft + 'px';
+        modalEl.style.top = newTop + 'px';
+        e.preventDefault();
+    });
+
+    document.addEventListener('mouseup', () => {
+        if (!isDragging) return;
+        isDragging = false;
+        // Save position
+        localStorage.setItem(storageKey, JSON.stringify({
+            left: parseInt(modalEl.style.left),
+            top: parseInt(modalEl.style.top)
+        }));
+    });
+}
+
+function applyStoredPosition(modalEl, storageKey) {
+    const stored = localStorage.getItem(storageKey);
+    if (stored) {
+        try {
+            const pos = JSON.parse(stored);
+            // Validate position is still within viewport
+            const left = Math.max(0, Math.min(pos.left, window.innerWidth - 100));
+            const top = Math.max(0, Math.min(pos.top, window.innerHeight - 50));
+            modalEl.style.position = 'absolute';
+            modalEl.style.left = left + 'px';
+            modalEl.style.top = top + 'px';
+            modalEl.style.margin = '0';
+        } catch(e) {}
+    }
+}
+
+const mainModal = document.getElementById('modal');
+const nestedModal = document.getElementById('nested-modal');
+
+makeModalDraggable(mainModal, document.getElementById('modal-header'), 'modalLastPos');
+makeModalDraggable(nestedModal, document.getElementById('nested-modal-header'), 'nestedModalLastPos');
 
 function getSurroundingContext(highlighted) {
     const paraTexts = document.querySelectorAll('#book_content .para-text');
@@ -1074,6 +1175,7 @@ document.getElementById('book_content').addEventListener('mouseup', async () => 
     modalSelectedText.textContent = highlighted;
     modalBody.innerHTML = '<div class="loading-text"><div class="spinner"></div><div>Asking AI...</div></div>';
     overlay.classList.add('active');
+    applyStoredPosition(mainModal, 'modalLastPos');
 
     const context = getSurroundingContext(highlighted);
     const question = 'in the context of "' + context + '", show me the pronounciation of "' + highlighted + '" in International Phonetic Alphabet, show the meaning of "' + highlighted + '" in 30 words, translate the meaning of "' + highlighted + '" in simplified chinese, no extra words';
@@ -1094,6 +1196,7 @@ function handlePopupHighlight(e) {
     nestedModalSelectedText.textContent = highlighted;
     nestedModalBody.innerHTML = '<div class="loading-text"><div class="spinner"></div><div>Asking AI...</div></div>';
     nestedOverlay.classList.add('active');
+    applyStoredPosition(nestedModal, 'nestedModalLastPos');
 
     const question = 'show me the pronounciation of "' + highlighted + '" in International Phonetic Alphabet, show the meaning of "' + highlighted + '" in 30 words, translate the meaning of "' + highlighted + '" in simplified chinese, no extra words';
 
@@ -1206,6 +1309,7 @@ async function summarizeBook() {
     modalSelectedText.textContent = 'Book Summary';
     modalBody.innerHTML = '<div class="loading-text"><div class="spinner"></div><div>Generating summary...</div></div>';
     overlay.classList.add('active');
+    applyStoredPosition(mainModal, 'modalLastPos');
 
     const question = 'Here is the beginning of a book:\n\n' + excerpt + '\n\nBased on the text above, provide a summary of this book in about 500 words. No extra words.';
 
@@ -1245,7 +1349,17 @@ function processBookParagraphs() {
         // Prevent mouseup from triggering highlight popup
         btn.addEventListener('mouseup', (e) => e.stopPropagation());
 
+        const simpleBtn = document.createElement('button');
+        simpleBtn.className = 'button-convert-to-simple-english';
+        simpleBtn.textContent = 'Simple English';
+        simpleBtn.addEventListener('click', (e) => {
+            e.stopPropagation();
+            convertToSimpleEnglish(trimmed, wrapper);
+        });
+        simpleBtn.addEventListener('mouseup', (e) => e.stopPropagation());
+
         wrapper.appendChild(textDiv);
+        wrapper.appendChild(simpleBtn);
         wrapper.appendChild(btn);
         bookDiv.appendChild(wrapper);
     });
@@ -1393,6 +1507,26 @@ function speakParagraphFallback(text, btn) {
 
 // Process paragraphs on initial page load
 processBookParagraphs();
+
+// Simple English conversion
+async function convertToSimpleEnglish(paragraphText, wrapperEl) {
+    // Remove highlight from any previously highlighted paragraph
+    document.querySelectorAll('.para-wrapper.highlighted').forEach(el => el.classList.remove('highlighted'));
+    // Highlight the related paragraph
+    if (wrapperEl) wrapperEl.classList.add('highlighted');
+
+    if (mainController) mainController.abort();
+    mainController = new AbortController();
+
+    modalSelectedText.textContent = 'Simple English';
+    modalBody.innerHTML = '<div class="loading-text"><div class="spinner"></div><div>Converting to simple English...</div></div>';
+    overlay.classList.add('active');
+    applyStoredPosition(mainModal, 'modalLastPos');
+
+    const prompt = 'please convert the following paragraph to a simpler version using the most common 2000 words in English, No Explanation and No Extra Words, <paragraph>' + paragraphText + '</paragraph>';
+
+    await streamAIResponse(prompt, modalBody, mainController, null);
+}
 
 // Close dropdown when clicking outside
 document.addEventListener('click', (e) => {
