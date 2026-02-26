@@ -75,9 +75,44 @@ task {
 }
 
 task {
-  action{
+  action (completed) {
     next to "Highligh text to look up", add a "Summarize" button, when click {
       show a popup with a 500 words summary of the book using {llm_model}
     }
+  }
+}
+
+task {
+  action (completed) {
+    when a book is loaded, for every single paragraph, on the right side, put a little voice button, when clicked, use the natural TTS to read this paragraph {
+      voice {
+        gender: male
+        requirement: not robotic, sounds like a human
+      }
+    }
+  }
+}
+
+task {
+  action (completed) {
+    are there any python libraries that can generate more natural story telling voice? if so, spin up a python web server, when click on the voice button next to each paragraph of the book, invoke an api to the python web server to play the voice
+  }
+}
+
+task {
+  action (completed) {
+    the tts_server.py is serving port 5000, please change it to serve port 4000 instead
+  }
+}
+
+task {
+  action (completed) {
+    when reading a long paragraph using tts_server.py, it has a very long wait time, please make it so that for each paragraph, send the voice sentence-by-sentence to speed up the process
+  }
+}
+
+task {
+  action {
+    when sending the voice sentence-by-sentence, treat each sentence as terminated by "." sign, not new line!
   }
 }

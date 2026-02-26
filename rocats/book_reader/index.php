@@ -572,6 +572,48 @@ body {
     color: #555;
 }
 
+.para-wrapper {
+    display: flex;
+    align-items: flex-start;
+    gap: 4px;
+}
+
+.para-wrapper .para-text {
+    flex: 1;
+    white-space: pre-wrap;
+    word-wrap: break-word;
+}
+
+.para-voice-btn {
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: 2px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: background 0.2s, opacity 0.2s;
+    flex-shrink: 0;
+    opacity: 0.3;
+    margin-top: 2px;
+}
+
+.para-voice-btn:hover {
+    background: rgba(62, 39, 35, 0.1);
+    opacity: 1;
+}
+
+.para-voice-btn.speaking {
+    opacity: 1;
+}
+
+.para-voice-btn svg {
+    width: 16px;
+    height: 16px;
+    fill: #5d4037;
+}
+
 #modal-body .loading-text {
     text-align: center;
     color: #999;
@@ -892,6 +934,7 @@ async function loadUrl(e) {
             throw new Error(result.error);
         }
         bookDiv.textContent = result.content;
+        processBookParagraphs();
         window.scrollTo(0, 0);
     } catch (err) {
         bookDiv.textContent = 'Error: Could not load content from the given URL. Please check the URL and try again.';
@@ -949,7 +992,10 @@ function closeNestedModal() {
 }
 
 function getSurroundingContext(highlighted) {
-    const fullText = document.getElementById('book_content').textContent;
+    const paraTexts = document.querySelectorAll('#book_content .para-text');
+    let fullText = '';
+    paraTexts.forEach(p => { fullText += p.textContent + '\n\n'; });
+    if (!fullText) fullText = document.getElementById('book_content').textContent;
     const idx = fullText.indexOf(highlighted);
     if (idx === -1) return highlighted;
 
@@ -1165,6 +1211,188 @@ async function summarizeBook() {
 
     await streamAIResponse(question, modalBody, mainController, null);
 }
+
+// Paragraph voice buttons
+const voiceSvg = '<svg viewBox="0 0 24 24"><path d="M3 9v6h4l5 5V4L7 9H3zm13.5 3c0-1.77-1.02-3.29-2.5-4.03v8.05c1.48-.73 2.5-2.25 2.5-4.02zM14 3.23v2.06c2.89.86 5 3.54 5 6.71s-2.11 5.85-5 6.71v2.06c4.01-.91 7-4.49 7-8.77s-2.99-7.86-7-8.77z"/></svg>';
+
+function processBookParagraphs() {
+    const bookDiv = document.getElementById('book_content');
+    const text = bookDiv.textContent;
+    // Split on double newlines (paragraph breaks)
+    const paragraphs = text.split(/\n\s*\n/);
+    bookDiv.innerHTML = '';
+    bookDiv.style.whiteSpace = 'normal';
+
+    paragraphs.forEach((para) => {
+        const trimmed = para.trim();
+        if (!trimmed) return;
+
+        const wrapper = document.createElement('div');
+        wrapper.className = 'para-wrapper';
+
+        const textDiv = document.createElement('div');
+        textDiv.className = 'para-text';
+        textDiv.textContent = trimmed;
+
+        const btn = document.createElement('button');
+        btn.className = 'para-voice-btn';
+        btn.title = 'Read this paragraph aloud';
+        btn.innerHTML = voiceSvg;
+        btn.addEventListener('click', (e) => {
+            e.stopPropagation();
+            speakParagraph(trimmed, btn);
+        });
+        // Prevent mouseup from triggering highlight popup
+        btn.addEventListener('mouseup', (e) => e.stopPropagation());
+
+        wrapper.appendChild(textDiv);
+        wrapper.appendChild(btn);
+        bookDiv.appendChild(wrapper);
+    });
+}
+
+let currentSpeakingBtn = null;
+let currentAudio = null;
+let currentSentencePlayback = null;
+
+function splitIntoSentences(text) {
+    // Normalize newlines to spaces so only "." (and ! ?) terminate sentences, not newlines
+    const normalized = text.replace(/\n+/g, ' ').replace(/\s+/g, ' ').trim();
+    // Split on sentence-ending punctuation
+    const parts = normalized.match(/[^.]*\./g);
+    if (!parts || parts.length === 0) return [normalized];
+    // Capture any trailing text without a period
+    const matched = parts.join('');
+    const remaining = normalized.substring(matched.length).trim();
+    const sentences = parts.map(s => s.trim()).filter(s => s.length > 0);
+    if (remaining) sentences.push(remaining);
+    return sentences;
+}
+
+function speakParagraph(text, btn) {
+    // Toggle off if already playing this paragraph
+    if (currentSentencePlayback && currentSpeakingBtn === btn) {
+        currentSentencePlayback.stop();
+        currentSentencePlayback = null;
+        btn.classList.remove('speaking');
+        currentSpeakingBtn = null;
+        currentAudio = null;
+        return;
+    }
+    // Stop any other playing audio
+    if (currentSentencePlayback) {
+        currentSentencePlayback.stop();
+        currentSentencePlayback = null;
+    }
+    if (currentAudio) {
+        currentAudio.pause();
+        currentAudio = null;
+    }
+    if (currentSpeakingBtn) {
+        currentSpeakingBtn.classList.remove('speaking');
+    }
+
+    btn.classList.add('speaking');
+    currentSpeakingBtn = btn;
+
+    const sentences = splitIntoSentences(text);
+    const ttsUrl = 'http://127.0.0.1:4000/tts?text=';
+
+    const playback = {
+        index: 0,
+        stopped: false,
+        preloaded: {},
+
+        stop() {
+            this.stopped = true;
+            if (currentAudio) {
+                currentAudio.pause();
+                currentAudio = null;
+            }
+        },
+
+        preload(i) {
+            if (i >= sentences.length || this.preloaded[i]) return;
+            const a = new Audio(ttsUrl + encodeURIComponent(sentences[i]));
+            a.preload = 'auto';
+            this.preloaded[i] = a;
+        },
+
+        playNext() {
+            if (this.stopped || this.index >= sentences.length) {
+                btn.classList.remove('speaking');
+                if (currentSpeakingBtn === btn) currentSpeakingBtn = null;
+                currentAudio = null;
+                currentSentencePlayback = null;
+                return;
+            }
+
+            const audio = this.preloaded[this.index] || new Audio(ttsUrl + encodeURIComponent(sentences[this.index]));
+            currentAudio = audio;
+
+            // Pre-load next sentence while current one plays
+            this.preload(this.index + 1);
+
+            const self = this;
+            audio.addEventListener('ended', function() {
+                self.index++;
+                self.playNext();
+            });
+            audio.addEventListener('error', function() {
+                if (!self.stopped) {
+                    // Fallback to browser TTS for remaining text
+                    const remaining = sentences.slice(self.index).join(' ');
+                    btn.classList.remove('speaking');
+                    currentSpeakingBtn = null;
+                    currentAudio = null;
+                    currentSentencePlayback = null;
+                    speakParagraphFallback(remaining, btn);
+                }
+            });
+
+            audio.play().catch(() => {
+                if (!self.stopped) {
+                    const remaining = sentences.slice(self.index).join(' ');
+                    btn.classList.remove('speaking');
+                    currentSpeakingBtn = null;
+                    currentAudio = null;
+                    currentSentencePlayback = null;
+                    speakParagraphFallback(remaining, btn);
+                }
+            });
+        }
+    };
+
+    // Pre-load first two sentences for fastest start
+    playback.preload(0);
+    playback.preload(1);
+    currentSentencePlayback = playback;
+    playback.playNext();
+}
+
+// Fallback to browser speechSynthesis if TTS server unavailable
+function speakParagraphFallback(text, btn) {
+    if (!('speechSynthesis' in window)) return;
+    speechSynthesis.cancel();
+    const utterance = new SpeechSynthesisUtterance(text);
+    utterance.lang = 'en-US';
+    utterance.rate = 0.95;
+    const voices = speechSynthesis.getVoices();
+    const enVoices = voices.filter(v => v.lang.startsWith('en'));
+    const maleVoice = enVoices.find(v => /premium|enhanced/i.test(v.name) && /aaron|daniel|james/i.test(v.name))
+        || enVoices.find(v => /aaron|daniel|james|guy|tom/i.test(v.name))
+        || enVoices.find(v => !/female|samantha|karen|victoria|fiona/i.test(v.name))
+        || enVoices[0];
+    if (maleVoice) utterance.voice = maleVoice;
+    btn.classList.add('speaking');
+    currentSpeakingBtn = btn;
+    utterance.onend = () => { btn.classList.remove('speaking'); currentSpeakingBtn = null; };
+    utterance.onerror = () => { btn.classList.remove('speaking'); currentSpeakingBtn = null; };
+    speechSynthesis.speak(utterance);
+}
+
+// Process paragraphs on initial page load
+processBookParagraphs();
 
 // Close dropdown when clicking outside
 document.addEventListener('click', (e) => {
