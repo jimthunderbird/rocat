@@ -1476,7 +1476,7 @@ function processBookParagraphs() {
         btn.innerHTML = voiceSvg;
         btn.addEventListener('click', (e) => {
             e.stopPropagation();
-            speakParagraph(trimmed, btn);
+            speakParagraph(textDiv.textContent.trim(), btn);
         });
         // Prevent mouseup from triggering highlight popup
         btn.addEventListener('mouseup', (e) => e.stopPropagation());
@@ -1573,39 +1573,49 @@ function speakParagraph(text, btn) {
                 return;
             }
 
-            const audio = this.preloaded[this.index] || new Audio(ttsUrl + encodeURIComponent(sentences[this.index]));
+            const self = this;
+            let fallbackTriggered = false;
+
+            function triggerFallback() {
+                if (fallbackTriggered || self.stopped) return;
+                fallbackTriggered = true;
+                clearTimeout(safetyTimeout);
+                const remaining = sentences.slice(self.index).join(' ');
+                btn.classList.remove('speaking');
+                currentSpeakingBtn = null;
+                currentAudio = null;
+                currentSentencePlayback = null;
+                speakParagraphFallback(remaining, btn);
+            }
+
+            // Check if preloaded audio already errored (race condition)
+            const preloaded = this.preloaded[this.index];
+            if (preloaded && preloaded.error) {
+                triggerFallback();
+                return;
+            }
+
+            const audio = preloaded || new Audio(ttsUrl + encodeURIComponent(sentences[this.index]));
             currentAudio = audio;
 
             // Pre-load next sentence while current one plays
             this.preload(this.index + 1);
 
-            const self = this;
+            // Safety timeout: fall back if nothing happens within 5 seconds
+            const safetyTimeout = setTimeout(triggerFallback, 5000);
+
+            audio.addEventListener('canplaythrough', function() {
+                clearTimeout(safetyTimeout);
+            });
             audio.addEventListener('ended', function() {
+                if (fallbackTriggered) return;
+                clearTimeout(safetyTimeout);
                 self.index++;
                 self.playNext();
             });
-            audio.addEventListener('error', function() {
-                if (!self.stopped) {
-                    // Fallback to browser TTS for remaining text
-                    const remaining = sentences.slice(self.index).join(' ');
-                    btn.classList.remove('speaking');
-                    currentSpeakingBtn = null;
-                    currentAudio = null;
-                    currentSentencePlayback = null;
-                    speakParagraphFallback(remaining, btn);
-                }
-            });
+            audio.addEventListener('error', triggerFallback);
 
-            audio.play().catch(() => {
-                if (!self.stopped) {
-                    const remaining = sentences.slice(self.index).join(' ');
-                    btn.classList.remove('speaking');
-                    currentSpeakingBtn = null;
-                    currentAudio = null;
-                    currentSentencePlayback = null;
-                    speakParagraphFallback(remaining, btn);
-                }
-            });
+            audio.play().catch(triggerFallback);
         }
     };
 

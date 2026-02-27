@@ -82,7 +82,7 @@ task {
   }
 }
 
-task {
+task.paragraph_reading {
   action (completed) {
     when a book is loaded, for every single paragraph, on the right side, put a little voice button, when clicked, use the natural TTS to read this paragraph {
       voice {
@@ -222,5 +222,13 @@ task {
 }
 
 task {
-  for the progress bar in task.full_simple_english_progress_bar, please make the percentage number style to font-weight:bold and font-color:white
+  action (completed) {
+    for the progress bar in task.full_simple_english_progress_bar, please make the percentage number style to font-weight:bold and font-color:white
+  }
+}
+
+task {
+  action {
+    task.paragraph_reading does not seem to work now
+  }
 }
