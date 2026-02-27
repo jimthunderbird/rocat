@@ -41,7 +41,7 @@ OLLAMA_PID=$!
 
 # Start TTS server
 echo "Starting TTS server..."
-python3 tts_server.py &
+python3.11 tts_server.py &
 TTS_PID=$!
 
 echo ""
