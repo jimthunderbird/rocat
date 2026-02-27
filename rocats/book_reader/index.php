@@ -11,29 +11,77 @@ if (isset($_GET['q']) && !empty($_GET['q'])) {
 
     $question = $_GET['q'];
 
+    // State for filtering <think>...</think> blocks
+    $thinkState = 'init'; // 'init', 'thinking', 'output'
+    $thinkBuf = '';
+
     $ch = curl_init('http://127.0.0.1:11434/api/generate');
     curl_setopt($ch, CURLOPT_POST, true);
     curl_setopt($ch, CURLOPT_HTTPHEADER, ['Content-Type: application/json']);
     curl_setopt($ch, CURLOPT_POSTFIELDS, json_encode([
-        'model' => 'qwen3:30b-a3b',
+        'model' => 'gemma2:2b',
         'prompt' => $question,
         'stream' => true
     ]));
     curl_setopt($ch, CURLOPT_RETURNTRANSFER, false);
-    curl_setopt($ch, CURLOPT_WRITEFUNCTION, function($ch, $data) {
+    curl_setopt($ch, CURLOPT_WRITEFUNCTION, function($ch, $data) use (&$thinkState, &$thinkBuf) {
         foreach (explode("\n", $data) as $line) {
             $line = trim($line);
             if ($line === '') continue;
             $json = json_decode($line, true);
             if ($json && isset($json['response'])) {
-                echo $json['response'];
-                flush();
+                $token = $json['response'];
+
+                if ($thinkState === 'output') {
+                    echo $token;
+                    flush();
+                    continue;
+                }
+
+                $thinkBuf .= $token;
+
+                if ($thinkState === 'init') {
+                    $t = ltrim($thinkBuf);
+                    if (strpos($t, '<think>') === 0) {
+                        $thinkState = 'thinking';
+                        $pos = strpos($thinkBuf, '</think>');
+                        if ($pos !== false) {
+                            $thinkState = 'output';
+                            $after = ltrim(substr($thinkBuf, $pos + 8), "\n\r");
+                            if ($after !== '' && $after !== false) {
+                                echo $after;
+                                flush();
+                            }
+                            $thinkBuf = '';
+                        }
+                    } else if (strlen($t) >= 7 || ($t !== '' && $t[0] !== '<')) {
+                        $thinkState = 'output';
+                        echo $thinkBuf;
+                        flush();
+                        $thinkBuf = '';
+                    }
+                } else if ($thinkState === 'thinking') {
+                    $pos = strpos($thinkBuf, '</think>');
+                    if ($pos !== false) {
+                        $thinkState = 'output';
+                        $after = ltrim(substr($thinkBuf, $pos + 8), "\n\r");
+                        if ($after !== '' && $after !== false) {
+                            echo $after;
+                            flush();
+                        }
+                        $thinkBuf = '';
+                    }
+                }
             }
         }
         return strlen($data);
     });
 
     $result = curl_exec($ch);
+    // Flush any remaining buffered content
+    if ($thinkBuf !== '' && $thinkState !== 'thinking') {
+        echo $thinkBuf;
+    }
     if ($result === false) {
         echo 'Error: Could not connect to Ollama server at 127.0.0.1:11434.';
     }
@@ -218,6 +266,63 @@ body {
 #summarize-btn:disabled {
     background: #999;
     cursor: not-allowed;
+}
+
+#full-simple-english-btn {
+    border: none;
+    background: #5d4037;
+    color: #fff;
+    padding: 6px 14px;
+    cursor: pointer;
+    font-size: 13px;
+    font-family: Arial, sans-serif;
+    border-radius: 16px;
+    transition: background 0.2s;
+    white-space: nowrap;
+    flex-shrink: 0;
+}
+
+#full-simple-english-btn:hover {
+    background: #4e342e;
+}
+
+#full-simple-english-btn:disabled {
+    background: #999;
+    cursor: not-allowed;
+}
+
+#full-simple-english-progress {
+    display: none;
+    width: 200px;
+    height: 8px;
+    background: #e0d8cc;
+    border-radius: 4px;
+    overflow: hidden;
+    flex-shrink: 0;
+}
+
+#full-simple-english-progress.active {
+    display: block;
+}
+
+#full-simple-english-progress-bar {
+    height: 100%;
+    width: 0%;
+    background: #5d4037;
+    border-radius: 4px;
+    transition: width 0.3s;
+}
+
+#full-simple-english-progress-text {
+    font-size: 11px;
+    color: #5d4037;
+    font-family: Arial, sans-serif;
+    display: none;
+    flex-shrink: 0;
+}
+
+#full-simple-english-progress-text.active {
+    display: block;
 }
 
 #url-bar {
@@ -647,6 +752,27 @@ body {
     opacity: 1;
 }
 
+.button-show-original-text {
+    background: none;
+    border: 1px solid #5d4037;
+    cursor: pointer;
+    padding: 1px 6px;
+    border-radius: 8px;
+    font-size: 10px;
+    font-family: Arial, sans-serif;
+    color: #5d4037;
+    transition: background 0.2s, opacity 0.2s;
+    flex-shrink: 0;
+    opacity: 0.3;
+    margin-top: 2px;
+    white-space: nowrap;
+}
+
+.button-show-original-text:hover {
+    background: rgba(62, 39, 35, 0.1);
+    opacity: 1;
+}
+
 #modal-body .loading-text {
     text-align: center;
     color: #999;
@@ -914,6 +1040,9 @@ marked.setOptions({
     </form>
     <span>Highlight text to look up</span>
     <button id="summarize-btn" onclick="summarizeBook()">Summarize</button>
+    <button id="full-simple-english-btn" onclick="fullSimpleEnglish()">Full Simple English</button>
+    <div id="full-simple-english-progress"><div id="full-simple-english-progress-bar"></div></div>
+    <span id="full-simple-english-progress-text"></span>
 </div>
 
 <div id="book_content"><?php echo htmlspecialchars($book_content, ENT_QUOTES, 'UTF-8'); ?></div>
@@ -1528,6 +1657,125 @@ async function convertToSimpleEnglish(paragraphText, wrapperEl) {
     const prompt = 'please convert the following paragraph to a new version using only the words in The Oxford 3000, also use non-fiction style.No Explanation and No Extra Words, <paragraph>' + paragraphText + '</paragraph>';
 
     await streamAIResponse(prompt, modalBody, mainController, null);
+}
+
+// Show original text in a modal
+function showOriginalTextModal(originalText) {
+    if (mainController) mainController.abort();
+    mainController = new AbortController();
+
+    modalSelectedText.textContent = 'Original Text';
+    modalBody.innerHTML = '<div style="white-space: pre-wrap; word-wrap: break-word; padding: 4px 0;">' + originalText.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;') + '</div>';
+    overlay.classList.add('active');
+    applyStoredPosition(mainModal, 'modalLastPos');
+}
+
+// Full Simple English conversion
+let fullSimpleEnglishAbort = null;
+
+async function fullSimpleEnglish() {
+    const btn = document.getElementById('full-simple-english-btn');
+    const progressContainer = document.getElementById('full-simple-english-progress');
+    const progressBar = document.getElementById('full-simple-english-progress-bar');
+    const progressText = document.getElementById('full-simple-english-progress-text');
+
+    // If already running, cancel it
+    if (fullSimpleEnglishAbort) {
+        fullSimpleEnglishAbort.abort();
+        fullSimpleEnglishAbort = null;
+        btn.textContent = 'Full Simple English';
+        btn.disabled = false;
+        progressContainer.classList.remove('active');
+        progressText.classList.remove('active');
+        document.querySelectorAll('.para-wrapper.highlighted').forEach(el => el.classList.remove('highlighted'));
+        return;
+    }
+
+    // Remove all "Simple English" buttons
+    document.querySelectorAll('.button-convert-to-simple-english').forEach(el => el.remove());
+
+    fullSimpleEnglishAbort = new AbortController();
+    btn.textContent = 'Stop Converting';
+
+    const wrappers = document.querySelectorAll('#book_content .para-wrapper');
+
+    // Count eligible paragraphs for progress
+    const eligible = [];
+    wrappers.forEach(w => {
+        const td = w.querySelector('.para-text');
+        if (td && td.textContent.trim().length >= 20) eligible.push(w);
+    });
+    const total = eligible.length;
+
+    // Show progress bar
+    progressBar.style.width = '0%';
+    progressContainer.classList.add('active');
+    progressText.classList.add('active');
+    progressText.textContent = '0%';
+
+    for (let i = 0; i < eligible.length; i++) {
+        if (fullSimpleEnglishAbort.signal.aborted) break;
+
+        const wrapper = eligible[i];
+        const textDiv = wrapper.querySelector('.para-text');
+
+        const paragraphText = textDiv.textContent.trim();
+        const originalText = paragraphText;
+
+        // Highlight the paragraph being processed
+        document.querySelectorAll('.para-wrapper.highlighted').forEach(el => el.classList.remove('highlighted'));
+        wrapper.classList.add('highlighted');
+
+        const prompt = 'please convert the following paragraph to a new version using only the very simple english words but with advanced english gramma usage and long sentences. DO NOT RETURN CHINESE CHARACTERS! ONLY ENGLISH! No Explanation and No Extra Words! <paragraph>' + paragraphText + '</paragraph>';
+
+        try {
+            const resp = await fetch('index.php?q=' + encodeURIComponent(prompt), {
+                signal: fullSimpleEnglishAbort.signal
+            });
+            if (!resp.ok) throw new Error('Request failed');
+
+            const reader = resp.body.getReader();
+            const decoder = new TextDecoder();
+            let rawText = '';
+
+            while (true) {
+                const { done, value } = await reader.read();
+                if (done) break;
+                rawText += decoder.decode(value, { stream: true });
+                textDiv.textContent = rawText;
+            }
+
+            textDiv.textContent = rawText.trim();
+
+            // Add "Original Text" button after successful conversion
+            if (!wrapper.querySelector('.button-show-original-text')) {
+                const origBtn = document.createElement('button');
+                origBtn.className = 'button-show-original-text';
+                origBtn.textContent = 'Original Text';
+                origBtn.addEventListener('click', (e) => {
+                    e.stopPropagation();
+                    showOriginalTextModal(originalText);
+                });
+                origBtn.addEventListener('mouseup', (e) => e.stopPropagation());
+                wrapper.appendChild(origBtn);
+            }
+        } catch (e) {
+            if (e.name === 'AbortError') break;
+        }
+
+        // Update progress bar
+        const pct = Math.round(((i + 1) / total) * 100);
+        progressBar.style.width = pct + '%';
+        progressText.textContent = pct + '%';
+    }
+
+    // Clean up
+    document.querySelectorAll('.para-wrapper.highlighted').forEach(el => el.classList.remove('highlighted'));
+    fullSimpleEnglishAbort = null;
+    btn.textContent = 'Full Simple English';
+    btn.disabled = false;
+    progressContainer.classList.remove('active');
+    progressText.classList.remove('active');
 }
 
 // Close dropdown when clicking outside

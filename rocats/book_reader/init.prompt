@@ -1,5 +1,5 @@
 book_url = "https://www.gutenberg.org/cache/epub/1661/pg1661.txt"
-llm_model = "qwen3:30b-a3b"
+llm_model = "gemma2:2b"
 
 logic.highlighted_text_in_popup_modal(text, popup_modal) {
   let context = (30 words before {text}) + {text} + (30 words after {text})
@@ -147,7 +147,7 @@ task {
 }
 
 task.simple_english_button {
-  action (reopen) {
+  action (completed) {
     add a new button with {
       id: "button-convert-to-simple-english"
       text: "Simple English"
@@ -165,5 +165,58 @@ task {
   action (completed) {
     in task.simple_english_button, when the popup modal shows, we have the following error:
     Fatal error: Maximum execution time of 30 seconds exceeded in ./rocat/rocats/book_reader/index.php on line 23
+  }
+}
+
+task {
+  action (completed){
+    add a new button with {
+      id: "button-full-simple-english"
+      text: "Full Simple English"
+      @click {
+        - remove all "Simple English" buttons next to each paragraph
+        - for each {paragraph} in (all pragraphs in the current books) {
+          hightlight the {paragraph}
+          let paragraph_text = (the text of the {paragraph})
+          let prompt = (please convert the following paragraph to a new version using only the very simple english words but with advanced english gramma usage and long sentences. DO NOT RETURN CHINESE CHARACTERS! ONLY ENGLISH! No Explanation and No Extra Words! <paragraph>{paragraph_text}</paragraph>)
+          let response_text = (send request to ollma server 127.0.0.1:11434 with model: {llm_model}, query: {prompt})
+          replace the paragraph text to {response_text}
+          remove the paragraph highlight
+        }
+        - please do streaming so i can see progress per-paragraph
+      }
+    }
+  }
+}
+
+task.full_simple_english_progress_bar {
+  action (completed){
+    please show a progress bar (from 0% to 100%) showing the simple english conversion when button.id:"button-full-simple-english" is clicked, the progress bar should be below the button.id:"button-full-simple-english"
+  }
+}
+
+task {
+  action (completed) {
+    the progress bar in task.full_simple_english_progress_bar does not show up! please fix it!
+  }
+}
+
+task {
+  action (completed) {
+    please update to the new {llm_model}
+  }
+}
+
+task {
+  action (completed) {
+    when button.id:"button-full-simple-english" is clicked {
+      for each paragraph, on the right of the speaking logo, add a new button {
+        id: "button-show-original-text"
+        text: "Original Text"
+        @click {
+          show a popup modal with the original text before the conversion
+        }
+      }
+    }
   }
 }
