@@ -315,7 +315,8 @@ body {
 
 #full-simple-english-progress-text {
     font-size: 11px;
-    color: #5d4037;
+    color: white;
+    font-weight: bold;
     font-family: Arial, sans-serif;
     display: none;
     flex-shrink: 0;
@@ -1726,7 +1727,7 @@ async function fullSimpleEnglish() {
         document.querySelectorAll('.para-wrapper.highlighted').forEach(el => el.classList.remove('highlighted'));
         wrapper.classList.add('highlighted');
 
-        const prompt = 'please convert the following paragraph to a new version using only the very simple english words but with advanced english gramma usage and long sentences. DO NOT RETURN CHINESE CHARACTERS! ONLY ENGLISH! No Explanation and No Extra Words! <paragraph>' + paragraphText + '</paragraph>';
+        const prompt = 'please convert the following paragraph to a new version using very very simple words and sentences. DO NOT RETURN CHINESE CHARACTERS! ONLY ENGLISH! No Explanation and No Extra Words! <paragraph>' + paragraphText + '</paragraph>';
 
         try {
             const resp = await fetch('index.php?q=' + encodeURIComponent(prompt), {

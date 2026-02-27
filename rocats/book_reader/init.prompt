@@ -178,7 +178,7 @@ task {
         - for each {paragraph} in (all pragraphs in the current books) {
           hightlight the {paragraph}
           let paragraph_text = (the text of the {paragraph})
-          let prompt = (please convert the following paragraph to a new version using only the very simple english words but with advanced english gramma usage and long sentences. DO NOT RETURN CHINESE CHARACTERS! ONLY ENGLISH! No Explanation and No Extra Words! <paragraph>{paragraph_text}</paragraph>)
+          let prompt = (please convert the following paragraph to a new version using very very simple words and sentences. DO NOT RETURN CHINESE CHARACTERS! ONLY ENGLISH! No Explanation and No Extra Words! <paragraph>{paragraph_text}</paragraph>)
           let response_text = (send request to ollma server 127.0.0.1:11434 with model: {llm_model}, query: {prompt})
           replace the paragraph text to {response_text}
           remove the paragraph highlight
@@ -219,4 +219,8 @@ task {
       }
     }
   }
+}
+
+task {
+  for the progress bar in task.full_simple_english_progress_bar, please make the percentage number style to font-weight:bold and font-color:white
 }
