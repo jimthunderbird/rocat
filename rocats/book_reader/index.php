@@ -1918,7 +1918,7 @@ async function streamBookContent(url, save) {
                             let translatedText = currentTextDiv.textContent.trim();
 
                             // Strip LLM meta-commentary from the end of translations
-                            translatedText = translatedText.replace(/\s*(please let me know if you'd like.*|let me know if you'd like.*|if you'd like me to rephrase.*|i'm ready to help.*|i hope this helps.*|feel free to ask.*|don't hesitate to ask.*|happy to help.*)$/gi, '').trim();
+                            translatedText = translatedText.replace(/\s*(please let me know if you'd like.*|let me know if you'd like.*|let me know if you have any questions.*|if you'd like me to rephrase.*|i'm ready to help.*|i hope this helps.*|feel free to ask.*|don't hesitate to ask.*|happy to help.*|if you have any questions.*|i hope this version.*|i hope you enjoy.*|let me know if you need.*|let me know if there's anything.*|is there anything else.*)$/gi, '').trim();
 
                             // Detect LLM refusal/placeholder responses and fall back to original
                             if (/please provide|I'm ready to|i'm ready to|provide me with|send me the/i.test(translatedText) || translatedText.length === 0) {
@@ -2137,7 +2137,7 @@ async function fullSimpleEnglish() {
 
             // Strip LLM meta-commentary from the end of translations
             let finalText = rawText.trim();
-            finalText = finalText.replace(/\s*(please let me know if you'd like.*|let me know if you'd like.*|if you'd like me to rephrase.*|i'm ready to help.*|i hope this helps.*|feel free to ask.*|don't hesitate to ask.*|happy to help.*)$/gi, '').trim();
+            finalText = finalText.replace(/\s*(please let me know if you'd like.*|let me know if you'd like.*|let me know if you have any questions.*|if you'd like me to rephrase.*|i'm ready to help.*|i hope this helps.*|feel free to ask.*|don't hesitate to ask.*|happy to help.*|if you have any questions.*|i hope this version.*|i hope you enjoy.*|let me know if you need.*|let me know if there's anything.*|is there anything else.*)$/gi, '').trim();
 
             // Detect LLM refusal/placeholder responses and fall back to original
             if (/please provide|I'm ready to|i'm ready to|provide me with|send me the/i.test(finalText) || finalText.length === 0) {

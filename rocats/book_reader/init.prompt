@@ -342,6 +342,12 @@ task {
   }
 }
 
+task {
+  action (completed) {
+    need to filter out words like "Let me know if you have any questions about the content!" in the llm response
+  }
+}
+
 {
   focus on solving reopen actions only!
   after solving them {

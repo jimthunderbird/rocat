@@ -85,7 +85,7 @@ service.php_backend {
       }
       emit {"event":"complete"}
       filter <think>...</think> blocks from Ollama responses
-      javascript strips LLM meta-commentary from translations (e.g. "let me know if you'd like", "please let me know", "i hope this helps", "feel free to ask", "happy to help")
+      javascript strips LLM meta-commentary from translations (e.g. "let me know if you'd like", "let me know if you have any questions", "please let me know", "i hope this helps", "i hope this version", "i hope you enjoy", "feel free to ask", "don't hesitate to ask", "happy to help", "if you have any questions", "let me know if you need", "let me know if there's anything", "is there anything else")
       javascript detects LLM refusal responses (e.g. "please provide", "I'm ready to") and falls back to original text
     }
   }
