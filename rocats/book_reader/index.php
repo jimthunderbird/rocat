@@ -134,6 +134,180 @@ if (isset($_GET['save_url']) && !empty($_GET['save_url'])) {
     exit;
 }
 
+// API endpoint: stream book with server-side simple English translation
+if (isset($_GET['stream_book'])) {
+    header('Content-Type: text/plain; charset=utf-8');
+    header('X-Accel-Buffering: no');
+    header('Cache-Control: no-cache');
+    while (ob_get_level()) ob_end_clean();
+    set_time_limit(0);
+
+    // Determine book URL
+    $book_url = isset($_GET['url']) && !empty($_GET['url']) ? $_GET['url'] : null;
+    if (!$book_url) {
+        $historyFile = __DIR__ . '/history.txt';
+        $book_url = 'https://www.gutenberg.org/cache/epub/1661/pg1661.txt';
+        if (file_exists($historyFile)) {
+            $histContent = file_get_contents($historyFile);
+            $hlines = array_filter(explode("\n", $histContent));
+            if (!empty($hlines)) {
+                $parts = explode('|', trim(reset($hlines)), 2);
+                if (count($parts) === 2) $book_url = trim($parts[1]);
+            }
+        }
+    }
+
+    $content = @file_get_contents($book_url);
+    if ($content === false) {
+        echo json_encode(['event' => 'error', 'message' => 'Could not load book content.']) . "\n";
+        flush();
+        exit;
+    }
+
+    // Optionally save to history
+    if (isset($_GET['save'])) {
+        $bookName = 'Unknown';
+        $clines = explode("\n", $content);
+        foreach ($clines as $cline) {
+            $cline = trim($cline);
+            if (!empty($cline)) {
+                $bookName = substr($cline, 0, 100);
+                break;
+            }
+        }
+        $histFile = __DIR__ . '/history.txt';
+        $entry = $bookName . '|' . $book_url . "\n";
+        $existingHist = '';
+        if (file_exists($histFile)) {
+            $existingHist = file_get_contents($histFile);
+        }
+        $existLines = array_filter(explode("\n", $existingHist));
+        $newHist = $entry;
+        $entryTrimmed = trim($entry);
+        foreach ($existLines as $hl) {
+            if (trim($hl) !== $entryTrimmed) {
+                $newHist .= $hl . "\n";
+            }
+        }
+        file_put_contents($histFile, $newHist);
+    }
+
+    // Split into paragraphs
+    $paragraphs = preg_split('/\n\s*\n/', $content);
+    $eligible = [];
+    foreach ($paragraphs as $para) {
+        $trimmed = trim($para);
+        if (!empty($trimmed)) $eligible[] = $trimmed;
+    }
+    $total = count($eligible);
+
+    echo json_encode(['event' => 'total', 'count' => $total]) . "\n";
+    flush();
+
+    for ($i = 0; $i < $total; $i++) {
+        $trimmed = $eligible[$i];
+        $idx = $i + 1;
+
+        echo json_encode(['event' => 'start', 'original' => $trimmed, 'index' => $idx, 'total' => $total]) . "\n";
+        flush();
+
+        if (mb_strlen($trimmed) < 20) {
+            // Short paragraph - pass through without translation
+            echo json_encode(['event' => 'token', 'text' => $trimmed]) . "\n";
+            flush();
+            echo json_encode(['event' => 'end', 'index' => $idx]) . "\n";
+            flush();
+            continue;
+        }
+
+        // Translate via Ollama with think-block filtering
+        $prompt = 'please rewrite the content of <paragraph> to a new version that uses only modern and very very simple english words and sentences. USE Sentence Combining AND Clause Linking AS YOU SEE FIT. DO NOT MISS ANY DEEP DETAILS,DEEP MEANINGS AND TONES OF THE ORIGINAL VERSION. NO EXPLANATION, NO EXTRA WORDS, DO NOT RETURN CHINESE CHARACTERS, <paragraph>' . $trimmed . '</paragraph>';
+
+        $thinkState = 'init';
+        $thinkBuf = '';
+
+        $ch = curl_init('http://127.0.0.1:11434/api/generate');
+        curl_setopt($ch, CURLOPT_POST, true);
+        curl_setopt($ch, CURLOPT_HTTPHEADER, ['Content-Type: application/json']);
+        curl_setopt($ch, CURLOPT_POSTFIELDS, json_encode([
+            'model' => 'gemma2:2b',
+            'prompt' => $prompt,
+            'stream' => true
+        ]));
+        curl_setopt($ch, CURLOPT_RETURNTRANSFER, false);
+        curl_setopt($ch, CURLOPT_WRITEFUNCTION, function($ch, $data) use (&$thinkState, &$thinkBuf) {
+            foreach (explode("\n", $data) as $line) {
+                $line = trim($line);
+                if ($line === '') continue;
+                $json = json_decode($line, true);
+                if ($json && isset($json['response'])) {
+                    $token = $json['response'];
+
+                    if ($thinkState === 'output') {
+                        echo json_encode(['event' => 'token', 'text' => $token]) . "\n";
+                        flush();
+                        continue;
+                    }
+
+                    $thinkBuf .= $token;
+
+                    if ($thinkState === 'init') {
+                        $t = ltrim($thinkBuf);
+                        if (strpos($t, '<think>') === 0) {
+                            $thinkState = 'thinking';
+                            $pos = strpos($thinkBuf, '</think>');
+                            if ($pos !== false) {
+                                $thinkState = 'output';
+                                $after = ltrim(substr($thinkBuf, $pos + 8), "\n\r");
+                                if ($after !== '' && $after !== false) {
+                                    echo json_encode(['event' => 'token', 'text' => $after]) . "\n";
+                                    flush();
+                                }
+                                $thinkBuf = '';
+                            }
+                        } else if (strlen($t) >= 7 || ($t !== '' && $t[0] !== '<')) {
+                            $thinkState = 'output';
+                            echo json_encode(['event' => 'token', 'text' => $thinkBuf]) . "\n";
+                            flush();
+                            $thinkBuf = '';
+                        }
+                    } else if ($thinkState === 'thinking') {
+                        $pos = strpos($thinkBuf, '</think>');
+                        if ($pos !== false) {
+                            $thinkState = 'output';
+                            $after = ltrim(substr($thinkBuf, $pos + 8), "\n\r");
+                            if ($after !== '' && $after !== false) {
+                                echo json_encode(['event' => 'token', 'text' => $after]) . "\n";
+                                flush();
+                            }
+                            $thinkBuf = '';
+                        }
+                    }
+                }
+            }
+            return strlen($data);
+        });
+
+        $result = curl_exec($ch);
+        if ($thinkBuf !== '' && $thinkState !== 'thinking') {
+            echo json_encode(['event' => 'token', 'text' => $thinkBuf]) . "\n";
+            flush();
+        }
+        if ($result === false) {
+            echo json_encode(['event' => 'token', 'text' => '[Error: Could not connect to Ollama]']) . "\n";
+            flush();
+        }
+        curl_close($ch);
+
+        echo json_encode(['event' => 'end', 'index' => $idx]) . "\n";
+        flush();
+    }
+
+    echo json_encode(['event' => 'complete']) . "\n";
+    flush();
+    exit;
+}
+
 // API endpoint: handle ?url= requests to fetch remote content
 if (isset($_GET['url']) && !empty($_GET['url'])) {
     header('Content-Type: text/plain; charset=utf-8');
@@ -171,28 +345,6 @@ if (isset($_GET['get_history'])) {
 
     echo json_encode(['history' => $history]);
     exit;
-}
-
-// Read book content from history or default URL
-$default_url = 'https://www.gutenberg.org/cache/epub/1661/pg1661.txt';
-$book_url = $default_url;
-
-$historyFile = __DIR__ . '/history.txt';
-if (file_exists($historyFile)) {
-    $historyContent = file_get_contents($historyFile);
-    $lines = array_filter(explode("\n", $historyContent));
-    if (!empty($lines)) {
-        $firstLine = trim($lines[0]);
-        $parts = explode('|', $firstLine, 2);
-        if (count($parts) === 2) {
-            $book_url = trim($parts[1]);
-        }
-    }
-}
-
-$book_content = @file_get_contents($book_url);
-if ($book_content === false) {
-    $book_content = 'Error: Could not load book content. Please refresh the page.';
 }
 
 ?>
@@ -1046,7 +1198,7 @@ marked.setOptions({
     <span id="full-simple-english-progress-text"></span>
 </div>
 
-<div id="book_content"><?php echo htmlspecialchars($book_content, ENT_QUOTES, 'UTF-8'); ?></div>
+<div id="book_content"></div>
 
 <!-- Modal -->
 <div id="modal-overlay">
@@ -1083,32 +1235,10 @@ marked.setOptions({
 <script>
 async function loadUrl(e) {
     e.preventDefault();
-    const input = document.getElementById('url-input');
-    const btn = document.getElementById('url-btn');
-    const url = input.value.trim();
+    const url = document.getElementById('url-input').value.trim();
     if (!url) return false;
-
-    btn.disabled = true;
-    btn.textContent = 'Loading...';
-    const bookDiv = document.getElementById('book_content');
-    bookDiv.textContent = 'Loading content...';
-
-    try {
-        const resp = await fetch('index.php?save_url=' + encodeURIComponent(url));
-        if (!resp.ok) throw new Error('Failed to fetch');
-        const result = await resp.json();
-        if (result.error) {
-            throw new Error(result.error);
-        }
-        bookDiv.textContent = result.content;
-        processBookParagraphs();
-        window.scrollTo(0, 0);
-    } catch (err) {
-        bookDiv.textContent = 'Error: Could not load content from the given URL. Please check the URL and try again.';
-    } finally {
-        btn.disabled = false;
-        btn.textContent = 'Go';
-    }
+    streamBookContent(url, true);
+    window.scrollTo(0, 0);
     return false;
 }
 
@@ -1439,7 +1569,8 @@ function selectHistoryItem(url) {
     const dropdown = document.getElementById('history-dropdown');
     dropdown.classList.remove('active');
     document.getElementById('url-input').value = url;
-    loadUrl({ preventDefault: () => {} });
+    streamBookContent(url, true);
+    window.scrollTo(0, 0);
 }
 
 // Summarize book functionality
@@ -1502,17 +1633,7 @@ function processBookParagraphs() {
         // Prevent mouseup from triggering highlight popup
         btn.addEventListener('mouseup', (e) => e.stopPropagation());
 
-        const simpleBtn = document.createElement('button');
-        simpleBtn.className = 'button-convert-to-simple-english';
-        simpleBtn.textContent = 'Simple English';
-        simpleBtn.addEventListener('click', (e) => {
-            e.stopPropagation();
-            convertToSimpleEnglish(trimmed, wrapper);
-        });
-        simpleBtn.addEventListener('mouseup', (e) => e.stopPropagation());
-
         wrapper.appendChild(textDiv);
-        wrapper.appendChild(simpleBtn);
         wrapper.appendChild(btn);
         bookDiv.appendChild(wrapper);
     });
@@ -1687,8 +1808,169 @@ function speakParagraphFallback(text, btn) {
     speechSynthesis.speak(utterance);
 }
 
-// Process paragraphs on initial page load
-processBookParagraphs();
+// Full Simple English conversion abort controller (declared early for use in streamBookContent)
+let fullSimpleEnglishAbort = null;
+
+// Stream book content with server-side simple English translation
+let streamBookAbort = null;
+
+async function streamBookContent(url, save) {
+    // Cancel any previous streaming
+    if (streamBookAbort) {
+        streamBookAbort.abort();
+        streamBookAbort = null;
+    }
+    if (fullSimpleEnglishAbort) {
+        fullSimpleEnglishAbort.abort();
+        fullSimpleEnglishAbort = null;
+    }
+
+    streamBookAbort = new AbortController();
+
+    const bookDiv = document.getElementById('book_content');
+    bookDiv.innerHTML = '<div style="text-align:center;padding:40px;color:#999;">Loading and translating book...</div>';
+    bookDiv.style.whiteSpace = 'normal';
+
+    const progressContainer = document.getElementById('full-simple-english-progress');
+    const progressBar = document.getElementById('full-simple-english-progress-bar');
+    const progressText = document.getElementById('full-simple-english-progress-text');
+
+    let endpoint = 'index.php?stream_book=1';
+    if (url) endpoint += '&url=' + encodeURIComponent(url);
+    if (save) endpoint += '&save=1';
+
+    let lastWrapper = null;
+
+    try {
+        const resp = await fetch(endpoint, { signal: streamBookAbort.signal });
+        if (!resp.ok) throw new Error('Request failed');
+
+        const reader = resp.body.getReader();
+        const decoder = new TextDecoder();
+        let buffer = '';
+        let currentWrapper = null;
+        let currentTextDiv = null;
+        let currentOriginal = '';
+        let total = 0;
+        let started = false;
+
+        while (true) {
+            const { done, value } = await reader.read();
+            if (done) break;
+            buffer += decoder.decode(value, { stream: true });
+
+            const lines = buffer.split('\n');
+            buffer = lines.pop(); // Keep incomplete last line in buffer
+
+            for (const line of lines) {
+                if (!line.trim()) continue;
+                try {
+                    const evt = JSON.parse(line);
+
+                    if (evt.event === 'total') {
+                        total = evt.count;
+                        progressBar.style.width = '0%';
+                        progressContainer.classList.add('active');
+                        progressText.classList.add('active');
+                        progressText.textContent = '0%';
+
+                    } else if (evt.event === 'start') {
+                        if (!started) {
+                            bookDiv.innerHTML = '';
+                            started = true;
+                        }
+                        currentOriginal = evt.original;
+
+                        // Remove highlight from previous paragraph
+                        if (currentWrapper) currentWrapper.classList.remove('highlighted');
+
+                        // Create new paragraph wrapper
+                        currentWrapper = document.createElement('div');
+                        currentWrapper.className = 'para-wrapper highlighted';
+                        lastWrapper = currentWrapper;
+
+                        currentTextDiv = document.createElement('div');
+                        currentTextDiv.className = 'para-text';
+
+                        const voiceBtn = document.createElement('button');
+                        voiceBtn.className = 'para-voice-btn';
+                        voiceBtn.title = 'Read this paragraph aloud';
+                        voiceBtn.innerHTML = voiceSvg;
+                        (function(td, b) {
+                            b.addEventListener('click', function(e) {
+                                e.stopPropagation();
+                                speakParagraph(td.textContent.trim(), b);
+                            });
+                        })(currentTextDiv, voiceBtn);
+                        voiceBtn.addEventListener('mouseup', function(e) { e.stopPropagation(); });
+
+                        currentWrapper.appendChild(currentTextDiv);
+                        currentWrapper.appendChild(voiceBtn);
+                        bookDiv.appendChild(currentWrapper);
+
+                    } else if (evt.event === 'token') {
+                        if (currentTextDiv) {
+                            currentTextDiv.textContent += evt.text;
+                        }
+
+                    } else if (evt.event === 'end') {
+                        if (currentWrapper && currentTextDiv) {
+                            let translatedText = currentTextDiv.textContent.trim();
+
+                            // Detect LLM refusal/placeholder responses and fall back to original
+                            if (/please provide|I'm ready to|i'm ready to|provide me with|send me the/i.test(translatedText)) {
+                                translatedText = currentOriginal;
+                            }
+                            currentTextDiv.textContent = translatedText;
+                            currentWrapper.classList.remove('highlighted');
+
+                            // Add "Original Text" button if translated (>= 20 chars)
+                            if (currentOriginal.length >= 20) {
+                                (function(origText, wrapper) {
+                                    const origBtn = document.createElement('button');
+                                    origBtn.className = 'button-show-original-text';
+                                    origBtn.textContent = 'Original Text';
+                                    origBtn.addEventListener('click', function(e) {
+                                        e.stopPropagation();
+                                        showOriginalTextModal(origText);
+                                    });
+                                    origBtn.addEventListener('mouseup', function(e) { e.stopPropagation(); });
+                                    wrapper.appendChild(origBtn);
+                                })(currentOriginal, currentWrapper);
+                            }
+                        }
+
+                        // Update progress
+                        if (total > 0 && evt.index) {
+                            const pct = Math.round((evt.index / total) * 100);
+                            progressBar.style.width = pct + '%';
+                            progressText.textContent = pct + '%';
+                        }
+
+                    } else if (evt.event === 'error') {
+                        bookDiv.innerHTML = '<div style="text-align:center;padding:40px;color:#c62828;">' +
+                            (evt.message || 'Error loading book').replace(/</g, '&lt;') + '</div>';
+
+                    } else if (evt.event === 'complete') {
+                        // All done
+                    }
+                } catch (parseErr) {}
+            }
+        }
+    } catch (e) {
+        if (e.name === 'AbortError') return;
+        bookDiv.innerHTML = '<div style="text-align:center;padding:40px;color:#c62828;">Error: Could not stream book content.</div>';
+    }
+
+    // Clean up
+    if (lastWrapper) lastWrapper.classList.remove('highlighted');
+    streamBookAbort = null;
+    progressContainer.classList.remove('active');
+    progressText.classList.remove('active');
+}
+
+// Load book on initial page load via streaming
+streamBookContent();
 
 // Simple English conversion
 async function convertToSimpleEnglish(paragraphText, wrapperEl) {
@@ -1778,8 +2060,6 @@ function showOriginalTextModal(originalText) {
 }
 
 // Full Simple English conversion
-let fullSimpleEnglishAbort = null;
-
 async function fullSimpleEnglish() {
     const btn = document.getElementById('full-simple-english-btn');
     const progressContainer = document.getElementById('full-simple-english-progress');
@@ -1852,7 +2132,12 @@ async function fullSimpleEnglish() {
                 textDiv.textContent = rawText;
             }
 
-            textDiv.textContent = rawText.trim();
+            // Detect LLM refusal/placeholder responses and fall back to original
+            let finalText = rawText.trim();
+            if (/please provide|I'm ready to|i'm ready to|provide me with|send me the/i.test(finalText)) {
+                finalText = originalText;
+            }
+            textDiv.textContent = finalText;
 
             // Add "Original Text" button after successful conversion
             if (!wrapper.querySelector('.button-show-original-text')) {

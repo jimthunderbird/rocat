@@ -66,6 +66,28 @@ service.php_backend {
       return as JSON array of {name, url} objects
     }
   }
+
+  endpoint.stream_book {
+    route: ?stream_book=1&url={url}&save={save}
+    params {
+      url: string (optional) - book URL; if omitted, reads from {config.history_file} or default {config.book_url}
+      save: flag (optional) - if present, save URL to {config.history_file} before streaming
+    }
+    behavior {
+      read book content from {url}
+      if save flag: extract book name, prepend to {config.history_file}
+      split content into paragraphs
+      for each paragraph {
+        emit NDJSON event: {"event":"start","original":"...","index":N,"total":T}
+        if paragraph length < 20 chars: emit token with original text (passthrough)
+        else: send logic.simple_english_translation(paragraph) to Ollama, stream tokens as {"event":"token","text":"..."}
+        emit {"event":"end","index":N}
+      }
+      emit {"event":"complete"}
+      filter <think>...</think> blocks from Ollama responses
+      javascript detects LLM refusal responses (e.g. "please provide", "I'm ready to") and falls back to original text
+    }
+  }
 }
 
 service.tts_server {
@@ -201,8 +223,24 @@ ui.layout {
   }
 
   div.book_content {
-    let book_content = (load from {config.history_file} first line url, or default {config.book_url})
-    innerHTML = {book_content}
+    initially_empty: true (no raw book content loaded)
+
+    on_page_load {
+      server_side_streaming_translation {
+        fetch {app.entrypoint}?stream_book=1
+        php backend reads book, splits into paragraphs
+        for each paragraph: php sends to Ollama for simple english translation
+        javascript receives NDJSON stream, builds para-wrappers progressively
+        each paragraph gets: voice button, "Original Text" button (if >= 20 chars)
+        progress_bar updates per-paragraph
+        cancel: supported (abort on new book load)
+      }
+    }
+
+    on_new_url_load {
+      fetch {app.entrypoint}?stream_book=1&url={url}&save=1
+      same streaming behavior as on_page_load
+    }
 
     on text_highlight {
       logic.highlighted_text_in_popup_modal(highlighted_text, popup_modal)
@@ -218,24 +256,6 @@ ui.paragraph_wrapper {
     @click {
       logic.speak_paragraph(paragraph.text)
       DO NOT trigger popup modal, only play voice
-    }
-  }
-
-  button.simple_english {
-    text: "Simple English"
-    position: right side of paragraph, next to voice_icon
-    @click {
-      let prompt = logic.simple_english_translation(paragraph.text)
-      let response_text = stream_request({app.entrypoint}?q={prompt})
-      highlight the related paragraph
-      show modal with {response_text} {
-        remove "Simple English" button and pronounciation button from modal
-        add voice_button to modal {
-          @click {
-            read modal content using TTS at rate {config.tts_fast_rate}
-          }
-        }
-      }
     }
   }
 
@@ -279,7 +299,7 @@ orchestration.start_sh {
       start new process
     }
     commands {
-      php: php -S {config.php_server}
+      php: PHP_CLI_SERVER_WORKERS=4 php -S {config.php_server}
       ollama: ollama serve
       tts: python3.11 tts_server.py
     }

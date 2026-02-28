@@ -29,9 +29,9 @@ if [ -n "$PID" ]; then
     sleep 1
 fi
 
-# Start PHP web server on port 3000
+# Start PHP web server on port 3000 (multiple workers so long requests don't block others)
 echo "Starting PHP web server on port 3000..."
-php -S 127.0.0.1:3000 &
+PHP_CLI_SERVER_WORKERS=4 php -S 127.0.0.1:3000 &
 PHP_PID=$!
 
 # Start Ollama server

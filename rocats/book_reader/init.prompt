@@ -285,6 +285,55 @@ task {
   }
 }
 
+task.streaming_the_simple_translation {
+  action (completed) {
+    - remove all the "Simple English" buttons in each paragraph
+    - when a book is loaded {
+      let paragraphs = (get all pragraphs of the book)
+      for each {paragraph} in {pragraphs} {
+        let prompt = invoke logic.simple_english_translation({paragraph})
+        let response = send request to ollma server 127.0.0.1:11434 with model: {llm_model}, query: {prompt}
+        append {response} in a streaming fashion in div.id:"book_content"
+      }
+    }
+  }
+}
+
+task {
+  action (completed) {
+    in task.streaming_the_simple_translation {
+      do not load the book content to div.id:"book_content" in the beginning, in php side {
+        let paragraphs = (get all pragraphs of the book)
+        for each {paragraph} in {pragraphs} {
+          let prompt = invoke logic.simple_english_translation({paragraph})
+          let response = send request to ollma server 127.0.0.1:11434 with model: {llm_model}, query: {prompt}
+          in javascript, append {response} in a streaming fashion in div.id:"book_content"
+        }
+      }
+    }
+  }
+}
+
+task {
+  action (completed) {
+    there are quite a few places showing: "Please provide the paragraph you would like me to rewrite. I'm ready to make it simple and understandable while keeping all its original meaning and style! "
+    this message should not be displayed!
+  }
+}
+
+task {
+  action (completed) {
+    when clicking on button.id:"history-btn", it keeps saying "Loading..." for a very long time, please fix it
+  }
+}
+
+task {
+  actionn {
+    there are a few places showing: "Please let me know if you'd like help with any other text!"
+    this message should not be displayed!
+  }
+}
+
 {
   focus on solving reopen actions only!
   after solving them {
