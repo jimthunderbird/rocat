@@ -328,9 +328,17 @@ task {
 }
 
 task {
-  actionn {
+  action (completed) {
     there are a few places showing: "Please let me know if you'd like help with any other text!"
     this message should not be displayed!
+  }
+}
+
+task {
+  action (completed) {
+    there are a few places showing: "Let me know if you'd like me to rephrase any of these chapters!"
+    this message should not be displayed!
+
   }
 }
 

@@ -1917,8 +1917,11 @@ async function streamBookContent(url, save) {
                         if (currentWrapper && currentTextDiv) {
                             let translatedText = currentTextDiv.textContent.trim();
 
+                            // Strip LLM meta-commentary from the end of translations
+                            translatedText = translatedText.replace(/\s*(please let me know if you'd like.*|let me know if you'd like.*|if you'd like me to rephrase.*|i'm ready to help.*|i hope this helps.*|feel free to ask.*|don't hesitate to ask.*|happy to help.*)$/gi, '').trim();
+
                             // Detect LLM refusal/placeholder responses and fall back to original
-                            if (/please provide|I'm ready to|i'm ready to|provide me with|send me the/i.test(translatedText)) {
+                            if (/please provide|I'm ready to|i'm ready to|provide me with|send me the/i.test(translatedText) || translatedText.length === 0) {
                                 translatedText = currentOriginal;
                             }
                             currentTextDiv.textContent = translatedText;
@@ -2132,9 +2135,12 @@ async function fullSimpleEnglish() {
                 textDiv.textContent = rawText;
             }
 
-            // Detect LLM refusal/placeholder responses and fall back to original
+            // Strip LLM meta-commentary from the end of translations
             let finalText = rawText.trim();
-            if (/please provide|I'm ready to|i'm ready to|provide me with|send me the/i.test(finalText)) {
+            finalText = finalText.replace(/\s*(please let me know if you'd like.*|let me know if you'd like.*|if you'd like me to rephrase.*|i'm ready to help.*|i hope this helps.*|feel free to ask.*|don't hesitate to ask.*|happy to help.*)$/gi, '').trim();
+
+            // Detect LLM refusal/placeholder responses and fall back to original
+            if (/please provide|I'm ready to|i'm ready to|provide me with|send me the/i.test(finalText) || finalText.length === 0) {
                 finalText = originalText;
             }
             textDiv.textContent = finalText;
