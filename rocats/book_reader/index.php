@@ -1565,7 +1565,9 @@ function speakParagraph(text, btn) {
     const playback = {
         index: 0,
         stopped: false,
-        preloaded: {},
+        blobUrls: {},   // blob URLs keyed by sentence index
+        loading: {},    // fetch promises keyed by sentence index
+        errors: {},     // errors keyed by sentence index
 
         stop() {
             this.stopped = true;
@@ -1573,16 +1575,28 @@ function speakParagraph(text, btn) {
                 currentAudio.pause();
                 currentAudio = null;
             }
+            // Revoke blob URLs to free memory
+            for (const url of Object.values(this.blobUrls)) {
+                URL.revokeObjectURL(url);
+            }
         },
 
         preload(i) {
-            if (i >= sentences.length || this.preloaded[i]) return;
-            const a = new Audio(ttsUrl + encodeURIComponent(sentences[i]));
-            a.preload = 'auto';
-            this.preloaded[i] = a;
+            if (i >= sentences.length || this.loading[i]) return;
+            this.loading[i] = fetch(ttsUrl + encodeURIComponent(sentences[i]))
+                .then(resp => {
+                    if (!resp.ok) throw new Error('TTS request failed');
+                    return resp.blob();
+                })
+                .then(blob => {
+                    this.blobUrls[i] = URL.createObjectURL(blob);
+                })
+                .catch(err => {
+                    this.errors[i] = err;
+                });
         },
 
-        playNext() {
+        async playNext() {
             if (this.stopped || this.index >= sentences.length) {
                 btn.classList.remove('speaking');
                 if (currentSpeakingBtn === btn) currentSpeakingBtn = null;
@@ -1597,8 +1611,7 @@ function speakParagraph(text, btn) {
             function triggerFallback() {
                 if (fallbackTriggered || self.stopped) return;
                 fallbackTriggered = true;
-                clearTimeout(safetyTimeout);
-                ttsServerAvailable = false; // Cache that server is down
+                ttsServerAvailable = false;
                 const remaining = sentences.slice(self.index).join(' ');
                 btn.classList.remove('speaking');
                 currentSpeakingBtn = null;
@@ -1607,29 +1620,34 @@ function speakParagraph(text, btn) {
                 speakParagraphFallback(remaining, btn);
             }
 
-            // Check if preloaded audio already errored (race condition)
-            const preloaded = this.preloaded[this.index];
-            if (preloaded && preloaded.error) {
+            // Wait for preload to finish (with timeout)
+            if (this.loading[this.index]) {
+                const timeout = new Promise((_, reject) => setTimeout(() => reject('timeout'), 3000));
+                try {
+                    await Promise.race([this.loading[this.index], timeout]);
+                } catch(e) {
+                    triggerFallback();
+                    return;
+                }
+            }
+
+            if (this.errors[this.index]) {
                 triggerFallback();
                 return;
             }
 
-            const audio = preloaded || new Audio(ttsUrl + encodeURIComponent(sentences[this.index]));
+            const blobUrl = this.blobUrls[this.index];
+            if (!blobUrl) {
+                triggerFallback();
+                return;
+            }
+
+            const audio = new Audio(blobUrl);
             currentAudio = audio;
+            ttsServerAvailable = true;
 
-            // Pre-load next sentence while current one plays
-            this.preload(this.index + 1);
-
-            // Safety timeout: fall back quickly (1.5s) to preserve user gesture for speechSynthesis
-            const safetyTimeout = setTimeout(triggerFallback, 1500);
-
-            audio.addEventListener('canplaythrough', function() {
-                clearTimeout(safetyTimeout);
-                ttsServerAvailable = true;
-            });
             audio.addEventListener('ended', function() {
-                if (fallbackTriggered) return;
-                clearTimeout(safetyTimeout);
+                if (fallbackTriggered || self.stopped) return;
                 self.index++;
                 self.playNext();
             });
@@ -1639,9 +1657,10 @@ function speakParagraph(text, btn) {
         }
     };
 
-    // Pre-load first two sentences for fastest start
-    playback.preload(0);
-    playback.preload(1);
+    // Pre-load ALL sentences in parallel for fastest playback
+    for (let i = 0; i < sentences.length; i++) {
+        playback.preload(i);
+    }
     currentSentencePlayback = playback;
     playback.playNext();
 }

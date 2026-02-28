@@ -111,8 +111,8 @@ task {
 }
 
 task {
-  action (completed) {
-    when reading a long paragraph using tts_server.py, it has a very long wait time, please make it so that for each paragraph, send the voice sentence-by-sentence to speed up the process
+  action (reopen) {
+    when reading a paragraph using tts_server.py, it has a very long wait time, please make it so that for each paragraph, send the voice sentence-by-sentence to speed up the process
   }
 }
 
@@ -239,7 +239,7 @@ task {
 }
 
 task {
-  action (completed) {
+  action {
     focus on solving reopen actions only!
     after solving them, change the status to completed
   }

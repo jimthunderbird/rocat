@@ -10,28 +10,34 @@ app = Flask(__name__)
 
 DEFAULT_VOICE = "en-US-AndrewNeural"
 
+# Shared event loop running in a background thread for reuse across requests
+_loop = asyncio.new_event_loop()
+_loop_thread = None
+
+
+def _start_loop():
+    global _loop_thread
+    if _loop_thread is None or not _loop_thread.is_alive():
+        _loop_thread = __import__('threading').Thread(target=_loop.run_forever, daemon=True)
+        _loop_thread.start()
+
+
+_start_loop()
+
 
 def generate_audio_chunks(text, voice):
     import queue
-    import threading
 
     q = queue.Queue()
 
-    def run():
-        loop = asyncio.new_event_loop()
+    async def stream():
+        communicate = edge_tts.Communicate(text, voice)
+        async for chunk in communicate.stream():
+            if chunk["type"] == "audio":
+                q.put(chunk["data"])
+        q.put(None)
 
-        async def stream():
-            communicate = edge_tts.Communicate(text, voice)
-            async for chunk in communicate.stream():
-                if chunk["type"] == "audio":
-                    q.put(chunk["data"])
-            q.put(None)
-
-        loop.run_until_complete(stream())
-        loop.close()
-
-    t = threading.Thread(target=run)
-    t.start()
+    asyncio.run_coroutine_threadsafe(stream(), _loop)
 
     while True:
         chunk = q.get()
@@ -75,4 +81,4 @@ def add_cors(response):
 if __name__ == "__main__":
     print(f"TTS Server starting with voice: {DEFAULT_VOICE}")
     print("  GET /tts?text=...&voice=...")
-    app.run(host="127.0.0.1", port=4000)
+    app.run(host="127.0.0.1", port=4000, threaded=True)
