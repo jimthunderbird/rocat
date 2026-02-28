@@ -2,7 +2,7 @@ book_url = "https://www.gutenberg.org/cache/epub/1661/pg1661.txt"
 llm_model = "gemma2:2b"
 
 logic.simple_english_translation(paragraph_text) {
-  let prompt = (please convert the following paragraph to a new version using only very very simple words and sentences. NO EXPLANATION, NO EXTRA WORDS, DO NOT RETURN CHINESE CHARACTERS, <paragraph>{paragraph_text}</paragraph>)
+  let prompt = (please rewrite the content of <paragraph> to a new version that uses only very very simple english words and sentences. NO EXPLANATION, NO EXTRA WORDS, DO NOT RETURN CHINESE CHARACTERS, <paragraph>{paragraph_text}</paragraph>)
   return prompt
 }
 
@@ -239,7 +239,7 @@ task {
 }
 
 task {
-  action {
+  action (completed) {
     focus on solving reopen actions only!
     after solving them, change the status to completed
   }

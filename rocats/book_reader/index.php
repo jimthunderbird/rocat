@@ -1685,7 +1685,7 @@ async function convertToSimpleEnglish(paragraphText, wrapperEl) {
     overlay.classList.add('active');
     applyStoredPosition(mainModal, 'modalLastPos');
 
-    const prompt = 'please convert the following paragraph to a new version using only very very simple words and sentences. NO EXPLANATION, NO EXTRA WORDS, DO NOT RETURN CHINESE CHARACTERS, <paragraph>' + paragraphText + '</paragraph>';
+    const prompt = 'please rewrite the content of <paragraph> to a new version that uses only very very simple english words and sentences. NO EXPLANATION, NO EXTRA WORDS, DO NOT RETURN CHINESE CHARACTERS, <paragraph>' + paragraphText + '</paragraph>';
 
     await streamAIResponse(prompt, modalBody, mainController, null);
 }
@@ -1757,7 +1757,7 @@ async function fullSimpleEnglish() {
         document.querySelectorAll('.para-wrapper.highlighted').forEach(el => el.classList.remove('highlighted'));
         wrapper.classList.add('highlighted');
 
-        const prompt = 'please convert the following paragraph to a new version using only very very simple words and sentences. NO EXPLANATION, NO EXTRA WORDS, DO NOT RETURN CHINESE CHARACTERS, <paragraph>' + paragraphText + '</paragraph>';
+        const prompt = 'please rewrite the content of <paragraph> to a new version that uses only very very simple english words and sentences. NO EXPLANATION, NO EXTRA WORDS, DO NOT RETURN CHINESE CHARACTERS, <paragraph>' + paragraphText + '</paragraph>';
 
         try {
             const resp = await fetch('index.php?q=' + encodeURIComponent(prompt), {
