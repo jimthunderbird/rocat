@@ -1305,6 +1305,10 @@ document.getElementById('book_content').addEventListener('mouseup', async () => 
     mainController = new AbortController();
 
     modalSelectedText.textContent = highlighted;
+    // Restore pronunciation button, hide read button (in case Simple English was shown before)
+    document.getElementById('modal-voice-btn').style.display = '';
+    const readBtn = document.getElementById('modal-read-btn');
+    if (readBtn) readBtn.style.display = 'none';
     modalBody.innerHTML = '<div class="loading-text"><div class="spinner"></div><div>Asking AI...</div></div>';
     overlay.classList.add('active');
     applyStoredPosition(mainModal, 'modalLastPos');
@@ -1359,14 +1363,28 @@ function handleNestedHighlight(e) {
 nestedModalBody.addEventListener('mouseup', handleNestedHighlight);
 document.getElementById('nested-modal-word').addEventListener('mouseup', handleNestedHighlight);
 
-// Voice pronunciation using Web Speech API
+// Voice pronunciation - use TTS server (edge-tts) with browser fallback
 function speakWord(text) {
+    if (ttsServerAvailable !== false) {
+        const audio = new Audio('http://127.0.0.1:4000/tts?text=' + encodeURIComponent(text));
+        audio.play().catch(() => {
+            ttsServerAvailable = false;
+            speakWordBrowser(text);
+        });
+        return;
+    }
+    speakWordBrowser(text);
+}
+
+function speakWordBrowser(text) {
     if (!('speechSynthesis' in window)) return;
     speechSynthesis.cancel();
-    const utterance = new SpeechSynthesisUtterance(text);
-    utterance.lang = 'en-US';
-    utterance.rate = 0.9;
-    speechSynthesis.speak(utterance);
+    setTimeout(() => {
+        const utterance = new SpeechSynthesisUtterance(text);
+        utterance.lang = 'en-US';
+        utterance.rate = 0.9;
+        speechSynthesis.speak(utterance);
+    }, 50);
 }
 
 document.getElementById('modal-voice-btn').addEventListener('click', (e) => {
@@ -1439,6 +1457,9 @@ async function summarizeBook() {
     const excerpt = bookText.substring(0, 30000);
 
     modalSelectedText.textContent = 'Book Summary';
+    document.getElementById('modal-voice-btn').style.display = 'none';
+    const readBtnS = document.getElementById('modal-read-btn');
+    if (readBtnS) readBtnS.style.display = 'none';
     modalBody.innerHTML = '<div class="loading-text"><div class="spinner"></div><div>Generating summary...</div></div>';
     overlay.classList.add('active');
     applyStoredPosition(mainModal, 'modalLastPos');
@@ -1565,38 +1586,32 @@ function speakParagraph(text, btn) {
     const playback = {
         index: 0,
         stopped: false,
-        blobUrls: {},   // blob URLs keyed by sentence index
-        loading: {},    // fetch promises keyed by sentence index
-        errors: {},     // errors keyed by sentence index
+        nextAudio: null,  // preloaded Audio for the next sentence
 
         stop() {
             this.stopped = true;
             if (currentAudio) {
                 currentAudio.pause();
+                currentAudio.src = '';
                 currentAudio = null;
             }
-            // Revoke blob URLs to free memory
-            for (const url of Object.values(this.blobUrls)) {
-                URL.revokeObjectURL(url);
+            if (this.nextAudio) {
+                this.nextAudio.src = '';
+                this.nextAudio = null;
             }
         },
 
-        preload(i) {
-            if (i >= sentences.length || this.loading[i]) return;
-            this.loading[i] = fetch(ttsUrl + encodeURIComponent(sentences[i]))
-                .then(resp => {
-                    if (!resp.ok) throw new Error('TTS request failed');
-                    return resp.blob();
-                })
-                .then(blob => {
-                    this.blobUrls[i] = URL.createObjectURL(blob);
-                })
-                .catch(err => {
-                    this.errors[i] = err;
-                });
+        // Preload next sentence audio element so it buffers while current plays
+        preloadNext() {
+            const nextIdx = this.index + 1;
+            if (nextIdx >= sentences.length) return;
+            const a = new Audio();
+            a.preload = 'auto';
+            a.src = ttsUrl + encodeURIComponent(sentences[nextIdx]);
+            this.nextAudio = a;
         },
 
-        async playNext() {
+        playNext() {
             if (this.stopped || this.index >= sentences.length) {
                 btn.classList.remove('speaking');
                 if (currentSpeakingBtn === btn) currentSpeakingBtn = null;
@@ -1620,31 +1635,21 @@ function speakParagraph(text, btn) {
                 speakParagraphFallback(remaining, btn);
             }
 
-            // Wait for preload to finish (with timeout)
-            if (this.loading[this.index]) {
-                const timeout = new Promise((_, reject) => setTimeout(() => reject('timeout'), 3000));
-                try {
-                    await Promise.race([this.loading[this.index], timeout]);
-                } catch(e) {
-                    triggerFallback();
-                    return;
-                }
+            // Use preloaded audio if available, otherwise create new
+            let audio;
+            if (this.nextAudio) {
+                audio = this.nextAudio;
+                this.nextAudio = null;
+            } else {
+                audio = new Audio();
+                audio.preload = 'auto';
+                audio.src = ttsUrl + encodeURIComponent(sentences[this.index]);
             }
-
-            if (this.errors[this.index]) {
-                triggerFallback();
-                return;
-            }
-
-            const blobUrl = this.blobUrls[this.index];
-            if (!blobUrl) {
-                triggerFallback();
-                return;
-            }
-
-            const audio = new Audio(blobUrl);
             currentAudio = audio;
             ttsServerAvailable = true;
+
+            // Start preloading the next sentence while this one plays
+            this.preloadNext();
 
             audio.addEventListener('ended', function() {
                 if (fallbackTriggered || self.stopped) return;
@@ -1657,10 +1662,6 @@ function speakParagraph(text, btn) {
         }
     };
 
-    // Pre-load ALL sentences in parallel for fastest playback
-    for (let i = 0; i < sentences.length; i++) {
-        playback.preload(i);
-    }
     currentSentencePlayback = playback;
     playback.playNext();
 }
@@ -1699,12 +1700,32 @@ async function convertToSimpleEnglish(paragraphText, wrapperEl) {
     if (mainController) mainController.abort();
     mainController = new AbortController();
 
-    modalSelectedText.textContent = 'Simple English';
+    // Hide "Simple English" label and pronunciation button, show TTS read button
+    modalSelectedText.textContent = '';
+    document.getElementById('modal-voice-btn').style.display = 'none';
+    let readBtn = document.getElementById('modal-read-btn');
+    if (!readBtn) {
+        readBtn = document.createElement('button');
+        readBtn.id = 'modal-read-btn';
+        readBtn.className = 'para-voice-btn';
+        readBtn.title = 'Read aloud';
+        readBtn.innerHTML = voiceSvg;
+        readBtn.style.marginLeft = '8px';
+        document.getElementById('modal-word').querySelector('.text').appendChild(readBtn);
+    }
+    readBtn.style.display = 'inline-flex';
+    readBtn.onclick = function(e) {
+        e.stopPropagation();
+        const text = modalBody.textContent.trim();
+        if (text) speakParagraph(text, readBtn);
+    };
+    readBtn.addEventListener('mouseup', function(e) { e.stopPropagation(); });
+
     modalBody.innerHTML = '<div class="loading-text"><div class="spinner"></div><div>Converting to simple English...</div></div>';
     overlay.classList.add('active');
     applyStoredPosition(mainModal, 'modalLastPos');
 
-    const prompt = 'please rewrite the content of <paragraph> to a new version that uses only very very simple english words and sentences. NO EXPLANATION, NO EXTRA WORDS, DO NOT RETURN CHINESE CHARACTERS, <paragraph>' + paragraphText + '</paragraph>';
+    const prompt = 'please rewrite the content of <paragraph> to a new version that uses only modern and very very simple english words and sentences. USE Sentence Combining AND Clause Linking AS YOU SEE FIT. DO NOT MISS ANY DEEP DETAILS,DEEP MEANINGS AND TONES OF THE ORIGINAL VERSION. NO EXPLANATION, NO EXTRA WORDS, DO NOT RETURN CHINESE CHARACTERS, <paragraph>' + paragraphText + '</paragraph>';
 
     await streamAIResponse(prompt, modalBody, mainController, null);
 }
@@ -1715,6 +1736,9 @@ function showOriginalTextModal(originalText) {
     mainController = new AbortController();
 
     modalSelectedText.textContent = 'Original Text';
+    document.getElementById('modal-voice-btn').style.display = 'none';
+    const readBtn2 = document.getElementById('modal-read-btn');
+    if (readBtn2) readBtn2.style.display = 'none';
     modalBody.innerHTML = '<div style="white-space: pre-wrap; word-wrap: break-word; padding: 4px 0;">' + originalText.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;') + '</div>';
     overlay.classList.add('active');
     applyStoredPosition(mainModal, 'modalLastPos');
@@ -1776,7 +1800,7 @@ async function fullSimpleEnglish() {
         document.querySelectorAll('.para-wrapper.highlighted').forEach(el => el.classList.remove('highlighted'));
         wrapper.classList.add('highlighted');
 
-        const prompt = 'please rewrite the content of <paragraph> to a new version that uses only very very simple english words and sentences. NO EXPLANATION, NO EXTRA WORDS, DO NOT RETURN CHINESE CHARACTERS, <paragraph>' + paragraphText + '</paragraph>';
+        const prompt = 'please rewrite the content of <paragraph> to a new version that uses only modern and very very simple english words and sentences. USE Sentence Combining AND Clause Linking AS YOU SEE FIT. DO NOT MISS ANY DEEP DETAILS,DEEP MEANINGS AND TONES OF THE ORIGINAL VERSION. NO EXPLANATION, NO EXTRA WORDS, DO NOT RETURN CHINESE CHARACTERS, <paragraph>' + paragraphText + '</paragraph>';
 
         try {
             const resp = await fetch('index.php?q=' + encodeURIComponent(prompt), {
