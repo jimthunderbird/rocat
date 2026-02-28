@@ -287,5 +287,8 @@ task {
 
 {
   focus on solving reopen actions only!
-  after solving them, change the status to completed
+  after solving them {
+    change the status to completed
+    update ./spec.prompt
+  }
 }
