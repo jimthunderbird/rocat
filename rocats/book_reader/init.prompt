@@ -1,6 +1,11 @@
 book_url = "https://www.gutenberg.org/cache/epub/1661/pg1661.txt"
 llm_model = "gemma2:2b"
 
+logic.simple_english_translation(prompt_text) {
+  let prompt = (please convert the following paragraph to a new version using only very very simple words and sentences. DO NOT RETURN CHINESE CHARACTERS, <paragraph>{paragraph_text}</paragraph>)
+  return prompt
+}
+
 logic.highlighted_text_in_popup_modal(text, popup_modal) {
   let context = (30 words before {text}) + {text} + (30 words after {text})
   let question = string {
@@ -153,7 +158,7 @@ task.simple_english_button {
       text: "Simple English"
       @click {
         let paragraph_text = (the paragraph's text)
-        let prompt = (please convert the following paragraph to a new version using only the words in The Oxford 3000, also use non-fiction style.No Explanation and No Extra Words, <paragraph>{paragraph_text}</paragraph>)
+        let prompt = logic.simple_english_translation(paragraph_text)
         let response_text = (send request to ollma server 127.0.0.1:11434 with model: {llm_model}, query: {prompt})
         show a popup model with content of {response_text}
       }
@@ -178,7 +183,7 @@ task {
         - for each {paragraph} in (all pragraphs in the current books) {
           hightlight the {paragraph}
           let paragraph_text = (the text of the {paragraph})
-          let prompt = (please convert the following paragraph to a new version using very very simple words and sentences. DO NOT RETURN CHINESE CHARACTERS! ONLY ENGLISH! No Explanation and No Extra Words! <paragraph>{paragraph_text}</paragraph>)
+          let prompt = logic.simple_english_translation(paragraph_text)
           let response_text = (send request to ollma server 127.0.0.1:11434 with model: {llm_model}, query: {prompt})
           replace the paragraph text to {response_text}
           remove the paragraph highlight
@@ -228,7 +233,14 @@ task {
 }
 
 task {
-  action {
+  action (completed) {
     task.paragraph_reading does not seem to work now
+  }
+}
+
+task {
+  action {
+    focus on solving reopen actions only!
+    after solving them, change the status to completed
   }
 }

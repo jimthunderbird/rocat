@@ -1253,7 +1253,7 @@ function injectVoiceIcons(targetBody, word) {
 
 // Capture-phase mouseup to prevent voice buttons from triggering popup highlights
 document.addEventListener('mouseup', function(e) {
-    if (e.target.closest('.ipa-voice-btn') || e.target.closest('.voice-btn')) {
+    if (e.target.closest('.ipa-voice-btn') || e.target.closest('.voice-btn') || e.target.closest('.para-voice-btn')) {
         e.stopPropagation();
     }
 }, true);
@@ -1500,6 +1500,17 @@ function processBookParagraphs() {
 let currentSpeakingBtn = null;
 let currentAudio = null;
 let currentSentencePlayback = null;
+let ttsServerAvailable = null; // null = unknown, true/false = cached result
+
+// Check TTS server availability (cached)
+function checkTtsServer() {
+    return fetch('http://127.0.0.1:4000/tts?text=test', { method: 'HEAD', mode: 'no-cors' })
+        .then(() => { ttsServerAvailable = true; })
+        .catch(() => { ttsServerAvailable = false; });
+}
+// Pre-check on page load, re-check periodically if server was down
+checkTtsServer();
+setInterval(() => { if (!ttsServerAvailable) checkTtsServer(); }, 10000);
 
 function splitIntoSentences(text) {
     // Normalize newlines to spaces so only "." (and ! ?) terminate sentences, not newlines
@@ -1534,12 +1545,19 @@ function speakParagraph(text, btn) {
         currentAudio.pause();
         currentAudio = null;
     }
+    if ('speechSynthesis' in window) speechSynthesis.cancel();
     if (currentSpeakingBtn) {
         currentSpeakingBtn.classList.remove('speaking');
     }
 
     btn.classList.add('speaking');
     currentSpeakingBtn = btn;
+
+    // If TTS server is known to be down, go directly to browser fallback
+    if (ttsServerAvailable === false) {
+        speakParagraphFallback(text, btn);
+        return;
+    }
 
     const sentences = splitIntoSentences(text);
     const ttsUrl = 'http://127.0.0.1:4000/tts?text=';
@@ -1580,6 +1598,7 @@ function speakParagraph(text, btn) {
                 if (fallbackTriggered || self.stopped) return;
                 fallbackTriggered = true;
                 clearTimeout(safetyTimeout);
+                ttsServerAvailable = false; // Cache that server is down
                 const remaining = sentences.slice(self.index).join(' ');
                 btn.classList.remove('speaking');
                 currentSpeakingBtn = null;
@@ -1601,11 +1620,12 @@ function speakParagraph(text, btn) {
             // Pre-load next sentence while current one plays
             this.preload(this.index + 1);
 
-            // Safety timeout: fall back if nothing happens within 5 seconds
-            const safetyTimeout = setTimeout(triggerFallback, 5000);
+            // Safety timeout: fall back quickly (1.5s) to preserve user gesture for speechSynthesis
+            const safetyTimeout = setTimeout(triggerFallback, 1500);
 
             audio.addEventListener('canplaythrough', function() {
                 clearTimeout(safetyTimeout);
+                ttsServerAvailable = true;
             });
             audio.addEventListener('ended', function() {
                 if (fallbackTriggered) return;
@@ -1665,7 +1685,7 @@ async function convertToSimpleEnglish(paragraphText, wrapperEl) {
     overlay.classList.add('active');
     applyStoredPosition(mainModal, 'modalLastPos');
 
-    const prompt = 'please convert the following paragraph to a new version using only the words in The Oxford 3000, also use non-fiction style.No Explanation and No Extra Words, <paragraph>' + paragraphText + '</paragraph>';
+    const prompt = 'please convert the following paragraph to a new version using only very very simple words and sentences. DO NOT RETURN CHINESE CHARACTERS, <paragraph>' + paragraphText + '</paragraph>';
 
     await streamAIResponse(prompt, modalBody, mainController, null);
 }
@@ -1737,7 +1757,7 @@ async function fullSimpleEnglish() {
         document.querySelectorAll('.para-wrapper.highlighted').forEach(el => el.classList.remove('highlighted'));
         wrapper.classList.add('highlighted');
 
-        const prompt = 'please convert the following paragraph to a new version using very very simple words and sentences. DO NOT RETURN CHINESE CHARACTERS! ONLY ENGLISH! No Explanation and No Extra Words! <paragraph>' + paragraphText + '</paragraph>';
+        const prompt = 'please convert the following paragraph to a new version using only very very simple words and sentences. DO NOT RETURN CHINESE CHARACTERS, <paragraph>' + paragraphText + '</paragraph>';
 
         try {
             const resp = await fetch('index.php?q=' + encodeURIComponent(prompt), {
