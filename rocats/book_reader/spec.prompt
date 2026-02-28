@@ -1,0 +1,288 @@
+config {
+  book_url = "https://www.gutenberg.org/cache/epub/1661/pg1661.txt"
+  llm_model = "gemma2:2b"
+  llm_server = "127.0.0.1:11434"
+  tts_server = "127.0.0.1:4000"
+  php_server = "127.0.0.1:3000"
+  tts_voice = "en-US-AndrewNeural"
+  tts_default_rate = "+0%"
+  tts_fast_rate = "+8%"
+  history_file = "history.txt"
+  history_max_display = 10
+  summary_max_chars = 30000
+  summary_word_count = 500
+}
+
+app {
+  type: Pure HTML/CSS/Javascript Single Page Application
+  entrypoint: index.php
+  stack {
+    frontend: HTML5, CSS3, JavaScript (ES6+)
+    backend: PHP 7.4+
+    llm: Ollama + {config.llm_model}
+    tts: Python 3.11 + edge-tts + Flask
+    storage: Flat file ({config.history_file})
+    markdown: marked.js (CDN)
+    audio: Web Audio API + HTML5 Audio Element
+  }
+}
+
+service.php_backend {
+  server: {config.php_server}
+  entrypoint: index.php
+
+  endpoint.query {
+    route: ?q={question}
+    behavior {
+      send request to Ollama {config.llm_server}/api/generate with model: {config.llm_model}, query: {question}
+      stream the response, filter out <think>...</think> blocks
+      return the response as string and print it out
+      do php exit
+    }
+  }
+
+  endpoint.fetch_url {
+    route: ?url={url}
+    behavior {
+      use php to read the file content from {url}
+      return the content
+    }
+  }
+
+  endpoint.save_url {
+    route: ?save_url={url}
+    behavior {
+      fetch the book content from {url}
+      extract the book name from content
+      prepend "{book_name}|{url}" to {config.history_file}
+      return the book content
+    }
+  }
+
+  endpoint.get_history {
+    route: ?get_history
+    behavior {
+      read top {config.history_max_display} lines from {config.history_file}
+      return as JSON array of {name, url} objects
+    }
+  }
+}
+
+service.tts_server {
+  file: tts_server.py
+  server: {config.tts_server}
+  framework: Flask + edge-tts
+
+  endpoint.tts {
+    route: GET/POST /tts
+    params {
+      text: string (required) - text to speak
+      voice: string (optional, default: {config.tts_voice})
+      rate: string (optional, default: {config.tts_default_rate}) - e.g. "+8%", "-10%"
+    }
+    behavior {
+      use shared asyncio event loop running in background thread
+      generate speech via edge-tts
+      return streaming audio/mpeg (chunked for low-latency playback)
+      CORS enabled
+    }
+  }
+}
+
+service.ollama {
+  server: {config.llm_server}
+  model: {config.llm_model}
+}
+
+logic.simple_english_translation(paragraph_text) {
+  let prompt = (please rewrite the content of <paragraph> to a new version that uses only modern and very very simple english words and sentences. USE Sentence Combining AND Clause Linking AS YOU SEE FIT. DO NOT MISS ANY DEEP DETAILS,DEEP MEANINGS AND TONES OF THE ORIGINAL VERSION. NO EXPLANATION, NO EXTRA WORDS, DO NOT RETURN CHINESE CHARACTERS, <paragraph>{paragraph_text}</paragraph>)
+  return prompt
+}
+
+logic.highlighted_text_in_popup_modal(text, popup_modal) {
+  let context = (30 words before {text}) + {text} + (30 words after {text})
+  let question = string {
+    context: {context}
+    show me the pronounciation of {text} in International Phonetic Alphabet
+    show the meaning of {text} in 30 words, translate {the meaning of {text}} in simplified chinese
+    no extra words
+  }
+  let result = (send a request to {app.entrypoint}?q={question})
+  display {result} in {popup_modal} with vertical scrolling
+  stream the result so that the first chunk will show immediately in {popup_modal}
+}
+
+logic.speak_word(text) {
+  fetch audio from {config.tts_server}/tts?text={text}
+  play audio in browser
+  fallback to browser Web Speech API if tts_server is unavailable
+}
+
+logic.speak_paragraph(paragraph_text) {
+  split {paragraph_text} into sentences terminated by "." sign (not newline)
+  for each sentence {
+    fetch audio from {config.tts_server}/tts?text={sentence}
+    preload next sentence while current plays
+    play and wait for 'ended' event before moving to next
+  }
+  fallback to browser Web Speech API if tts_server is unavailable
+}
+
+ui.layout {
+  style {
+    color_scheme: brown tones (#3e2723, #5d4037, #f5f0e8)
+    font: responsive, readable
+    modals: shadows, no background graying (transparent overlay)
+    buttons: hover effects, disabled states
+    loading: animated spinner
+  }
+
+  header (sticky) {
+    input#url-input {
+      placeholder: "Enter book URL"
+      behavior {
+        on enter: load book from url, save to {config.history_file}
+      }
+    }
+
+    button#history {
+      icon: down arrow
+      position: next to input#url-input
+      @click {
+        show dropdown of top {config.history_max_display} book names from {config.history_file}
+        dropdown.style {
+          font-color: black
+          font-weight: normal
+          font-size: 14px
+        }
+        when selecting a book in dropdown: load the book's url
+      }
+    }
+
+    button#summarize {
+      text: "Summarize"
+      position: next to "Highlight text to look up" label
+      @click {
+        let book_text = (first {config.summary_max_chars} characters of book)
+        let prompt = (summarize in {config.summary_word_count} words)
+        let result = stream_request({app.entrypoint}?q={prompt})
+        show result in popup modal
+      }
+    }
+
+    button#button-full-simple-english {
+      text: "Full Simple English"
+      @click {
+        remove all per-paragraph "Simple English" buttons
+        for each paragraph in book (length >= 20 chars) {
+          highlight the paragraph
+          let prompt = logic.simple_english_translation(paragraph.text)
+          let response_text = stream_request({app.entrypoint}?q={prompt})
+          store paragraph.original_text
+          replace paragraph text with {response_text}
+          add button#button-show-original-text to paragraph
+          remove paragraph highlight
+          update progress_bar
+        }
+        streaming: per-paragraph progress visible
+        cancel: supported mid-conversion
+      }
+    }
+
+    ui.progress_bar {
+      position: below button#button-full-simple-english
+      range: 0% to 100%
+      visible: only during full simple english conversion
+      percentage_style {
+        font-weight: bold
+        font-color: white
+      }
+    }
+  }
+
+  div.book_content {
+    let book_content = (load from {config.history_file} first line url, or default {config.book_url})
+    innerHTML = {book_content}
+
+    on text_highlight {
+      logic.highlighted_text_in_popup_modal(highlighted_text, popup_modal)
+    }
+  }
+}
+
+ui.paragraph_wrapper {
+  description: wraps each paragraph in the loaded book
+
+  button.voice_icon {
+    position: right side of paragraph
+    @click {
+      logic.speak_paragraph(paragraph.text)
+      DO NOT trigger popup modal, only play voice
+    }
+  }
+
+  button.simple_english {
+    text: "Simple English"
+    position: right side of paragraph, next to voice_icon
+    @click {
+      let prompt = logic.simple_english_translation(paragraph.text)
+      let response_text = stream_request({app.entrypoint}?q={prompt})
+      highlight the related paragraph
+      show modal with {response_text} {
+        remove "Simple English" button and pronounciation button from modal
+        add voice_button to modal {
+          @click {
+            read modal content using TTS at rate {config.tts_fast_rate}
+          }
+        }
+      }
+    }
+  }
+
+  button#button-show-original-text {
+    text: "Original Text"
+    visible: only after full simple english conversion
+    position: right of voice_icon
+    @click {
+      show popup modal with the original text before conversion
+    }
+  }
+}
+
+ui.popup_modal {
+  behavior {
+    draggable: true
+    position_persistence: localStorage (remember last known location)
+    background: no gray out (transparent overlay)
+    scrolling: vertical
+    nested_highlight: selecting text inside modal opens a nested modal
+  }
+
+  content {
+    pronunciation: IPA notation with voice icon {
+      voice_icon @click {
+        logic.speak_word(word)
+        DO NOT trigger another popup
+      }
+    }
+    meaning: 30 words definition
+    translation: simplified chinese
+    rendering: markdown via marked.js
+  }
+}
+
+orchestration.start_sh {
+  file: start.sh
+  behavior {
+    for each service in [php_server:3000, ollama:11434, tts_server:4000] {
+      if existing process running on port: kill it
+      start new process
+    }
+    commands {
+      php: php -S {config.php_server}
+      ollama: ollama serve
+      tts: python3.11 tts_server.py
+    }
+    trap Ctrl+C to gracefully shut down all services
+  }
+}

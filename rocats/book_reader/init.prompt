@@ -250,7 +250,7 @@ task {
   }
 }
 
-task {
+task.read_out_simple_english_in_popup_load {
   action (completed) {
     when click on the "Simple English" button {
       let modal = (the pop up showing the simple English conversion)
@@ -262,9 +262,30 @@ task {
   }  
 }
 
+task.smooth_reading {
+  action (completed) {
+    in task.read_out_simple_english_in_popup_load {
+      make the natural TTS a little bit faster like news reporter
+      some words sound like "stuck",  please make it sound smooth, do not miss a word
+    }
+  }
+}
+
 task {
   action (completed) {
-    focus on solving reopen actions only!
-    after solving them, change the status to completed
+    in task.smooth_reading {
+      the words are spoken too fast, slow down a little bit
+    }
   }
+}
+
+task {
+  action (completed) {
+    all the voice buttons in the main book does not seem to work now!
+  }
+}
+
+{
+  focus on solving reopen actions only!
+  after solving them, change the status to completed
 }

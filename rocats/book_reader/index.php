@@ -1716,8 +1716,41 @@ async function convertToSimpleEnglish(paragraphText, wrapperEl) {
     readBtn.style.display = 'inline-flex';
     readBtn.onclick = function(e) {
         e.stopPropagation();
+        // Toggle off if already playing
+        if (currentSpeakingBtn === readBtn) {
+            if (currentAudio) { currentAudio.pause(); currentAudio.src = ''; currentAudio = null; }
+            if (currentSentencePlayback) { currentSentencePlayback.stop(); currentSentencePlayback = null; }
+            readBtn.classList.remove('speaking');
+            currentSpeakingBtn = null;
+            return;
+        }
+        // Stop any other playing audio
+        if (currentSentencePlayback) { currentSentencePlayback.stop(); currentSentencePlayback = null; }
+        if (currentAudio) { currentAudio.pause(); currentAudio = null; }
+        if (currentSpeakingBtn) { currentSpeakingBtn.classList.remove('speaking'); }
+
         const text = modalBody.textContent.trim();
-        if (text) speakParagraph(text, readBtn);
+        if (!text) return;
+        // Send full text as one request with faster rate for smooth, news-reporter-like reading
+        const audio = new Audio('http://127.0.0.1:4000/tts?text=' + encodeURIComponent(text) + '&rate=' + encodeURIComponent('+8%'));
+        currentAudio = audio;
+        currentSpeakingBtn = readBtn;
+        readBtn.classList.add('speaking');
+        audio.addEventListener('ended', function() {
+            readBtn.classList.remove('speaking');
+            if (currentSpeakingBtn === readBtn) currentSpeakingBtn = null;
+            currentAudio = null;
+        });
+        audio.addEventListener('error', function() {
+            readBtn.classList.remove('speaking');
+            if (currentSpeakingBtn === readBtn) currentSpeakingBtn = null;
+            currentAudio = null;
+        });
+        audio.play().catch(function() {
+            readBtn.classList.remove('speaking');
+            if (currentSpeakingBtn === readBtn) currentSpeakingBtn = null;
+            currentAudio = null;
+        });
     };
     readBtn.addEventListener('mouseup', function(e) { e.stopPropagation(); });
 

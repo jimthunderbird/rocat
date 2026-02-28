@@ -1,0 +1,7 @@
+let source_prompt = ./init.prompt
+
+read {source_prompt}
+
+generate ./spec.prompt based on the instructions, app_spec and tasks in {source_prompt}, the goal is to use it as single source of truth for spec driven development
+
+./spec.prompt should maintain a very similar curly braces structure with {source_prompt}, please structure it in object oriented programming way

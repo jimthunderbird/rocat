@@ -25,13 +25,14 @@ def _start_loop():
 _start_loop()
 
 
-def generate_audio_chunks(text, voice):
+def generate_audio_chunks(text, voice, rate=None):
     import queue
 
     q = queue.Queue()
 
     async def stream():
-        communicate = edge_tts.Communicate(text, voice)
+        kwargs = {"rate": rate} if rate else {}
+        communicate = edge_tts.Communicate(text, voice, **kwargs)
         async for chunk in communicate.stream():
             if chunk["type"] == "audio":
                 q.put(chunk["data"])
@@ -52,15 +53,17 @@ def tts():
         data = request.get_json(silent=True) or {}
         text = data.get("text", "")
         voice = data.get("voice", DEFAULT_VOICE)
+        rate = data.get("rate", None)
     else:
         text = request.args.get("text", "")
         voice = request.args.get("voice", DEFAULT_VOICE)
+        rate = request.args.get("rate", None)
 
     if not text:
         return Response("No text provided", status=400)
 
     return Response(
-        generate_audio_chunks(text, voice),
+        generate_audio_chunks(text, voice, rate=rate),
         mimetype="audio/mpeg",
         headers={
             "Content-Type": "audio/mpeg",
