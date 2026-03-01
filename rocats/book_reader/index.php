@@ -27,7 +27,7 @@ if (isset($_GET['q']) && !empty($_GET['q'])) {
     curl_setopt($ch, CURLOPT_POST, true);
     curl_setopt($ch, CURLOPT_HTTPHEADER, ['Content-Type: application/json']);
     curl_setopt($ch, CURLOPT_POSTFIELDS, json_encode([
-        'model' => 'nemotron-3-nano:lates',
+        'model' => 'nemotron-3-nano:latest',
         'prompt' => $question,
         'stream' => true
     ]));
@@ -224,7 +224,7 @@ if (isset($_GET['summarize_book'])) {
         curl_setopt($ch, CURLOPT_POST, true);
         curl_setopt($ch, CURLOPT_HTTPHEADER, ['Content-Type: application/json']);
         curl_setopt($ch, CURLOPT_POSTFIELDS, json_encode([
-            'model' => 'nemotron-3-nano:lates',
+            'model' => 'nemotron-3-nano:latest',
             'prompt' => $prompt,
             'stream' => true
         ]));
@@ -316,7 +316,7 @@ if (isset($_GET['summarize_book'])) {
     curl_setopt($ch, CURLOPT_POST, true);
     curl_setopt($ch, CURLOPT_HTTPHEADER, ['Content-Type: application/json']);
     curl_setopt($ch, CURLOPT_POSTFIELDS, json_encode([
-        'model' => 'nemotron-3-nano:lates',
+        'model' => 'nemotron-3-nano:latest',
         'prompt' => $reducePrompt,
         'stream' => true
     ]));
@@ -534,7 +534,7 @@ if (isset($_GET['stream_book'])) {
         curl_setopt($ch, CURLOPT_POST, true);
         curl_setopt($ch, CURLOPT_HTTPHEADER, ['Content-Type: application/json']);
         curl_setopt($ch, CURLOPT_POSTFIELDS, json_encode([
-            'model' => 'nemotron-3-nano:lates',
+            'model' => 'nemotron-3-nano:latest',
             'prompt' => $prompt,
             'stream' => true
         ]));
