@@ -1,3 +1,7 @@
+﻿The Project Gutenberg eBook of Debian GNU/Linux : Guide to Installation and Usage|https://www.gutenberg.org/cache/epub/6527/pg6527.txt
+﻿The Project Gutenberg eBook of The Egyptian Book of the dead|https://www.gutenberg.org/cache/epub/69566/pg69566.txt
+﻿The Project Gutenberg eBook of The King James Version of the Bible|https://www.gutenberg.org/cache/epub/10/pg10.txt
+﻿The Project Gutenberg eBook of The story of the universe. Volume 1 (of 4)|https://www.gutenberg.org/cache/epub/74571/pg74571.txt
 ﻿The Project Gutenberg eBook of McTeague: A Story of San Francisco|https://www.gutenberg.org/cache/epub/165/pg165.txt
 ﻿The Project Gutenberg eBook of The Foundations of Science: Science and Hypothesis, The Value of S|https://www.gutenberg.org/cache/epub/39713/pg39713.txt
 ﻿The Project Gutenberg eBook of The Notebooks of Leonardo Da Vinci — Complete|https://www.gutenberg.org/cache/epub/5000/pg5000.txt

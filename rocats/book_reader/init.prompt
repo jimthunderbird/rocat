@@ -354,6 +354,13 @@ task {
   }
 }
 
+task {
+  action (completed) {
+    need to filter out words like "Let me know if you want more examples!" in the llm response
+    need to filter out words ending with a smiling emoji in the llm response
+  }
+}
+
 task.translation_caching {
   action (completed) {
     - create a ./cache directory, it should be added to .gitignore so that it won't be committed to git repo
