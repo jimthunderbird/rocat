@@ -29,7 +29,8 @@ if (isset($_GET['q']) && !empty($_GET['q'])) {
     curl_setopt($ch, CURLOPT_POSTFIELDS, json_encode([
         'model' => 'nemotron-3-nano:latest',
         'prompt' => $question,
-        'stream' => true
+        'stream' => true,
+        'think' => false
     ]));
     curl_setopt($ch, CURLOPT_RETURNTRANSFER, false);
     curl_setopt($ch, CURLOPT_WRITEFUNCTION, function($ch, $data) use (&$thinkState, &$thinkBuf) {
@@ -226,7 +227,8 @@ if (isset($_GET['summarize_book'])) {
         curl_setopt($ch, CURLOPT_POSTFIELDS, json_encode([
             'model' => 'nemotron-3-nano:latest',
             'prompt' => $prompt,
-            'stream' => true
+            'stream' => true,
+            'think' => false
         ]));
         curl_setopt($ch, CURLOPT_RETURNTRANSFER, false);
         curl_setopt($ch, CURLOPT_WRITEFUNCTION, function($ch, $data) use (&$thinkState, &$thinkBuf, &$fullResponse) {
@@ -318,7 +320,8 @@ if (isset($_GET['summarize_book'])) {
     curl_setopt($ch, CURLOPT_POSTFIELDS, json_encode([
         'model' => 'nemotron-3-nano:latest',
         'prompt' => $reducePrompt,
-        'stream' => true
+        'stream' => true,
+        'think' => false
     ]));
     curl_setopt($ch, CURLOPT_RETURNTRANSFER, false);
     curl_setopt($ch, CURLOPT_WRITEFUNCTION, function($ch, $data) use (&$thinkState, &$thinkBuf, &$finalSummary) {
@@ -524,7 +527,7 @@ if (isset($_GET['stream_book'])) {
         }
 
         // Translate via Ollama with think-block filtering
-        $prompt = 'please rewrite the content of <paragraph> to a new version that uses only modern and very very simple english words and sentences. USE Sentence Combining AND Clause Linking AS YOU SEE FIT. DO NOT MISS ANY DEEP DETAILS,DEEP MEANINGS AND TONES OF THE ORIGINAL VERSION. NO EXPLANATION, NO EXTRA WORDS, DO NOT RETURN CHINESE CHARACTERS, <paragraph>' . $trimmed . '</paragraph>';
+        $prompt = 'please rewrite the content of <paragraph> to a new version that uses only modern and very very simple english words and sentences. USE Sentence Combining AND Clause Linking AS MUCH AS POSSIBLE. DO NOT MISS ANY DEEP DETAILS,DEEP MEANINGS AND TONES OF THE ORIGINAL VERSION. NO EXPLANATION, NO EXTRA WORDS, DO NOT RETURN CHINESE CHARACTERS, <paragraph>' . $trimmed . '</paragraph>';
 
         $thinkState = 'init';
         $thinkBuf = '';
@@ -536,7 +539,8 @@ if (isset($_GET['stream_book'])) {
         curl_setopt($ch, CURLOPT_POSTFIELDS, json_encode([
             'model' => 'nemotron-3-nano:latest',
             'prompt' => $prompt,
-            'stream' => true
+            'stream' => true,
+            'think' => false
         ]));
         curl_setopt($ch, CURLOPT_RETURNTRANSFER, false);
         curl_setopt($ch, CURLOPT_WRITEFUNCTION, function($ch, $data) use (&$thinkState, &$thinkBuf, &$fullTranslation) {
@@ -2518,7 +2522,7 @@ async function convertToSimpleEnglish(paragraphText, wrapperEl) {
     overlay.classList.add('active');
     applyStoredPosition(mainModal, 'modalLastPos');
 
-    const prompt = 'please rewrite the content of <paragraph> to a new version that uses only modern and very very simple english words and sentences. USE Sentence Combining AND Clause Linking AS YOU SEE FIT. DO NOT MISS ANY DEEP DETAILS,DEEP MEANINGS AND TONES OF THE ORIGINAL VERSION. NO EXPLANATION, NO EXTRA WORDS, DO NOT RETURN CHINESE CHARACTERS, <paragraph>' + paragraphText + '</paragraph>';
+    const prompt = 'please rewrite the content of <paragraph> to a new version that uses only modern and very very simple english words and sentences. USE Sentence Combining AND Clause Linking AS MUCH AS POSSIBLE. DO NOT MISS ANY DEEP DETAILS,DEEP MEANINGS AND TONES OF THE ORIGINAL VERSION. NO EXPLANATION, NO EXTRA WORDS, DO NOT RETURN CHINESE CHARACTERS, <paragraph>' + paragraphText + '</paragraph>';
 
     await streamAIResponse(prompt, modalBody, mainController, null);
 }
