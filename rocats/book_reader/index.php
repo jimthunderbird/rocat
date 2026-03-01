@@ -193,9 +193,9 @@ if (isset($_GET['summarize_book'])) {
         exit;
     }
 
-    // Split into words and create ~2000-word chunks
+    // Split into words and create ~300-word chunks
     $words = preg_split('/\s+/', trim($content));
-    $chunkSize = 2000;
+    $chunkSize = 300;
     $chunks = [];
     for ($i = 0; $i < count($words); $i += $chunkSize) {
         $chunk = implode(' ', array_slice($words, $i, $chunkSize));
