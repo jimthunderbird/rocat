@@ -9,8 +9,8 @@ config {
   tts_fast_rate = "+8%"
   history_file = "history.txt"
   history_max_display = 10
-  summary_max_chars = 30000
-  summary_word_count = 500
+  summary_chunk_words = 2000
+  summary_word_count = 300
   cache_dir = "./cache"
 }
 
@@ -65,6 +65,22 @@ service.php_backend {
     behavior {
       read top {config.history_max_display} lines from {config.history_file}
       return as JSON array of {name, url} objects
+    }
+  }
+
+  endpoint.summarize_book {
+    route: ?summarize_book=1&url={url}
+    params {
+      url: string (optional) - book URL; if omitted, reads from {config.history_file} or default {config.book_url}
+    }
+    behavior {
+      Map-Reduce summarization:
+      1. fetch original book content from {url}
+      2. split into ~{config.summary_chunk_words}-word chunks
+      3. MAP: for each chunk, send to Ollama for ~100-word summary, emit {"event":"map_progress","current":N,"total":T}
+      4. REDUCE: combine all mini-summaries, send to Ollama for final {config.summary_word_count}-word summary
+      5. stream final summary tokens as {"event":"token","text":"..."}, then {"event":"complete"}
+      filter <think>...</think> blocks and LLM meta-commentary
     }
   }
 
@@ -197,10 +213,11 @@ ui.layout {
       text: "Summarize"
       position: next to "Highlight text to look up" label
       @click {
-        let book_text = (first {config.summary_max_chars} characters of book)
-        let prompt = (summarize in {config.summary_word_count} words)
-        let result = stream_request({app.entrypoint}?q={prompt})
-        show result in popup modal
+        Map-Reduce summarization:
+        1. Map: fetch original book, split into ~{config.summary_chunk_words}-word chunks, summarize each chunk (~100 words) via Ollama
+        2. Reduce: combine all mini-summaries, ask Ollama for a final {config.summary_word_count}-word summary
+        3. Stream progress events (chunk N/M) and final summary tokens to popup modal
+        endpoint: {app.entrypoint}?summarize_book=1&url={url}
       }
     }
 

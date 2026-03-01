@@ -79,10 +79,12 @@ task {
   }
 }
 
-task {
+task.create_book_summary {
   action (completed) {
     next to "Highligh text to look up", add a "Summarize" button, when click {
-      show a popup with a 500 words summary of the book using {llm_model}
+      Map: Split the original book content (not the simplified one) into chunks (e.g., 2,000 words each). Ask the model to summarize each chunk individually.
+      Reduce: Take all those "mini-summaries," combine them, and ask the model to create a final summary of the summaries.
+      The final summary should be 300 words long.
     }
   }
 }

@@ -134,6 +134,220 @@ if (isset($_GET['save_url']) && !empty($_GET['save_url'])) {
     exit;
 }
 
+// API endpoint: Map-Reduce book summarization
+if (isset($_GET['summarize_book'])) {
+    header('Content-Type: text/plain; charset=utf-8');
+    header('X-Accel-Buffering: no');
+    header('Cache-Control: no-cache');
+    while (ob_get_level()) ob_end_clean();
+    set_time_limit(0);
+
+    // Determine book URL
+    $book_url = isset($_GET['url']) && !empty($_GET['url']) ? $_GET['url'] : null;
+    if (!$book_url) {
+        $historyFile = __DIR__ . '/history.txt';
+        $book_url = 'https://www.gutenberg.org/cache/epub/1661/pg1661.txt';
+        if (file_exists($historyFile)) {
+            $histContent = file_get_contents($historyFile);
+            $hlines = array_filter(explode("\n", $histContent));
+            if (!empty($hlines)) {
+                $parts = explode('|', trim(reset($hlines)), 2);
+                if (count($parts) === 2) $book_url = trim($parts[1]);
+            }
+        }
+    }
+
+    $content = @file_get_contents($book_url);
+    if ($content === false) {
+        echo json_encode(['event' => 'error', 'message' => 'Could not load book content.']) . "\n";
+        flush();
+        exit;
+    }
+
+    // Split into words and create ~2000-word chunks
+    $words = preg_split('/\s+/', trim($content));
+    $chunkSize = 2000;
+    $chunks = [];
+    for ($i = 0; $i < count($words); $i += $chunkSize) {
+        $chunk = implode(' ', array_slice($words, $i, $chunkSize));
+        if (trim($chunk) !== '') $chunks[] = trim($chunk);
+    }
+
+    $totalChunks = count($chunks);
+    echo json_encode(['event' => 'info', 'message' => 'Splitting book into ' . $totalChunks . ' chunks for summarization...', 'total' => $totalChunks]) . "\n";
+    flush();
+
+    // Helper: send prompt to Ollama and collect full response (non-streaming)
+    function ollamaSummarize($prompt) {
+        $thinkState = 'init';
+        $thinkBuf = '';
+        $fullResponse = '';
+
+        $ch = curl_init('http://127.0.0.1:11434/api/generate');
+        curl_setopt($ch, CURLOPT_POST, true);
+        curl_setopt($ch, CURLOPT_HTTPHEADER, ['Content-Type: application/json']);
+        curl_setopt($ch, CURLOPT_POSTFIELDS, json_encode([
+            'model' => 'gemma2:2b',
+            'prompt' => $prompt,
+            'stream' => true
+        ]));
+        curl_setopt($ch, CURLOPT_RETURNTRANSFER, false);
+        curl_setopt($ch, CURLOPT_WRITEFUNCTION, function($ch, $data) use (&$thinkState, &$thinkBuf, &$fullResponse) {
+            foreach (explode("\n", $data) as $line) {
+                $line = trim($line);
+                if ($line === '') continue;
+                $json = json_decode($line, true);
+                if ($json && isset($json['response'])) {
+                    $token = $json['response'];
+
+                    if ($thinkState === 'output') {
+                        $fullResponse .= $token;
+                        continue;
+                    }
+
+                    $thinkBuf .= $token;
+
+                    if ($thinkState === 'init') {
+                        $t = ltrim($thinkBuf);
+                        if (strpos($t, '<think>') === 0) {
+                            $thinkState = 'thinking';
+                            $pos = strpos($thinkBuf, '</think>');
+                            if ($pos !== false) {
+                                $thinkState = 'output';
+                                $after = ltrim(substr($thinkBuf, $pos + 8), "\n\r");
+                                if ($after !== '' && $after !== false) $fullResponse .= $after;
+                                $thinkBuf = '';
+                            }
+                        } else if (strlen($t) >= 7 || ($t !== '' && $t[0] !== '<')) {
+                            $thinkState = 'output';
+                            $fullResponse .= $thinkBuf;
+                            $thinkBuf = '';
+                        }
+                    } else if ($thinkState === 'thinking') {
+                        $pos = strpos($thinkBuf, '</think>');
+                        if ($pos !== false) {
+                            $thinkState = 'output';
+                            $after = ltrim(substr($thinkBuf, $pos + 8), "\n\r");
+                            if ($after !== '' && $after !== false) $fullResponse .= $after;
+                            $thinkBuf = '';
+                        }
+                    }
+                }
+            }
+            return strlen($data);
+        });
+
+        curl_exec($ch);
+        if ($thinkBuf !== '' && $thinkState !== 'thinking') {
+            $fullResponse .= $thinkBuf;
+        }
+        curl_close($ch);
+
+        // Filter LLM meta-commentary
+        $fullResponse = preg_replace('/\s*(let me know if\b.*|please let me know.*|if you\'d like.*|i\'m ready to.*|i hope this helps.*|feel free to ask.*|happy to help.*|if you have any questions.*|is there anything else.*)$/si', '', $fullResponse);
+        $fullResponse = preg_replace('/^.*[\x{1F600}-\x{1F64F}\x{1F60A}\x{1F642}\x{263A}]\s*$/mu', '', $fullResponse);
+
+        return trim($fullResponse);
+    }
+
+    // MAP phase: summarize each chunk
+    $miniSummaries = [];
+    for ($i = 0; $i < $totalChunks; $i++) {
+        echo json_encode(['event' => 'map_progress', 'current' => $i + 1, 'total' => $totalChunks]) . "\n";
+        flush();
+
+        $prompt = 'Summarize the following text in about 100 words. Capture all key events, characters, and themes. NO EXPLANATION, NO EXTRA WORDS: ' . $chunks[$i];
+        $summary = ollamaSummarize($prompt);
+        if (!empty($summary)) {
+            $miniSummaries[] = $summary;
+        }
+    }
+
+    // REDUCE phase: combine all mini-summaries into a final 300-word summary
+    echo json_encode(['event' => 'reduce_start']) . "\n";
+    flush();
+
+    $combined = implode("\n\n", $miniSummaries);
+    $reducePrompt = 'Here are summaries of different parts of a book:\n\n' . $combined . '\n\nBased on all these summaries above, create a single cohesive final summary of the entire book in exactly 300 words. Capture the main plot, characters, and themes. NO EXPLANATION, NO EXTRA WORDS.';
+
+    // Stream the final reduce response
+    $thinkState = 'init';
+    $thinkBuf = '';
+
+    $ch = curl_init('http://127.0.0.1:11434/api/generate');
+    curl_setopt($ch, CURLOPT_POST, true);
+    curl_setopt($ch, CURLOPT_HTTPHEADER, ['Content-Type: application/json']);
+    curl_setopt($ch, CURLOPT_POSTFIELDS, json_encode([
+        'model' => 'gemma2:2b',
+        'prompt' => $reducePrompt,
+        'stream' => true
+    ]));
+    curl_setopt($ch, CURLOPT_RETURNTRANSFER, false);
+    curl_setopt($ch, CURLOPT_WRITEFUNCTION, function($ch, $data) use (&$thinkState, &$thinkBuf) {
+        foreach (explode("\n", $data) as $line) {
+            $line = trim($line);
+            if ($line === '') continue;
+            $json = json_decode($line, true);
+            if ($json && isset($json['response'])) {
+                $token = $json['response'];
+
+                if ($thinkState === 'output') {
+                    echo json_encode(['event' => 'token', 'text' => $token]) . "\n";
+                    flush();
+                    continue;
+                }
+
+                $thinkBuf .= $token;
+
+                if ($thinkState === 'init') {
+                    $t = ltrim($thinkBuf);
+                    if (strpos($t, '<think>') === 0) {
+                        $thinkState = 'thinking';
+                        $pos = strpos($thinkBuf, '</think>');
+                        if ($pos !== false) {
+                            $thinkState = 'output';
+                            $after = ltrim(substr($thinkBuf, $pos + 8), "\n\r");
+                            if ($after !== '' && $after !== false) {
+                                echo json_encode(['event' => 'token', 'text' => $after]) . "\n";
+                                flush();
+                            }
+                            $thinkBuf = '';
+                        }
+                    } else if (strlen($t) >= 7 || ($t !== '' && $t[0] !== '<')) {
+                        $thinkState = 'output';
+                        echo json_encode(['event' => 'token', 'text' => $thinkBuf]) . "\n";
+                        flush();
+                        $thinkBuf = '';
+                    }
+                } else if ($thinkState === 'thinking') {
+                    $pos = strpos($thinkBuf, '</think>');
+                    if ($pos !== false) {
+                        $thinkState = 'output';
+                        $after = ltrim(substr($thinkBuf, $pos + 8), "\n\r");
+                        if ($after !== '' && $after !== false) {
+                            echo json_encode(['event' => 'token', 'text' => $after]) . "\n";
+                            flush();
+                        }
+                        $thinkBuf = '';
+                    }
+                }
+            }
+        }
+        return strlen($data);
+    });
+
+    $result = curl_exec($ch);
+    if ($thinkBuf !== '' && $thinkState !== 'thinking') {
+        echo json_encode(['event' => 'token', 'text' => $thinkBuf]) . "\n";
+        flush();
+    }
+    curl_close($ch);
+
+    echo json_encode(['event' => 'complete']) . "\n";
+    flush();
+    exit;
+}
+
 // API endpoint: stream book with server-side simple English translation
 if (isset($_GET['stream_book'])) {
     header('Content-Type: text/plain; charset=utf-8');
@@ -1667,7 +1881,7 @@ function selectHistoryItem(url) {
     window.scrollTo(0, 0);
 }
 
-// Summarize book functionality
+// Summarize book functionality (Map-Reduce)
 async function summarizeBook() {
     const bookText = document.getElementById('book_content').textContent.trim();
     if (!bookText || bookText.length < 50) {
@@ -1678,20 +1892,73 @@ async function summarizeBook() {
     if (mainController) mainController.abort();
     mainController = new AbortController();
 
-    // Take first ~30000 chars of the book as context for the summary
-    const excerpt = bookText.substring(0, 30000);
-
     modalSelectedText.textContent = 'Book Summary';
     document.getElementById('modal-voice-btn').style.display = 'none';
     const readBtnS = document.getElementById('modal-read-btn');
     if (readBtnS) readBtnS.style.display = 'none';
-    modalBody.innerHTML = '<div class="loading-text"><div class="spinner"></div><div>Generating summary...</div></div>';
+    modalBody.innerHTML = '<div class="loading-text"><div class="spinner"></div><div>Summarizing book (Map-Reduce)...</div></div>';
     overlay.classList.add('active');
     applyStoredPosition(mainModal, 'modalLastPos');
 
-    const question = 'Here is the beginning of a book:\n\n' + excerpt + '\n\nBased on the text above, provide a summary of this book in about 500 words. No extra words.';
+    // Get current book URL
+    const urlInput = document.getElementById('url-input').value.trim();
+    let endpoint = 'index.php?summarize_book=1';
+    if (urlInput) endpoint += '&url=' + encodeURIComponent(urlInput);
 
-    await streamAIResponse(question, modalBody, mainController, null);
+    try {
+        const resp = await fetch(endpoint, { signal: mainController.signal });
+        if (!resp.ok) throw new Error('Request failed');
+
+        const reader = resp.body.getReader();
+        const decoder = new TextDecoder();
+        let buffer = '';
+        let rawSummary = '';
+        let reduceStarted = false;
+
+        while (true) {
+            const { done, value } = await reader.read();
+            if (done) break;
+            buffer += decoder.decode(value, { stream: true });
+
+            const lines = buffer.split('\n');
+            buffer = lines.pop();
+
+            for (const line of lines) {
+                if (!line.trim()) continue;
+                try {
+                    const evt = JSON.parse(line);
+
+                    if (evt.event === 'info') {
+                        modalBody.innerHTML = '<div class="loading-text"><div class="spinner"></div><div>' + evt.message + '</div></div>';
+
+                    } else if (evt.event === 'map_progress') {
+                        modalBody.innerHTML = '<div class="loading-text"><div class="spinner"></div><div>Summarizing chunk ' + evt.current + ' / ' + evt.total + '...</div></div>';
+
+                    } else if (evt.event === 'reduce_start') {
+                        reduceStarted = true;
+                        rawSummary = '';
+                        modalBody.innerHTML = '<div class="loading-text"><div class="spinner"></div><div>Generating final summary...</div></div>';
+
+                    } else if (evt.event === 'token' && reduceStarted) {
+                        rawSummary += evt.text;
+                        modalBody.innerHTML = marked.parse(rawSummary);
+                        modalBody.scrollTop = modalBody.scrollHeight;
+
+                    } else if (evt.event === 'error') {
+                        modalBody.innerHTML = '<div class="error">' + (evt.message || 'Error').replace(/</g, '&lt;') + '</div>';
+
+                    } else if (evt.event === 'complete') {
+                        // Filter LLM meta-commentary from final summary
+                        let cleaned = rawSummary.replace(/\s*(let me know if\b.*|please let me know.*|if you'd like.*|i'm ready to.*|i hope this helps.*|feel free to ask.*|happy to help.*|if you have any questions.*|is there anything else.*)$/gi, '').trim();
+                        if (cleaned) modalBody.innerHTML = marked.parse(cleaned);
+                    }
+                } catch (parseErr) {}
+            }
+        }
+    } catch (e) {
+        if (e.name === 'AbortError') return;
+        modalBody.innerHTML = '<div class="error">Error: Could not generate summary. Please try again.</div>';
+    }
 }
 
 // Paragraph voice buttons
