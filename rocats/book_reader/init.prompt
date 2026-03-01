@@ -348,6 +348,23 @@ task {
   }
 }
 
+task.translation_caching {
+  action (completed) {
+    - create a ./cache directory, it should be added to .gitignore so that it won't be committed to git repo
+    - under the ./cache directory, it should be subfolders for each book's guttenberg id, for example: pg2701, under this subfolder, stored the translated text in file named p_{paragraph_offset}_simplified.txt, also have a file p_{paragraph_offset}_progress.txt {
+      when a paragraph is being translated, record the percentage number (1-100) to p_{paragraph_offset}_progress.txt
+    }
+
+    - when we load the book, first look at the ./cache directory and load the corresponding content of p_{paragraph_offset}_progress.txt if p_{paragraph_offset}_progress.txt has 100 in it (meaning this paragraph is fully translated), otherwise, send the paragraph to llm to translate and cache it
+  }
+}
+
+task {
+  action {
+    remove the button.id:"full-simple-english-btn"
+  }
+}
+
 {
   focus on solving reopen actions only!
   after solving them {

@@ -11,6 +11,7 @@ config {
   history_max_display = 10
   summary_max_chars = 30000
   summary_word_count = 500
+  cache_dir = "./cache"
 }
 
 app {
@@ -21,7 +22,7 @@ app {
     backend: PHP 7.4+
     llm: Ollama + {config.llm_model}
     tts: Python 3.11 + edge-tts + Flask
-    storage: Flat file ({config.history_file})
+    storage: Flat file ({config.history_file}), file-based cache ({config.cache_dir})
     markdown: marked.js (CDN)
     audio: Web Audio API + HTML5 Audio Element
   }
@@ -76,11 +77,21 @@ service.php_backend {
     behavior {
       read book content from {url}
       if save flag: extract book name, prepend to {config.history_file}
+      extract gutenberg_id from URL (e.g. "pg1661" from ".../pg1661.txt")
       split content into paragraphs
       for each paragraph {
         emit NDJSON event: {"event":"start","original":"...","index":N,"total":T}
         if paragraph length < 20 chars: emit token with original text (passthrough)
-        else: send logic.simple_english_translation(paragraph) to Ollama, stream tokens as {"event":"token","text":"..."}
+        else {
+          check cache: {config.cache_dir}/{gutenberg_id}/p_{paragraph_offset}_progress.txt
+          if progress == 100: serve from {config.cache_dir}/{gutenberg_id}/p_{paragraph_offset}_simplified.txt
+          else {
+            set progress to 0
+            send logic.simple_english_translation(paragraph) to Ollama, stream tokens as {"event":"token","text":"..."}
+            save full translation to p_{paragraph_offset}_simplified.txt
+            set progress to 100 in p_{paragraph_offset}_progress.txt
+          }
+        }
         emit {"event":"end","index":N}
       }
       emit {"event":"complete"}
@@ -193,29 +204,10 @@ ui.layout {
       }
     }
 
-    button#button-full-simple-english {
-      text: "Full Simple English"
-      @click {
-        remove all per-paragraph "Simple English" buttons
-        for each paragraph in book (length >= 20 chars) {
-          highlight the paragraph
-          let prompt = logic.simple_english_translation(paragraph.text)
-          let response_text = stream_request({app.entrypoint}?q={prompt})
-          store paragraph.original_text
-          replace paragraph text with {response_text}
-          add button#button-show-original-text to paragraph
-          remove paragraph highlight
-          update progress_bar
-        }
-        streaming: per-paragraph progress visible
-        cancel: supported mid-conversion
-      }
-    }
-
     ui.progress_bar {
-      position: below button#button-full-simple-english
+      position: in header area
       range: 0% to 100%
-      visible: only during full simple english conversion
+      visible: only during book streaming/translation
       percentage_style {
         font-weight: bold
         font-color: white
@@ -289,6 +281,22 @@ ui.popup_modal {
     meaning: 30 words definition
     translation: simplified chinese
     rendering: markdown via marked.js
+  }
+}
+
+cache.translation {
+  directory: {config.cache_dir}
+  gitignore: cache/ (excluded from git)
+  structure {
+    {config.cache_dir}/{gutenberg_id}/p_{paragraph_offset}_simplified.txt  // cached translation text
+    {config.cache_dir}/{gutenberg_id}/p_{paragraph_offset}_progress.txt    // "0" during translation, "100" when complete
+  }
+  behavior {
+    gutenberg_id extracted from URL via regex: /\/(pg\d+)\.\w+$/
+    on paragraph translation:
+      1. check if progress.txt exists and contains "100"
+      2. if yes: serve simplified.txt from cache (skip LLM call)
+      3. if no: set progress to "0", translate via Ollama, save result to simplified.txt, set progress to "100"
   }
 }
 
