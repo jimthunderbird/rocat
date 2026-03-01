@@ -1,5 +1,5 @@
 book_url = "https://www.gutenberg.org/cache/epub/1661/pg1661.txt"
-llm_model = "gemma2:2b"
+llm_model = "gemma3:latest"
 
 logic.simple_english_translation(paragraph_text) {
   let prompt = (please rewrite the content of <paragraph> to a new version that uses only modern and very very simple english words and sentences. USE Sentence Combining AND Clause Linking AS YOU SEE FIT. DO NOT MISS ANY DEEP DETAILS,DEEP MEANINGS AND TONES OF THE ORIGINAL VERSION. NO EXPLANATION, NO EXTRA WORDS, DO NOT RETURN CHINESE CHARACTERS, <paragraph>{paragraph_text}</paragraph>)
@@ -400,8 +400,14 @@ task {
       when click:
       - pop up a modal with a textbox
       - it will allow me a enter a question, after entering the question and hit the enter key
-      - use the current paragraph, the previous 50 paragraph and next 50 paragraph as context, come up with an answer, display it under the question textbox, when sending the question, use ollma server 127.0.0.1:11434 with model: {llm_model}
+      - use the current paragraph, the previous 20 paragraph and next 20 paragraph as context, come up with an answer, display it under the question textbox, when sending the question, use ollma server 127.0.0.1:11434 with model: {llm_model}
     }
+  }
+}
+
+task {
+  action (completed) {
+    update llm_model to gemma3:latest
   }
 }
 

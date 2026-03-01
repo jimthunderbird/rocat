@@ -1,6 +1,11 @@
-﻿The Project Gutenberg eBook of The Adventures of Sherlock Holmes|https://www.gutenberg.org/cache/epub/1661/pg1661.txt
-﻿The Project Gutenberg eBook of The flying carpet|https://www.gutenberg.org/cache/epub/75229/pg75229.txt
+﻿The Project Gutenberg eBook of Fifty years in Wall Street|https://www.gutenberg.org/cache/epub/70377/pg70377.txt
+﻿The Project Gutenberg eBook of Elements of Plumbing|https://www.gutenberg.org/cache/epub/25269/pg25269.txt
 ﻿The Project Gutenberg eBook of The Time Machine|https://www.gutenberg.org/cache/epub/35/pg35.txt
+﻿The Project Gutenberg eBook of The flying carpet|https://www.gutenberg.org/cache/epub/75229/pg75229.txt
+﻿The Project Gutenberg eBook of Encyclopaedia Britannica, 11th Edition, "Map" to "Mars"|https://www.gutenberg.org/cache/epub/42638/pg42638.txt
+﻿The Project Gutenberg eBook of A guide book of art, architecture, and historic interests in Penns|https://www.gutenberg.org/cache/epub/66410/pg66410.txt
+﻿The Project Gutenberg eBook of The Rare Earths: Their Occurrence, Chemistry, and Technology|https://www.gutenberg.org/cache/epub/62923/pg62923.txt
+﻿The Project Gutenberg eBook of The Adventures of Sherlock Holmes|https://www.gutenberg.org/cache/epub/1661/pg1661.txt
 ﻿The Project Gutenberg eBook of Debian GNU/Linux : Guide to Installation and Usage|https://www.gutenberg.org/cache/epub/6527/pg6527.txt
 ﻿The Project Gutenberg eBook of The Egyptian Book of the dead|https://www.gutenberg.org/cache/epub/69566/pg69566.txt
 ﻿The Project Gutenberg eBook of The King James Version of the Bible|https://www.gutenberg.org/cache/epub/10/pg10.txt

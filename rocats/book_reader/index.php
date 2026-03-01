@@ -27,7 +27,7 @@ if (isset($_GET['q']) && !empty($_GET['q'])) {
     curl_setopt($ch, CURLOPT_POST, true);
     curl_setopt($ch, CURLOPT_HTTPHEADER, ['Content-Type: application/json']);
     curl_setopt($ch, CURLOPT_POSTFIELDS, json_encode([
-        'model' => 'gemma2:2b',
+        'model' => 'gemma3:latest',
         'prompt' => $question,
         'stream' => true
     ]));
@@ -224,7 +224,7 @@ if (isset($_GET['summarize_book'])) {
         curl_setopt($ch, CURLOPT_POST, true);
         curl_setopt($ch, CURLOPT_HTTPHEADER, ['Content-Type: application/json']);
         curl_setopt($ch, CURLOPT_POSTFIELDS, json_encode([
-            'model' => 'gemma2:2b',
+            'model' => 'gemma3:latest',
             'prompt' => $prompt,
             'stream' => true
         ]));
@@ -316,7 +316,7 @@ if (isset($_GET['summarize_book'])) {
     curl_setopt($ch, CURLOPT_POST, true);
     curl_setopt($ch, CURLOPT_HTTPHEADER, ['Content-Type: application/json']);
     curl_setopt($ch, CURLOPT_POSTFIELDS, json_encode([
-        'model' => 'gemma2:2b',
+        'model' => 'gemma3:latest',
         'prompt' => $reducePrompt,
         'stream' => true
     ]));
@@ -534,7 +534,7 @@ if (isset($_GET['stream_book'])) {
         curl_setopt($ch, CURLOPT_POST, true);
         curl_setopt($ch, CURLOPT_HTTPHEADER, ['Content-Type: application/json']);
         curl_setopt($ch, CURLOPT_POSTFIELDS, json_encode([
-            'model' => 'gemma2:2b',
+            'model' => 'gemma3:latest',
             'prompt' => $prompt,
             'stream' => true
         ]));
@@ -2566,9 +2566,9 @@ function showAskQuestionModal(paraIndex) {
 
         input.disabled = true;
 
-        // Build context from current paragraph + 50 before + 50 after
-        const start = Math.max(0, paraIndex - 50);
-        const end = Math.min(allOriginalParagraphs.length - 1, paraIndex + 50);
+        // Build context from current paragraph + 20 before + 20 after
+        const start = Math.max(0, paraIndex - 20);
+        const end = Math.min(allOriginalParagraphs.length - 1, paraIndex + 20);
         let contextParts = [];
         for (let i = start; i <= end; i++) {
             contextParts.push(allOriginalParagraphs[i]);
