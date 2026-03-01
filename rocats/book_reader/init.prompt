@@ -360,8 +360,14 @@ task.translation_caching {
 }
 
 task {
-  action {
+  action (completed) {
     remove the button.id:"full-simple-english-btn"
+  }
+}
+
+task.markdown_render {
+  action (completed) {
+    please render markdown properly in div.id:"book_content"
   }
 }
 

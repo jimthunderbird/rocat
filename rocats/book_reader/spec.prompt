@@ -224,6 +224,7 @@ ui.layout {
         php backend reads book, splits into paragraphs
         for each paragraph: php sends to Ollama for simple english translation
         javascript receives NDJSON stream, builds para-wrappers progressively
+        each paragraph rendered as markdown via marked.parse() (streaming + final)
         each paragraph gets: voice button, "Original Text" button (if >= 20 chars)
         progress_bar updates per-paragraph
         cancel: supported (abort on new book load)

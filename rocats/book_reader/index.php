@@ -877,8 +877,76 @@ body {
 
 .para-wrapper .para-text {
     flex: 1;
-    white-space: pre-wrap;
     word-wrap: break-word;
+}
+
+.para-text p {
+    margin: 0 0 8px;
+}
+
+.para-text p:last-child {
+    margin-bottom: 0;
+}
+
+.para-text h1, .para-text h2, .para-text h3,
+.para-text h4, .para-text h5, .para-text h6 {
+    color: #3e2723;
+    margin: 12px 0 6px;
+    line-height: 1.3;
+}
+
+.para-text ul, .para-text ol {
+    margin: 0 0 8px;
+    padding-left: 24px;
+}
+
+.para-text li {
+    margin-bottom: 2px;
+}
+
+.para-text strong {
+    color: #3e2723;
+}
+
+.para-text em {
+    font-style: italic;
+}
+
+.para-text code {
+    background: #f0ebe3;
+    padding: 1px 4px;
+    border-radius: 3px;
+    font-size: 0.9em;
+    font-family: 'Courier New', Courier, monospace;
+}
+
+.para-text pre {
+    background: #2d2d2d;
+    color: #f8f8f2;
+    padding: 10px;
+    border-radius: 6px;
+    overflow-x: auto;
+    margin: 0 0 8px;
+}
+
+.para-text pre code {
+    background: none;
+    padding: 0;
+    color: inherit;
+}
+
+.para-text blockquote {
+    border-left: 3px solid #5d4037;
+    padding: 4px 12px;
+    margin: 0 0 8px;
+    background: #f9f6f0;
+    color: #555;
+}
+
+.para-text hr {
+    border: none;
+    border-top: 1px solid #e0d8cc;
+    margin: 8px 0;
 }
 
 .para-voice-btn {
@@ -1869,6 +1937,7 @@ async function streamBookContent(url, save) {
         let currentWrapper = null;
         let currentTextDiv = null;
         let currentOriginal = '';
+        let currentRawText = '';
         let total = 0;
         let started = false;
 
@@ -1898,6 +1967,7 @@ async function streamBookContent(url, save) {
                             started = true;
                         }
                         currentOriginal = evt.original;
+                        currentRawText = '';
 
                         // Remove highlight from previous paragraph
                         if (currentWrapper) currentWrapper.classList.remove('highlighted');
@@ -1928,12 +1998,13 @@ async function streamBookContent(url, save) {
 
                     } else if (evt.event === 'token') {
                         if (currentTextDiv) {
-                            currentTextDiv.textContent += evt.text;
+                            currentRawText += evt.text;
+                            currentTextDiv.innerHTML = marked.parse(currentRawText);
                         }
 
                     } else if (evt.event === 'end') {
                         if (currentWrapper && currentTextDiv) {
-                            let translatedText = currentTextDiv.textContent.trim();
+                            let translatedText = currentRawText.trim();
 
                             // Strip LLM meta-commentary from the end of translations
                             translatedText = translatedText.replace(/\s*(please let me know if you'd like.*|let me know if you'd like.*|let me know if you have any questions.*|if you'd like me to rephrase.*|i'm ready to help.*|i hope this helps.*|feel free to ask.*|don't hesitate to ask.*|happy to help.*|if you have any questions.*|i hope this version.*|i hope you enjoy.*|let me know if you need.*|let me know if there's anything.*|is there anything else.*)$/gi, '').trim();
@@ -1942,7 +2013,7 @@ async function streamBookContent(url, save) {
                             if (/please provide|I'm ready to|i'm ready to|provide me with|send me the/i.test(translatedText) || translatedText.length === 0) {
                                 translatedText = currentOriginal;
                             }
-                            currentTextDiv.textContent = translatedText;
+                            currentTextDiv.innerHTML = marked.parse(translatedText);
                             currentWrapper.classList.remove('highlighted');
 
                             // Add "Original Text" button if translated (>= 20 chars)
