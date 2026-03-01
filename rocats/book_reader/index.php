@@ -157,6 +157,35 @@ if (isset($_GET['summarize_book'])) {
         }
     }
 
+    // Extract Gutenberg ID from URL for caching (e.g., pg1661 from .../pg1661.txt)
+    $summary_book_id = null;
+    if (preg_match('/\/(pg\d+)\.\w+$/', $book_url, $sm)) {
+        $summary_book_id = $sm[1];
+    }
+    $summary_cache_dir = null;
+    if ($summary_book_id) {
+        $summary_cache_dir = __DIR__ . '/cache/' . $summary_book_id;
+        if (!is_dir($summary_cache_dir)) {
+            mkdir($summary_cache_dir, 0755, true);
+        }
+        // Check if cached summary exists
+        $summary_cache_file = $summary_cache_dir . '/summary.txt';
+        if (file_exists($summary_cache_file)) {
+            $cached_summary = file_get_contents($summary_cache_file);
+            if (!empty(trim($cached_summary))) {
+                echo json_encode(['event' => 'info', 'message' => 'Loading cached summary...']) . "\n";
+                flush();
+                echo json_encode(['event' => 'reduce_start']) . "\n";
+                flush();
+                echo json_encode(['event' => 'token', 'text' => $cached_summary]) . "\n";
+                flush();
+                echo json_encode(['event' => 'complete']) . "\n";
+                flush();
+                exit;
+            }
+        }
+    }
+
     $content = @file_get_contents($book_url);
     if ($content === false) {
         echo json_encode(['event' => 'error', 'message' => 'Could not load book content.']) . "\n";
@@ -273,6 +302,7 @@ if (isset($_GET['summarize_book'])) {
     // Stream the final reduce response
     $thinkState = 'init';
     $thinkBuf = '';
+    $finalSummary = '';
 
     $ch = curl_init('http://127.0.0.1:11434/api/generate');
     curl_setopt($ch, CURLOPT_POST, true);
@@ -283,7 +313,7 @@ if (isset($_GET['summarize_book'])) {
         'stream' => true
     ]));
     curl_setopt($ch, CURLOPT_RETURNTRANSFER, false);
-    curl_setopt($ch, CURLOPT_WRITEFUNCTION, function($ch, $data) use (&$thinkState, &$thinkBuf) {
+    curl_setopt($ch, CURLOPT_WRITEFUNCTION, function($ch, $data) use (&$thinkState, &$thinkBuf, &$finalSummary) {
         foreach (explode("\n", $data) as $line) {
             $line = trim($line);
             if ($line === '') continue;
@@ -294,6 +324,7 @@ if (isset($_GET['summarize_book'])) {
                 if ($thinkState === 'output') {
                     echo json_encode(['event' => 'token', 'text' => $token]) . "\n";
                     flush();
+                    $finalSummary .= $token;
                     continue;
                 }
 
@@ -310,6 +341,7 @@ if (isset($_GET['summarize_book'])) {
                             if ($after !== '' && $after !== false) {
                                 echo json_encode(['event' => 'token', 'text' => $after]) . "\n";
                                 flush();
+                                $finalSummary .= $after;
                             }
                             $thinkBuf = '';
                         }
@@ -317,6 +349,7 @@ if (isset($_GET['summarize_book'])) {
                         $thinkState = 'output';
                         echo json_encode(['event' => 'token', 'text' => $thinkBuf]) . "\n";
                         flush();
+                        $finalSummary .= $thinkBuf;
                         $thinkBuf = '';
                     }
                 } else if ($thinkState === 'thinking') {
@@ -327,6 +360,7 @@ if (isset($_GET['summarize_book'])) {
                         if ($after !== '' && $after !== false) {
                             echo json_encode(['event' => 'token', 'text' => $after]) . "\n";
                             flush();
+                            $finalSummary .= $after;
                         }
                         $thinkBuf = '';
                     }
@@ -340,8 +374,17 @@ if (isset($_GET['summarize_book'])) {
     if ($thinkBuf !== '' && $thinkState !== 'thinking') {
         echo json_encode(['event' => 'token', 'text' => $thinkBuf]) . "\n";
         flush();
+        $finalSummary .= $thinkBuf;
     }
     curl_close($ch);
+
+    // Cache the final summary
+    if ($summary_cache_dir && !empty(trim($finalSummary))) {
+        // Filter LLM meta-commentary before caching
+        $cleanedSummary = preg_replace('/\s*(let me know if\b.*|please let me know.*|if you\'d like.*|i\'m ready to.*|i hope this helps.*|feel free to ask.*|happy to help.*|if you have any questions.*|is there anything else.*)$/si', '', $finalSummary);
+        $cleanedSummary = preg_replace('/^.*[\x{1F600}-\x{1F64F}\x{1F60A}\x{1F642}\x{263A}]\s*$/mu', '', $cleanedSummary);
+        file_put_contents($summary_cache_dir . '/summary.txt', trim($cleanedSummary));
+    }
 
     echo json_encode(['event' => 'complete']) . "\n";
     flush();
