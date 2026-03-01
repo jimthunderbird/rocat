@@ -384,6 +384,12 @@ task.markdown_render {
   }
 }
 
+task {
+  action (completed) {
+    need to filter out words starting with  "Let me know if" in the llm response
+  }
+}
+
 {
   focus on solving reopen actions only!
   after solving them {

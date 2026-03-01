@@ -2007,7 +2007,7 @@ async function streamBookContent(url, save) {
                             let translatedText = currentRawText.trim();
 
                             // Strip LLM meta-commentary from the end of translations
-                            translatedText = translatedText.replace(/\s*(please let me know if you'd like.*|let me know if you'd like.*|let me know if you have any questions.*|if you'd like me to rephrase.*|i'm ready to help.*|i hope this helps.*|feel free to ask.*|don't hesitate to ask.*|happy to help.*|if you have any questions.*|i hope this version.*|i hope you enjoy.*|let me know if you need.*|let me know if there's anything.*|is there anything else.*|let me know if you want to try.*|let me know if you want more.*)$/gi, '').trim();
+                            translatedText = translatedText.replace(/\s*(let me know if\b.*|please let me know if you'd like.*|if you'd like me to rephrase.*|i'm ready to help.*|i hope this helps.*|feel free to ask.*|don't hesitate to ask.*|happy to help.*|if you have any questions.*|i hope this version.*|i hope you enjoy.*|is there anything else.*)$/gi, '').trim();
                             // Remove lines ending with a smiling emoji (e.g. 😊 😃 😄 🙂 😁 😉)
                             translatedText = translatedText.replace(/^.*[\u{1F600}-\u{1F64F}\u{1F60A}\u{1F642}\u{263A}]\s*$/gmu, '').trim();
 
