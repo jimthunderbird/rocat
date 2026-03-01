@@ -394,6 +394,17 @@ task {
   }
 }
 
+task {
+  action (completed) {
+    in the right side of the button "Original Text" of each paragraph, add a new button "Ask Question" {
+      when click:
+      - pop up a modal with a textbox
+      - it will allow me a enter a question, after entering the question and hit the enter key
+      - use the current paragraph, the previous 50 paragraph and next 50 paragraph as context, come up with an answer, display it under the question textbox, when sending the question, use ollma server 127.0.0.1:11434 with model: {llm_model}
+    }
+  }
+}
+
 {
   focus on solving reopen actions only!
   after solving them {

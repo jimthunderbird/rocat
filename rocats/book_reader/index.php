@@ -1,4 +1,12 @@
 <?php
+// Support POST body for large prompts (e.g., Ask Question with long context)
+if ($_SERVER['REQUEST_METHOD'] === 'POST' && !isset($_GET['q'])) {
+    $postBody = json_decode(file_get_contents('php://input'), true);
+    if ($postBody && isset($postBody['prompt']) && !empty($postBody['prompt'])) {
+        $_GET['q'] = $postBody['prompt'];
+    }
+}
+
 // API endpoint: handle ?q= requests with streaming
 if (isset($_GET['q']) && !empty($_GET['q'])) {
     header('Content-Type: text/plain; charset=utf-8');
@@ -1278,6 +1286,52 @@ body {
     opacity: 1;
 }
 
+.button-ask-question {
+    background: none;
+    border: 1px solid #5d4037;
+    cursor: pointer;
+    padding: 1px 6px;
+    border-radius: 8px;
+    font-size: 10px;
+    font-family: Arial, sans-serif;
+    color: #5d4037;
+    transition: background 0.2s, opacity 0.2s;
+    flex-shrink: 0;
+    opacity: 0.3;
+    margin-top: 2px;
+    white-space: nowrap;
+}
+
+.button-ask-question:hover {
+    background: rgba(62, 39, 35, 0.1);
+    opacity: 1;
+}
+
+.ask-question-input {
+    width: 100%;
+    padding: 8px 10px;
+    border: 1px solid #d7cfc4;
+    border-radius: 6px;
+    font-size: 14px;
+    font-family: Georgia, 'Times New Roman', serif;
+    background: #faf8f4;
+    color: #3e2723;
+    outline: none;
+    box-sizing: border-box;
+}
+
+.ask-question-input:focus {
+    border-color: #5d4037;
+    box-shadow: 0 0 0 2px rgba(93, 64, 55, 0.15);
+}
+
+.ask-question-answer {
+    margin-top: 12px;
+    padding: 8px 0;
+    white-space: normal;
+    word-wrap: break-word;
+}
+
 #modal-body .loading-text {
     text-align: center;
     color: #999;
@@ -1752,7 +1806,10 @@ document.addEventListener('click', function(e) {
 
 async function streamAIResponse(question, targetBody, controller, word) {
     try {
-        const resp = await fetch('index.php?q=' + encodeURIComponent(question), {
+        const resp = await fetch('index.php', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ prompt: question }),
             signal: controller.signal
         });
         if (!resp.ok) throw new Error('Request failed');
@@ -2212,6 +2269,9 @@ function speakParagraphFallback(text, btn) {
     speechSynthesis.speak(utterance);
 }
 
+// Store all original paragraph texts for "Ask Question" context
+let allOriginalParagraphs = [];
+
 // Stream book content with server-side simple English translation
 let streamBookAbort = null;
 
@@ -2222,6 +2282,8 @@ async function streamBookContent(url, save) {
         streamBookAbort = null;
     }
     streamBookAbort = new AbortController();
+
+    allOriginalParagraphs = [];
 
     const bookDiv = document.getElementById('book_content');
     bookDiv.innerHTML = '<div style="text-align:center;padding:40px;color:#999;">Loading and translating book...</div>';
@@ -2278,6 +2340,7 @@ async function streamBookContent(url, save) {
                         }
                         currentOriginal = evt.original;
                         currentRawText = '';
+                        allOriginalParagraphs.push(evt.original);
 
                         // Remove highlight from previous paragraph
                         if (currentWrapper) currentWrapper.classList.remove('highlighted');
@@ -2330,7 +2393,7 @@ async function streamBookContent(url, save) {
 
                             // Add "Original Text" button if translated (>= 20 chars)
                             if (currentOriginal.length >= 20) {
-                                (function(origText, wrapper) {
+                                (function(origText, wrapper, paraIndex) {
                                     const origBtn = document.createElement('button');
                                     origBtn.className = 'button-show-original-text';
                                     origBtn.textContent = 'Original Text';
@@ -2340,7 +2403,18 @@ async function streamBookContent(url, save) {
                                     });
                                     origBtn.addEventListener('mouseup', function(e) { e.stopPropagation(); });
                                     wrapper.appendChild(origBtn);
-                                })(currentOriginal, currentWrapper);
+
+                                    // Add "Ask Question" button
+                                    const askBtn = document.createElement('button');
+                                    askBtn.className = 'button-ask-question';
+                                    askBtn.textContent = 'Ask Question';
+                                    askBtn.addEventListener('click', function(e) {
+                                        e.stopPropagation();
+                                        showAskQuestionModal(paraIndex);
+                                    });
+                                    askBtn.addEventListener('mouseup', function(e) { e.stopPropagation(); });
+                                    wrapper.appendChild(askBtn);
+                                })(currentOriginal, currentWrapper, allOriginalParagraphs.length - 1);
                             }
                         }
 
@@ -2461,6 +2535,57 @@ function showOriginalTextModal(originalText) {
     modalBody.innerHTML = '<div style="white-space: pre-wrap; word-wrap: break-word; padding: 4px 0;">' + originalText.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;') + '</div>';
     overlay.classList.add('active');
     applyStoredPosition(mainModal, 'modalLastPos');
+}
+
+// Show "Ask Question" modal for a paragraph
+function showAskQuestionModal(paraIndex) {
+    if (mainController) mainController.abort();
+    mainController = new AbortController();
+
+    modalSelectedText.textContent = 'Ask Question';
+    document.getElementById('modal-voice-btn').style.display = 'none';
+    const readBtn3 = document.getElementById('modal-read-btn');
+    if (readBtn3) readBtn3.style.display = 'none';
+
+    modalBody.innerHTML =
+        '<input type="text" class="ask-question-input" placeholder="Type your question and press Enter..." />' +
+        '<div class="ask-question-answer"></div>';
+
+    overlay.classList.add('active');
+    applyStoredPosition(mainModal, 'modalLastPos');
+
+    const input = modalBody.querySelector('.ask-question-input');
+    const answerDiv = modalBody.querySelector('.ask-question-answer');
+    input.focus();
+
+    input.addEventListener('keydown', async function(e) {
+        if (e.key !== 'Enter') return;
+        e.preventDefault();
+        const question = input.value.trim();
+        if (!question) return;
+
+        input.disabled = true;
+
+        // Build context from current paragraph + 50 before + 50 after
+        const start = Math.max(0, paraIndex - 50);
+        const end = Math.min(allOriginalParagraphs.length - 1, paraIndex + 50);
+        let contextParts = [];
+        for (let i = start; i <= end; i++) {
+            contextParts.push(allOriginalParagraphs[i]);
+        }
+        const contextText = contextParts.join('\n\n');
+
+        const prompt = 'Given the following book context:\n<context>\n' + contextText + '\n</context>\n\nThe current paragraph is:\n<paragraph>\n' + allOriginalParagraphs[paraIndex] + '\n</paragraph>\n\nAnswer the following question about this paragraph. Be concise and helpful.\nQuestion: ' + question;
+
+        if (mainController) mainController.abort();
+        mainController = new AbortController();
+
+        answerDiv.innerHTML = '<div class="loading-text"><div class="spinner"></div><div>Thinking...</div></div>';
+
+        await streamAIResponse(prompt, answerDiv, mainController, null);
+        input.disabled = false;
+        input.focus();
+    });
 }
 
 // Close dropdown when clicking outside
