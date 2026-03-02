@@ -450,6 +450,23 @@ task {
   }
 }
 
+task {
+  action (completed){
+    we have the following bugs, please fix them only in the main content div only, do not need to fix it in the cached contents
+    bug {
+      I see that the following exists in the paragraph:
+      "Here is the rewritten paragraph:"
+      this should be filtered out
+    }
+  }
+}
+
+task {
+  in task.translation_caching {
+    under the ./cache directory, also have a file named p_{paragraph_offset}_original.txt to store the original content of the paragraph as we are in the paragraph conversion process
+  }
+}
+
 {
   update ./spec.prompt after completing each task
 }

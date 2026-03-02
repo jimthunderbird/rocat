@@ -529,9 +529,10 @@ if (isset($_GET['stream_book'])) {
         }
         if ($cached) continue;
 
-        // Initialize cache progress
+        // Initialize cache progress and save original text
         if ($cache_dir) {
             file_put_contents($cache_dir . '/p_' . $i . '_progress.txt', '0');
+            file_put_contents($cache_dir . '/p_' . $i . '_original.txt', $trimmed);
         }
 
         // Translate via Ollama with think-block filtering
@@ -2402,6 +2403,7 @@ async function streamBookContent(url, save) {
                             translatedText = translatedText.replace(/\s*(let me know if\b.*|please let me know if you'd like.*|if you'd like me to rephrase.*|i'm ready to help.*|i hope this helps.*|feel free to ask.*|don't hesitate to ask.*|happy to help.*|if you have any questions.*|i hope this version.*|i hope you enjoy.*|is there anything else.*)$/gi, '').trim();
                             // Remove lines like "Here's the rewritten paragraph:" or similar preamble
                             translatedText = translatedText.replace(/^\s*(?:sure[,.]?\s+)?here[\u2018\u2019']?s?\s+(?:the\s+|a\s+)?(?:rewritten|simplified|revised|new|updated|simple)\s+(?:paragraph|version|text|content|english).*$/gim, '').trim();
+                            translatedText = translatedText.replace(/^\s*(?:sure[,.]?\s+)?here\s+is\s+(?:the\s+|a\s+)?(?:rewritten|simplified|revised|new|updated|simple)\s+(?:paragraph|version|text|content|english).*$/gim, '').trim();
                             // Remove lines ending with a smiling emoji (e.g. 😊 😃 😄 🙂 😁 😉)
                             translatedText = translatedText.replace(/^.*[\u{1F600}-\u{1F64F}\u{1F60A}\u{1F642}\u{263A}]\s*$/gmu, '').trim();
 

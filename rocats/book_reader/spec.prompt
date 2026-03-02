@@ -65,6 +65,7 @@ logic.llm_response_filter {
   filters [
     remove sentences starting with "Let me know if"
     remove sentences starting with "Here's the rewritten paragraph" (case-insensitive)
+    remove sentences starting with "Here is the rewritten paragraph" (case-insensitive)
     remove sentences like "Please provide the paragraph you would like me to rewrite..."
     remove sentences like "Please let me know if you'd like help with any other text!"
     remove sentences ending with a smiling emoji
@@ -123,6 +124,7 @@ model.paragraph {
     index: int                // paragraph offset in the book
     original_text: string     // original text before translation
     simplified_text: string   // simple english version
+    original_cache_path: string  // "./cache/pg{book_id}/p_{index}_original.txt"
     cache_path: string        // "./cache/pg{book_id}/p_{index}_simplified.txt"
     progress_path: string     // "./cache/pg{book_id}/p_{index}_progress.txt"
   }
@@ -152,6 +154,7 @@ model.cache {
 
   structure {
     ./cache/pg{book_id}/
+      p_{paragraph_offset}_original.txt      // original paragraph text before translation
       p_{paragraph_offset}_simplified.txt    // translated paragraph text
       p_{paragraph_offset}_progress.txt      // "100" when fully translated, "0" when in progress
       summary.txt                            // book summary (from map-reduce)
