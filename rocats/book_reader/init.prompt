@@ -449,3 +449,7 @@ task {
     }
   }
 }
+
+{
+  update ./spec.prompt after completing each task
+}

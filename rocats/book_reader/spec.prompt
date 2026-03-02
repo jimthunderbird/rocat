@@ -1,8 +1,44 @@
-book_url = "https://www.gutenberg.org/cache/epub/1661/pg1661.txt"
-llm_model = "nemotron-3-nano:latest"
+// ============================================================
+// Book Reader - Spec-Driven Development (Single Source of Truth)
+// ============================================================
+
+// --- Configuration ---
+
+config {
+  book_url = "https://www.gutenberg.org/cache/epub/1661/pg1661.txt"
+  llm_model = "gemma3:latest"
+  llm_thinking_mode = false
+}
+
+config.servers {
+  php_web_server {
+    host: "127.0.0.1"
+    port: 3000
+    workers: 4
+    entrypoint: "index.php"
+  }
+
+  ollama {
+    host: "127.0.0.1"
+    port: 11434
+    model: {config.llm_model}
+  }
+
+  tts {
+    host: "127.0.0.1"
+    port: 4000
+    engine: "edge-tts"
+    runtime: "python3.11"
+    framework: "flask"
+    default_voice: "en-US-AndrewNeural"
+    cors: true
+  }
+}
+
+// --- Logic Layer ---
 
 logic.simple_english_translation(paragraph_text) {
-  let prompt = (please rewrite the content of <paragraph> to a new version that uses only modern and very very simple english words and sentences. USE Sentence Combining AND Clause Linking AS MUCH AS POSSIBLE. DO NOT MISS ANY DEEP DETAILS,DEEP MEANINGS AND TONES OF THE ORIGINAL VERSION. NO EXPLANATION, NO EXTRA WORDS, DO NOT RETURN CHINESE CHARACTERS, <paragraph>{paragraph_text}</paragraph>)
+  let prompt = (<paragraph>{paragraph_text}</paragraph>, please rewrite the <paragraph> to a new paragraph <new_pragraph>, Use VERY SIMPLE ENGLISH WORDS. ALWAYS USE Sentence Combining AND Clause. DO NOT MISS ANY DEEP DETAILS, DEEP MEANINGS AND TONES OF THE ORIGINAL PARAGRAPH. RETURN THE CONTENT OF <new_pragraph> ONLY, NO EXPLANATION, NO EXTRA WORDS, DO NOT SHOW WHAT YOU DID, JUST SHOW THE PURE CONTENT OF <new_pragraph>)
   return prompt
 }
 
@@ -15,406 +51,404 @@ logic.highlighted_text_in_popup_modal(text, popup_modal) {
     no extra words
   }
   let result = (send a request to index.php?q={question})
-  display {result} in {popup_modal} with veritcal scrolling
+  display {result} in {popup_modal} with vertical scrolling
   when we have index.php?q={question} {
-    send request to ollma server 127.0.0.1:11434 with model: {llm_model}, query: {question}
+    send request to {config.servers.ollama} with model: {config.llm_model}, query: {question}
     return the response as string and print it out
     do php exit
   }
   stream the result so that the first chunk will show immediately in {popup_modal}
 }
 
-app_spec {
-  app_type: Pure HTML/CSS/Javascript Single Page Application
-  app_entrypoint: index.php
-
-  let book_content = (use php to read the file content from {book_url})
-
-  div.book_content.innerHTML = {book_content}
-
-  logic.highlighted_text_in_popup_modal(highlighted text in {book_content}, a popup modal)
+logic.llm_response_filter {
+  description: "Filter out LLM meta-commentary from responses"
+  filters [
+    remove sentences starting with "Let me know if"
+    remove sentences starting with "Here's the rewritten paragraph" (case-insensitive)
+    remove sentences like "Please provide the paragraph you would like me to rewrite..."
+    remove sentences like "Please let me know if you'd like help with any other text!"
+    remove sentences ending with a smiling emoji
+    remove <think> blocks from LLM responses
+  ]
 }
 
-task {
-  action (completed) {
-    next to the International Phonetic Alphabet, show a voice icon {
-      when clicked {
-        use natural english to speak the pronounciation
-        DO NOT trigger another popup to display the meaning, we just want to hear the voice
+logic.book_summarization(book_content) {
+  description: "Map-Reduce summarization of book content"
+  map {
+    split {book_content} into chunks of 300 words each
+    for each {chunk} {
+      let mini_summary = (send request to {config.servers.ollama} with model: {config.llm_model}, query: "summarize this: {chunk}")
+    }
+  }
+  reduce {
+    let combined = (all mini_summaries joined together)
+    let final_summary = (send request to {config.servers.ollama} with model: {config.llm_model}, query: "create a 300 word summary from: {combined}")
+    return final_summary
+  }
+  cache: "./cache/pg{book_id}/summary.txt"
+}
+
+// --- Model Layer ---
+
+model.book {
+  properties {
+    url: string          // gutenberg URL
+    book_id: string      // extracted from URL, e.g. "1661"
+    name: string         // title of the book
+    content: string      // raw text content fetched via PHP
+    paragraphs: []model.paragraph
+  }
+
+  load(url) {
+    let content = (use php to read the file content from {url})
+    split {content} into {paragraphs}
+    for each {paragraph} in {paragraphs} where length > 20 chars {
+      check cache for existing translation
+      if cached (p_{index}_progress.txt contains "100") {
+        load from p_{index}_simplified.txt
+      } else {
+        let prompt = logic.simple_english_translation({paragraph})
+        let response = (send request to {config.servers.ollama} with model: {config.llm_model}, query: {prompt})
+        apply logic.llm_response_filter to {response}
+        cache {response} to p_{index}_simplified.txt
+        write "100" to p_{index}_progress.txt
+      }
+      stream {response} to div.id:"book_content" in real-time
+    }
+  }
+}
+
+model.paragraph {
+  properties {
+    index: int                // paragraph offset in the book
+    original_text: string     // original text before translation
+    simplified_text: string   // simple english version
+    cache_path: string        // "./cache/pg{book_id}/p_{index}_simplified.txt"
+    progress_path: string     // "./cache/pg{book_id}/p_{index}_progress.txt"
+  }
+}
+
+model.history {
+  file: "history.txt"
+  format: "{book_name}|{url}" // one entry per line
+  gitignore: true
+
+  save(book_name, url) {
+    prepend "{book_name}|{url}" to history.txt
+  }
+
+  load() {
+    return first line's URL from history.txt as default book
+  }
+
+  get_top(n = 10) {
+    return top {n} entries from history.txt
+  }
+}
+
+model.cache {
+  base_dir: "./cache"
+  gitignore: true
+
+  structure {
+    ./cache/pg{book_id}/
+      p_{paragraph_offset}_simplified.txt    // translated paragraph text
+      p_{paragraph_offset}_progress.txt      // "100" when fully translated, "0" when in progress
+      summary.txt                            // book summary (from map-reduce)
+  }
+}
+
+// --- API Layer (PHP Backend) ---
+
+api {
+  entrypoint: "index.php"
+  php_max_execution_time: unlimited  // no 30-second timeout
+
+  endpoint.query {
+    route: "?q={question}"
+    method: GET, POST
+    behavior {
+      send {question} to {config.servers.ollama}
+      stream response back to client
+      apply logic.llm_response_filter
+      php exit after response
+    }
+  }
+
+  endpoint.stream_book {
+    route: "?stream_book&url={url}"
+    method: GET
+    behavior {
+      fetch book from {url}
+      split into paragraphs
+      for each paragraph > 20 chars {
+        check model.cache for existing translation
+        if not cached, translate via {config.servers.ollama}
+        stream JSON events to client: { type: "paragraph", text: "...", index: N }
+        cache result to model.cache
       }
     }
   }
 
-  action (completed) {
-    when clicking on the voice icon, the popup still shows up, we should not have popup show up, only voice playing
-  }
-}
-
-task {
-  action (completed) {
-    once we enter an url {url} in the textbox "input#url-input", add a new line to history.txt with the following format:
-    {name of the book}|{url}
-    then when we load the page, it will load the url that is in the first line in the history.txt
-  }
-}
-
-task {
-  action (completed) {
-    add a down arrow button with id "button#history", when click {
-      show me the top 10 book names from history.txt in a dropdown under "input#url-input"
-      when i select one of the book in the dropdown, load the book's url
+  endpoint.summarize_book {
+    route: "?summarize_book&url={url}"
+    method: GET
+    behavior {
+      invoke logic.book_summarization(book_content)
+      stream result to client
+      cache to ./cache/pg{book_id}/summary.txt
     }
-  }  
-}
-
-task {
-  action (completed) {
-    in the dropdown that triggered from the click of "input#url-input", make the font color black but not bold, make the font size 18px
   }
-}
 
-task {
-  action (completed) {
-    in the dropdown that triggered from the click of "input#url-input", make the font size 14px 
+  endpoint.save_url {
+    route: "?save_url={url}&name={book_name}"
+    method: GET
+    behavior {
+      invoke model.history.save({book_name}, {url})
+    }
   }
-}
 
-task.create_book_summary {
-  action (completed) {
-    next to "Highligh text to look up", add a "Summarize" button, when click {
-      Map: Split the original book content (not the simplified one) into chunks with 300 words per chunk. Ask the model to summarize each chunk individually.
-      Reduce: Take all those "mini-summaries," combine them, and ask the model to create a final summary of the summaries.
-      The final summary should be 300 words long.
+  endpoint.get_history {
+    route: "?get_history"
+    method: GET
+    behavior {
+      return JSON array of model.history entries
+    }
+  }
 
-      After generating the summary, cache it to ./cache/pg{book_id}/summary.txt
+  endpoint.fetch_url {
+    route: "?url={url}"
+    method: GET
+    behavior {
+      fetch remote content from {url}
+      return raw content
     }
   }
 }
 
-task.paragraph_reading {
-  action (completed) {
-    when a book is loaded, for every single paragraph, on the right side, put a little voice button, when clicked, use the natural TTS to read this paragraph {
-      voice {
-        gender: male
-        requirement: not robotic, sounds like a human
+// --- TTS Server (Python Backend) ---
+
+tts_server {
+  file: "tts_server.py"
+  host: {config.servers.tts.host}
+  port: {config.servers.tts.port}
+
+  endpoint.tts {
+    route: "/tts"
+    method: GET, POST
+    params {
+      text: string          // text to speak
+      voice: string         // default: "en-US-AndrewNeural"
+      rate: string          // speech rate adjustment (optional)
+    }
+    behavior {
+      convert {text} to speech using edge-tts
+      stream audio as "audio/mpeg"
+      reuse event loop for efficiency
+    }
+  }
+
+  voice_profile {
+    gender: male
+    engine: "en-US-AndrewNeural"
+    requirement: natural, not robotic, sounds like a human
+    speed: moderate (news reporter pace, slightly adjusted slower)
+    streaming: sentence-by-sentence (split on "." not newline)
+  }
+}
+
+// --- UI Layer ---
+
+ui {
+  app_type: "Pure HTML/CSS/Javascript Single Page Application"
+  rendering: markdown support in div.id:"book_content"
+}
+
+ui.toolbar {
+  layout: horizontal bar at top
+
+  element.url_input {
+    id: "url-input"
+    type: input textbox
+    behavior {
+      on_enter(url) {
+        save to model.history
+        load book from {url}
+      }
+      on_page_load {
+        auto-load URL from first line of history.txt
       }
     }
   }
-}
 
-task {
-  action (completed) {
-    are there any python libraries that can generate more natural story telling voice? if so, spin up a python web server, when click on the voice button next to each paragraph of the book, invoke an api to the python web server to play the voice
-  }
-}
-
-task {
-  action (completed) {
-    the tts_server.py is serving port 5000, please change it to serve port 4000 instead
-  }
-}
-
-task {
-  action (completed) {
-    when reading a paragraph using tts_server.py, it has a very long wait time, please make it so that for each paragraph, send the voice sentence-by-sentence to speed up the process
-  }
-}
-
-task {
-  action (completed) {
-    when sending the voice sentence-by-sentence, treat each sentence as terminated by "." sign, not new line!
-  }
-}
-
-task {
-  action (completed) {
-    create a bash script ./start.sh that will do the following {
-      - start the local php web server serving port 3000
-      - start ollama server 127.0.0.1:11434
-      - start tts_server.py
-      for all of the processes above, if there are an existing one that's running, kill it and restart a new one
-    }  
-  }
-}
-
-task {
-  action (completed) {
-    make each popup modal draggable and remember the last known location so that next time when the modal is opened, open it at the last known location
-  }
-}
-
-task {
-  action (completed) {
-    when clicking on "Simple English", the related paragraph should be highlighted
-  }
-}
-
-task {
-  action (completed) {
-    for each modal that pops up, do not gray out the background!
-  }
-}
-
-task.simple_english_button {
-  action (completed) {
-    add a new button with {
-      id: "button-convert-to-simple-english"
-      text: "Simple English"
+  element.history_button {
+    id: "history-btn"
+    type: button (down arrow icon)
+    position: next to {ui.toolbar.element.url_input}
+    behavior {
       @click {
-        let paragraph_text = (the paragraph's text)
-        let prompt = logic.simple_english_translation({paragraph_text})
-        let response_text = (send request to ollma server 127.0.0.1:11434 with model: {llm_model}, query: {prompt})
-        show a popup model with content of {response_text}
-      }
-    }
-  }
-}
-
-task {
-  action (completed) {
-    in task.simple_english_button, when the popup modal shows, we have the following error:
-    Fatal error: Maximum execution time of 30 seconds exceeded in ./rocat/rocats/book_reader/index.php on line 23
-  }
-}
-
-task {
-  action (completed){
-    add a new button with {
-      id: "button-full-simple-english"
-      text: "Full Simple English"
-      @click {
-        - remove all "Simple English" buttons next to each paragraph
-        - for each {paragraph} in (all pragraphs in the current books) {
-          hightlight the {paragraph}
-          let paragraph_text = (the text of the {paragraph})
-          let prompt = logic.simple_english_translation({paragraph_text})
-          let response_text = (send request to ollma server 127.0.0.1:11434 with model: {llm_model}, query: {prompt})
-          replace the paragraph text to {response_text}
-          remove the paragraph highlight
+        show dropdown under {ui.toolbar.element.url_input}
+        display top 10 book names from model.history
+        style {
+          font-color: black
+          font-weight: normal (not bold)
+          font-size: 14px
         }
-        - please do streaming so i can see progress per-paragraph
+        on_select(book) {
+          load the selected book's URL
+        }
+      }
+    }
+  }
+
+  element.highlight_label {
+    text: "Highlight text to look up"
+  }
+
+  element.summarize_button {
+    position: next to {ui.toolbar.element.highlight_label}
+    text: "Summarize"
+    behavior {
+      @click {
+        invoke logic.book_summarization(original book content)
+        display final summary
       }
     }
   }
 }
 
-task.full_simple_english_progress_bar {
-  action (completed){
-    please show a progress bar (from 0% to 100%) showing the simple english conversion when button.id:"button-full-simple-english" is clicked, the progress bar should be below the button.id:"button-full-simple-english"
+ui.book_content {
+  id: "book_content"
+  type: div
+  rendering: markdown
+
+  behavior {
+    on_text_highlight(selected_text) {
+      invoke logic.highlighted_text_in_popup_modal({selected_text}, new popup_modal)
+    }
   }
 }
 
-task {
-  action (completed) {
-    the progress bar in task.full_simple_english_progress_bar does not show up! please fix it!
+ui.paragraph_controls {
+  description: "Controls displayed on the right side of each paragraph"
+
+  element.voice_button {
+    position: right side of each paragraph
+    icon: speaker/voice icon
+    behavior {
+      @click {
+        send paragraph text to {tts_server} sentence-by-sentence
+        stream audio playback immediately per sentence
+        split sentences on "." (not newline)
+      }
+    }
+  }
+
+  element.original_text_button {
+    text: "Original Text"
+    position: right of {ui.paragraph_controls.element.voice_button}
+    behavior {
+      @click {
+        show popup_modal with the original text before simple english conversion
+      }
+    }
+  }
+
+  element.ask_question_button {
+    text: "Ask Question"
+    position: right of {ui.paragraph_controls.element.original_text_button}
+    behavior {
+      @click {
+        show popup_modal with textbox
+        on_enter(question) {
+          let context = (current paragraph + previous 20 paragraphs + next 20 paragraphs)
+          let answer = (send request to {config.servers.ollama} with model: {config.llm_model}, query: {question}, context: {context})
+          display {answer} below the question textbox
+        }
+      }
+    }
   }
 }
 
-task {
-  action (completed) {
-    please update to the new {llm_model}
-  }
-}
+ui.popup_modal {
+  description: "Shared popup modal behavior for all modals"
 
-task {
-  action (completed) {
-    when button.id:"button-full-simple-english" is clicked {
-      for each paragraph, on the right of the speaking logo, add a new button {
-        id: "button-show-original-text"
-        text: "Original Text"
+  properties {
+    draggable: true
+    remember_position: true  // saves last known location, reopens there
+    background_dim: false    // do NOT gray out the background
+    vertical_scrolling: true
+  }
+
+  word_lookup_modal extends ui.popup_modal {
+    content {
+      pronunciation: IPA format
+      voice_icon {
+        position: next to IPA pronunciation
         @click {
-          show a popup modal with the original text before the conversion
+          use natural english TTS to speak the pronunciation
+          DO NOT trigger another popup, only play voice
+        }
+      }
+      meaning: 30 word definition in english
+      chinese_translation: meaning translated to simplified chinese
+    }
+  }
+
+  simple_english_modal extends ui.popup_modal {
+    content {
+      simplified_text: string  // the simple english conversion result
+      voice_button {
+        @click {
+          read content using natural TTS via {tts_server}
         }
       }
     }
+    on_open {
+      highlight the related paragraph in book_content
+    }
+  }
+
+  question_modal extends ui.popup_modal {
+    content {
+      question_textbox: input
+      answer_display: div below question_textbox
+    }
   }
 }
 
-task {
-  action (completed) {
-    for the progress bar in task.full_simple_english_progress_bar, please make the percentage number style to font-weight:bold and font-color:white
-  }
-}
+// --- Startup Script ---
 
-task {
-  action (completed) {
-    task.paragraph_reading does not seem to work now
-  }
-}
-
-task {
-  action (completed){
-    after highlighting a word, in the popup modal, when click on the pronounciation button, no sound is heard! please fix it
-  }
-}
-
-task {
-  action (completed) {
-    when clicking on the pronounciation button, no sound are heard!
-  }
-}
-
-task.read_out_simple_english_in_popup_load {
-  action (completed) {
-    when click on the "Simple English" button {
-      let modal = (the pop up showing the simple English conversion)
-      - please remove "Simple English" and the pronounciation button next to it
-      - add a voice button, when click {
-        read the content in {modal} using natural TTS
+startup {
+  file: "./start.sh"
+  behavior {
+    for each service in [php_web_server, ollama, tts_server] {
+      if existing process is running on the service's port {
+        kill it
       }
+      start new instance
     }
-  }  
-}
-
-task.smooth_reading {
-  action (completed) {
-    in task.read_out_simple_english_in_popup_load {
-      make the natural TTS a little bit faster like news reporter
-      some words sound like "stuck",  please make it sound smooth, do not miss a word
-    }
+    trap Ctrl+C to cleanly shutdown all services
   }
 }
 
-task {
-  action (completed) {
-    in task.smooth_reading {
-      the words are spoken too fast, slow down a little bit
-    }
+// --- App Spec (Main Entry Point) ---
+
+app_spec {
+  app_type: {ui.app_type}
+  app_entrypoint: {api.entrypoint}
+
+  on_load {
+    let url = model.history.load()  // get last book URL from history
+    invoke model.book.load({url})   // stream + translate paragraphs
+    render to {ui.book_content} with markdown
+    attach {ui.paragraph_controls} to each paragraph
+    enable {ui.book_content.behavior.on_text_highlight}
   }
 }
 
-task {
-  action (completed) {
-    all the voice buttons in the main book does not seem to work now!
-  }
-}
-
-task.streaming_the_simple_translation {
-  action (completed) {
-    - remove all the "Simple English" buttons in each paragraph
-    - when a book is loaded {
-      let paragraphs = (get all pragraphs of the book)
-      for each {paragraph} in {pragraphs} {
-        let prompt = invoke logic.simple_english_translation({paragraph})
-        let response = send request to ollma server 127.0.0.1:11434 with model: {llm_model}, query: {prompt}
-        append {response} in a streaming fashion in div.id:"book_content"
-      }
-    }
-  }
-}
-
-task {
-  action (completed) {
-    in task.streaming_the_simple_translation {
-      do not load the book content to div.id:"book_content" in the beginning, in php side {
-        let paragraphs = (get all pragraphs of the book)
-        for each {paragraph} in {pragraphs} {
-          let prompt = invoke logic.simple_english_translation({paragraph})
-          let response = send request to ollma server 127.0.0.1:11434 with model: {llm_model}, query: {prompt}
-          in javascript, append {response} in a streaming fashion in div.id:"book_content"
-        }
-      }
-    }
-  }
-}
-
-task {
-  action (completed) {
-    there are quite a few places showing: "Please provide the paragraph you would like me to rewrite. I'm ready to make it simple and understandable while keeping all its original meaning and style! "
-    this message should not be displayed!
-  }
-}
-
-task {
-  action (completed) {
-    when clicking on button.id:"history-btn", it keeps saying "Loading..." for a very long time, please fix it
-  }
-}
-
-task {
-  action (completed) {
-    there are a few places showing: "Please let me know if you'd like help with any other text!"
-    this message should not be displayed!
-  }
-}
-
-task {
-  action (completed) {
-    there are a few places showing: "Let me know if you'd like me to rephrase any of these chapters!"
-    this message should not be displayed!
-
-  }
-}
-
-task {
-  action (completed) {
-    need to filter out words like "Let me know if you have any questions about the content!" in the llm response
-  }
-}
-
-task {
-  action (completed) {
-    need to filter out words like "Let me know if you want to try another paragraph!" in the llm response
-  }
-}
-
-task {
-  action (completed) {
-    need to filter out words like "Let me know if you want more examples!" in the llm response
-    need to filter out words ending with a smiling emoji in the llm response
-  }
-}
-
-task.translation_caching {
-  action (completed) {
-    - create a ./cache directory, it should be added to .gitignore so that it won't be committed to git repo
-    - under the ./cache directory, it should be subfolders for each book's guttenberg id, for example: pg2701, under this subfolder, stored the translated text in file named p_{paragraph_offset}_simplified.txt, also have a file p_{paragraph_offset}_progress.txt {
-      when a paragraph is being translated, record the percentage number (1-100) to p_{paragraph_offset}_progress.txt
-    }
-
-    - when we load the book, first look at the ./cache directory and load the corresponding content of p_{paragraph_offset}_progress.txt if p_{paragraph_offset}_progress.txt has 100 in it (meaning this paragraph is fully translated), otherwise, send the paragraph to llm to translate and cache it
-  }
-}
-
-task {
-  action (completed) {
-    remove the button.id:"full-simple-english-btn"
-  }
-}
-
-task.markdown_render {
-  action (completed) {
-    please render markdown properly in div.id:"book_content"
-  }
-}
-
-task {
-  action (completed) {
-    need to filter out words starting with  "Let me know if" in the llm response
-  }
-}
-
-task {
-  action (completed) {
-    in the right side of the button "Original Text" of each paragraph, add a new button "Ask Question" {
-      when click:
-      - pop up a modal with a textbox
-      - it will allow me a enter a question, after entering the question and hit the enter key
-      - use the current paragraph, the previous 20 paragraph and next 20 paragraph as context, come up with an answer, display it under the question textbox, when sending the question, use ollma server 127.0.0.1:11434 with model: {llm_model}
-    }
-  }
-}
-
-task {
-  action (completed) {
-    update llm_model to nemotron-3-nano:latest
-  }
-}
+// --- Directive ---
 
 {
-  focus on solving reopen actions only!
-  after solving them {
-    change the status to completed
-    update ./spec.prompt
-  }
+  update ./spec.prompt after completing each task
 }
