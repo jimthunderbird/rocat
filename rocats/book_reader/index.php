@@ -27,7 +27,7 @@ if (isset($_GET['q']) && !empty($_GET['q'])) {
     curl_setopt($ch, CURLOPT_POST, true);
     curl_setopt($ch, CURLOPT_HTTPHEADER, ['Content-Type: application/json']);
     curl_setopt($ch, CURLOPT_POSTFIELDS, json_encode([
-        'model' => 'nemotron-3-nano:latest',
+        'model' => 'gemma3:latest',
         'prompt' => $question,
         'stream' => true,
         'think' => false
@@ -225,7 +225,7 @@ if (isset($_GET['summarize_book'])) {
         curl_setopt($ch, CURLOPT_POST, true);
         curl_setopt($ch, CURLOPT_HTTPHEADER, ['Content-Type: application/json']);
         curl_setopt($ch, CURLOPT_POSTFIELDS, json_encode([
-            'model' => 'nemotron-3-nano:latest',
+            'model' => 'gemma3:latest',
             'prompt' => $prompt,
             'stream' => true,
             'think' => false
@@ -283,7 +283,8 @@ if (isset($_GET['summarize_book'])) {
         curl_close($ch);
 
         // Filter LLM meta-commentary
-        $fullResponse = preg_replace('/\s*(let me know if\b.*|please let me know.*|if you\'d like.*|i\'m ready to.*|i hope this helps.*|feel free to ask.*|happy to help.*|if you have any questions.*|is there anything else.*)$/si', '', $fullResponse);
+        $fullResponse = preg_replace('/^\s*(sure[,.]?\s+)?here\'?s?\s+(the\s+)?(rewritten|simplified|revised|new|updated)\s+(paragraph|version|text|content)[^:\n]*[:\-—]?\s*\n?/mi', '', $fullResponse);
+        $fullResponse = preg_replace('/\s*(let me know if\b.*|please let me know.*|if you\'d like.*|i\'m ready to.*|i hope this helps.*|i hope this version.*|feel free to ask.*|don\'t hesitate to ask.*|happy to help.*|if you have any questions.*|if you need any.*|is there anything else.*)$/si', '', $fullResponse);
         $fullResponse = preg_replace('/^.*[\x{1F600}-\x{1F64F}\x{1F60A}\x{1F642}\x{263A}]\s*$/mu', '', $fullResponse);
 
         return trim($fullResponse);
@@ -318,7 +319,7 @@ if (isset($_GET['summarize_book'])) {
     curl_setopt($ch, CURLOPT_POST, true);
     curl_setopt($ch, CURLOPT_HTTPHEADER, ['Content-Type: application/json']);
     curl_setopt($ch, CURLOPT_POSTFIELDS, json_encode([
-        'model' => 'nemotron-3-nano:latest',
+        'model' => 'gemma3:latest',
         'prompt' => $reducePrompt,
         'stream' => true,
         'think' => false
@@ -392,7 +393,8 @@ if (isset($_GET['summarize_book'])) {
     // Cache the final summary
     if ($summary_cache_dir && !empty(trim($finalSummary))) {
         // Filter LLM meta-commentary before caching
-        $cleanedSummary = preg_replace('/\s*(let me know if\b.*|please let me know.*|if you\'d like.*|i\'m ready to.*|i hope this helps.*|feel free to ask.*|happy to help.*|if you have any questions.*|is there anything else.*)$/si', '', $finalSummary);
+        $cleanedSummary = preg_replace('/^\s*(sure[,.]?\s+)?here\'?s?\s+(the\s+)?(rewritten|simplified|revised|new|updated)\s+(paragraph|version|text|content)[^:\n]*[:\-—]?\s*\n?/mi', '', $finalSummary);
+        $cleanedSummary = preg_replace('/\s*(let me know if\b.*|please let me know.*|if you\'d like.*|i\'m ready to.*|i hope this helps.*|feel free to ask.*|happy to help.*|if you have any questions.*|is there anything else.*)$/si', '', $cleanedSummary);
         $cleanedSummary = preg_replace('/^.*[\x{1F600}-\x{1F64F}\x{1F60A}\x{1F642}\x{263A}]\s*$/mu', '', $cleanedSummary);
         file_put_contents($summary_cache_dir . '/summary.txt', trim($cleanedSummary));
     }
@@ -509,8 +511,14 @@ if (isset($_GET['stream_book'])) {
             if (file_exists($progress_file) && file_exists($simplified_file)) {
                 $progress = trim(file_get_contents($progress_file));
                 if ($progress === '100') {
-                    // Serve from cache
+                    // Serve from cache (filter LLM preamble from old caches)
                     $cached_text = file_get_contents($simplified_file);
+                    $cached_text = preg_replace('/^\s*(sure[,.]?\s+)?here\'?s?\s+(the\s+)?(rewritten|simplified|revised|new|updated)\s+(paragraph|version|text|content)[^:\n]*[:\-—]?\s*\n?/mi', '', $cached_text);
+                    $cached_text = preg_replace('/\s*(let me know if\b.*|please let me know.*|if you\'d like.*|i\'m ready to.*|i hope this helps.*|feel free to ask.*|happy to help.*|if you have any questions.*|is there anything else.*)$/si', '', $cached_text);
+                    $cached_text = preg_replace('/^.*[\x{1F600}-\x{1F64F}\x{1F60A}\x{1F642}\x{263A}]\s*$/mu', '', $cached_text);
+                    $cached_text = trim($cached_text);
+                    // Update cache with cleaned text
+                    file_put_contents($simplified_file, $cached_text);
                     echo json_encode(['event' => 'token', 'text' => $cached_text]) . "\n";
                     flush();
                     echo json_encode(['event' => 'end', 'index' => $idx]) . "\n";
@@ -527,7 +535,7 @@ if (isset($_GET['stream_book'])) {
         }
 
         // Translate via Ollama with think-block filtering
-        $prompt = 'please rewrite the content of <paragraph> to a new version that uses only modern and very very simple english words and sentences. USE Sentence Combining AND Clause Linking AS MUCH AS POSSIBLE. DO NOT MISS ANY DEEP DETAILS,DEEP MEANINGS AND TONES OF THE ORIGINAL VERSION. NO EXPLANATION, NO EXTRA WORDS, DO NOT RETURN CHINESE CHARACTERS, <paragraph>' . $trimmed . '</paragraph>';
+        $prompt = '<paragraph>' . $trimmed . '</paragraph>, please rewrite the <paragraph> to a new paragraph <new_pragraph>, Use VERY SIMPLE ENGLISH WORDS. ALWAYS USE Sentence Combining AND Clause. DO NOT MISS ANY DEEP DETAILS, DEEP MEANINGS AND TONES OF THE ORIGINAL PARAGRAPH. RETURN THE CONTENT OF <new_pragraph> ONLY, NO EXPLANATION, NO EXTRA WORDS, DO NOT SHOW WHAT YOU DID, JUST SHOW THE PURE CONTENT OF <new_pragraph>';
 
         $thinkState = 'init';
         $thinkBuf = '';
@@ -537,7 +545,7 @@ if (isset($_GET['stream_book'])) {
         curl_setopt($ch, CURLOPT_POST, true);
         curl_setopt($ch, CURLOPT_HTTPHEADER, ['Content-Type: application/json']);
         curl_setopt($ch, CURLOPT_POSTFIELDS, json_encode([
-            'model' => 'nemotron-3-nano:latest',
+            'model' => 'gemma3:latest',
             'prompt' => $prompt,
             'stream' => true,
             'think' => false
@@ -611,6 +619,12 @@ if (isset($_GET['stream_book'])) {
             flush();
         }
         curl_close($ch);
+
+        // Filter LLM meta-commentary before caching
+        $fullTranslation = preg_replace('/^\s*(sure[,.]?\s+)?here\'?s?\s+(the\s+)?(rewritten|simplified|revised|new|updated)\s+(paragraph|version|text|content)[^:\n]*[:\-—]?\s*\n?/mi', '', $fullTranslation);
+        $fullTranslation = preg_replace('/\s*(let me know if\b.*|please let me know.*|if you\'d like.*|i\'m ready to.*|i hope this helps.*|feel free to ask.*|happy to help.*|if you have any questions.*|is there anything else.*)$/si', '', $fullTranslation);
+        $fullTranslation = preg_replace('/^.*[\x{1F600}-\x{1F64F}\x{1F60A}\x{1F642}\x{263A}]\s*$/mu', '', $fullTranslation);
+        $fullTranslation = trim($fullTranslation);
 
         // Save translation to cache
         if ($cache_dir && $result !== false && !empty($fullTranslation)) {
@@ -2053,7 +2067,8 @@ async function summarizeBook() {
 
                     } else if (evt.event === 'complete') {
                         // Filter LLM meta-commentary from final summary
-                        let cleaned = rawSummary.replace(/\s*(let me know if\b.*|please let me know.*|if you'd like.*|i'm ready to.*|i hope this helps.*|feel free to ask.*|happy to help.*|if you have any questions.*|is there anything else.*)$/gi, '').trim();
+                        let cleaned = rawSummary.replace(/^\s*(sure[,.]?\s+)?here'?s?\s+(the\s+)?(rewritten|simplified|revised|new|updated)\s+(paragraph|version|text|content)[^:\n]*[:\-—]?\s*\n?/gim, '').trim();
+                        cleaned = cleaned.replace(/\s*(let me know if\b.*|please let me know.*|if you'd like.*|i'm ready to.*|i hope this helps.*|feel free to ask.*|happy to help.*|if you have any questions.*|is there anything else.*)$/gi, '').trim();
                         if (cleaned) modalBody.innerHTML = marked.parse(cleaned);
                     }
                 } catch (parseErr) {}
@@ -2385,6 +2400,8 @@ async function streamBookContent(url, save) {
 
                             // Strip LLM meta-commentary from the end of translations
                             translatedText = translatedText.replace(/\s*(let me know if\b.*|please let me know if you'd like.*|if you'd like me to rephrase.*|i'm ready to help.*|i hope this helps.*|feel free to ask.*|don't hesitate to ask.*|happy to help.*|if you have any questions.*|i hope this version.*|i hope you enjoy.*|is there anything else.*)$/gi, '').trim();
+                            // Remove lines like "Here's the rewritten paragraph:" or similar preamble
+                            translatedText = translatedText.replace(/^\s*(?:sure[,.]?\s+)?here[\u2018\u2019']?s?\s+(?:the\s+|a\s+)?(?:rewritten|simplified|revised|new|updated|simple)\s+(?:paragraph|version|text|content|english).*$/gim, '').trim();
                             // Remove lines ending with a smiling emoji (e.g. 😊 😃 😄 🙂 😁 😉)
                             translatedText = translatedText.replace(/^.*[\u{1F600}-\u{1F64F}\u{1F60A}\u{1F642}\u{263A}]\s*$/gmu, '').trim();
 
@@ -2522,7 +2539,7 @@ async function convertToSimpleEnglish(paragraphText, wrapperEl) {
     overlay.classList.add('active');
     applyStoredPosition(mainModal, 'modalLastPos');
 
-    const prompt = 'please rewrite the content of <paragraph> to a new version that uses only modern and very very simple english words and sentences. USE Sentence Combining AND Clause Linking AS MUCH AS POSSIBLE. DO NOT MISS ANY DEEP DETAILS,DEEP MEANINGS AND TONES OF THE ORIGINAL VERSION. NO EXPLANATION, NO EXTRA WORDS, DO NOT RETURN CHINESE CHARACTERS, <paragraph>' + paragraphText + '</paragraph>';
+    const prompt = '<paragraph>' + paragraphText + '</paragraph>, please rewrite the <paragraph> to a new paragraph <new_pragraph>, Use VERY SIMPLE ENGLISH WORDS. ALWAYS USE Sentence Combining AND Clause. DO NOT MISS ANY DEEP DETAILS, DEEP MEANINGS AND TONES OF THE ORIGINAL PARAGRAPH. RETURN THE CONTENT OF <new_pragraph> ONLY, NO EXPLANATION, NO EXTRA WORDS, DO NOT SHOW WHAT YOU DID, JUST SHOW THE PURE CONTENT OF <new_pragraph>';
 
     await streamAIResponse(prompt, modalBody, mainController, null);
 }

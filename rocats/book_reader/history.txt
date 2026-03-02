@@ -1,3 +1,7 @@
+﻿The Project Gutenberg eBook of Pride and Prejudice|https://www.gutenberg.org/cache/epub/1342/pg1342.txt
+﻿The Project Gutenberg eBook of The winner and new...|https://www.gutenberg.org/cache/epub/78073/pg78073.txt
+﻿The Project Gutenberg eBook of A guide book of art, architecture, and historic interests in Penns|https://www.gutenberg.org/cache/epub/66410/pg66410.txt
+﻿The Project Gutenberg eBook of Principles of Political Economy|https://www.gutenberg.org/cache/epub/30107/pg30107.txt
 ﻿The Project Gutenberg eBook of Essays in Zen Buddhism|https://www.gutenberg.org/cache/epub/71157/pg71157.txt
 ﻿The Project Gutenberg eBook of Library of the World's Best Mystery and Detective Stories|https://www.gutenberg.org/cache/epub/12758/pg12758.txt
 ﻿The Project Gutenberg eBook of The Egyptian Book of the dead|https://www.gutenberg.org/cache/epub/69566/pg69566.txt
@@ -6,7 +10,6 @@
 ﻿The Project Gutenberg eBook of Elements of Plumbing|https://www.gutenberg.org/cache/epub/25269/pg25269.txt
 ﻿The Project Gutenberg eBook of The flying carpet|https://www.gutenberg.org/cache/epub/75229/pg75229.txt
 ﻿The Project Gutenberg eBook of Encyclopaedia Britannica, 11th Edition, "Map" to "Mars"|https://www.gutenberg.org/cache/epub/42638/pg42638.txt
-﻿The Project Gutenberg eBook of A guide book of art, architecture, and historic interests in Penns|https://www.gutenberg.org/cache/epub/66410/pg66410.txt
 ﻿The Project Gutenberg eBook of The Rare Earths: Their Occurrence, Chemistry, and Technology|https://www.gutenberg.org/cache/epub/62923/pg62923.txt
 ﻿The Project Gutenberg eBook of The Adventures of Sherlock Holmes|https://www.gutenberg.org/cache/epub/1661/pg1661.txt
 ﻿The Project Gutenberg eBook of Debian GNU/Linux : Guide to Installation and Usage|https://www.gutenberg.org/cache/epub/6527/pg6527.txt

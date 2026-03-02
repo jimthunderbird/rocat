@@ -1,8 +1,8 @@
 book_url = "https://www.gutenberg.org/cache/epub/1661/pg1661.txt"
-llm_model = "nemotron-3-nano:latest"
+llm_model = "gemma3:latest"
 
 logic.simple_english_translation(paragraph_text) {
-  let prompt = (please rewrite the content of <paragraph> to a new version that uses only modern and very very simple english words and sentences. USE Sentence Combining AND Clause Linking AS MUCH AS POSSIBLE. DO NOT MISS ANY DEEP DETAILS,DEEP MEANINGS AND TONES OF THE ORIGINAL VERSION. NO EXPLANATION, NO EXTRA WORDS, DO NOT RETURN CHINESE CHARACTERS, <paragraph>{paragraph_text}</paragraph>)
+  let prompt = (<paragraph>{paragraph_text}</paragraph>, please rewrite the <paragraph> to a new paragraph <new_pragraph>, Use VERY SIMPLE ENGLISH WORDS. ALWAYS USE Sentence Combining AND Clause. DO NOT MISS ANY DEEP DETAILS, DEEP MEANINGS AND TONES OF THE ORIGINAL PARAGRAPH. RETURN THE CONTENT OF <new_pragraph> ONLY, NO EXPLANATION, NO EXTRA WORDS, DO NOT SHOW WHAT YOU DID, JUST SHOW THE PURE CONTENT OF <new_pragraph>)
   return prompt
 }
 
@@ -407,7 +407,7 @@ task {
 
 task {
   action (completed) {
-    update llm_model to nemotron-3-nano:latest
+    update llm_model to gemma3:latest
   }
 }
 
@@ -417,8 +417,35 @@ task {
   }
 }
 
+task (completed) {
+  action {
+    apply the prompt update in logic.simple_english_translation    
+  }
+}
+
 task {
   action (completed) {
-    update prompt according to
+    need to filter out sentences begin with "Here’s the rewritten paragraph:" in the LLM response, notice that the "H" in the beginning can be uppercase or lowercase!
+  }
+}
+
+task {
+  action (completed) {
+    we have the following bugs, please fix them only in the main content div only, do not need to fix it in the cached contents
+    bug {
+      I see that the following exists in the paragraph:
+      "Here’s the rewritten paragraph, aiming for simple English, sentence combining, and preserving the original’s depth:"
+      this should be filtered out
+    }
+
+    bug {
+      I see that the following exists in the paragraph:
+      "Here’s the rewritten paragraph:"
+      this should be filtered out
+    }
+
+    bug {
+      "Here’s the rewritten paragraph, following your strict instructions:" should be filtered out
+    }
   }
 }
