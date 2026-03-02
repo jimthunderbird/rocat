@@ -468,9 +468,3 @@ app_spec {
     enable {ui.book_content.behavior.on_text_highlight}
   }
 }
-
-// --- Directive ---
-
-{
-  update ./spec.prompt after completing each task
-}
