@@ -1326,6 +1326,27 @@ body {
     opacity: 1;
 }
 
+.button-simplify-again {
+    background: none;
+    border: 1px solid #5d4037;
+    cursor: pointer;
+    padding: 1px 6px;
+    border-radius: 8px;
+    font-size: 10px;
+    font-family: Arial, sans-serif;
+    color: #5d4037;
+    transition: background 0.2s, opacity 0.2s;
+    flex-shrink: 0;
+    opacity: 0.3;
+    margin-top: 2px;
+    white-space: nowrap;
+}
+
+.button-simplify-again:hover {
+    background: rgba(62, 39, 35, 0.1);
+    opacity: 1;
+}
+
 .ask-question-input {
     width: 100%;
     padding: 8px 10px;
@@ -2437,6 +2458,17 @@ async function streamBookContent(url, save) {
                                     });
                                     askBtn.addEventListener('mouseup', function(e) { e.stopPropagation(); });
                                     wrapper.appendChild(askBtn);
+
+                                    // Add "Simplify Again" button
+                                    const simplifyBtn = document.createElement('button');
+                                    simplifyBtn.className = 'button-simplify-again';
+                                    simplifyBtn.textContent = 'Simplify Again';
+                                    simplifyBtn.addEventListener('click', function(e) {
+                                        e.stopPropagation();
+                                        simplifyAgainParagraph(wrapper);
+                                    });
+                                    simplifyBtn.addEventListener('mouseup', function(e) { e.stopPropagation(); });
+                                    wrapper.appendChild(simplifyBtn);
                                 })(currentOriginal, currentWrapper, allOriginalParagraphs.length - 1);
                             }
                         }
@@ -2544,6 +2576,63 @@ async function convertToSimpleEnglish(paragraphText, wrapperEl) {
     const prompt = '<paragraph>' + paragraphText + '</paragraph>, please rewrite the <paragraph> to a new paragraph <new_pragraph>, Use VERY SIMPLE ENGLISH WORDS. ALWAYS USE Sentence Combining AND Clause. DO NOT MISS ANY DEEP DETAILS, DEEP MEANINGS AND TONES OF THE ORIGINAL PARAGRAPH. RETURN THE CONTENT OF <new_pragraph> ONLY, NO EXPLANATION, NO EXTRA WORDS, DO NOT SHOW WHAT YOU DID, JUST SHOW THE PURE CONTENT OF <new_pragraph>';
 
     await streamAIResponse(prompt, modalBody, mainController, null);
+}
+
+// Simplify Again: re-run simple English translation on a paragraph in-place
+async function simplifyAgainParagraph(wrapperEl) {
+    const textDiv = wrapperEl.querySelector('.para-text');
+    if (!textDiv) return;
+    const paragraphText = textDiv.textContent.trim();
+    if (!paragraphText) return;
+
+    // Highlight the paragraph
+    document.querySelectorAll('.para-wrapper.highlighted').forEach(el => el.classList.remove('highlighted'));
+    wrapperEl.classList.add('highlighted');
+
+    // Show loading state
+    textDiv.innerHTML = '<div class="loading-text"><div class="spinner"></div><div>Simplifying again...</div></div>';
+
+    const controller = new AbortController();
+    const prompt = '<paragraph>' + paragraphText + '</paragraph>, please rewrite the <paragraph> to a new paragraph <new_pragraph>, Use VERY SIMPLE ENGLISH WORDS. ALWAYS USE Sentence Combining AND Clause. DO NOT MISS ANY DEEP DETAILS, DEEP MEANINGS AND TONES OF THE ORIGINAL PARAGRAPH. RETURN THE CONTENT OF <new_pragraph> ONLY, NO EXPLANATION, NO EXTRA WORDS, DO NOT SHOW WHAT YOU DID, JUST SHOW THE PURE CONTENT OF <new_pragraph>';
+
+    try {
+        const resp = await fetch('index.php', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ prompt: prompt }),
+            signal: controller.signal
+        });
+        if (!resp.ok) throw new Error('Request failed');
+
+        const reader = resp.body.getReader();
+        const decoder = new TextDecoder();
+        let rawText = '';
+        textDiv.innerHTML = '';
+
+        while (true) {
+            const { done, value } = await reader.read();
+            if (done) break;
+            rawText += decoder.decode(value, { stream: true });
+            textDiv.innerHTML = marked.parse(rawText);
+        }
+
+        // Apply the same LLM response filtering
+        let translatedText = rawText.trim();
+        translatedText = translatedText.replace(/\s*(let me know if\b.*|please let me know if you'd like.*|if you'd like me to rephrase.*|i'm ready to help.*|i hope this helps.*|feel free to ask.*|don't hesitate to ask.*|happy to help.*|if you have any questions.*|i hope this version.*|i hope you enjoy.*|is there anything else.*)$/gi, '').trim();
+        translatedText = translatedText.replace(/^\s*(?:sure[,.]?\s+)?here[\u2018\u2019']?s?\s+(?:the\s+|a\s+)?(?:rewritten|simplified|revised|new|updated|simple)\s+(?:paragraph|version|text|content|english).*$/gim, '').trim();
+        translatedText = translatedText.replace(/^\s*(?:sure[,.]?\s+)?here\s+is\s+(?:the\s+|a\s+)?(?:rewritten|simplified|revised|new|updated|simple)\s+(?:paragraph|version|text|content|english).*$/gim, '').trim();
+        translatedText = translatedText.replace(/^.*[\u{1F600}-\u{1F64F}\u{1F60A}\u{1F642}\u{263A}]\s*$/gmu, '').trim();
+
+        if (/please provide|I'm ready to|i'm ready to|provide me with|send me the/i.test(translatedText) || translatedText.length === 0) {
+            translatedText = paragraphText; // Fall back to previous text
+        }
+        textDiv.innerHTML = marked.parse(translatedText);
+    } catch (e) {
+        if (e.name === 'AbortError') return;
+        textDiv.innerHTML = '<div class="error">Error: Could not simplify. Please try again.</div>';
+    }
+
+    wrapperEl.classList.remove('highlighted');
 }
 
 // Show original text in a modal

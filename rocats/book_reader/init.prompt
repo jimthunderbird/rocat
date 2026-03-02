@@ -6,6 +6,12 @@ logic.simple_english_translation(paragraph_text) {
   return prompt
 }
 
+logic.perform_simple_english_translation(paragraph_text) {
+  let prompt = logic.simple_english_translation(paragraph_text)
+  let response = send request to ollma server 127.0.0.1:11434 with model: {llm_model}, query: {prompt}
+  return response
+}
+
 logic.highlighted_text_in_popup_modal(text, popup_modal) {
   let context = (30 words before {text}) + {text} + (30 words after {text})
   let question = string {
@@ -462,11 +468,28 @@ task {
 }
 
 task {
-  in task.translation_caching {
-    under the ./cache directory, also have a file named p_{paragraph_offset}_original.txt to store the original content of the paragraph as we are in the paragraph conversion process
+  action (completed) {
+    in task.translation_caching {
+      under the ./cache directory, also have a file named p_{paragraph_offset}_original.txt to store the original content of the paragraph as we are in the paragraph conversion process
+    }
+  }
+}
+
+task {
+  action {
+    on the right side of the button "Ask Question" {
+      add a new button "Simpify Again" {
+        @click {
+          logic.perform_simple_english_translation(paragraph_text)
+        }
+      }
+    }
   }
 }
 
 {
-  update ./spec.prompt after completing each task
+  after completing each task {
+    update task's status to "completed"
+    update ./spec.prompt
+  }
 }
