@@ -42,6 +42,13 @@ logic.simple_english_translation(paragraph_text) {
   return prompt
 }
 
+logic.perform_simple_english_translation(paragraph_text) {
+  let prompt = logic.simple_english_translation(paragraph_text)
+  let response = send request to ollma server 127.0.0.1:11434 with model: {config.llm_model}, query: {prompt}, thinking: {config.llm_thinking_mode}
+  return response
+}
+
+
 logic.highlighted_text_in_popup_modal(text, popup_modal) {
   let context = (30 words before {text}) + {text} + (30 words after {text})
   let question = string {
@@ -368,6 +375,18 @@ ui.paragraph_controls {
           let answer = (send request to {config.servers.ollama} with model: {config.llm_model}, query: {question}, context: {context})
           display {answer} below the question textbox
         }
+      }
+    }
+  }
+
+  element.simplify_again_button {
+    text: "Simplify Again"
+    position: right of {ui.paragraph_controls.element.ask_question_button}
+    behavior {
+      @click {
+        invoke logic.perform_simple_english_translation(paragraph_text)
+        replace paragraph text in-place with the new simplified result
+        stream response with loading indicator
       }
     }
   }

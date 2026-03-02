@@ -30,6 +30,13 @@ logic.highlighted_text_in_popup_modal(text, popup_modal) {
   stream the result so that the first chunk will show immediately in {popup_modal}
 }
 
+constraint {
+  after each task is completed {
+    update task's status to "completed"
+    update ./spec.prompt
+  }
+}
+
 app_spec {
   app_type: Pure HTML/CSS/Javascript Single Page Application
   app_entrypoint: index.php
@@ -476,7 +483,7 @@ task {
 }
 
 task {
-  action {
+  action (completed) {
     on the right side of the button "Ask Question" {
       add a new button "Simpify Again" {
         @click {
@@ -484,12 +491,5 @@ task {
         }
       }
     }
-  }
-}
-
-{
-  after completing each task {
-    update task's status to "completed"
-    update ./spec.prompt
   }
 }
