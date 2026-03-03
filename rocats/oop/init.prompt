@@ -7,6 +7,10 @@ app_spec {
     hello(word) {
       echo {word}
     } 
+
+    hi2(word) {
+      echo "child hi2 {word}"
+    }
   }
 
   Car.hello("word")

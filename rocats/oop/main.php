@@ -19,6 +19,11 @@ class Car extends GeneralObject
     {
         echo "$word\n";
     }
+
+    public function hi2(string $word): void
+    {
+        echo "child hi2 $word\n";
+    }
 }
 
 $car = new Car();
