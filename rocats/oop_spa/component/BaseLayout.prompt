@@ -1,6 +1,6 @@
 class BaseLayout
 {
-  static BookInput {
+  BookInput {
     background: wheat
     textbox {
       @key.enter {
@@ -11,7 +11,7 @@ class BaseLayout
     }
   }
 
-  static BookContent {
+  BookContent {
     background: light yellow  
   }
 }

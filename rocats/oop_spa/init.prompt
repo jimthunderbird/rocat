@@ -20,6 +20,14 @@ app_spec {
         }
 
         content: call LanguageService.translate(words)
+
+        layout {
+          {content}  
+        }
+
+        constraint {
+          show {content} only, do not show the highlighted text
+        }
       }
 
       BookContent {
