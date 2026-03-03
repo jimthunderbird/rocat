@@ -1,0 +1,10 @@
+class GeneralObject 
+{
+  hi(word) {
+    echo "hi {word}"
+  }
+
+  hi2(word) {
+    echo "hi2 {word}"
+  }
+}

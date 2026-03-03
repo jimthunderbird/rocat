@@ -1,0 +1,6 @@
+class AnotherBaseObject
+{
+  hi(word) {
+    echo {word}
+  }
+}
