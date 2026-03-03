@@ -1,6 +1,14 @@
 <?php
 
-class GeneralObject
+class BaseObject
+{
+    public function getName(): string
+    {
+        return "Base Object";
+    }
+}
+
+class GeneralObject extends BaseObject
 {
     public function hi(string $word): void
     {
@@ -30,3 +38,4 @@ $car = new Car();
 $car->hello("word");
 $car->hi("jim");
 $car->hi2("jim");
+echo $car->getName() . "\n";

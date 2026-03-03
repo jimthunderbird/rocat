@@ -16,4 +16,5 @@ app_spec {
   Car.hello("word")
   Car.hi("jim")
   Car.hi2("jim")
+  echo Car.getName()
 }

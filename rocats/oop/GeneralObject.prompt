@@ -1,4 +1,4 @@
-class GeneralObject 
+class GeneralObject extends BaseObject
 {
   hi(word) {
     echo "hi {word}"
