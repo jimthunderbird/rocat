@@ -13,8 +13,9 @@ app_spec {
     }
   }
 
-  Car.hello("word")
-  Car.hi("jim")
-  Car.hi2("jim")
-  echo Car.getName()
+  car = new Car()
+  car.hello("word")
+  car.hi("jim")
+  car.hi2("jim")
+  echo car.getName()
 }

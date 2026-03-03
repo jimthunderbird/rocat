@@ -1,0 +1,30 @@
+context: ./skill/spa_composer.prompt
+
+app_spec {
+  route: / {
+    class Layout extends BaseLayout {
+      BookInput {
+        textbox {
+          label: "Book Url"
+        }
+      }
+
+      PopupShowHighlightedWords(words) {
+        type: Popup Modal
+
+        behavior {
+          remember last position
+          draggable
+        }
+        content: {words}
+      }
+
+      BookContent {
+        let paragraph = (split {content} by new line)
+        paragraph.words.@highlighted {
+          show PopupShowHighlightedWords(highlighted words)
+        }
+      }
+    }
+  }
+}

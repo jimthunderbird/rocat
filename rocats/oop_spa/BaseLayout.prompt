@@ -1,0 +1,19 @@
+class BaseLayout
+{
+  let bookcontent = ""
+
+  BookInput {
+    background: wheat
+    textbox {
+      @key.enter {
+        let url = (textbox content)
+        bookcontent  = (use php to fetch the content of {url})
+        set BookContent.content = {bookcontent}
+      }
+    }
+  }
+
+  BookContent {
+    background: light yellow  
+  }
+}
