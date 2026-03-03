@@ -3,7 +3,7 @@ class LanguageService
   llm_model = gemma3:latest
 
   translate(words) {
-    let prompt = convert the following words to very very simple english: {words}, return the converted result only, no explanation, no extra words.
+    let prompt = convert the following words to very very simple english: {words}, show the converted result only, no explanation, no extra words.
     let response = send request to {
       ollma server 127.0.0.1:11434 
       model: {llm_model}
