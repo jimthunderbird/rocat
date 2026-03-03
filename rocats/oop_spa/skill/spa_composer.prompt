@@ -4,6 +4,9 @@ objective: generate ./index.php based on app_spec
 
 constraint {
   change to the current file's directory
-  in app_spec, whenever we see a class extends a "parent class", look for "parant class" in <name_of_parent_class>.prompt in the current directory and include it to the current context
+  in app_spec {
+    whenever we see a class extends a "parent class", look for "parant class" in <name_of_parent_class>.prompt in the current directory and include it to the current context
+    whenever we see we call "a class", look for "a class" in <name_of_the_class>.prompt in the current directory and include it to the current context
+  }
   each class represent a feature in the app
 }
