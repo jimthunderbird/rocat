@@ -1,15 +1,9 @@
-role: Python 3 Expert
+context: ./skill/composer.md
 
-objective: Create a python script init.py with the logic specificed in app_spec
-
-constraint {
-  in app_spec, whenever we see a class extends a "parent class", look for "parant class" in <name_of_parent_class>.prompt and include it to the current context, the goal is to lazy load the context
-  only load the referenced parent classe files to the current context, do not read any other unrelated files
-}
+output: main.php
 
 app_spec {
-  class Car extends GeneralObject
-  {
+  class Car extends GeneralObject {
     hello(word) {
       echo {word}
     } 
