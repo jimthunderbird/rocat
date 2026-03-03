@@ -10,6 +10,46 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['url'])) {
   }
   exit;
 }
+
+if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['translate'])) {
+  $words = $_POST['translate'];
+  $prompt = "convert the following words to very very simple english: $words, return the converted result only, no explanation, no extra words.";
+
+  $data = json_encode([
+    'model' => 'gemma3:latest',
+    'prompt' => $prompt,
+    'stream' => true,
+    'think' => false
+  ]);
+
+  header('Content-Type: text/event-stream');
+  header('Cache-Control: no-cache');
+
+  $ch = curl_init('http://127.0.0.1:11434/api/generate');
+  curl_setopt($ch, CURLOPT_POST, true);
+  curl_setopt($ch, CURLOPT_POSTFIELDS, $data);
+  curl_setopt($ch, CURLOPT_HTTPHEADER, ['Content-Type: application/json']);
+  curl_setopt($ch, CURLOPT_WRITEFUNCTION, function($ch, $chunk) {
+    $lines = explode("\n", trim($chunk));
+    foreach ($lines as $line) {
+      if (empty($line)) continue;
+      $json = json_decode($line, true);
+      if (isset($json['response'])) {
+        echo 'data: ' . json_encode(['token' => $json['response']]) . "\n\n";
+        ob_flush();
+        flush();
+      }
+    }
+    return strlen($chunk);
+  });
+  curl_exec($ch);
+  curl_close($ch);
+
+  echo "data: [DONE]\n\n";
+  ob_flush();
+  flush();
+  exit;
+}
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -146,7 +186,33 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['url'])) {
       const selectedText = selection.toString().trim();
 
       if (selectedText && bookContent.contains(selection.anchorNode)) {
-        popupBody.textContent = selectedText;
+        popupBody.textContent = '';
+
+        // Call LanguageService.translate(words) with streaming
+        const formData = new FormData();
+        formData.append('translate', selectedText);
+        fetch('index.php', { method: 'POST', body: formData }).then(async (res) => {
+          const reader = res.body.getReader();
+          const decoder = new TextDecoder();
+          let buffer = '';
+          while (true) {
+            const { done, value } = await reader.read();
+            if (done) break;
+            buffer += decoder.decode(value, { stream: true });
+            const lines = buffer.split('\n');
+            buffer = lines.pop();
+            for (const line of lines) {
+              if (line.startsWith('data: ')) {
+                const payload = line.slice(6);
+                if (payload === '[DONE]') break;
+                try {
+                  const { token } = JSON.parse(payload);
+                  popupBody.textContent += token;
+                } catch {}
+              }
+            }
+          }
+        }).catch(() => { popupBody.textContent = 'Translation failed.'; });
 
         // Use remembered position or center on screen
         if (lastPopupX !== null && lastPopupY !== null) {

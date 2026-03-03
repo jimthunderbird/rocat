@@ -12,17 +12,20 @@ app_spec {
       PopupShowHighlightedWords(words) {
         type: Popup Modal
 
+        visible: false
+
         behavior {
           remember last position
           draggable
         }
-        content: {words}
+
+        content: call LanguageService.translate(words)
       }
 
       BookContent {
         let paragraph = (split {content} by new line)
         paragraph.words.@highlighted {
-          show PopupShowHighlightedWords(highlighted words)
+          PopupShowHighlightedWords(highlighted words).visible = true
         }
       }
     }
