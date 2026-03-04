@@ -7,7 +7,7 @@ class BaseAppSpec {
       in the context: {context}, show the meaning of {text} in 30 very simple English words 
       no explanation, no extra words
     }
-    let result = send question to Config.local_llm() 
+    let result = Config.local_llm(question) 
     display {result} in {popup_modal} with veritcal scrolling
   }
 
@@ -15,7 +15,7 @@ class BaseAppSpec {
     value = ""
     @key.enter {
       let book_url = value
-      let book_content = (use php to read the file content from {book_url})
+      let book_content = (use php to read the file content from {book_url}, make sure it returns only the pure content)
     }
   }
 

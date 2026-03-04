@@ -12,7 +12,7 @@ class SimpleEnglishConversionButton
     let prompt = (
       given <text>{text_to_convert}</text>, convert it to a version that use very simple English words, show me the converted result only, no explanation, no extra words
     )
-    result = send prompt to Config.local_llm()
+    result = call Config.local_llm(prompt)
     show model.simple_english_displayer extends SimpleModal {
       content: result
       style {
