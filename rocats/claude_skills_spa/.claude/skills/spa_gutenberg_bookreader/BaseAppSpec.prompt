@@ -1,0 +1,40 @@
+class BaseAppSpec {
+  app_entrypoint: index.php
+
+  highlighted_text_in_popup_modal(text, popup_modal) {
+    let context = (30 words before {text}) + {text} + (30 words after {text})
+    let question = string {
+      in the context: {context}, show the meaning of {text} in 30 very simple English words 
+      no explanation, no extra words
+    }
+    let result = Config.local_llm() 
+    display {result} in {popup_modal} with veritcal scrolling
+  }
+
+  textbox.book_url {
+    value = ""
+    @key.enter {
+      let book_url = value
+      let book_content = (use php to read the file content from {book_url})
+    }
+  }
+
+  div.book_content {
+    behavior {
+      before the {book_content} is loaded into it, the inner html should be completely empty
+      split {book_content} into html paragraphs
+    }
+    style {
+      line-height: 1.4
+    }
+    innerHTML: {book_content}
+  }
+
+  modal.highlighted_words_translation {
+    behavior {
+      draggable
+      remember the last position
+      when visible, invoke highlighted_text_in_popup_modal(highlighted text in {book_content}, modal.highlighted_words_translation)
+    }  
+  }
+}

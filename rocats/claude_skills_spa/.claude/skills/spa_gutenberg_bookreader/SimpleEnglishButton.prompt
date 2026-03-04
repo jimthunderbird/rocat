@@ -1,0 +1,17 @@
+class SimpleEnglishConversionButton
+{
+  parameter {
+    text_to_convert
+  }
+
+  text {
+    "Convert To Simple English"  
+  }
+
+  @click {
+    let prompt = (
+      given <text>{text_to_convert}</text>, convert it to very simple English words, no explanation, no extra words
+    )
+    send prompt to Config.local_llm()
+  }  
+}

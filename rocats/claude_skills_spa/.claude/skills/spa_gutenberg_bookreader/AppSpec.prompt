@@ -1,51 +1,28 @@
-class AppSpec {
-  app_entrypoint: index.php
-
-  highlighted_text_in_popup_modal(text, popup_modal) {
-    let context = (30 words before {text}) + {text} + (30 words after {text})
-    let question = string {
-      in the context: {context}, show the meaning of {text} in 30 very simple English words 
-      no explanation, no extra words
-    }
-    let result = (
-      send request to Config.local_llm() 
-    )
-    display {result} in {popup_modal} with veritcal scrolling
-  }
-
+class AppSpec extends BaseAppSpec {
   init() {
-    textbox.book_url {
-      value = ""
-      @key.enter {
-        let book_url = value
-        let book_content = (use php to read the file content from {book_url})
-      }
+    constraint {
+      there should be only one single php file, {app_entrypoint}, no other php files should be generated
     }
-    div.book_content {
-      behavior {
-        before the {book_content} is loaded into it, the inner html should be completely empty
-      }
-      style {
-        line-height: 1.4
-      }
-      innerHTML: {book_content}
-    }
+
+    div.book_content.style.background: "wheat"
 
     layout {
+      div.style {
+        background: BurlyWood
+      } {
+        {textbox.book_url}
+      }
       div {
         {book_content} 
       }
-      div {
-        {textbox.book_url}
-      }
     }
 
-    modal.highlighted_words_translation {
-      behavior {
-        draggable
-        remember the last position
-      }  
+    div.book_content.paragraphs.each (paragraph) {
+      next to {paragraph} add:
+      - SimpleEnglishConversionButton {
+        behavior: show when {paragraph} is visible
+        paras: paragraph.text
+      }
     }
-    highlighted_text_in_popup_modal(highlighted text in {book_content}, modal.highlighted_words_translation)
   }
 }
