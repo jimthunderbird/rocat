@@ -1,1 +1,1 @@
-claude "/spa_guttenberg_bookreader" --dangerously-skip-permissions
+claude "/spa_gutenberg_bookreader" --dangerously-skip-permissions
