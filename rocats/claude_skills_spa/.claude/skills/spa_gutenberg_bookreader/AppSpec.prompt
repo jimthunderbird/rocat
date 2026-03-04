@@ -21,7 +21,7 @@ class AppSpec extends BaseAppSpec {
       next to {paragraph} add:
       - SimpleEnglishConversionButton {
         behavior: show when {paragraph} is visible
-        paras: paragraph.text
+        params: paragraph.text
       }
     }
   }
