@@ -7,7 +7,7 @@ class BaseAppSpec {
       in the context: {context}, show the meaning of {text} in 30 very simple English words 
       no explanation, no extra words
     }
-    let result = Config.local_llm() 
+    let result = send question to Config.local_llm() 
     display {result} in {popup_modal} with veritcal scrolling
   }
 
