@@ -80,11 +80,12 @@ body { font-family: Georgia, serif; min-height: 100vh; display: flex; flex-direc
     color: #333;
 }
 .paragraph-wrapper { position: relative; margin-bottom: 0.8rem; }
-.paragraph-wrapper p { white-space: pre-wrap; margin: 0; }
+.paragraph-wrapper p { white-space: pre-wrap; margin: 0; display: inline; }
 .simplify-btn {
     display: inline-block;
-    margin-top: 0.3rem;
+    margin-left: 0.4rem;
     padding: 0.15rem 0.5rem;
+    vertical-align: baseline;
     font-size: 0.75rem;
     background: #d2a860;
     color: #fff;
@@ -300,13 +301,14 @@ function renderParagraphs(text) {
 
         const p = document.createElement('p');
         p.textContent = paraText.trim();
-        wrapper.appendChild(p);
 
         const btn = document.createElement('button');
         btn.className = 'simplify-btn';
-        btn.textContent = 'Convert To Simple English';
-        btn.onclick = () => simplifyParagraph(btn, p.textContent);
-        wrapper.appendChild(btn);
+        btn.textContent = 'Convert to Simple English';
+        btn.onclick = () => simplifyParagraph(btn, p.firstChild.textContent);
+        p.appendChild(btn);
+
+        wrapper.appendChild(p);
 
         bookContent.appendChild(wrapper);
         paraObserver.observe(wrapper);
@@ -337,7 +339,7 @@ function simplifyParagraph(btn, text) {
 
     streamLLM(prompt, result, loading, () => {
         btn.classList.remove('loading');
-        btn.textContent = 'Convert To Simple English';
+        btn.textContent = 'Convert to Simple English';
     });
 }
 
