@@ -1,41 +1,14 @@
 <?php
-// Handle LLM query via Ollama
-if (isset($_GET['q'])) {
-    header('Content-Type: text/plain; charset=utf-8');
-    header('X-Accel-Buffering: no');
-
-    $question = $_GET['q'];
-    $payload = json_encode([
-        'model' => 'gemma3:latest',
-        'prompt' => $question,
-        'stream' => true,
-    ]);
-
-    $ch = curl_init('http://127.0.0.1:11434/api/generate');
-    curl_setopt($ch, CURLOPT_POST, true);
-    curl_setopt($ch, CURLOPT_POSTFIELDS, $payload);
-    curl_setopt($ch, CURLOPT_HTTPHEADER, ['Content-Type: application/json']);
-    curl_setopt($ch, CURLOPT_RETURNTRANSFER, false);
-    curl_setopt($ch, CURLOPT_WRITEFUNCTION, function ($ch, $data) {
-        $json = json_decode($data, true);
-        if (isset($json['response'])) {
-            echo $json['response'];
-            if (ob_get_level()) ob_flush();
-            flush();
-        }
-        return strlen($data);
-    });
-
-    curl_exec($ch);
-    curl_close($ch);
-    exit;
-}
-
-// Handle book fetch
+// Handle book fetching
 if (isset($_GET['fetch'])) {
     header('Content-Type: text/plain; charset=utf-8');
     $url = $_GET['fetch'];
-    echo file_get_contents($url);
+    $content = @file_get_contents($url);
+    if ($content === false) {
+        echo 'Error: Could not fetch the book.';
+    } else {
+        echo $content;
+    }
     exit;
 }
 ?>
@@ -47,294 +20,283 @@ if (isset($_GET['fetch'])) {
 <title>Gutenberg Book Reader</title>
 <style>
 * { margin: 0; padding: 0; box-sizing: border-box; }
+body { font-family: Georgia, 'Times New Roman', serif; background: #f5f0e8; color: #333; }
 
-body {
-    font-family: Georgia, 'Times New Roman', serif;
-    background: #f5f1eb;
-    color: #2c2c2c;
-    min-height: 100vh;
-}
-
-#app {
-    max-width: 800px;
-    margin: 0 auto;
-    padding: 20px;
-}
-
-h1 {
-    text-align: center;
-    margin-bottom: 16px;
-    font-size: 1.5rem;
-    color: #4a3728;
-}
-
-#url-bar {
-    display: flex;
-    gap: 8px;
-    margin-bottom: 20px;
-}
-
-#book-url {
-    flex: 1;
-    padding: 10px 14px;
-    font-size: 1rem;
-    border: 2px solid #c9b99a;
-    border-radius: 6px;
+.url-bar {
+    padding: 16px 24px;
     background: #fff;
-    outline: none;
+    border-top: 1px solid #ddd;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    z-index: 100;
+}
+.url-bar label { font-weight: bold; white-space: nowrap; }
+#bookUrl {
+    flex: 1;
+    padding: 8px 12px;
+    font-size: 15px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
     font-family: inherit;
 }
+#bookUrl:focus { outline: none; border-color: #666; }
 
-#book-url:focus {
-    border-color: #8b7355;
-}
-
-#book-url::placeholder {
-    color: #a09080;
-}
-
-#loading {
-    display: none;
-    text-align: center;
-    padding: 40px;
-    color: #8b7355;
-    font-style: italic;
-}
-
-#book-content {
-    line-height: 1.4;
+#bookContent {
+    max-width: 800px;
+    margin: 24px auto;
+    padding: 24px 32px;
+    background: #fff;
+    border-radius: 6px;
+    box-shadow: 0 1px 4px rgba(0,0,0,0.1);
     white-space: pre-wrap;
-    word-wrap: break-word;
-    padding: 20px;
-    background: #fffdf7;
-    border-radius: 8px;
-    border: 1px solid #e0d8c8;
+    line-height: 1.4;
+    font-size: 16px;
     min-height: 200px;
-    display: none;
+    margin-bottom: 70px;
 }
 
 /* Modal */
-#modal-overlay {
-    display: none;
-}
-
 #modal {
     display: none;
     position: fixed;
+    width: 360px;
+    max-height: 400px;
+    background: #fff;
+    border: 1px solid #bbb;
+    border-radius: 8px;
+    box-shadow: 0 4px 20px rgba(0,0,0,0.25);
     z-index: 1000;
-    width: 380px;
-    max-height: 320px;
-    background: #fffef9;
-    border: 1px solid #c9b99a;
-    border-radius: 10px;
-    box-shadow: 0 8px 30px rgba(0,0,0,0.18);
     overflow: hidden;
     flex-direction: column;
 }
+#modal.visible { display: flex; }
 
-#modal-header {
+#modalHeader {
+    padding: 8px 12px;
+    background: #f0ece4;
+    border-bottom: 1px solid #ddd;
+    cursor: move;
     display: flex;
     justify-content: space-between;
     align-items: center;
-    padding: 10px 14px;
-    background: #f0e8d8;
-    cursor: grab;
-    user-select: none;
-    border-bottom: 1px solid #e0d8c8;
-}
-
-#modal-header:active { cursor: grabbing; }
-
-#modal-title {
     font-weight: bold;
-    font-size: 0.9rem;
-    color: #4a3728;
-    overflow: hidden;
-    text-overflow: ellipsis;
-    white-space: nowrap;
-    max-width: 300px;
+    font-size: 14px;
+    user-select: none;
 }
-
-#modal-close {
+#modalClose {
     background: none;
     border: none;
-    font-size: 1.2rem;
+    font-size: 18px;
     cursor: pointer;
-    color: #8b7355;
+    color: #666;
     padding: 0 4px;
 }
+#modalClose:hover { color: #000; }
 
-#modal-close:hover { color: #4a3728; }
-
-#modal-body {
-    padding: 14px;
+#modalBody {
+    padding: 12px 16px;
     overflow-y: auto;
     flex: 1;
-    font-size: 0.95rem;
-    line-height: 1.6;
+    font-size: 14px;
+    line-height: 1.5;
     white-space: pre-wrap;
     word-wrap: break-word;
 }
+
+#loading { display: none; color: #888; font-style: italic; padding: 4px 0; }
+#loading.visible { display: block; }
 </style>
 </head>
 <body>
-<div id="app">
-    <h1>Gutenberg Book Reader</h1>
-    <div id="url-bar">
-        <input type="text" id="book-url" placeholder="Enter a Project Gutenberg book URL and press Enter..." />
-    </div>
-    <div id="loading">Loading book...</div>
-    <div id="book-content"></div>
+
+<div id="bookContent"></div>
+
+<div class="url-bar">
+    <label for="bookUrl">Book URL:</label>
+    <input type="text" id="bookUrl" placeholder="Paste a Project Gutenberg plain text URL and press Enter" value="">
 </div>
 
-<div id="modal" style="display:none;">
-    <div id="modal-header">
-        <span id="modal-title"></span>
-        <button id="modal-close">&times;</button>
+<div id="modal">
+    <div id="modalHeader">
+        <span>Translation</span>
+        <button id="modalClose">&times;</button>
     </div>
-    <div id="modal-body"></div>
+    <div id="modalBody">
+        <div id="loading">Loading...</div>
+        <div id="modalText"></div>
+    </div>
 </div>
 
 <script>
-const bookUrl = document.getElementById('book-url');
-const bookContent = document.getElementById('book-content');
-const loading = document.getElementById('loading');
-const modal = document.getElementById('modal');
-const modalHeader = document.getElementById('modal-header');
-const modalTitle = document.getElementById('modal-title');
-const modalClose = document.getElementById('modal-close');
-const modalBody = document.getElementById('modal-body');
+const Config = {
+    local_llm: { host: '127.0.0.1:11434', model: 'gemma3:latest', streaming: true }
+};
 
-// --- Book loading ---
-bookUrl.addEventListener('keydown', async (e) => {
+const bookUrlInput = document.getElementById('bookUrl');
+const bookContent = document.getElementById('bookContent');
+const modal = document.getElementById('modal');
+const modalHeader = document.getElementById('modalHeader');
+const modalClose = document.getElementById('modalClose');
+const modalBody = document.getElementById('modalBody');
+const modalText = document.getElementById('modalText');
+const loading = document.getElementById('loading');
+
+// Load book on Enter
+bookUrlInput.addEventListener('keydown', async (e) => {
     if (e.key !== 'Enter') return;
-    const url = bookUrl.value.trim();
+    const url = bookUrlInput.value.trim();
     if (!url) return;
 
-    loading.style.display = 'block';
-    bookContent.style.display = 'none';
-    bookContent.textContent = '';
+    bookContent.innerHTML = '';
+    bookContent.textContent = 'Loading book...';
 
     try {
-        const res = await fetch('index.php?fetch=' + encodeURIComponent(url));
-        const text = await res.text();
+        const resp = await fetch('index.php?fetch=' + encodeURIComponent(url));
+        const text = await resp.text();
         bookContent.textContent = text;
-        bookContent.style.display = 'block';
     } catch (err) {
-        bookContent.textContent = 'Error loading book: ' + err.message;
-        bookContent.style.display = 'block';
+        bookContent.textContent = 'Error: ' + err.message;
     }
-    loading.style.display = 'none';
 });
 
-// --- Highlight detection ---
-bookContent.addEventListener('mouseup', () => {
+// Highlighted text lookup
+document.addEventListener('mouseup', (e) => {
+    if (modal.contains(e.target)) return;
+
     const sel = window.getSelection();
-    const text = sel.toString().trim();
-    if (!text || text.length > 100) return;
+    const selectedText = sel.toString().trim();
+    if (!selectedText || selectedText.length > 100) return;
 
-    // Get context: 30 words before and after
-    const range = sel.getRangeAt(0);
+    // Check selection is within book content
+    if (!bookContent.contains(sel.anchorNode)) return;
+
+    // Get surrounding context: 30 words before and after
     const fullText = bookContent.textContent;
-    const startOff = getTextOffset(bookContent, range.startContainer, range.startOffset);
-    const endOff = getTextOffset(bookContent, range.endContainer, range.endOffset);
+    const selStart = getSelectionOffset(bookContent, sel);
+    const before = fullText.substring(0, selStart);
+    const after = fullText.substring(selStart + selectedText.length);
 
-    const before = fullText.substring(0, startOff);
-    const after = fullText.substring(endOff);
     const wordsBefore = before.split(/\s+/).filter(Boolean).slice(-30).join(' ');
     const wordsAfter = after.split(/\s+/).filter(Boolean).slice(0, 30).join(' ');
 
-    const context = wordsBefore + ' ' + text + ' ' + wordsAfter;
-    const question = `context: ${context}\nshow me the pronunciation of "${text}" in International Phonetic Alphabet\nshow the meaning of "${text}" in 30 words, translate the meaning of "${text}" in simplified chinese\nno extra words`;
+    const context = wordsBefore + ' ' + selectedText + ' ' + wordsAfter;
+    const question = `in the context: ${context}, show the meaning of "${selectedText}" in 30 very simple English words\nno explanation, no extra words`;
 
-    showModal(text, question);
+    showModal();
+    streamQuery(question);
 });
 
-function getTextOffset(root, node, offset) {
-    const walker = document.createTreeWalker(root, NodeFilter.SHOW_TEXT);
-    let total = 0;
-    while (walker.nextNode()) {
-        if (walker.currentNode === node) return total + offset;
-        total += walker.currentNode.textContent.length;
-    }
-    return total + offset;
+function getSelectionOffset(container, sel) {
+    const range = sel.getRangeAt(0);
+    const preRange = document.createRange();
+    preRange.selectNodeContents(container);
+    preRange.setEnd(range.startContainer, range.startOffset);
+    return preRange.toString().length;
 }
 
-// --- Modal with streaming ---
-let abortCtrl = null;
+// Stream LLM response
+let abortController = null;
 
-async function showModal(word, question) {
-    if (abortCtrl) abortCtrl.abort();
-    abortCtrl = new AbortController();
+async function streamQuery(question) {
+    if (abortController) abortController.abort();
+    abortController = new AbortController();
 
-    modalTitle.textContent = word;
-    modalBody.textContent = '';
-    modal.style.display = 'flex';
-
-    // Restore last position or center
-    const saved = localStorage.getItem('modal-pos');
-    if (saved) {
-        const pos = JSON.parse(saved);
-        modal.style.left = pos.x + 'px';
-        modal.style.top = pos.y + 'px';
-    } else {
-        modal.style.left = (window.innerWidth / 2 - 190) + 'px';
-        modal.style.top = '100px';
-    }
+    modalText.textContent = '';
+    loading.classList.add('visible');
 
     try {
-        const res = await fetch('index.php?q=' + encodeURIComponent(question), {
-            signal: abortCtrl.signal
+        const { host, model, streaming } = Config.local_llm;
+        const resp = await fetch(`http://${host}/api/generate`, {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ model, prompt: question, stream: streaming }),
+            signal: abortController.signal,
         });
-        const reader = res.body.getReader();
+
+        loading.classList.remove('visible');
+        const reader = resp.body.getReader();
         const decoder = new TextDecoder();
 
         while (true) {
             const { done, value } = await reader.read();
             if (done) break;
-            modalBody.textContent += decoder.decode(value, { stream: true });
-            modalBody.scrollTop = modalBody.scrollHeight;
+            const chunk = decoder.decode(value, { stream: true });
+            for (const line of chunk.split('\n')) {
+                if (!line.trim()) continue;
+                try {
+                    const json = JSON.parse(line);
+                    if (json.response) {
+                        modalText.textContent += json.response;
+                        modalBody.scrollTop = modalBody.scrollHeight;
+                    }
+                } catch (e) {}
+            }
         }
     } catch (err) {
         if (err.name !== 'AbortError') {
-            modalBody.textContent += '\n[Error: ' + err.message + ']';
+            loading.classList.remove('visible');
+            modalText.textContent = 'Error: ' + err.message;
         }
     }
 }
 
-// --- Close modal ---
+// Modal position (remember last position)
+function showModal() {
+    const saved = localStorage.getItem('modalPos');
+    if (saved) {
+        const pos = JSON.parse(saved);
+        modal.style.left = pos.x + 'px';
+        modal.style.top = pos.y + 'px';
+    } else {
+        modal.style.right = '24px';
+        modal.style.top = '80px';
+        modal.style.left = 'auto';
+    }
+    modal.classList.add('visible');
+}
+
+function saveModalPos() {
+    localStorage.setItem('modalPos', JSON.stringify({
+        x: parseInt(modal.style.left),
+        y: parseInt(modal.style.top),
+    }));
+}
+
 modalClose.addEventListener('click', () => {
-    modal.style.display = 'none';
-    if (abortCtrl) abortCtrl.abort();
+    modal.classList.remove('visible');
+    if (abortController) abortController.abort();
 });
 
-// --- Draggable modal ---
-let isDragging = false, dragX = 0, dragY = 0;
+// Draggable modal
+let dragging = false, dragOffX = 0, dragOffY = 0;
 
 modalHeader.addEventListener('mousedown', (e) => {
-    isDragging = true;
-    dragX = e.clientX - modal.offsetLeft;
-    dragY = e.clientY - modal.offsetTop;
+    dragging = true;
+    const rect = modal.getBoundingClientRect();
+    dragOffX = e.clientX - rect.left;
+    dragOffY = e.clientY - rect.top;
     e.preventDefault();
 });
 
 document.addEventListener('mousemove', (e) => {
-    if (!isDragging) return;
-    const x = e.clientX - dragX;
-    const y = e.clientY - dragY;
-    modal.style.left = x + 'px';
-    modal.style.top = y + 'px';
+    if (!dragging) return;
+    modal.style.left = (e.clientX - dragOffX) + 'px';
+    modal.style.top = (e.clientY - dragOffY) + 'px';
+    modal.style.right = 'auto';
 });
 
 document.addEventListener('mouseup', () => {
-    if (isDragging) {
-        isDragging = false;
-        localStorage.setItem('modal-pos', JSON.stringify({
-            x: modal.offsetLeft,
-            y: modal.offsetTop
-        }));
+    if (dragging) {
+        dragging = false;
+        saveModalPos();
     }
 });
 </script>
+
 </body>
 </html>

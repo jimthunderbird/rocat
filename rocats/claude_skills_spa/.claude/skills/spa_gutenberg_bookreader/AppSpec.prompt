@@ -1,31 +1,19 @@
 class AppSpec {
-  book_url = ""
-  llm_model = "gemma3:latest"
   app_entrypoint: index.php
 
   highlighted_text_in_popup_modal(text, popup_modal) {
     let context = (30 words before {text}) + {text} + (30 words after {text})
     let question = string {
-      context: {context}
-      show me the pronounciation of {text} in International Phonetic Alphabet
-      show the meaning of {text} in 30 words, translate {the meaning of {text}} in simplified chinese
-      no extra words
+      in the context: {context}, show the meaning of {text} in 30 very simple English words 
+      no explanation, no extra words
     }
-    let result = (send a request to index.php?q={question})
+    let result = (
+      send request to Config.local_llm() 
+    )
     display {result} in {popup_modal} with veritcal scrolling
-    when we have index.php?q={question} {
-      send request to ollma server 127.0.0.1:11434 with model: {llm_model}, query: {question}
-      return the response as string and print it out
-      do php exit
-    }
-    stream the result so that the first chunk will show immediately in {popup_modal}
   }
 
   init() {
-    if (app_entrypoint exists) {
-      return
-    }
-
     textbox.book_url {
       value = ""
       @key.enter {
@@ -34,12 +22,24 @@ class AppSpec {
       }
     }
     div.book_content {
+      behavior {
+        before the {book_content} is loaded into it, the inner html should be completely empty
+      }
       style {
         line-height: 1.4
       }
       innerHTML: {book_content}
     }
-    
+
+    layout {
+      div {
+        {book_content} 
+      }
+      div {
+        {textbox.book_url}
+      }
+    }
+
     modal.highlighted_words_translation {
       behavior {
         draggable

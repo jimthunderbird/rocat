@@ -1,0 +1,6 @@
+Config {
+  local_llm(model_name:"gemma3:latest") {
+    host:"127.0.0.1:11434"
+    streaming: true
+  }
+}
