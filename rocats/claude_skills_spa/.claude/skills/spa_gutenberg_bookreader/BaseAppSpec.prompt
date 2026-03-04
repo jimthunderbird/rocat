@@ -30,9 +30,9 @@ class BaseAppSpec {
     innerHTML: {book_content}
   }
 
-  modal.highlighted_words_translation extends SimpleModal {
+  modal.highlighted_words_translation(highlighted_text) extends SimpleModal {
     behavior {
-      when visible, invoke highlighted_text_in_popup_modal(highlighted text in {book_content}, modal.highlighted_words_translation)
+      when visible, invoke highlighted_text_in_popup_modal({highlighted_text}, modal.highlighted_words_translation)
     }  
   }
 }

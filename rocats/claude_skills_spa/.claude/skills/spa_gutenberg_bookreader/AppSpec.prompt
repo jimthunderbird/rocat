@@ -17,6 +17,10 @@ class AppSpec extends BaseAppSpec {
       }
     }
 
+    div.book_content.words.@highlighted {
+      show modal.highlighted_words_translation(highlighted words)
+    }
+
     div.book_content.paragraphs.each (paragraph) {
       - SimpleEnglishConversionButton (
       text: "Convert to Simple English"
