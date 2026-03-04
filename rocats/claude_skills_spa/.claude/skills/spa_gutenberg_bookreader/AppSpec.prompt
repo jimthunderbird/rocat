@@ -26,7 +26,13 @@ class AppSpec {
       return
     }
 
-    let book_content = (use php to read the file content from {book_url})a
+    textbox.book_url {
+      value = ""
+      @key.enter {
+        let book_url = value
+        let book_content = (use php to read the file content from {book_url})
+      }
+    }
     div.book_content {
       style {
         line-height: 1.4
