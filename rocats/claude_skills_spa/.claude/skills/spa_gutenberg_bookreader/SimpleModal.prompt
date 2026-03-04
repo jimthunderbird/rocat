@@ -1,0 +1,9 @@
+class SimpleModal 
+{
+  type: Popup Modal
+
+  behavior {
+    draggable
+    remember the last position
+  }
+}

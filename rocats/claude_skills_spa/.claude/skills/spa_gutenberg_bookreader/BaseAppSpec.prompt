@@ -30,10 +30,8 @@ class BaseAppSpec {
     innerHTML: {book_content}
   }
 
-  modal.highlighted_words_translation {
+  modal.highlighted_words_translation extends SimpleModal {
     behavior {
-      draggable
-      remember the last position
       when visible, invoke highlighted_text_in_popup_modal(highlighted text in {book_content}, modal.highlighted_words_translation)
     }  
   }

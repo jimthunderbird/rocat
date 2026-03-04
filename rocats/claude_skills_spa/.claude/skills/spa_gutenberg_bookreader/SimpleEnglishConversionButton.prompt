@@ -10,8 +10,14 @@ class SimpleEnglishConversionButton
 
   @click {
     let prompt = (
-      given <text>{text_to_convert}</text>, convert it to very simple English words, no explanation, no extra words
+      given <text>{text_to_convert}</text>, convert it to a version that use very simple English words, show me the converted result only, no explanation, no extra words
     )
-    send prompt to Config.local_llm()
+    result = send prompt to Config.local_llm()
+    show model.simple_english_displayer extends SimpleModal {
+      content: result
+      style {
+        background: wheat
+      }
+    }
   }  
 }

@@ -97,24 +97,12 @@ body { font-family: Georgia, serif; min-height: 100vh; display: flex; flex-direc
 .paragraph-wrapper.visible .simplify-btn { opacity: 1; }
 .simplify-btn:hover { background: #b8903a; }
 .simplify-btn.loading { opacity: 1; background: #999; cursor: wait; }
-.simplified-text {
-    margin-top: 0.4rem;
-    padding: 0.5rem 0.8rem;
-    background: #fff8e0;
-    border-left: 3px solid #d2a860;
-    font-size: 0.95rem;
-    line-height: 1.5;
-    white-space: pre-wrap;
-}
 
-#translation_modal {
+.simple-modal {
     display: none;
     position: fixed;
-    top: 100px;
-    left: 100px;
-    width: 340px;
-    max-height: 280px;
-    background: #fffef5;
+    width: 380px;
+    max-height: 320px;
     border: 1px solid #bbb;
     border-radius: 8px;
     box-shadow: 0 4px 20px rgba(0,0,0,0.25);
@@ -122,7 +110,7 @@ body { font-family: Georgia, serif; min-height: 100vh; display: flex; flex-direc
     flex-direction: column;
     overflow: hidden;
 }
-#modal_header {
+.simple-modal .modal-header {
     padding: 0.5rem 0.8rem;
     background: #5a4a3a;
     color: #fff;
@@ -133,10 +121,10 @@ body { font-family: Georgia, serif; min-height: 100vh; display: flex; flex-direc
     align-items: center;
     user-select: none;
 }
-#modal_header .close_btn { cursor: pointer; font-size: 1.1rem; opacity: 0.8; }
-#modal_header .close_btn:hover { opacity: 1; }
-#modal_word { font-weight: bold; }
-#modal_body {
+.simple-modal .modal-header .close_btn { cursor: pointer; font-size: 1.1rem; opacity: 0.8; }
+.simple-modal .modal-header .close_btn:hover { opacity: 1; }
+.simple-modal .modal-title { font-weight: bold; }
+.simple-modal .modal-body {
     padding: 0.8rem;
     overflow-y: auto;
     flex: 1;
@@ -144,13 +132,16 @@ body { font-family: Georgia, serif; min-height: 100vh; display: flex; flex-direc
     line-height: 1.5;
     color: #333;
 }
-#loading_indicator {
+.simple-modal .modal-loading {
     display: none;
     color: #888;
     font-style: italic;
     font-size: 0.85rem;
     padding: 0.3rem 0;
 }
+
+#translation_modal { background: #fffef5; top: 100px; left: 100px; }
+#simplify_modal { background: wheat; top: 150px; left: 150px; }
 </style>
 </head>
 <body>
@@ -162,26 +153,76 @@ body { font-family: Georgia, serif; min-height: 100vh; display: flex; flex-direc
 
 <div id="book_content"></div>
 
-<div id="translation_modal">
-    <div id="modal_header">
-        <span id="modal_word"></span>
-        <span class="close_btn" onclick="closeModal()">&times;</span>
+<div id="translation_modal" class="simple-modal">
+    <div class="modal-header">
+        <span class="modal-title" id="trans_title"></span>
+        <span class="close_btn" onclick="closeModal('translation_modal')">&times;</span>
     </div>
-    <div id="modal_body">
-        <div id="loading_indicator">Loading...</div>
-        <div id="modal_result"></div>
+    <div class="modal-body">
+        <div class="modal-loading" id="trans_loading">Loading...</div>
+        <div class="modal-result" id="trans_result"></div>
+    </div>
+</div>
+
+<div id="simplify_modal" class="simple-modal">
+    <div class="modal-header">
+        <span class="modal-title">Simple English</span>
+        <span class="close_btn" onclick="closeModal('simplify_modal')">&times;</span>
+    </div>
+    <div class="modal-body">
+        <div class="modal-loading" id="simplify_loading">Loading...</div>
+        <div class="modal-result" id="simplify_result"></div>
     </div>
 </div>
 
 <script>
 const bookContent = document.getElementById('book_content');
 const bookUrl = document.getElementById('book_url');
-const modal = document.getElementById('translation_modal');
-const modalHeader = document.getElementById('modal_header');
-const modalWord = document.getElementById('modal_word');
-const modalResult = document.getElementById('modal_result');
-const loadingIndicator = document.getElementById('loading_indicator');
 
+// --- Modal drag system ---
+function setupDrag(modalEl, storageKey) {
+    const header = modalEl.querySelector('.modal-header');
+    let isDragging = false, offsetX, offsetY;
+
+    const saved = localStorage.getItem(storageKey);
+    if (saved) {
+        const pos = JSON.parse(saved);
+        modalEl.style.left = pos.left + 'px';
+        modalEl.style.top = pos.top + 'px';
+    }
+
+    header.addEventListener('mousedown', function(e) {
+        isDragging = true;
+        offsetX = e.clientX - modalEl.offsetLeft;
+        offsetY = e.clientY - modalEl.offsetTop;
+        e.preventDefault();
+    });
+    document.addEventListener('mousemove', function(e) {
+        if (!isDragging) return;
+        modalEl.style.left = (e.clientX - offsetX) + 'px';
+        modalEl.style.top = (e.clientY - offsetY) + 'px';
+    });
+    document.addEventListener('mouseup', function() {
+        if (isDragging) {
+            isDragging = false;
+            localStorage.setItem(storageKey, JSON.stringify({
+                left: modalEl.offsetLeft,
+                top: modalEl.offsetTop
+            }));
+        }
+    });
+}
+
+const transModal = document.getElementById('translation_modal');
+const simplifyModal = document.getElementById('simplify_modal');
+setupDrag(transModal, 'trans_modal_pos');
+setupDrag(simplifyModal, 'simplify_modal_pos');
+
+function closeModal(id) {
+    document.getElementById(id).style.display = 'none';
+}
+
+// --- Fetch book ---
 bookUrl.addEventListener('keydown', function(e) {
     if (e.key === 'Enter') {
         const url = this.value.trim();
@@ -192,15 +233,12 @@ bookUrl.addEventListener('keydown', function(e) {
                 if (!r.ok) throw new Error('Failed to fetch');
                 return r.text();
             })
-            .then(text => {
-                renderParagraphs(text);
-            })
-            .catch(err => {
-                bookContent.textContent = 'Error: ' + err.message;
-            });
+            .then(text => renderParagraphs(text))
+            .catch(err => { bookContent.textContent = 'Error: ' + err.message; });
     }
 });
 
+// --- Highlighted text translation modal ---
 bookContent.addEventListener('mouseup', function() {
     const selection = window.getSelection();
     const selectedText = selection.toString().trim();
@@ -223,9 +261,30 @@ bookContent.addEventListener('mouseup', function() {
     const context = wordsBefore + ' ' + selectedText + ' ' + wordsAfter;
     const question = `in the context: ${context}, show the meaning of "${selectedText}" in 30 very simple English words. no explanation, no extra words`;
 
-    showModal(selectedText, question);
+    showTranslationModal(selectedText, question);
 });
 
+function showTranslationModal(word, question) {
+    const title = document.getElementById('trans_title');
+    const result = document.getElementById('trans_result');
+    const loading = document.getElementById('trans_loading');
+
+    title.textContent = word;
+    result.textContent = '';
+    loading.style.display = 'block';
+
+    const saved = localStorage.getItem('trans_modal_pos');
+    if (saved) {
+        const pos = JSON.parse(saved);
+        transModal.style.left = pos.left + 'px';
+        transModal.style.top = pos.top + 'px';
+    }
+    transModal.style.display = 'flex';
+
+    streamLLM(question, result, loading);
+}
+
+// --- Paragraph rendering with visibility observer ---
 const paraObserver = new IntersectionObserver((entries) => {
     entries.forEach(entry => {
         entry.target.classList.toggle('visible', entry.isIntersecting);
@@ -246,7 +305,7 @@ function renderParagraphs(text) {
         const btn = document.createElement('button');
         btn.className = 'simplify-btn';
         btn.textContent = 'Convert To Simple English';
-        btn.onclick = () => simplifyParagraph(btn, p.textContent, wrapper);
+        btn.onclick = () => simplifyParagraph(btn, p.textContent);
         wrapper.appendChild(btn);
 
         bookContent.appendChild(wrapper);
@@ -254,68 +313,36 @@ function renderParagraphs(text) {
     });
 }
 
-function simplifyParagraph(btn, text, wrapper) {
+// --- Simplify paragraph -> show in modal ---
+function simplifyParagraph(btn, text) {
     if (btn.classList.contains('loading')) return;
-
-    const existing = wrapper.querySelector('.simplified-text');
-    if (existing) { existing.remove(); btn.textContent = 'Convert To Simple English'; return; }
-
     btn.classList.add('loading');
     btn.textContent = 'Converting...';
 
-    const resultDiv = document.createElement('div');
-    resultDiv.className = 'simplified-text';
-    wrapper.appendChild(resultDiv);
+    const result = document.getElementById('simplify_result');
+    const loading = document.getElementById('simplify_loading');
 
-    const formData = new FormData();
-    formData.append('llm_query', `given <text>${text}</text>, convert it to very simple English words, no explanation, no extra words`);
+    result.textContent = '';
+    loading.style.display = 'block';
 
-    fetch('', { method: 'POST', body: formData })
-        .then(response => {
-            const reader = response.body.getReader();
-            const decoder = new TextDecoder();
+    const saved = localStorage.getItem('simplify_modal_pos');
+    if (saved) {
+        const pos = JSON.parse(saved);
+        simplifyModal.style.left = pos.left + 'px';
+        simplifyModal.style.top = pos.top + 'px';
+    }
+    simplifyModal.style.display = 'flex';
 
-            function read() {
-                reader.read().then(({ done, value }) => {
-                    if (done) {
-                        btn.classList.remove('loading');
-                        btn.textContent = 'Hide Simple';
-                        return;
-                    }
-                    const chunk = decoder.decode(value, { stream: true });
-                    const lines = chunk.split('\n').filter(Boolean);
-                    for (const line of lines) {
-                        try {
-                            const json = JSON.parse(line);
-                            if (json.response) resultDiv.textContent += json.response;
-                        } catch (e) {}
-                    }
-                    read();
-                });
-            }
-            read();
-        })
-        .catch(err => {
-            btn.classList.remove('loading');
-            btn.textContent = 'Convert To Simple English';
-            resultDiv.textContent = 'Error: ' + err.message;
-        });
+    const prompt = `given <text>${text}</text>, convert it to a version that use very simple English words, show me the converted result only, no explanation, no extra words`;
+
+    streamLLM(prompt, result, loading, () => {
+        btn.classList.remove('loading');
+        btn.textContent = 'Convert To Simple English';
+    });
 }
 
-function showModal(word, question) {
-    modalWord.textContent = word;
-    modalResult.textContent = '';
-    loadingIndicator.style.display = 'block';
-
-    const savedPos = localStorage.getItem('modal_pos');
-    if (savedPos) {
-        const pos = JSON.parse(savedPos);
-        modal.style.left = pos.left + 'px';
-        modal.style.top = pos.top + 'px';
-    }
-
-    modal.style.display = 'flex';
-
+// --- Shared streaming LLM helper ---
+function streamLLM(question, resultEl, loadingEl, onDone) {
     const formData = new FormData();
     formData.append('llm_query', question);
 
@@ -323,19 +350,17 @@ function showModal(word, question) {
         .then(response => {
             const reader = response.body.getReader();
             const decoder = new TextDecoder();
-            loadingIndicator.style.display = 'none';
+            if (loadingEl) loadingEl.style.display = 'none';
 
             function read() {
                 reader.read().then(({ done, value }) => {
-                    if (done) return;
+                    if (done) { if (onDone) onDone(); return; }
                     const chunk = decoder.decode(value, { stream: true });
                     const lines = chunk.split('\n').filter(Boolean);
                     for (const line of lines) {
                         try {
                             const json = JSON.parse(line);
-                            if (json.response) {
-                                modalResult.textContent += json.response;
-                            }
+                            if (json.response) resultEl.textContent += json.response;
                         } catch (e) {}
                     }
                     read();
@@ -344,36 +369,11 @@ function showModal(word, question) {
             read();
         })
         .catch(err => {
-            loadingIndicator.style.display = 'none';
-            modalResult.textContent = 'Error: ' + err.message;
+            if (loadingEl) loadingEl.style.display = 'none';
+            resultEl.textContent = 'Error: ' + err.message;
+            if (onDone) onDone();
         });
 }
-
-function closeModal() {
-    modal.style.display = 'none';
-}
-
-let isDragging = false, dragOffsetX, dragOffsetY;
-modalHeader.addEventListener('mousedown', function(e) {
-    isDragging = true;
-    dragOffsetX = e.clientX - modal.offsetLeft;
-    dragOffsetY = e.clientY - modal.offsetTop;
-    e.preventDefault();
-});
-document.addEventListener('mousemove', function(e) {
-    if (!isDragging) return;
-    modal.style.left = (e.clientX - dragOffsetX) + 'px';
-    modal.style.top = (e.clientY - dragOffsetY) + 'px';
-});
-document.addEventListener('mouseup', function() {
-    if (isDragging) {
-        isDragging = false;
-        localStorage.setItem('modal_pos', JSON.stringify({
-            left: modal.offsetLeft,
-            top: modal.offsetTop
-        }));
-    }
-});
 </script>
 </body>
 </html>
