@@ -1,30 +1,24 @@
-1. index.php is a single PHP file (no other PHP files exist)
-2. PHP backend: action=fetch_book endpoint fetches content from a URL using curl
-3. PHP backend: fetched content is stripped of HTML tags (strip_tags) - returns pure text only
-4. PHP backend: action=llm_stream endpoint streams LLM responses from 127.0.0.1:11434
-5. PHP backend: LLM uses model "gemma3:latest" with streaming enabled
-6. Layout: Header div has background color BurlyWood
-7. Layout: Header contains a textbox (input) with id "book_url"
-8. Layout: Below header is a div with id "book_content"
-9. div#book_content has background color "wheat"
-10. div#book_content has line-height: 1.4
-11. div#book_content innerHTML is completely empty before book content is loaded
-12. Textbox: pressing Enter triggers book loading
-13. Textbox: on Enter, book_content shows "Loading..." text
-14. After loading, book content is split into HTML paragraphs (<p> elements)
-15. After loading, paragraphs contain only pure text (no HTML tags in content)
-16. Text selection (highlighting words) in book_content shows a modal with translation
-17. Highlighted text modal: sends context (30 words before + selected text + 30 words after) to LLM
-18. Highlighted text modal prompt: "show the meaning of {text} using very simple English words, no explanation, no extra words"
-19. Modal is a popup with draggable behavior (mousedown on header to drag)
-20. Modal remembers its last position (stored in modalPositions object)
-21. Each paragraph has a "Convert to Simple English" button appended at the end
-22. Convert button has background color: gold
-23. Convert button is only shown when its paragraph is visible (IntersectionObserver)
-24. Convert button click: sends paragraph text to LLM with conversion prompt
-25. Convert button prompt: "convert it to a version that use very simple English words, show me the converted result only, no explanation, no extra words"
-26. Simple English conversion result displays in a modal with wheat background
-27. LLM streaming: responses are streamed and displayed incrementally in modal body
-28. Modal has vertical scrolling for content (overflow-y: auto)
-29. Modal has a close button (x) that hides the modal
-30. Modal body uses white-space: pre-wrap for proper text formatting
+1. [x] Single PHP file (index.php) - only one PHP file exists
+2. [x] URL text input with BurlyWood background bar
+3. [x] On Enter key press, shows "Loading..." then fetches book content via PHP
+4. [x] PHP backend strips all HTML tags (strip_tags) returning pure text content
+5. [x] book_content div has wheat background
+6. [x] book_content innerHTML is completely empty before content loads
+7. [x] After loading, content contains only pure text (no HTML tags from source)
+8. [x] Book content is split into HTML paragraphs
+9. [x] line-height: 1.4 on book_content
+10. [x] Highlighted/selected words trigger a modal showing word meaning
+11. [x] Word meaning modal uses context (30 words before + selected text + 30 words after)
+12. [x] Word meaning prompt: "show the meaning of {text} using very simple English words, no explanation, no extra words"
+13. [x] LLM calls use streaming (Ollama at 127.0.0.1:11434, model gemma3:latest)
+14. [x] Each paragraph has a "Convert to Simple English" button
+15. [x] Convert button appears only when paragraph is visible (IntersectionObserver)
+16. [x] Convert button is appended at the end of the paragraph (inside it, not below)
+17. [x] Convert button has gold background
+18. [x] Convert button text: "Convert to Simple English"
+19. [x] Convert click sends paragraph text to LLM with proper prompt
+20. [x] Simple English result shown in a modal with wheat background
+21. [x] All modals are draggable
+22. [x] All modals remember their last position (localStorage)
+23. [x] LLM streaming displays response progressively in modal body
+24. [x] Modal has vertical scrolling for content overflow
