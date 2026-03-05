@@ -1,21 +1,10 @@
 class TestManager
 {
   run() {
-    please run the following checks, if any one of the check does not pass, return false, if they all passed, return true 
+    let code_check_items = (
+    - think hard and thoroughly on AppSpec, examine {AppSpec.app_entrypoint}, return a list of check items that we need to make sure all requirements in the AppSpec are met
+    )
 
-    checks {
-      examine the code at {AppSpec.app_entrypoint} {
-        - it should use Config.local_llm to send prompt
-        - check if the details in Config.local_llm are reflected in {AppSpec.app_entrypoint}
-        - after entering a book url and press enter key, a message "Loading..." should appear in div.book_content, the background of the holder of the message should be the same as the background of div.book_content
-      }
-
-      use puppeteer to test the web UI, enter the book url: "https://www.gutenberg.org/cache/epub/100/pg100.txt" and press enter key {
-        examine div.book_content, it should contain only text, not html
-        after button "Convert to Simple English" is clicked {
-          the corresponding modal should contain the simple english content of the related paragraph
-        }
-      }
-    }
+    run the list of {code_check_items}, if any one of the item does not pass, return false, if they all passed, return true 
   }
 }

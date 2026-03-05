@@ -14,6 +14,7 @@ class BaseAppSpec {
   textbox.book_url {
     value = ""
     @key.enter {
+      book_content = "Loading..."
       let book_url = value
       let book_content = (use php to read the file content from {book_url}, make sure it returns only the pure content)
     }
@@ -22,6 +23,7 @@ class BaseAppSpec {
   div.book_content {
     behavior {
       before the {book_content} is loaded into it, the inner html should be completely empty
+      after {book_content} is loaded, the inner html should contain only pure text, it should not have any html tags
       split {book_content} into html paragraphs
     }
     style {

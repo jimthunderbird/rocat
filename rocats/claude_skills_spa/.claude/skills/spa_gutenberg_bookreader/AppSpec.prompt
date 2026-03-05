@@ -1,21 +1,5 @@
 class AppSpec extends BaseAppSpec {
   init() {
-    constraint {
-      - there should be only one single php file, {app_entrypoint}, no other php files should be generated
-      - after {app_entrypoint} is generated {
-        
-        loop {
-          let test_result = TestManager.run()
-          if (test_result is false) {
-            fix {app_entrypoint}
-            continue
-          } else {
-            break
-          }
-        }
-      }
-    }
-
     div.book_content.style.background: "wheat"
 
     layout {
@@ -41,6 +25,9 @@ class AppSpec extends BaseAppSpec {
             behavior: show when {paragraph} is visible
             params: paragraph.text
             position: append at the end of the {paragraph} instead of below it
+            style {
+              background: gold
+            }
           }
         }
       }
