@@ -1,0 +1,21 @@
+1. [ ] Page loads with empty book content area and a URL input field
+2. [ ] URL input bar has BurlyWood background color
+3. [ ] Book content area has wheat background color
+4. [ ] Entering a Gutenberg URL and pressing Enter shows "Loading..." text
+5. [ ] After loading completes, book content displays as plain text paragraphs (no HTML tags)
+6. [ ] Book content has line-height of 1.4
+7. [ ] Each paragraph contains a "Convert to Simple English" button at the end
+8. [ ] Convert buttons have gold background
+9. [ ] Convert buttons are hidden when paragraph is not in viewport
+10. [ ] Convert buttons become visible when paragraph scrolls into viewport
+11. [ ] Selecting/highlighting text in book content opens a word meaning modal
+12. [ ] Word meaning modal streams LLM response progressively
+13. [ ] Word meaning modal is draggable by its header
+14. [ ] Word meaning modal can be closed via the X button
+15. [ ] Clicking "Convert to Simple English" opens a modal with wheat background
+16. [ ] Simple English modal streams LLM response progressively
+17. [ ] Simple English modal is draggable by its header
+18. [ ] Modal positions are saved to localStorage after dragging
+19. [ ] Modal positions are restored from localStorage when reopened
+20. [ ] Modal body has vertical scrolling for overflow content
+21. [ ] LLM requests use streaming to Ollama at 127.0.0.1:11434 with gemma3:latest model

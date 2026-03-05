@@ -27,7 +27,8 @@ class TestManager
     if any one of the item in {code_check_items} does not pass, return false, if they all passed, return true 
 
     let e2e_check_items = (get list of items from ./e2e_check_items.txt)
-    if any one of the item in {e2e_check_items} does not pass, return false, if they all passed, return true 
+    use puppeteer to perform E2E testing on all items in {e2e_check_items}
+    if any one of the items does not pass, return false, if they all passed, return true 
 
   }
 }
