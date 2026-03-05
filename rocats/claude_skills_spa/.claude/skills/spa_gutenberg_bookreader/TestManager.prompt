@@ -1,9 +1,16 @@
 class TestManager
 {
   run() {
-    let code_check_items = (
-    - think hard and thoroughly on AppSpec, examine {AppSpec.app_entrypoint}, return a list of check items that we need to make sure all requirements in the AppSpec are met
-    )
+    do a git status check, if any one of the .md files are changed {
+      if ./code_check_items.txt does not exist yet {
+        let code_check_items = (
+        - think hard and thoroughly on AppSpec, examine {AppSpec.app_entrypoint}, return a very detail list of check items that we need to make sure all requirements in the AppSpec are met
+        )
+        save {code_check_items} to ./code_check_items.txt
+      }
+    }
+
+    let code_check_items = (get list of code check items from ./code_check_items.txt)
 
     run the list of {code_check_items}, if any one of the item does not pass, return false, if they all passed, return true 
   }
