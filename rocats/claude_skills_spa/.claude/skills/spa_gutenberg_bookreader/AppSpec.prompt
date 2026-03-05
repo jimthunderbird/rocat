@@ -1,7 +1,13 @@
 class AppSpec extends BaseAppSpec {
   init() {
     constraint {
-      there should be only one single php file, {app_entrypoint}, no other php files should be generated
+      - there should be only one single php file, {app_entrypoint}, no other php files should be generated
+      - after {app_entrypoint} is generated or modified {
+        let test_result = TestManager.run()
+        if (test_result is false) {
+          rerurn AppSpec.init()
+        }
+      }
     }
 
     div.book_content.style.background: "wheat"

@@ -1,0 +1,14 @@
+class TestManager
+{
+  run() {
+    examine the code at {BaseAppSpec.app_entrypoint} {
+      - it should use Config.local_llm to send prompt, otherwise, return false
+    }
+
+    in browser UI, enter the book url: "https://www.gutenberg.org/cache/epub/100/pg100.txt" and hit enter{
+      examine div.book_content, it should contain only text, if it has html, return false  
+    }
+
+    return true
+  }
+}
