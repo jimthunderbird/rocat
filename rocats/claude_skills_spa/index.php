@@ -1,50 +1,56 @@
 <?php
-// API endpoint: fetch book content
-if (isset($_GET['action']) && $_GET['action'] === 'fetch_book') {
-    header('Content-Type: text/plain; charset=utf-8');
-    $url = $_GET['url'] ?? '';
-    if (empty($url)) {
-        http_response_code(400);
-        echo 'No URL provided';
+// API endpoints
+if (isset($_GET['action'])) {
+    header('Content-Type: application/json');
+
+    if ($_GET['action'] === 'fetch_book') {
+        $url = $_GET['url'] ?? '';
+        if (!preg_match('#^https://www\.gutenberg\.org/#', $url)) {
+            http_response_code(400);
+            echo json_encode(['error' => 'Invalid Gutenberg URL']);
+            exit;
+        }
+        $text = file_get_contents($url);
+        if ($text === false) {
+            http_response_code(500);
+            echo json_encode(['error' => 'Failed to fetch book']);
+            exit;
+        }
+        echo json_encode(['text' => $text]);
         exit;
     }
-    $content = @file_get_contents($url);
-    if ($content === false) {
-        http_response_code(500);
-        echo 'Failed to fetch content';
+
+    if ($_GET['action'] === 'llm') {
+        header('Content-Type: text/event-stream');
+        header('Cache-Control: no-cache');
+        header('Connection: keep-alive');
+
+        $input = json_decode(file_get_contents('php://input'), true);
+        $prompt = $input['prompt'] ?? '';
+
+        $ch = curl_init('http://127.0.0.1:11434/api/generate');
+        curl_setopt_array($ch, [
+            CURLOPT_POST => true,
+            CURLOPT_POSTFIELDS => json_encode([
+                'model' => 'gemma3:latest',
+                'prompt' => $prompt,
+                'stream' => true
+            ]),
+            CURLOPT_HTTPHEADER => ['Content-Type: application/json'],
+            CURLOPT_WRITEFUNCTION => function ($ch, $data) {
+                echo $data;
+                ob_flush();
+                flush();
+                return strlen($data);
+            },
+        ]);
+        curl_exec($ch);
+        curl_close($ch);
         exit;
     }
-    // Strip any HTML tags to return pure text content
-    $content = strip_tags($content);
-    echo $content;
-    exit;
-}
 
-// API endpoint: stream LLM response via Ollama
-if (isset($_GET['action']) && $_GET['action'] === 'llm') {
-    header('Content-Type: text/event-stream');
-    header('Cache-Control: no-cache');
-    header('Connection: keep-alive');
-
-    $input = json_decode(file_get_contents('php://input'), true);
-    $prompt = $input['prompt'] ?? '';
-
-    $ch = curl_init('http://127.0.0.1:11434/api/generate');
-    curl_setopt($ch, CURLOPT_POST, true);
-    curl_setopt($ch, CURLOPT_POSTFIELDS, json_encode([
-        'model' => 'gemma3:latest',
-        'prompt' => $prompt,
-        'stream' => true
-    ]));
-    curl_setopt($ch, CURLOPT_HTTPHEADER, ['Content-Type: application/json']);
-    curl_setopt($ch, CURLOPT_WRITEFUNCTION, function($ch, $data) {
-        echo $data;
-        ob_flush();
-        flush();
-        return strlen($data);
-    });
-    curl_exec($ch);
-    curl_close($ch);
+    http_response_code(404);
+    echo json_encode(['error' => 'Unknown action']);
     exit;
 }
 ?>
@@ -56,303 +62,267 @@ if (isset($_GET['action']) && $_GET['action'] === 'llm') {
 <title>Gutenberg Book Reader</title>
 <style>
 * { margin: 0; padding: 0; box-sizing: border-box; }
-body { font-family: Georgia, serif; min-height: 100vh; }
+body { font-family: Georgia, serif; min-height: 100vh; display: flex; flex-direction: column; }
 
-.url-bar {
+.header {
     background: BurlyWood;
     padding: 12px 20px;
-    position: sticky;
-    top: 0;
-    z-index: 10;
+    display: flex;
+    align-items: center;
+    gap: 10px;
 }
-.url-bar input {
-    width: 100%;
-    padding: 10px 14px;
-    font-size: 16px;
-    border: 1px solid #8b7355;
+.header label { font-weight: bold; white-space: nowrap; }
+.header input {
+    flex: 1;
+    padding: 8px 12px;
+    font-size: 14px;
+    border: 1px solid #997755;
     border-radius: 4px;
-    outline: none;
 }
-.url-bar input:focus { border-color: #5a4a35; }
 
-.book-content {
+.book_content {
     background: wheat;
-    min-height: calc(100vh - 60px);
-    padding: 30px 60px;
-    line-height: 1.4;
-    font-size: 17px;
-    color: #333;
+    flex: 1;
+    padding: 20px 40px;
+    line-height: 1.8;
+    font-size: 16px;
+    word-wrap: break-word;
 }
-.book-content p {
+.book_content .loading {
+    background: wheat;
+    padding: 20px;
+    font-style: italic;
+    color: #666;
+}
+
+.book_content .paragraph {
     margin-bottom: 1em;
     position: relative;
 }
 
-.convert-btn {
-    display: inline;
+.btn-simple {
+    display: none;
     margin-left: 8px;
     padding: 2px 8px;
     font-size: 12px;
-    background: #d2b48c;
-    border: 1px solid #8b7355;
+    background: BurlyWood;
+    border: 1px solid #997755;
     border-radius: 3px;
     cursor: pointer;
-    color: #333;
-    opacity: 0;
-    transition: opacity 0.3s;
+    vertical-align: middle;
 }
-.convert-btn.visible { opacity: 1; }
-.convert-btn:hover { background: #c4a57b; }
+.btn-simple:hover { background: #d2a86e; }
 
-/* Modal styles */
+/* Modal */
 .modal-overlay {
     display: none;
     position: fixed;
     top: 0; left: 0; right: 0; bottom: 0;
-    z-index: 100;
-}
-.modal {
-    position: fixed;
-    min-width: 300px;
-    max-width: 500px;
-    max-height: 400px;
-    background: white;
-    border: 1px solid #8b7355;
-    border-radius: 6px;
-    box-shadow: 0 4px 20px rgba(0,0,0,0.3);
-    z-index: 101;
-    display: flex;
-    flex-direction: column;
-}
-.modal.simple-english { background: wheat; }
-.modal-header {
-    padding: 8px 12px;
-    background: BurlyWood;
-    border-radius: 6px 6px 0 0;
-    cursor: move;
-    display: flex;
-    justify-content: space-between;
+    background: rgba(0,0,0,0.5);
+    z-index: 1000;
+    justify-content: center;
     align-items: center;
-    font-weight: bold;
-    font-size: 14px;
-    user-select: none;
 }
-.modal-close {
-    cursor: pointer;
-    font-size: 18px;
-    line-height: 1;
-    padding: 0 4px;
-}
-.modal-close:hover { color: #c00; }
-.modal-body {
-    padding: 14px;
+.modal-overlay.active { display: flex; }
+.modal {
+    background: white;
+    border-radius: 8px;
+    padding: 20px;
+    max-width: 600px;
+    width: 90%;
+    max-height: 80vh;
     overflow-y: auto;
-    flex: 1;
-    font-size: 15px;
-    line-height: 1.5;
+    position: relative;
 }
-
-.loading { color: #888; font-style: italic; }
+.modal h3 { margin-bottom: 10px; }
+.modal .close-btn {
+    position: absolute;
+    top: 10px;
+    right: 15px;
+    font-size: 20px;
+    cursor: pointer;
+    background: none;
+    border: none;
+}
+.modal .content { white-space: pre-wrap; line-height: 1.6; }
 </style>
 </head>
 <body>
 
-<div class="url-bar">
-    <input type="text" id="bookUrl" placeholder="Enter Gutenberg book URL (e.g. https://www.gutenberg.org/cache/epub/100/pg100.txt) and press Enter" value="">
+<div class="header">
+    <label for="book_url">Book URL:</label>
+    <input type="text" id="book_url" placeholder="https://www.gutenberg.org/cache/epub/100/pg100.txt">
 </div>
 
-<div class="book-content" id="bookContent"></div>
+<div class="book_content" id="book_content"></div>
 
-<!-- Translation Modal -->
-<div class="modal" id="translationModal" style="display:none; top:100px; left:100px;">
-    <div class="modal-header">
-        <span>Word Meaning</span>
-        <span class="modal-close" onclick="closeModal('translationModal')">&times;</span>
+<div class="modal-overlay" id="modal_overlay">
+    <div class="modal">
+        <button class="close-btn" id="modal_close">&times;</button>
+        <h3 id="modal_title"></h3>
+        <div class="content" id="modal_content"></div>
     </div>
-    <div class="modal-body" id="translationBody"></div>
-</div>
-
-<!-- Simple English Modal -->
-<div class="modal simple-english" id="simpleEnglishModal" style="display:none; top:150px; left:150px;">
-    <div class="modal-header">
-        <span>Simple English</span>
-        <span class="modal-close" onclick="closeModal('simpleEnglishModal')">&times;</span>
-    </div>
-    <div class="modal-body" id="simpleEnglishBody"></div>
 </div>
 
 <script>
-// Modal drag functionality
-const modalPositions = {};
+const bookUrl = document.getElementById('book_url');
+const bookContent = document.getElementById('book_content');
+const modalOverlay = document.getElementById('modal_overlay');
+const modalTitle = document.getElementById('modal_title');
+const modalContent = document.getElementById('modal_content');
+const modalClose = document.getElementById('modal_close');
 
-function initDrag(modal) {
-    const header = modal.querySelector('.modal-header');
-    let isDragging = false, startX, startY, startLeft, startTop;
-
-    header.addEventListener('mousedown', (e) => {
-        if (e.target.classList.contains('modal-close')) return;
-        isDragging = true;
-        startX = e.clientX;
-        startY = e.clientY;
-        startLeft = modal.offsetLeft;
-        startTop = modal.offsetTop;
-        e.preventDefault();
-    });
-
-    document.addEventListener('mousemove', (e) => {
-        if (!isDragging) return;
-        modal.style.left = (startLeft + e.clientX - startX) + 'px';
-        modal.style.top = (startTop + e.clientY - startY) + 'px';
-    });
-
-    document.addEventListener('mouseup', () => {
-        if (isDragging) {
-            isDragging = false;
-            modalPositions[modal.id] = { left: modal.style.left, top: modal.style.top };
-        }
-    });
-}
-
-function showModal(id) {
-    const modal = document.getElementById(id);
-    if (modalPositions[id]) {
-        modal.style.left = modalPositions[id].left;
-        modal.style.top = modalPositions[id].top;
-    }
-    modal.style.display = 'flex';
-}
-
-function closeModal(id) {
-    document.getElementById(id).style.display = 'none';
-}
-
-// Initialize draggable modals
-initDrag(document.getElementById('translationModal'));
-initDrag(document.getElementById('simpleEnglishModal'));
-
-// Stream LLM response
-async function streamLLM(prompt, targetElement) {
-    targetElement.innerHTML = '<span class="loading">Thinking...</span>';
-
-    const response = await fetch('?action=llm', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ prompt })
-    });
-
-    targetElement.innerHTML = '';
-    const reader = response.body.getReader();
-    const decoder = new TextDecoder();
-    let buffer = '';
-
-    while (true) {
-        const { done, value } = await reader.read();
-        if (done) break;
-        buffer += decoder.decode(value, { stream: true });
-
-        const lines = buffer.split('\n');
-        buffer = lines.pop();
-
-        for (const line of lines) {
-            if (!line.trim()) continue;
-            try {
-                const json = JSON.parse(line);
-                if (json.response) {
-                    targetElement.textContent += json.response;
-                }
-            } catch(e) {}
-        }
-    }
-    // Process remaining buffer
-    if (buffer.trim()) {
-        try {
-            const json = JSON.parse(buffer);
-            if (json.response) {
-                targetElement.textContent += json.response;
-            }
-        } catch(e) {}
-    }
-}
-
-// Handle highlighted text translation
-document.getElementById('bookContent').addEventListener('mouseup', () => {
-    const selection = window.getSelection();
-    const selectedText = selection.toString().trim();
-    if (!selectedText || selectedText.length === 0) return;
-
-    // Get context: 30 words before and after
-    const range = selection.getRangeAt(0);
-    const container = range.startContainer.parentElement.closest('p') || range.startContainer.parentElement;
-    const fullText = container.textContent;
-    const words = fullText.split(/\s+/);
-
-    // Find approximate position of selected text
-    const beforeText = fullText.substring(0, fullText.indexOf(selectedText));
-    const beforeWords = beforeText.split(/\s+/).filter(w => w);
-    const selWords = selectedText.split(/\s+/).filter(w => w);
-
-    const startIdx = Math.max(0, beforeWords.length - 30);
-    const endIdx = Math.min(words.length, beforeWords.length + selWords.length + 30);
-    const context = words.slice(startIdx, endIdx).join(' ');
-
-    const prompt = `in the context: ${context}, show the meaning of "${selectedText}" using very simple English words. no explanation, no extra words`;
-
-    showModal('translationModal');
-    streamLLM(prompt, document.getElementById('translationBody'));
+// Close modal
+modalClose.addEventListener('click', () => modalOverlay.classList.remove('active'));
+modalOverlay.addEventListener('click', (e) => {
+    if (e.target === modalOverlay) modalOverlay.classList.remove('active');
 });
 
-// Intersection observer for convert buttons visibility
-const observer = new IntersectionObserver((entries) => {
-    entries.forEach(entry => {
-        const btn = entry.target.querySelector('.convert-btn');
-        if (btn) {
-            btn.classList.toggle('visible', entry.isIntersecting);
-        }
-    });
-}, { threshold: 0.1 });
+// Load book on Enter
+bookUrl.addEventListener('keydown', (e) => {
+    if (e.key === 'Enter') loadBook(bookUrl.value.trim());
+});
 
-// Fetch and display book content
-document.getElementById('bookUrl').addEventListener('keydown', async (e) => {
-    if (e.key !== 'Enter') return;
-
-    const url = e.target.value.trim();
+async function loadBook(url) {
     if (!url) return;
-
-    const bookContent = document.getElementById('bookContent');
-    bookContent.innerHTML = '';
-    bookContent.innerHTML = '<p class="loading">Loading book content...</p>';
+    bookContent.innerHTML = '<div class="loading">Loading...</div>';
 
     try {
-        const response = await fetch(`?action=fetch_book&url=${encodeURIComponent(url)}`);
-        if (!response.ok) throw new Error('Failed to fetch');
-        const text = await response.text();
-
-        bookContent.innerHTML = '';
-
-        // Split into paragraphs by double newlines or single newlines with content
-        const paragraphs = text.split(/\n\s*\n/).filter(p => p.trim());
-
-        paragraphs.forEach(paraText => {
-            const p = document.createElement('p');
-            p.textContent = paraText.trim();
-
-            const btn = document.createElement('button');
-            btn.className = 'convert-btn';
-            btn.textContent = 'Convert to Simple English';
-            btn.addEventListener('click', () => {
-                const prompt = `given <text>${p.textContent.replace(btn.textContent, '').trim()}</text>, convert it to a version that use very simple English words, show me the converted result only, no explanation, no extra words`;
-                showModal('simpleEnglishModal');
-                streamLLM(prompt, document.getElementById('simpleEnglishBody'));
-            });
-
-            p.appendChild(btn);
-            bookContent.appendChild(p);
-            observer.observe(p);
-        });
+        const resp = await fetch('?action=fetch_book&url=' + encodeURIComponent(url));
+        const data = await resp.json();
+        if (data.error) {
+            bookContent.textContent = 'Error: ' + data.error;
+            return;
+        }
+        renderBook(data.text);
     } catch (err) {
-        bookContent.innerHTML = `<p style="color:red;">Error loading book: ${err.message}</p>`;
+        bookContent.textContent = 'Error loading book: ' + err.message;
     }
-});
+}
+
+function renderBook(text) {
+    bookContent.innerHTML = '';
+    // Normalize line endings and split on blank lines
+    const normalized = text.replace(/\r\n/g, '\n');
+    const paragraphs = normalized.split(/\n\n+/);
+
+    paragraphs.forEach((para) => {
+        const trimmed = para.trim();
+        if (!trimmed) return;
+
+        const div = document.createElement('div');
+        div.className = 'paragraph';
+        div.textContent = trimmed;
+
+        const btn = document.createElement('button');
+        btn.className = 'btn-simple';
+        btn.textContent = 'Convert to Simple English';
+        btn.addEventListener('click', () => convertToSimpleEnglish(trimmed, btn));
+        div.appendChild(btn);
+
+        bookContent.appendChild(div);
+    });
+
+    // Set up intersection observer to show/hide buttons
+    const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            const btn = entry.target.querySelector('.btn-simple');
+            if (btn) btn.style.display = entry.isIntersecting ? 'inline-block' : 'none';
+        });
+    }, { threshold: 0 });
+
+    bookContent.querySelectorAll('.paragraph').forEach(p => observer.observe(p));
+
+    // Fallback: show buttons for initially visible paragraphs
+    requestAnimationFrame(() => {
+        bookContent.querySelectorAll('.paragraph').forEach(p => {
+            const rect = p.getBoundingClientRect();
+            if (rect.top < window.innerHeight && rect.bottom > 0) {
+                const btn = p.querySelector('.btn-simple');
+                if (btn) btn.style.display = 'inline-block';
+            }
+        });
+    });
+
+    // Word selection for translation
+    bookContent.addEventListener('mouseup', handleWordSelection);
+}
+
+function handleWordSelection() {
+    const selection = window.getSelection();
+    const text = selection.toString().trim();
+    if (!text || text.includes(' ') === false && text.length < 1) return;
+    if (text.length > 200) return;
+
+    // Show translation modal
+    modalTitle.textContent = 'Translation';
+    modalContent.textContent = 'Translating...';
+    modalOverlay.classList.add('active');
+
+    streamLLM(
+        'Explain and translate the following highlighted words/phrase in simple English. Give a brief, clear explanation:\n\n"' + text + '"',
+        modalContent
+    );
+}
+
+async function convertToSimpleEnglish(paragraphText, btn) {
+    modalTitle.textContent = 'Simple English';
+    modalContent.textContent = 'Converting...';
+    modalOverlay.classList.add('active');
+
+    streamLLM(
+        'Rewrite the following paragraph in simple, easy-to-understand English. Keep the meaning but use simpler words and shorter sentences:\n\n' + paragraphText,
+        modalContent
+    );
+}
+
+async function streamLLM(prompt, targetEl) {
+    targetEl.textContent = '';
+
+    try {
+        const resp = await fetch('?action=llm', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ prompt })
+        });
+
+        const reader = resp.body.getReader();
+        const decoder = new TextDecoder();
+        let buffer = '';
+
+        while (true) {
+            const { done, value } = await reader.read();
+            if (done) break;
+
+            buffer += decoder.decode(value, { stream: true });
+            const lines = buffer.split('\n');
+            buffer = lines.pop();
+
+            for (const line of lines) {
+                if (!line.trim()) continue;
+                try {
+                    const json = JSON.parse(line);
+                    if (json.response) {
+                        targetEl.textContent += json.response;
+                    }
+                } catch (e) {}
+            }
+        }
+
+        // Process remaining buffer
+        if (buffer.trim()) {
+            try {
+                const json = JSON.parse(buffer);
+                if (json.response) {
+                    targetEl.textContent += json.response;
+                }
+            } catch (e) {}
+        }
+    } catch (err) {
+        targetEl.textContent = 'Error: ' + err.message;
+    }
+}
 </script>
+
 </body>
 </html>

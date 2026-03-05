@@ -2,10 +2,16 @@ class AppSpec extends BaseAppSpec {
   init() {
     constraint {
       - there should be only one single php file, {app_entrypoint}, no other php files should be generated
-      - after {app_entrypoint} is generated or modified {
-        let test_result = TestManager.run()
-        if (test_result is false) {
-          rerurn AppSpec.init()
+      - after {app_entrypoint} is generated {
+        
+        loop {
+          let test_result = TestManager.run()
+          if (test_result is false) {
+            fix {app_entrypoint}
+            continue
+          } else {
+            break
+          }
         }
       }
     }
@@ -27,7 +33,7 @@ class AppSpec extends BaseAppSpec {
       words.@highlighted {
         show modal.highlighted_words_translation(highlighted words)
       }
-  
+
       paragraphs.each (paragraph) {
         @load {
           add SimpleEnglishConversionButton {
