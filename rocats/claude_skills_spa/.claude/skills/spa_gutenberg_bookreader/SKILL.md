@@ -7,7 +7,7 @@ description: Single page app for reading books on Project Gutenberg
 - Objective: Create a single page web application based on ./AppSpec.prompt
 - Constraint:
   - There should be only one single php file, {AppSpec.app_entrypoint}, no other php files should be generated
-  - After {AppSpec.app_entrypoint} is generated
+  - After {AppSpec.app_entrypoint} is generated or updated
     - Perform a loop:
       - let test_result = TestManager.run()
       - if (test_result is false)
