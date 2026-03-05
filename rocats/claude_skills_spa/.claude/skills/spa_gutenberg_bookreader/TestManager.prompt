@@ -28,6 +28,7 @@ class TestManager
 
     let e2e_check_items = (get list of items from ./e2e_check_items.txt)
     use puppeteer to perform E2E testing on all items in {e2e_check_items}
+    the puppeteer script should be ./e2e_test.mjs
     if any one of the items does not pass, return false, if they all passed, return true 
 
   }

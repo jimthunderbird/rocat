@@ -205,7 +205,9 @@ function observeParagraphs() {
 }
 
 // Text selection -> word meaning modal
+let modalSuppressed = false;
 document.getElementById('book-content').addEventListener('mouseup', () => {
+    if (modalSuppressed) return;
     const sel = window.getSelection();
     const text = sel.toString().trim();
     if (!text) return;
@@ -260,7 +262,13 @@ function showStreamingModal(title, prompt, modalId, wheatBg) {
     document.body.appendChild(modal);
 
     const closeBtn = modal.querySelector('.close-btn');
-    closeBtn.addEventListener('click', () => modal.remove());
+    closeBtn.addEventListener('click', (e) => {
+        e.stopPropagation();
+        window.getSelection().removeAllRanges();
+        modalSuppressed = true;
+        modal.remove();
+        setTimeout(() => { modalSuppressed = false; }, 300);
+    });
 
     // Draggable
     const header = modal.querySelector('.modal-header');

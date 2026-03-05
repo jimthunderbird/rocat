@@ -9,7 +9,7 @@
 9. [x] line-height: 1.4 on book_content
 10. [x] Highlighted/selected words trigger a modal showing word meaning
 11. [x] Word meaning modal uses context (30 words before + selected text + 30 words after)
-12. [x] Word meaning prompt: "show the meaning of {text} using very simple English words, no explanation, no extra words"
+12. [x] Word meaning prompt: "show the meaning of {text} using very simple English words no explanation, no extra words"
 13. [x] LLM calls use streaming (Ollama at 127.0.0.1:11434, model gemma3:latest)
 14. [x] Each paragraph has a "Convert to Simple English" button
 15. [x] Convert button appears only when paragraph is visible (IntersectionObserver)
