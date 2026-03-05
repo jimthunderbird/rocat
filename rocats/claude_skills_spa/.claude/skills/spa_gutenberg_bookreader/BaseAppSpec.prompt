@@ -13,9 +13,14 @@ class BaseAppSpec {
 
   textbox.book_url {
     value = ""
+    @load {
+      read the very first entry from local storage key "book_history"
+      create key.enter event
+    }
     @key.enter {
       book_content = "Loading..."
       let book_url = value
+      append {book_url} to local storage key "book_history", make sure all entries in "book_history" are unqiue!
       let book_content = (use php to read the file content from {book_url}, make sure it returns only the pure content)
     }
   }

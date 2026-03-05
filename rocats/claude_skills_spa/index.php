@@ -1,44 +1,41 @@
 <?php
-// Handle AJAX requests
-if (isset($_GET['action'])) {
-    header('Content-Type: text/plain; charset=utf-8');
-
-    if ($_GET['action'] === 'fetch_book' && isset($_GET['url'])) {
-        $url = $_GET['url'];
-        $content = @file_get_contents($url);
-        if ($content === false) {
-            echo "Error: Could not fetch the book content.";
-        } else {
-            echo strip_tags($content);
-        }
+if (isset($_GET['fetch_url'])) {
+    $url = $_GET['fetch_url'];
+    $content = @file_get_contents($url);
+    if ($content === false) {
+        echo '';
+        exit;
     }
+    $content = strip_tags($content);
+    echo $content;
+    exit;
+}
 
-    if ($_GET['action'] === 'llm_stream') {
-        header('Content-Type: text/event-stream');
-        header('Cache-Control: no-cache');
+if (isset($_POST['llm_prompt'])) {
+    header('Content-Type: text/event-stream');
+    header('Cache-Control: no-cache');
+    header('Connection: keep-alive');
 
-        $prompt = $_POST['prompt'] ?? '';
-        $payload = json_encode([
-            'model' => 'gemma3:latest',
-            'prompt' => $prompt,
-            'stream' => true
-        ]);
+    $prompt = $_POST['llm_prompt'];
+    $payload = json_encode([
+        'model' => 'gemma3:latest',
+        'prompt' => $prompt,
+        'stream' => true
+    ]);
 
-        $ch = curl_init('http://127.0.0.1:11434/api/generate');
-        curl_setopt($ch, CURLOPT_POST, true);
-        curl_setopt($ch, CURLOPT_POSTFIELDS, $payload);
-        curl_setopt($ch, CURLOPT_HTTPHEADER, ['Content-Type: application/json']);
-        curl_setopt($ch, CURLOPT_RETURNTRANSFER, false);
-        curl_setopt($ch, CURLOPT_WRITEFUNCTION, function($ch, $data) {
-            echo $data;
-            ob_flush();
-            flush();
-            return strlen($data);
-        });
-
-        curl_exec($ch);
-        curl_close($ch);
-    }
+    $ch = curl_init('http://127.0.0.1:11434/api/generate');
+    curl_setopt($ch, CURLOPT_POST, true);
+    curl_setopt($ch, CURLOPT_POSTFIELDS, $payload);
+    curl_setopt($ch, CURLOPT_HTTPHEADER, ['Content-Type: application/json']);
+    curl_setopt($ch, CURLOPT_RETURNTRANSFER, false);
+    curl_setopt($ch, CURLOPT_WRITEFUNCTION, function($ch, $data) {
+        echo $data;
+        ob_flush();
+        flush();
+        return strlen($data);
+    });
+    curl_exec($ch);
+    curl_close($ch);
     exit;
 }
 ?>
@@ -50,73 +47,57 @@ if (isset($_GET['action'])) {
 <title>Gutenberg Book Reader</title>
 <style>
 * { margin: 0; padding: 0; box-sizing: border-box; }
-body { font-family: Georgia, serif; height: 100vh; display: flex; flex-direction: column; }
-
-.url-bar {
+body { font-family: Georgia, serif; }
+#url-bar {
     background: BurlyWood;
     padding: 10px;
-    display: flex;
-    align-items: center;
 }
-.url-bar input {
+#book-url {
     width: 100%;
-    padding: 8px 12px;
+    padding: 8px;
     font-size: 16px;
-    border: 1px solid #999;
-    border-radius: 4px;
 }
-
-.book_content {
+#book-content {
     background: wheat;
-    flex: 1;
-    overflow-y: auto;
-    padding: 20px 40px;
+    padding: 20px;
     line-height: 1.4;
-    font-size: 17px;
+    min-height: 80vh;
 }
-.book_content p {
+#book-content p {
     margin-bottom: 1em;
     position: relative;
 }
-
 .convert-btn {
     background: gold;
-    border: none;
+    border: 1px solid #999;
     padding: 2px 8px;
-    margin-left: 8px;
     cursor: pointer;
-    font-size: 13px;
-    border-radius: 3px;
+    font-size: 12px;
+    margin-left: 8px;
     display: none;
-    vertical-align: middle;
 }
 .convert-btn.visible {
     display: inline;
 }
-
 .modal-overlay {
     position: fixed;
     z-index: 1000;
     background: white;
-    border: 1px solid #666;
+    border: 2px solid #333;
     border-radius: 6px;
-    box-shadow: 0 4px 20px rgba(0,0,0,0.3);
     min-width: 300px;
     max-width: 500px;
-    max-height: 70vh;
-    display: flex;
-    flex-direction: column;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.3);
 }
 .modal-header {
-    background: #555;
+    background: #333;
     color: white;
     padding: 8px 12px;
+    cursor: move;
     display: flex;
     justify-content: space-between;
     align-items: center;
-    cursor: move;
-    border-radius: 6px 6px 0 0;
-    user-select: none;
+    border-radius: 4px 4px 0 0;
 }
 .modal-header .close-btn {
     background: none;
@@ -124,14 +105,11 @@ body { font-family: Georgia, serif; height: 100vh; display: flex; flex-direction
     color: white;
     font-size: 18px;
     cursor: pointer;
-    padding: 0 4px;
 }
 .modal-body {
     padding: 12px;
+    max-height: 300px;
     overflow-y: auto;
-    flex: 1;
-    white-space: pre-wrap;
-    font-size: 15px;
 }
 .modal-body.wheat-bg {
     background: wheat;
@@ -140,52 +118,71 @@ body { font-family: Georgia, serif; height: 100vh; display: flex; flex-direction
 </head>
 <body>
 
-<div class="url-bar">
-    <input type="text" id="bookUrl" placeholder="Enter Project Gutenberg book URL and press Enter..." value="">
+<div id="url-bar">
+    <input type="text" id="book-url" placeholder="Enter Gutenberg book URL and press Enter">
 </div>
-<div class="book_content" id="bookContent"></div>
+<div id="book-content"></div>
 
 <script>
-const LLM_HOST = '127.0.0.1:11434';
-const LLM_MODEL = 'gemma3:latest';
-const bookUrlInput = document.getElementById('bookUrl');
-const bookContent = document.getElementById('bookContent');
+const bookUrl = document.getElementById('book-url');
+const bookContent = document.getElementById('book-content');
 
-// URL input - Enter key handler
-bookUrlInput.addEventListener('keydown', async function(e) {
-    if (e.key === 'Enter') {
-        const url = this.value.trim();
-        if (!url) return;
+// localStorage book_history helpers
+function getBookHistory() {
+    try {
+        return JSON.parse(localStorage.getItem('book_history')) || [];
+    } catch { return []; }
+}
 
+function addToBookHistory(url) {
+    let history = getBookHistory();
+    if (!history.includes(url)) {
+        history.push(url);
+        localStorage.setItem('book_history', JSON.stringify(history));
+    }
+}
+
+// On load: read first entry from book_history and trigger enter
+window.addEventListener('DOMContentLoaded', () => {
+    const history = getBookHistory();
+    if (history.length > 0) {
+        bookUrl.value = history[0];
+        bookUrl.dispatchEvent(new KeyboardEvent('keydown', { key: 'Enter' }));
+    }
+});
+
+// Enter key to load book
+bookUrl.addEventListener('keydown', async (e) => {
+    if (e.key !== 'Enter') return;
+    const url = bookUrl.value.trim();
+    if (!url) return;
+
+    bookContent.innerHTML = '';
+    bookContent.textContent = 'Loading...';
+    addToBookHistory(url);
+
+    try {
+        const resp = await fetch('index.php?fetch_url=' + encodeURIComponent(url));
+        const text = await resp.text();
         bookContent.innerHTML = '';
-        bookContent.textContent = 'Loading...';
 
-        try {
-            const resp = await fetch('index.php?action=fetch_book&url=' + encodeURIComponent(url));
-            const text = await resp.text();
+        const paragraphs = text.split(/\n\s*\n/).filter(p => p.trim());
+        paragraphs.forEach(pText => {
+            const p = document.createElement('p');
+            p.textContent = pText.trim();
 
-            bookContent.innerHTML = '';
+            const btn = document.createElement('button');
+            btn.className = 'convert-btn';
+            btn.textContent = 'Convert to Simple English';
+            btn.addEventListener('click', () => convertToSimpleEnglish(pText.trim()));
+            p.appendChild(btn);
 
-            const paragraphs = text.split(/\n\s*\n/).filter(p => p.trim());
-            paragraphs.forEach(p => {
-                const pEl = document.createElement('p');
-                pEl.textContent = p.trim();
+            bookContent.appendChild(p);
+        });
 
-                const btn = document.createElement('button');
-                btn.className = 'convert-btn';
-                btn.textContent = 'Convert to Simple English';
-                btn.addEventListener('click', function() {
-                    convertToSimpleEnglish(pEl.firstChild.textContent || pEl.textContent.replace('Convert to Simple English', '').trim());
-                });
-                pEl.appendChild(btn);
-
-                bookContent.appendChild(pEl);
-            });
-
-            observeParagraphs();
-        } catch (err) {
-            bookContent.textContent = 'Error loading book: ' + err.message;
-        }
+        observeParagraphs();
+    } catch (err) {
+        bookContent.textContent = 'Error loading book.';
     }
 });
 
@@ -204,174 +201,128 @@ function observeParagraphs() {
         });
     }, { threshold: 0.1 });
 
-    document.querySelectorAll('.book_content p').forEach(p => observer.observe(p));
+    document.querySelectorAll('#book-content p').forEach(p => observer.observe(p));
 }
 
-// Text selection - highlighted words modal
-document.getElementById('bookContent').addEventListener('mouseup', function() {
-    const selection = window.getSelection();
-    const selectedText = selection.toString().trim();
-    if (!selectedText || selectedText.length < 1) return;
+// Text selection -> word meaning modal
+document.getElementById('book-content').addEventListener('mouseup', () => {
+    const sel = window.getSelection();
+    const text = sel.toString().trim();
+    if (!text) return;
 
-    // Get context: 30 words before and after
-    const range = selection.getRangeAt(0);
-    const container = range.startContainer.parentElement.closest('p') || range.startContainer.parentElement;
-    const fullText = container.textContent.replace('Convert to Simple English', '').trim();
+    const range = sel.getRangeAt(0);
+    const container = range.startContainer.parentElement;
+    if (!container.closest('#book-content')) return;
+
+    const pEl = container.closest('p');
+    if (!pEl) return;
+
+    const fullText = pEl.textContent;
     const words = fullText.split(/\s+/);
-    const selectedWords = selectedText.split(/\s+/);
+    const selStart = fullText.indexOf(text);
+    const before30 = fullText.substring(0, selStart).split(/\s+/).slice(-30).join(' ');
+    const after30 = fullText.substring(selStart + text.length).split(/\s+/).slice(0, 30).join(' ');
+    const context = before30 + ' ' + text + ' ' + after30;
 
-    // Find position of selected text in words
-    const fullTextBeforeSelection = fullText.substring(0, fullText.indexOf(selectedText));
-    const wordsBefore = fullTextBeforeSelection.trim().split(/\s+/).filter(w => w);
-    const startIdx = wordsBefore.length;
+    const prompt = `in the context: ${context}, show the meaning of ${text} using very simple English words no explanation, no extra words`;
 
-    const contextStart = Math.max(0, startIdx - 30);
-    const contextEnd = Math.min(words.length, startIdx + selectedWords.length + 30);
-    const context = words.slice(contextStart, contextEnd).join(' ');
-
-    const prompt = `in the context: ${context}, show the meaning of ${selectedText} using very simple English words, no explanation, no extra words`;
-
-    showStreamingModal('Word Meaning', prompt, 'word-meaning');
+    showStreamingModal('Word Meaning', prompt, 'meaning-modal', false);
 });
 
 // Convert to Simple English
-function convertToSimpleEnglish(text) {
-    const prompt = `given <text>${text}</text>, convert it to a version that use very simple English words, show me the converted result only, no explanation, no extra words`;
-    showStreamingModal('Simple English', prompt, 'simple-english-displayer', true);
+function convertToSimpleEnglish(paragraphText) {
+    const prompt = `given <text>${paragraphText}</text>, convert it to a version that use very simple English words, show me the converted result only, no explanation, no extra words`;
+    showStreamingModal('Simple English', prompt, 'simple-english-modal', true);
 }
 
-// Modal system
-function showStreamingModal(title, prompt, modalId, wheatBg = false) {
-    // Remove existing modal with same id
-    const existing = document.getElementById(modalId);
-    if (existing) existing.remove();
+// Modal creation with streaming LLM
+function showStreamingModal(title, prompt, modalId, wheatBg) {
+    // Restore saved position
+    let savedPos = null;
+    try {
+        savedPos = JSON.parse(localStorage.getItem('modal_pos_' + modalId));
+    } catch {}
 
     const modal = document.createElement('div');
     modal.className = 'modal-overlay';
-    modal.id = modalId;
+    modal.style.left = savedPos ? savedPos.x + 'px' : '50%';
+    modal.style.top = savedPos ? savedPos.y + 'px' : '20%';
+    if (!savedPos) modal.style.transform = 'translateX(-50%)';
 
-    // Restore saved position
-    const allPositions = JSON.parse(localStorage.getItem('modalPositions') || '{}');
-    if (allPositions[modalId]) {
-        const pos = allPositions[modalId];
-        modal.style.left = pos.left + 'px';
-        modal.style.top = pos.top + 'px';
-    } else {
-        modal.style.left = '50%';
-        modal.style.top = '20%';
-        modal.style.transform = 'translate(-50%, 0)';
-    }
+    modal.innerHTML = `
+        <div class="modal-header">
+            <span>${title}</span>
+            <button class="close-btn">&times;</button>
+        </div>
+        <div class="modal-body ${wheatBg ? 'wheat-bg' : ''}"></div>
+    `;
 
-    const header = document.createElement('div');
-    header.className = 'modal-header';
-    header.innerHTML = `<span>${title}</span>`;
-
-    const closeBtn = document.createElement('button');
-    closeBtn.className = 'close-btn';
-    closeBtn.textContent = '\u00D7';
-    closeBtn.onclick = () => modal.remove();
-    header.appendChild(closeBtn);
-
-    const body = document.createElement('div');
-    body.className = 'modal-body' + (wheatBg ? ' wheat-bg' : '');
-    body.textContent = 'Loading...';
-
-    modal.appendChild(header);
-    modal.appendChild(body);
     document.body.appendChild(modal);
 
-    // Make draggable
-    makeDraggable(modal, header, modalId);
+    const closeBtn = modal.querySelector('.close-btn');
+    closeBtn.addEventListener('click', () => modal.remove());
 
-    // Stream LLM response
-    streamLLM(prompt, body);
-}
+    // Draggable
+    const header = modal.querySelector('.modal-header');
+    let isDragging = false, dragX, dragY;
 
-function makeDraggable(modal, handle, modalId) {
-    let isDragging = false, startX, startY, startLeft, startTop;
-
-    handle.addEventListener('mousedown', function(e) {
+    header.addEventListener('mousedown', (e) => {
         isDragging = true;
-        // Remove transform if set
-        if (modal.style.transform) {
-            const rect = modal.getBoundingClientRect();
-            modal.style.left = rect.left + 'px';
-            modal.style.top = rect.top + 'px';
-            modal.style.transform = '';
-        }
-        startX = e.clientX;
-        startY = e.clientY;
-        startLeft = parseInt(modal.style.left);
-        startTop = parseInt(modal.style.top);
-        e.preventDefault();
+        const rect = modal.getBoundingClientRect();
+        dragX = e.clientX - rect.left;
+        dragY = e.clientY - rect.top;
+        modal.style.transform = 'none';
     });
 
-    document.addEventListener('mousemove', function(e) {
+    document.addEventListener('mousemove', (e) => {
         if (!isDragging) return;
-        modal.style.left = (startLeft + e.clientX - startX) + 'px';
-        modal.style.top = (startTop + e.clientY - startY) + 'px';
+        modal.style.left = (e.clientX - dragX) + 'px';
+        modal.style.top = (e.clientY - dragY) + 'px';
     });
 
-    document.addEventListener('mouseup', function() {
+    document.addEventListener('mouseup', () => {
         if (isDragging) {
             isDragging = false;
-            // Save position
-            const positions = JSON.parse(localStorage.getItem('modalPositions') || '{}');
-            positions[modalId] = { left: parseInt(modal.style.left), top: parseInt(modal.style.top) };
-            localStorage.setItem('modalPositions', JSON.stringify(positions));
+            const rect = modal.getBoundingClientRect();
+            localStorage.setItem('modal_pos_' + modalId, JSON.stringify({ x: rect.left, y: rect.top }));
         }
     });
-}
 
-async function streamLLM(prompt, targetEl) {
-    targetEl.textContent = '';
+    // Stream LLM response
+    const body = modal.querySelector('.modal-body');
+    body.textContent = 'Thinking...';
 
-    try {
-        const resp = await fetch('index.php?action=llm_stream', {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
-            body: 'prompt=' + encodeURIComponent(prompt)
-        });
+    const formData = new FormData();
+    formData.append('llm_prompt', prompt);
 
-        const reader = resp.body.getReader();
-        const decoder = new TextDecoder();
-        let buffer = '';
+    fetch('index.php', { method: 'POST', body: formData })
+        .then(response => {
+            const reader = response.body.getReader();
+            const decoder = new TextDecoder();
+            body.textContent = '';
 
-        while (true) {
-            const { done, value } = await reader.read();
-            if (done) break;
-
-            buffer += decoder.decode(value, { stream: true });
-
-            // Parse NDJSON lines from Ollama
-            const lines = buffer.split('\n');
-            buffer = lines.pop(); // keep incomplete line
-
-            for (const line of lines) {
-                if (!line.trim()) continue;
-                try {
-                    const json = JSON.parse(line);
-                    if (json.response) {
-                        targetEl.textContent += json.response;
-                        // Auto-scroll to bottom
-                        targetEl.scrollTop = targetEl.scrollHeight;
-                    }
-                } catch (e) {}
+            function read() {
+                reader.read().then(({ done, value }) => {
+                    if (done) return;
+                    const chunk = decoder.decode(value, { stream: true });
+                    const lines = chunk.split('\n').filter(l => l.trim());
+                    lines.forEach(line => {
+                        try {
+                            const json = JSON.parse(line);
+                            if (json.response) {
+                                body.textContent += json.response;
+                                body.scrollTop = body.scrollHeight;
+                            }
+                        } catch {}
+                    });
+                    read();
+                });
             }
-        }
-
-        // Process remaining buffer
-        if (buffer.trim()) {
-            try {
-                const json = JSON.parse(buffer);
-                if (json.response) {
-                    targetEl.textContent += json.response;
-                }
-            } catch (e) {}
-        }
-    } catch (err) {
-        targetEl.textContent = 'Error: ' + err.message;
-    }
+            read();
+        })
+        .catch(() => {
+            body.textContent = 'Error connecting to LLM.';
+        });
 }
 </script>
 </body>
