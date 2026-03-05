@@ -2,14 +2,14 @@ class TestManager
 {
   create_code_check_list_items() {
     let items = (
-    - think hard and thoroughly on AppSpec, examine {AppSpec.app_entrypoint}, return a very detail list of check items that we need to make sure all requirements in the AppSpec are met
+    - think hard and thoroughly on AppSpec, examine {AppSpec.app_entrypoint}, return an extremely detail list of check items that we need to make sure all requirements in the AppSpec are met
     )
     save {items} to ./code_check_items.txt
   }
 
   create_e2e_check_list_items() {
     let items = (
-    - think hard and thoroughly on AppSpec, examine {BaseAppSpec.app_entrypoint}, return a very detail list of check items that we need to perform E2E testing with puppeteer
+    - think hard and thoroughly on AppSpec, examine {BaseAppSpec.app_entrypoint}, return an extremely detail list of check items that we need to perform E2E testing with puppeteer
     )
     save {items} to ./e2e_check_items.txt
 
@@ -19,6 +19,8 @@ class TestManager
   }
 
   run() {
+    let the current directory (.) be the directory of this prompt
+
     (if ./code_check_items.txt does not exist yet) or (do a git status check, if any one of the .prompt files are changed) {
       create_code_check_list_items()
     }
