@@ -242,6 +242,34 @@ function log(ok, msg) {
     });
     log(historyCheck, '22. book_history saved to localStorage after loading a book');
 
+    // 23b. On reload, the last entry from book_history is loaded into URL input
+    const lastEntryCheck = await page.evaluate(() => {
+      // Add a second entry to test "last entry" behavior
+      const history = JSON.parse(localStorage.getItem('book_history') || '[]');
+      if (history.length > 0) {
+        const fakeUrl = 'https://www.gutenberg.org/cache/epub/11/pg11.txt';
+        if (!history.includes(fakeUrl)) {
+          history.push(fakeUrl);
+          localStorage.setItem('book_history', JSON.stringify(history));
+        }
+        return history[history.length - 1];
+      }
+      return null;
+    });
+    if (lastEntryCheck) {
+      await page.reload({ waitUntil: 'networkidle0' });
+      const urlValue = await page.$eval('#book-url', el => el.value);
+      log(urlValue === lastEntryCheck, `23b. On reload, last entry from book_history is loaded (expected: ${lastEntryCheck}, got: ${urlValue})`);
+      // Clean up: remove fake entry and restore original history
+      await page.evaluate(() => {
+        const history = JSON.parse(localStorage.getItem('book_history') || '[]');
+        const filtered = history.filter(u => u !== 'https://www.gutenberg.org/cache/epub/11/pg11.txt');
+        localStorage.setItem('book_history', JSON.stringify(filtered));
+      });
+    } else {
+      log(false, '23b. On reload, last entry from book_history is loaded (no history found)');
+    }
+
     // 24-25. Unique entries in book_history
     const uniqueCheck = await page.evaluate(() => {
       const history = JSON.parse(localStorage.getItem('book_history') || '[]');

@@ -19,7 +19,7 @@
 19. [x] Modal positions are restored from localStorage when reopened
 20. [x] Modal body has vertical scrolling for overflow content
 21. [x] LLM requests use streaming to Ollama at 127.0.0.1:11434 with gemma3:latest model
-22. [x] On page load with existing book_history, first entry is loaded into URL input
+22. [x] On page load with existing book_history, last entry is loaded into URL input
 23. [x] On page load with existing book_history, Enter event is auto-triggered to load book
 24. [x] Book URL is appended to book_history localStorage on Enter
 25. [x] book_history entries are unique (no duplicates on repeated loads)

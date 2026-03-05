@@ -22,7 +22,7 @@
 22. [x] All modals remember their last position (localStorage)
 23. [x] LLM streaming displays response progressively in modal body
 24. [x] Modal has vertical scrolling for content overflow
-25. [x] On page load, read first entry from localStorage "book_history" and set as URL input value
+25. [x] On page load, read the very last entry from localStorage "book_history" and set as URL input value
 26. [x] On page load, if book_history exists, automatically trigger Enter key event to load the book
 27. [x] On Enter key press, append the book URL to localStorage "book_history"
 28. [x] All entries in "book_history" are unique (no duplicates)

@@ -14,7 +14,7 @@ class BaseAppSpec {
   textbox.book_url {
     value = ""
     @load {
-      read the very first entry from local storage key "book_history"
+      read the very last entry from local storage key "book_history"
       create key.enter event
     }
     @key.enter {

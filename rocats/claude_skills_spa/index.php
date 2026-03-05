@@ -146,7 +146,7 @@ function addToBookHistory(url) {
 window.addEventListener('DOMContentLoaded', () => {
     const history = getBookHistory();
     if (history.length > 0) {
-        bookUrl.value = history[0];
+        bookUrl.value = history[history.length - 1];
         bookUrl.dispatchEvent(new KeyboardEvent('keydown', { key: 'Enter' }));
     }
 });
