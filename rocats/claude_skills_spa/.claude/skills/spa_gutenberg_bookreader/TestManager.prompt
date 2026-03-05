@@ -12,6 +12,6 @@ class TestManager
 
     let code_check_items = (get list of code check items from ./code_check_items.txt)
 
-    run the list of {code_check_items}, if any one of the item does not pass, return false, if they all passed, return true 
+    if any one of the item in {code_check_items} does not pass, return false, if they all passed, return true 
   }
 }
