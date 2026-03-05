@@ -1,0 +1,53 @@
+Code Check Items for Gutenberg Book Reader
+===========================================
+
+Layout & Styling:
+[x] 1. div.book_content has background: wheat
+[x] 2. URL bar div has background: BurlyWood
+[x] 3. URL bar contains textbox (input) for book_url
+[x] 4. book_content div exists below URL bar
+[x] 5. book_content has line-height: 1.4
+
+Book URL Textbox (BaseAppSpec.textbox.book_url):
+[x] 6. Input field exists with id "book-url"
+[x] 7. On load: reads the very last entry from localStorage key "book_history"
+[x] 8. On load: creates/dispatches key.enter event after setting value
+[x] 9. On key.enter: sets book_content to "Loading..."
+[x] 10. On key.enter: fetches book content via PHP (fetch_url parameter)
+[x] 11. On key.enter: appends URL to localStorage "book_history" with uniqueness check
+[x] 12. PHP backend strips HTML tags (returns pure content)
+
+Book Content Display (BaseAppSpec.div.book_content):
+[x] 13. Before book_content is loaded, innerHTML is completely empty
+[x] 14. After loaded, content is pure text with no HTML tags
+[x] 15. Content is split into HTML paragraphs (double newline split)
+
+Highlighted Words Translation (BaseAppSpec.modal.highlighted_words_translation):
+[x] 16. On text selection (mouseup), captures highlighted text
+[x] 17. Builds context: 30 words before + highlighted text + 30 words after
+[x] 18. Sends prompt to LLM: "in the context: {context}, show the meaning of {text} using very simple English words no explanation, no extra words"
+[x] 19. Displays result in a popup modal with vertical scrolling
+
+SimpleModal Properties:
+[x] 20. Modal is draggable (via header)
+[x] 21. Modal remembers last position (localStorage)
+[x] 22. Modal has close button
+
+SimpleEnglishConversionButton (AppSpec):
+[x] 23. Each paragraph has a "Convert to Simple English" button
+[x] 24. Button is shown when paragraph is visible (IntersectionObserver)
+[x] 25. Button is appended at the end of the paragraph (inside <p>, not below)
+[x] 26. Button has background: gold
+[x] 27. On click: sends prompt to LLM for simple English conversion
+[x] 28. On click: shows result in a modal with wheat background
+
+Config.local_llm:
+[x] 29. LLM endpoint: 127.0.0.1:11434
+[x] 30. Model: gemma3:latest
+[x] 31. Streaming enabled (stream: true)
+[x] 32. PHP backend uses curl to proxy LLM requests
+
+General:
+[x] 33. Single PHP file (index.php) - no other PHP files
+[x] 34. PHP handles fetch_url GET requests for book content
+[x] 35. PHP handles POST requests for LLM prompts with streaming

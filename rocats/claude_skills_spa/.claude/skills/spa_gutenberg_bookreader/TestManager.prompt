@@ -1,35 +1,37 @@
 class TestManager
 {
+  test_directory
+
   create_code_check_list_items() {
     let items = (
     - think hard and thoroughly on AppSpec, examine {AppSpec.app_entrypoint}, return an extremely detail list of check items that we need to make sure all requirements in the AppSpec are met
     )
-    save {items} to ./code_check_items.txt
+    save {items} to {test_directory}/code_check_items.txt
   }
 
   create_e2e_check_list_items() {
     let items = (
     - think hard and thoroughly on AppSpec, examine {BaseAppSpec.app_entrypoint}, return an extremely detail list of check items that we need to perform E2E testing with puppeteer
     )
-    save {items} to ./e2e_check_items.txt
+    save {items} to {test_directory}/e2e_check_items.txt
 
     let e2e_check_items = (get list of items from ./e2e_check_items.txt)
 
     create ./e2e_test.mjs based on {e2e_check_items}
   }
 
-  run() {
-    let the current directory (.) be the directory of this prompt
+  run(current_directory) {
+    test_directory = {current_directory}/test
 
-    (if ./code_check_items.txt does not exist yet) or (do a git status check, if any one of the .prompt files are changed) {
+    (if {test_directory}/code_check_items.txt does not exist yet) or (do a git status check, if any one of the .prompt files are changed) {
       create_code_check_list_items()
     }
 
-    (if ./e2e_check_items.txt does not exist yet) or (do a git status check, if any one of the .prompt files are changed) {
+    (if {test_directory}/e2e_check_items.txt does not exist yet) or (do a git status check, if any one of the .prompt files are changed) {
       create_e2e_check_list_items()
     }
 
-    let result = (run cli command: node ./e2e_test.mjs)
+    let result = (run cli command: node {test_directory}/e2e_test.mjs)
     if all e2e tests passed in {result} {
       return true
     } else {

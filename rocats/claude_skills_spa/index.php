@@ -142,7 +142,7 @@ function addToBookHistory(url) {
     }
 }
 
-// On load: read first entry from book_history and trigger enter
+// On load: read last entry from book_history and trigger enter
 window.addEventListener('DOMContentLoaded', () => {
     const history = getBookHistory();
     if (history.length > 0) {
@@ -220,7 +220,6 @@ document.getElementById('book-content').addEventListener('mouseup', () => {
     if (!pEl) return;
 
     const fullText = pEl.textContent;
-    const words = fullText.split(/\s+/);
     const selStart = fullText.indexOf(text);
     const before30 = fullText.substring(0, selStart).split(/\s+/).slice(-30).join(' ');
     const after30 = fullText.substring(selStart + text.length).split(/\s+/).slice(0, 30).join(' ');
