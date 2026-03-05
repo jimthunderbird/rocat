@@ -11,7 +11,7 @@ description: Single page app for reading books on Project Gutenberg
     - Perform a loop:
       - let test_result = TestManager.run()
       - if (test_result is false)
-        - fix {app_entrypoint}
+        - fix {AppSpec.app_entrypoint}
         - continue
       - else
         - break
