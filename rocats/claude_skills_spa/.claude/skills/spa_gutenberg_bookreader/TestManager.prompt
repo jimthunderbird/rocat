@@ -12,6 +12,10 @@ class TestManager
     - think hard and thoroughly on AppSpec, examine {BaseAppSpec.app_entrypoint}, return a very detail list of check items that we need to perform E2E testing with puppeteer
     )
     save {items} to ./e2e_check_items.txt
+
+    let e2e_check_items = (get list of items from ./e2e_check_items.txt)
+
+    create ./e2e_test.mjs based on {e2e_check_items}
   }
 
   run() {
@@ -23,13 +27,11 @@ class TestManager
       create_e2e_check_list_items()
     }
 
-    let code_check_items = (get list of items from ./code_check_items.txt)
-    if any one of the item in {code_check_items} does not pass, return false, if they all passed, return true 
-
-    let e2e_check_items = (get list of items from ./e2e_check_items.txt)
-    use puppeteer to perform E2E testing on all items in {e2e_check_items}
-    the puppeteer script should be ./e2e_test.mjs
-    if any one of the items does not pass, return false, if they all passed, return true 
-
+    let result = (run cli command: node ./e2e_test.mjs)
+    if all e2e tests passed in {result} {
+      return true
+    } else {
+      return false
+    }
   }
 }
