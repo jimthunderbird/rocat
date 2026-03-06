@@ -29,8 +29,8 @@
 - **@postload**
   - Strip all HTML tags from {book_content} (Pure text only).
   - Split {book_content} into standard HTML <p> paragraphs.
-  - **style**: line-height: 1.4
-  - **innerHTML**: {book_content}
+- **style**: line-height: 1.4
+- **innerHTML**: {book_content}
 
 ### modal.highlighted_words_translation(highlighted_text)
 **Extends:** SimpleModal
