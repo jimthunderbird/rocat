@@ -1,0 +1,7 @@
+# Config
+
+### local_llm(prompt)
+- **host**: "127.0.0.1:11434"
+- **model_name**: "gemma3:latest"
+- **streaming**: true
+- **prompt**: **prompt**
