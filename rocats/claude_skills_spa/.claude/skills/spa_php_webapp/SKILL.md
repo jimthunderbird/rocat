@@ -1,6 +1,6 @@
 ---
 name: spa_gutenberg_bookreader
-description: Single page web app with object oriented spec prompt
+description: Single page web app
 ---
 
 - let current_directory = (directory of init.sh)
