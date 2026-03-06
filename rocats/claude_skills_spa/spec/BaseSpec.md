@@ -6,13 +6,11 @@
 ## Core Methods
 
 ### highlighted_text_in_popup_modal(text, popup_modal)
-- Capture 30 words before {text}.
-- Capture 30 words after {text}.
-- Variable context: (30 words before) + {text} + (30 words after).
-- Variable question: "In the context: {context}, show the meaning of {text} using very simple English words. No explanation, no extra words."
-- Variable result: Config.local_llm(question).
-- Display {result} in {popup_modal}.
-- Enable vertical scrolling on {popup_modal}.
+- **context**: (30 words before {text}) + {text} + (30 words after {text}).
+- **question**: "In the context: {context}, show the meaning of {text} using very simple English words. No explanation, no extra words."
+- **result**: Config.local_llm(question).
+- Display **result** in **popup_modal**}.
+- Enable vertical scrolling on **popup_modal**.
 
 ## Components & Elements
 
