@@ -31,7 +31,7 @@
   - Strip all HTML tags from **book_content**.
   - Split **book_content** into standard HTML paragraphs```<p> ```.
 - **style**: line-height: 1.4
-- **innerHTML**: {book_content}
+- **innerHTML**: **book_content**
 
 ### modal.highlighted_words_translation(highlighted_text)
 **Extends:** SimpleModal
