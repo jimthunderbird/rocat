@@ -15,19 +15,16 @@
 ## Components & Elements
 
 ### textbox.book_url
-**Properties:**
-* **value**: ""
-
-**Events:**
-* **@load**: 
-- Read the very last entry from local storage key "book_history".
-- Trigger key.enter event.
-* **@key.enter**: 
-- Set book_content = "Loading...".
-- **book_url** = value.
+- **value**: ""
+- **@load**: 
+  - Read the very last entry from local storage key "book_history".
+  - Trigger key.enter event.
+- **@key.enter**: 
+  - **book_content**:"Loading...".
+  - **book_url**:self.value.
 - Append **book_url** to local storage "book_history".
 - Ensure all entries in "book_history" remain unique.
-- **let book_content** = PHP_READ({book_url}).
+- **book_content** = PHP_READ(**book_url**).
 - Ensure PHP returns only the pure file content.
 
 ### div.book_content
