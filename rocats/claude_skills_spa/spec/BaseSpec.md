@@ -1,7 +1,7 @@
 # BaseAppSpec
-**Extends:** None
-**Entrypoint:** index.php
-**Global Style:** ./knowledge/php_page_style.md
+- **Extends:** None
+- **Entrypoint:** index.php
+- **Global Style:** ./knowledge/php_page_style.md
 
 ## Core Methods
 
