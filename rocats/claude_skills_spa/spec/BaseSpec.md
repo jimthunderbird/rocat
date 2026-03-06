@@ -29,7 +29,7 @@
   - Clear innerHTML (must be completely empty).
 - **@postload**
   - Strip all HTML tags from **book_content**.
-  - Split **book_content** into standard HTML paragraphs (<p>).
+  - Split **book_content** into standard HTML paragraphs ```html <p> ```.
 - **style**: line-height: 1.4
 - **innerHTML**: {book_content}
 
