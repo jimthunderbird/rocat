@@ -98,6 +98,20 @@ if (isset($_POST['llm_prompt'])) {
             background: #ffdf40;
         }
 
+        .original-btn {
+            background: #ddd;
+            border: 1px solid #999;
+            padding: 3px 10px;
+            font-size: 12px;
+            cursor: pointer;
+            border-radius: 3px;
+            margin-left: 8px;
+            vertical-align: middle;
+        }
+        .original-btn:hover {
+            background: #ccc;
+        }
+
         /* Modal overlay */
         .modal-overlay {
             position: fixed;
@@ -259,6 +273,57 @@ async function streamLLM(prompt, targetEl) {
     }
 }
 
+// ============ Stream LLM to Paragraph (in-place replacement) ============
+async function streamLLMToParagraph(prompt, pEl) {
+    const textNode = pEl.childNodes[0];
+    if (textNode) textNode.textContent = 'Loading...';
+
+    const formData = new FormData();
+    formData.append('llm_prompt', prompt);
+
+    const response = await fetch(window.location.href.split('?')[0], {
+        method: 'POST',
+        body: formData
+    });
+
+    const reader = response.body.getReader();
+    const decoder = new TextDecoder();
+    if (textNode) textNode.textContent = '';
+
+    while (true) {
+        const { done, value } = await reader.read();
+        if (done) break;
+        const chunk = decoder.decode(value, { stream: true });
+        const lines = chunk.split('\n').filter(l => l.trim());
+        for (const line of lines) {
+            try {
+                const json = JSON.parse(line);
+                if (json.response) {
+                    if (textNode) textNode.textContent += json.response;
+                }
+            } catch(e) {}
+        }
+    }
+}
+
+// ============ Original Text Button (OriginalTextButton) ============
+function addOriginalButton(pEl, originalText) {
+    // Remove existing original button if any
+    const existing = pEl.querySelector('.original-btn');
+    if (existing) existing.remove();
+
+    const btn = document.createElement('button');
+    btn.className = 'original-btn';
+    btn.textContent = 'Original';
+    btn.addEventListener('click', (e) => {
+        e.stopPropagation();
+        const textNode = pEl.childNodes[0];
+        if (textNode) textNode.textContent = originalText;
+        btn.remove();
+    });
+    pEl.appendChild(btn);
+}
+
 // ============ Highlighted Text Translation ============
 function getContextAroundSelection(text, fullText, wordCount) {
     const idx = fullText.indexOf(text);
@@ -326,13 +391,14 @@ bookUrlInput.addEventListener('keydown', async (e) => {
             const btn = document.createElement('button');
             btn.className = 'convert-btn';
             btn.textContent = 'Convert to Simple English';
-            btn.addEventListener('click', (e) => {
+            btn.addEventListener('click', async (e) => {
                 e.stopPropagation();
                 const textNode = p.childNodes[0];
-                const paragraphText = textNode ? textNode.textContent : '';
-                const prompt = `Given <text>${paragraphText}</text>, convert it to a version that uses very simple English words. Show me the converted result only, no explanation, no extra words.`;
-                const modal = createModal('Simple English', { wheatBg: true });
-                streamLLM(prompt, modal.querySelector('.modal-body'));
+                const originalText = textNode ? textNode.textContent : '';
+                const prompt = `Given <text>${originalText}</text>, convert it to a version that uses very simple English words. Show me the converted result only, no explanation, no extra words.`;
+                await streamLLMToParagraph(prompt, p);
+                // After replacement, show Original button
+                addOriginalButton(p, originalText);
             });
             p.appendChild(btn);
             bookContentDiv.appendChild(p);

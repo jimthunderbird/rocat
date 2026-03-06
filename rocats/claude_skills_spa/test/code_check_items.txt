@@ -8,54 +8,58 @@ PHP Style:
 
 PHP Backend - fetch_book:
 [x] 4. action=fetch_book reads URL from GET parameter
-[x] 5. Returns plain text (Content-Type: text/plain)
-[x] 6. Uses strip_tags() to return pure content
-[x] 7. Has error handling for empty URL and fetch failures
+[x] 5. Returns pure file content
+[x] 6. Has error handling for fetch failures
 
 PHP Backend - llm:
-[x] 8. action=llm proxies to 127.0.0.1:11434/api/generate
-[x] 9. Uses model "gemma3:latest"
-[x] 10. Streaming enabled (stream: true in payload)
-[x] 11. Content-Type: text/event-stream for streaming response
-[x] 12. Reads prompt from JSON POST body
+[x] 7. Proxies to 127.0.0.1:11434/api/generate
+[x] 8. Uses model "gemma3:latest"
+[x] 9. Streaming enabled (stream: true in payload)
+[x] 10. Content-Type: text/event-stream for streaming response
+[x] 11. Reads prompt from POST body
 
 Layout & Styling:
-[x] 13. URL bar div has background: BurlyWood
-[x] 14. Book content div has background: wheat
-[x] 15. Book content has line-height: 1.4
-[x] 16. URL bar contains input textbox for book URL
-[x] 17. Book content div is below URL bar
+[x] 12. URL bar div has background: BurlyWood
+[x] 13. Book content div has background: wheat
+[x] 14. Book content has line-height: 1.4
+[x] 15. URL bar contains input textbox for book URL
+[x] 16. Book content div is below URL bar
 
 textbox.book_url:
-[x] 18. Input field exists (id="bookUrl")
-[x] 19. On page load: reads last entry from localStorage "book_history"
-[x] 20. On page load: dispatches Enter key event to trigger loading
-[x] 21. On Enter: sets book content to "Loading..."
-[x] 22. On Enter: appends URL to localStorage "book_history" with uniqueness
-[x] 23. On Enter: fetches book content via PHP backend
+[x] 17. Input field exists (id="bookUrl")
+[x] 18. On page load: reads last entry from localStorage "book_history"
+[x] 19. On page load: dispatches Enter key event to trigger loading
+[x] 20. On Enter: sets book content to "Loading..."
+[x] 21. On Enter: appends URL to localStorage "book_history" with uniqueness
+[x] 22. On Enter: fetches book content via PHP backend
 
 div.book_content:
-[x] 24. Before content loads, innerHTML is completely empty
-[x] 25. After loading, content is pure text (no HTML tags from source)
-[x] 26. Content is split into <p> paragraphs (split on double newlines)
+[x] 23. Before content loads, innerHTML is completely empty
+[x] 24. After loading, content is pure text (no HTML tags from source)
+[x] 25. Content is split into <p> paragraphs (split on double newlines)
 
 highlighted_text_in_popup_modal:
-[x] 27. mouseup event captures selected text in book content
-[x] 28. Builds context: 30 words before + selected text + 30 words after
-[x] 29. Prompt: meaning using very simple English words, no explanation
-[x] 30. Result displayed in popup modal with vertical scrolling (overflow-y: auto)
-[x] 31. LLM streaming used for response
+[x] 26. mouseup event captures selected text in book content
+[x] 27. Builds context: 30 words before + selected text + 30 words after
+[x] 28. Prompt: meaning using very simple English words, no explanation
+[x] 29. Result displayed in popup modal with vertical scrolling (overflow-y: auto)
+[x] 30. LLM streaming used for response
 
 SimpleModal:
-[x] 32. Modal is draggable via header (cursor: move)
-[x] 33. Modal remembers last position in localStorage
-[x] 34. Modal has close button
+[x] 31. Modal is draggable via header (cursor: move)
+[x] 32. Modal remembers last position in localStorage
+[x] 33. Modal has close button
 
 SimpleEnglishConversionButton:
-[x] 35. Each paragraph has "Convert to Simple English" button
-[x] 36. Button appended at end of paragraph (inside <p>, not below)
-[x] 37. Button shown only when paragraph is visible (IntersectionObserver)
-[x] 38. Button has background: gold
-[x] 39. On click: sends LLM prompt with "<text>...</text>" format
-[x] 40. On click: result shown in modal with header background BurlyWood and body background wheat
-[x] 41. LLM streaming used for conversion response
+[x] 34. Each paragraph has "Convert to Simple English" button
+[x] 35. Button appended at end of paragraph (inside <p>, not below)
+[x] 36. Button shown only when paragraph is visible (IntersectionObserver)
+[x] 37. Button has background: gold
+[x] 38. On click: sends LLM prompt with "<text>...</text>" format
+[x] 39. On click: replaces paragraph text in-place with LLM streaming result
+[x] 40. LLM streaming used for conversion response
+
+OriginalTextButton:
+[x] 41. After conversion, "Original" button appears in the paragraph
+[x] 42. On click: restores the original paragraph text
+[x] 43. On click: removes itself from the paragraph
