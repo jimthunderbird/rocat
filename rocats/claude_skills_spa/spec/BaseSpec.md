@@ -6,20 +6,15 @@
 ## Core Methods
 
 ### highlighted_text_in_popup_modal(text, popup_modal)
-**Context Logic:** 
-1. Capture 30 words before {text}.
-2. Capture 30 words after {text}.
-3. **let context** = (30 words before) + {text} + (30 words after).
+- Capture 30 words before {text}.
+- Capture 30 words after {text}.
+- Variable context: (30 words before) + {text} + (30 words after).
+- Variable question: "In the context: {context}, show the meaning of {text} using very simple English words. No explanation, no extra words."
+- Variable result: Config.local_llm(question).
+- Display {result} in {popup_modal}.
+- Enable vertical scrolling on {popup_modal}.
 
-**LLM Logic:**
-1. **let question** = "In the context: {context}, show the meaning of {text} using very simple English words. No explanation, no extra words."
-2. **let result** = Config.local_llm(question).
-
-**UI Action:**
-1. Display {result} in {popup_modal}.
-2. Enable vertical scrolling on {popup_modal}.
-
-## ## Components & Elements
+## Components & Elements
 
 ### textbox.book_url
 **Properties:**
@@ -49,9 +44,7 @@
 * **style**: line-height: 1.4
 * **innerHTML**: {book_content}
 
----
-
-## ## Modals
+## Modals
 
 ### modal.highlighted_words_translation(highlighted_text)
 **Extends:** SimpleModal
