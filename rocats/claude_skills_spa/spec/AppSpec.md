@@ -18,6 +18,7 @@
     - Add SimpleEnglishConversionButton:
       - **text**: "Convert to Simple English"
       - **behavior**: Show when **paragraph** is visible.
-      - **params**: paragraph.text
+      - **params**: 
+        - paragraph
       - **position**: Append at the end of **paragraph** instead of below it.
       - **style**: background: gold
