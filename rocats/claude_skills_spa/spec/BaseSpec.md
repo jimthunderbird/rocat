@@ -3,9 +3,7 @@
 **Entrypoint:** index.php
 **Global Style:** ./knowledge/php_page_style.md
 
----
-
-## ## Core Methods
+## Core Methods
 
 ### highlighted_text_in_popup_modal(text, popup_modal)
 **Context Logic:** 
@@ -20,8 +18,6 @@
 **UI Action:**
 1. Display {result} in {popup_modal}.
 2. Enable vertical scrolling on {popup_modal}.
-
----
 
 ## ## Components & Elements
 
