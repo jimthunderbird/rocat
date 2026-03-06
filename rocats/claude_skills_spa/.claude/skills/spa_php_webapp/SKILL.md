@@ -5,7 +5,7 @@ description: Single page web app
 
 - let current_directory = (directory of init.sh)
 - Role: PHP8/HTML/Javascript/CSS Expert
-- Objective: Create a single page web application based on {current_directory}/oop_spec/#$0.md
+- Objective: Create a single page web application based on {current_directory}/spec/#$0.md
 - Constraint:
   - There should be only one single php file, #$0.app_entrypoint, no other php files should be generated
   - After {#$0.app_entrypoint} is generated or updated
