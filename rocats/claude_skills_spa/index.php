@@ -99,8 +99,8 @@ if (isset($_POST['llm_prompt'])) {
         }
 
         .original-btn {
-            background: #ddd;
-            border: 1px solid #999;
+            background: gold;
+            border: 1px solid #b8860b;
             padding: 3px 10px;
             font-size: 12px;
             cursor: pointer;
@@ -109,7 +109,7 @@ if (isset($_POST['llm_prompt'])) {
             vertical-align: middle;
         }
         .original-btn:hover {
-            background: #ccc;
+            background: #ffdf40;
         }
 
         /* Modal overlay */

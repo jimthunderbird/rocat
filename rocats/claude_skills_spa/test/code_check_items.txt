@@ -1,65 +1,79 @@
-Code Check Items for Gutenberg Book Reader
+Code Check Items for Book Reader SPA
 ===========================================
 
-PHP Style:
+PHP Style (PHPCodingStyle):
 [x] 1. PHP logic on top with comment "//all application logic and data are here"
 [x] 2. HTML below with comment "<!-- all html/javascript/css code are here -->"
 [x] 3. Single PHP file (index.php) only
+[x] 4. PHP section comes before <!DOCTYPE html>
 
 PHP Backend - fetch_book:
-[x] 4. action=fetch_book reads URL from GET parameter
-[x] 5. Returns pure file content
-[x] 6. Has error handling for fetch failures
+[x] 5. Handles GET parameter 'fetch_book' to read URL
+[x] 6. Returns pure file content (no wrapping HTML)
+[x] 7. Has error handling for fetch failures
+[x] 8. Calls exit after outputting content
 
-PHP Backend - llm:
-[x] 7. Proxies to 127.0.0.1:11434/api/generate
-[x] 8. Uses model "gemma3:latest"
-[x] 9. Streaming enabled (stream: true in payload)
-[x] 10. Content-Type: text/event-stream for streaming response
-[x] 11. Reads prompt from POST body
+PHP Backend - LLM proxy:
+[x] 9. Handles POST parameter 'llm_prompt'
+[x] 10. Proxies to host 127.0.0.1:11434/api/generate
+[x] 11. Uses model "gemma3:latest"
+[x] 12. Streaming enabled (stream: true in payload)
+[x] 13. Content-Type: text/event-stream header set
+[x] 14. Uses curl with WRITEFUNCTION for streaming passthrough
+[x] 15. Calls exit after streaming completes
 
 Layout & Styling:
-[x] 12. URL bar div has background: BurlyWood
-[x] 13. Book content div has background: wheat
-[x] 14. Book content has line-height: 1.4
-[x] 15. URL bar contains input textbox for book URL
-[x] 16. Book content div is below URL bar
+[x] 16. URL bar div has background: BurlyWood
+[x] 17. Book content div (div.book_content) has background: wheat (set in AppSpec.init)
+[x] 18. Book content has line-height: 1.4
+[x] 19. URL bar contains text input for book URL
+[x] 20. Book content div is below URL bar div
 
-textbox.book_url:
-[x] 17. Input field exists (id="bookUrl")
-[x] 18. On page load: reads last entry from localStorage "book_history"
-[x] 19. On page load: dispatches Enter key event to trigger loading
-[x] 20. On Enter: sets book content to "Loading..."
-[x] 21. On Enter: appends URL to localStorage "book_history" with uniqueness
-[x] 22. On Enter: fetches book content via PHP backend
+textbox.book_url (BaseSpec):
+[x] 21. Input field exists with id="bookUrl"
+[x] 22. Default value is empty string
+[x] 23. @load: reads very last entry from localStorage "book_history"
+[x] 24. @load: triggers Enter key event after loading last entry
+[x] 25. @key.enter: sets book_content to "Loading..."
+[x] 26. @key.enter: appends URL to localStorage "book_history"
+[x] 27. @key.enter: ensures all entries in "book_history" remain unique
+[x] 28. @key.enter: fetches book content via PHP (fetch_book)
+[x] 29. PHP returns only pure file content
 
-div.book_content:
-[x] 23. Before content loads, innerHTML is completely empty
-[x] 24. After loading, content is pure text (no HTML tags from source)
-[x] 25. Content is split into <p> paragraphs (split on double newlines)
+div.book_content (BaseSpec):
+[x] 30. @preload: clears innerHTML completely (must be completely empty)
+[x] 31. @postload: strips all HTML tags from book content
+[x] 32. @postload: splits content into standard HTML paragraphs <p>
+[x] 33. Style: line-height: 1.4
+[x] 34. innerHTML set to processed book_content
 
-highlighted_text_in_popup_modal:
-[x] 26. mouseup event captures selected text in book content
-[x] 27. Builds context: 30 words before + selected text + 30 words after
-[x] 28. Prompt: meaning using very simple English words, no explanation
-[x] 29. Result displayed in popup modal with vertical scrolling (overflow-y: auto)
-[x] 30. LLM streaming used for response
+highlighted_text_in_popup_modal (BaseSpec):
+[x] 35. mouseup event on book_content captures selected/highlighted text
+[x] 36. Context built: 30 words before + selected text + 30 words after
+[x] 37. Prompt: "In the context: {context}, show the meaning of {text} using very simple English words. No explanation, no extra words."
+[x] 38. Result displayed in popup modal (modal.highlighted_words_translation)
+[x] 39. LLM streaming used for response display
+[x] 40. Modal body has vertical scrolling enabled (overflow-y: auto)
 
 SimpleModal:
-[x] 31. Modal is draggable via header (cursor: move)
-[x] 32. Modal remembers last position in localStorage
-[x] 33. Modal has close button
+[x] 41. Modal is draggable via header
+[x] 42. Modal header has cursor: move
+[x] 43. Modal remembers last position in localStorage
+[x] 44. Modal has close button (×)
 
-SimpleEnglishConversionButton:
-[x] 34. Each paragraph has "Convert to Simple English" button
-[x] 35. Button appended at end of paragraph (inside <p>, not below)
-[x] 36. Button shown only when paragraph is visible (IntersectionObserver)
-[x] 37. Button has background: gold
-[x] 38. On click: sends LLM prompt with "<text>...</text>" format
-[x] 39. On click: replaces paragraph text in-place with LLM streaming result
-[x] 40. LLM streaming used for conversion response
+SimpleEnglishConversionButton (AppSpec):
+[x] 45. Each paragraph gets a "Convert to Simple English" button
+[x] 46. Button text is "Convert to Simple English"
+[x] 47. Button shown only when paragraph is visible (IntersectionObserver behavior)
+[x] 48. Button has background: gold style
+[x] 49. Button is appended at the end of paragraph (inside <p>, not below it)
+[x] 50. @click: sends prompt with "<text>{paragraph text}</text>" format
+[x] 51. @click: prompt asks to convert to very simple English words, result only, no explanation
+[x] 52. @click: replaces paragraph text in-place with LLM streaming result
+[x] 53. After replacement: shows OriginalTextButton
 
 OriginalTextButton:
-[x] 41. After conversion, "Original" button appears in the paragraph
-[x] 42. On click: restores the original paragraph text
-[x] 43. On click: removes itself from the paragraph
+[x] 54. Text is "Original"
+[x] 55. Applies same style as SimpleEnglishConversionButton (background: gold, same border, padding, font-size, cursor, border-radius)
+[x] 56. @click: replaces paragraph text with the original text
+[x] 57. @click: button removes itself after restoring original text

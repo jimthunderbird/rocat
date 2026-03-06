@@ -1,7 +1,7 @@
 # BaseAppSpec
 - **Extends:** None
 - **Entrypoint:** index.php
-- **Global Style:** ./knowledge/php_page_style.md
+- **PHP Style:** PHPCodingStyle 
 
 ### highlighted_text_in_popup_modal(text, popup_modal)
 - **context**: (30 words before **text**) + **text** + (30 words after **text**).

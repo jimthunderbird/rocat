@@ -9,7 +9,7 @@
 - "Original"
 
 ### Style
-- Same as: SimpleEnglishConversionButton
+- Apply same style of: SimpleEnglishConversionButton
 
 ### @click
 - replace **paragraph**.text with the **original_text**

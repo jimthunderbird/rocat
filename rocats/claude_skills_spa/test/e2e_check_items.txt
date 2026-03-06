@@ -1,5 +1,5 @@
-E2E Check Items for Gutenberg Book Reader (Puppeteer)
-======================================================
+E2E Check Items for Book Reader SPA (Puppeteer)
+=================================================
 
 1. Page loads without errors
 2. URL bar with BurlyWood background exists
@@ -24,4 +24,5 @@ E2E Check Items for Gutenberg Book Reader (Puppeteer)
 21. Modal position is saved to localStorage
 22. Convert button click replaces paragraph text in-place (not in a modal)
 23. After conversion, an "Original" button appears in the paragraph
-24. Clicking "Original" button restores original paragraph text
+24. Original button has same style as Convert button (gold background)
+25. Clicking "Original" button restores original paragraph text

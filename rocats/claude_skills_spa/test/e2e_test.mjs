@@ -167,31 +167,38 @@ function log(ok, msg) {
         log(false, '18. (skipped - no modal)');
       }
 
-      // 19. Click Convert button - opens modal with wheat background
+      // 19. Click Convert button - replaces paragraph text in-place (not in a modal)
       // First remove any existing modals
       await page.evaluate(() => {
         document.querySelectorAll('.modal-overlay').forEach(m => m.remove());
       });
       const convertBtn = await page.$('.convert-btn.visible');
       if (convertBtn) {
+        // Get the parent paragraph and its original text
+        const parentP = await convertBtn.evaluateHandle(btn => btn.closest('p'));
+        const originalText = await parentP.evaluate(p => p.childNodes[0] ? p.childNodes[0].textContent : '');
+
         await convertBtn.click();
-        await new Promise(r => setTimeout(r, 1000));
-        const simpleModal = await page.$('.modal-overlay');
-        log(!!simpleModal, '19. Simple English modal opens on Convert click');
+        // Wait briefly for in-place replacement to start (Loading... text)
+        await new Promise(r => setTimeout(r, 2000));
 
-        if (simpleModal) {
-          const simpleModalHeaderBg = await simpleModal.$eval('.modal-header', el => getComputedStyle(el).backgroundColor);
-          log(simpleModalHeaderBg === 'rgb(222, 184, 135)', `20. Simple English modal header has BurlyWood background (got: ${simpleModalHeaderBg})`);
+        const newText = await parentP.evaluate(p => p.childNodes[0] ? p.childNodes[0].textContent : '');
+        const textChanged = newText !== originalText;
+        log(textChanged, `19. Convert button replaces paragraph text in-place (text changed: ${textChanged})`);
 
-          const simpleModalBodyBg = await simpleModal.$eval('.modal-body', el => getComputedStyle(el).backgroundColor);
-          log(simpleModalBodyBg === 'rgb(245, 222, 179)', `21. Simple English modal body has wheat background (got: ${simpleModalBodyBg})`);
-        } else {
-          log(false, '20. (skipped - no modal)');
-          log(false, '21. (skipped - no modal)');
-        }
+        // 20. No modal should appear for conversion (it's in-place)
+        const noModal = !(await page.$('.modal-overlay'));
+        log(noModal, '20. No modal opened for conversion (in-place replacement)');
+
+        // 21. After conversion, "Original" button appears
+        // Wait a bit more for LLM streaming to complete and Original button to appear
+        await new Promise(r => setTimeout(r, 5000));
+        const originalBtn = await parentP.$('.original-btn');
+        log(!!originalBtn, '21. After conversion, "Original" button appears in paragraph');
       } else {
         log(false, '19. (no visible convert button found)');
         log(false, '20. (skipped)');
+        log(false, '21. (skipped)');
       }
     } else {
       // Skip content-dependent tests
