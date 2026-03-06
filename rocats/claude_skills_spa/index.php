@@ -137,6 +137,9 @@ if (isset($_POST['llm_prompt'])) {
         .modal-overlay.wheat-bg .modal-body {
             background: wheat;
         }
+        .modal-overlay.wheat-bg .modal-header {
+            background: BurlyWood;
+        }
     </style>
 </head>
 <body>

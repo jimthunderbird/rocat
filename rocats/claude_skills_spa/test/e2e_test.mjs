@@ -180,10 +180,14 @@ function log(ok, msg) {
         log(!!simpleModal, '19. Simple English modal opens on Convert click');
 
         if (simpleModal) {
-          const simpleModalBg = await simpleModal.$eval('.modal-body', el => getComputedStyle(el).backgroundColor);
-          log(simpleModalBg === 'rgb(245, 222, 179)', `20. Simple English modal has wheat background (got: ${simpleModalBg})`);
+          const simpleModalHeaderBg = await simpleModal.$eval('.modal-header', el => getComputedStyle(el).backgroundColor);
+          log(simpleModalHeaderBg === 'rgb(222, 184, 135)', `20. Simple English modal header has BurlyWood background (got: ${simpleModalHeaderBg})`);
+
+          const simpleModalBodyBg = await simpleModal.$eval('.modal-body', el => getComputedStyle(el).backgroundColor);
+          log(simpleModalBodyBg === 'rgb(245, 222, 179)', `21. Simple English modal body has wheat background (got: ${simpleModalBodyBg})`);
         } else {
           log(false, '20. (skipped - no modal)');
+          log(false, '21. (skipped - no modal)');
         }
       } else {
         log(false, '19. (no visible convert button found)');
@@ -191,26 +195,26 @@ function log(ok, msg) {
       }
     } else {
       // Skip content-dependent tests
-      for (let i = 7; i <= 20; i++) {
+      for (let i = 7; i <= 21; i++) {
         log(false, `${i}. (skipped - content not loaded)`);
       }
     }
 
-    // 21. book_history saved to localStorage
+    // 22. book_history saved to localStorage
     const historyCheck = await page.evaluate(() => {
       const history = JSON.parse(localStorage.getItem('book_history') || '[]');
       return history.length > 0;
     });
-    log(historyCheck, '21. book_history saved to localStorage');
+    log(historyCheck, '22. book_history saved to localStorage');
 
-    // 22. Entries in book_history are unique
+    // 23. Entries in book_history are unique
     const uniqueCheck = await page.evaluate(() => {
       const history = JSON.parse(localStorage.getItem('book_history') || '[]');
       return new Set(history).size === history.length;
     });
-    log(uniqueCheck, '22. book_history entries are unique');
+    log(uniqueCheck, '23. book_history entries are unique');
 
-    // 23. On reload, last entry loaded into input
+    // 24. On reload, last entry loaded into input
     const lastEntry = await page.evaluate(() => {
       const history = JSON.parse(localStorage.getItem('book_history') || '[]');
       return history.length > 0 ? history[history.length - 1] : null;
@@ -218,12 +222,12 @@ function log(ok, msg) {
     if (lastEntry) {
       await page.reload({ waitUntil: 'networkidle0' });
       const urlValue = await page.$eval('#bookUrl', el => el.value);
-      log(urlValue === lastEntry, `23. On reload, last entry from book_history loaded (expected: ${lastEntry.substring(0, 40)}..., got: ${urlValue.substring(0, 40)}...)`);
+      log(urlValue === lastEntry, `24. On reload, last entry from book_history loaded (expected: ${lastEntry.substring(0, 40)}..., got: ${urlValue.substring(0, 40)}...)`);
     } else {
-      log(false, '23. (no history to test reload)');
+      log(false, '24. (no history to test reload)');
     }
 
-    // 24. Modal position persistence - check code contains localStorage save for positions
+    // 25. Modal position persistence - check code contains localStorage save for positions
     const positionPersistence = await page.evaluate(() => {
       const scripts = document.querySelectorAll('script');
       for (const s of scripts) {
@@ -231,7 +235,7 @@ function log(ok, msg) {
       }
       return false;
     });
-    log(positionPersistence, '24. Code supports modal position persistence via localStorage');
+    log(positionPersistence, '25. Code supports modal position persistence via localStorage');
 
   } catch (err) {
     console.error('Test error:', err.message);

@@ -57,5 +57,5 @@ SimpleEnglishConversionButton:
 [x] 37. Button shown only when paragraph is visible (IntersectionObserver)
 [x] 38. Button has background: gold
 [x] 39. On click: sends LLM prompt with "<text>...</text>" format
-[x] 40. On click: result shown in modal with wheat background
+[x] 40. On click: result shown in modal with header background BurlyWood and body background wheat
 [x] 41. LLM streaming used for conversion response

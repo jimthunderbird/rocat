@@ -21,5 +21,6 @@ E2E Check Items for Gutenberg Book Reader (Puppeteer)
 18. Modal is draggable (header has cursor: move)
 19. Modal has a close button that removes modal on click
 20. Modal body has vertical scrolling (overflow-y: auto)
-21. Simple English modal (from Convert button) has wheat background
-22. Modal position is saved to localStorage
+21. Simple English modal (from Convert button) has header with BurlyWood background
+22. Simple English modal (from Convert button) has body with wheat background
+23. Modal position is saved to localStorage
