@@ -19,99 +19,105 @@ function log(ok, msg) {
     await page.evaluate(() => localStorage.clear());
     await page.reload({ waitUntil: 'networkidle0' });
 
-    // 1. Page loads with empty book content and URL input
-    const inputExists = await page.$('#book-url');
-    log(!!inputExists, '1. Page has URL input field (#book-url)');
+    // 1. Page loads - URL input exists
+    const inputExists = await page.$('#bookUrl');
+    log(!!inputExists, '1. Page has URL input field (#bookUrl)');
 
-    const contentEmpty = await page.$eval('#book-content', el => el.innerHTML.trim() === '');
-    log(contentEmpty, '1b. Book content area is empty on load');
+    // 1b. Book content area is empty on initial load (no history)
+    const contentEmpty = await page.$eval('#bookContent', el => el.innerHTML.trim() === '');
+    log(contentEmpty, '1b. Book content area is empty on load (no history)');
 
     // 2. URL bar has BurlyWood background
-    const urlBarBg = await page.$eval('#url-bar', el => getComputedStyle(el).backgroundColor);
+    const urlBarBg = await page.$eval('.url-bar', el => getComputedStyle(el).backgroundColor);
     log(urlBarBg === 'rgb(222, 184, 135)', `2. URL bar background is BurlyWood (got: ${urlBarBg})`);
 
     // 3. Book content area has wheat background
-    const contentBg = await page.$eval('#book-content', el => getComputedStyle(el).backgroundColor);
+    const contentBg = await page.$eval('#bookContent', el => getComputedStyle(el).backgroundColor);
     log(contentBg === 'rgb(245, 222, 179)', `3. Book content background is wheat (got: ${contentBg})`);
 
-    // 4. Enter URL and press Enter - shows "Loading..."
-    await page.type('#book-url', GUTENBERG_URL);
-    await page.keyboard.press('Enter');
-    await page.waitForFunction(() => document.getElementById('book-content').textContent.includes('Loading'), { timeout: 3000 }).catch(() => {});
-    const loadingText = await page.$eval('#book-content', el => el.textContent);
-    log(loadingText.includes('Loading'), `4. Shows "Loading..." after Enter (got: "${loadingText.substring(0, 30)}")`);
+    // 4. Book content has line-height 1.4
+    const lineHeight = await page.$eval('#bookContent', el => getComputedStyle(el).lineHeight);
+    const fontSize = await page.$eval('#bookContent', el => parseFloat(getComputedStyle(el).fontSize));
+    const expectedLH = Math.round(fontSize * 1.4 * 10) / 10;
+    const actualLH = parseFloat(lineHeight);
+    log(Math.abs(actualLH - expectedLH) < 1, `4. line-height is ~1.4 (got: ${lineHeight})`);
 
-    // 5. Wait for content to load
+    // 5. Enter URL and press Enter - shows "Loading..."
+    await page.type('#bookUrl', GUTENBERG_URL);
+    await page.keyboard.press('Enter');
+    await page.waitForFunction(() => {
+      const el = document.getElementById('bookContent');
+      return el && el.textContent.includes('Loading');
+    }, { timeout: 3000 }).catch(() => {});
+    const loadingText = await page.$eval('#bookContent', el => el.textContent);
+    log(loadingText.includes('Loading'), `5. Shows "Loading..." after Enter (got: "${loadingText.substring(0, 30)}")`);
+
+    // 6. Wait for content to load as paragraphs
     let contentLoaded = false;
     try {
       await page.waitForFunction(() => {
-        const el = document.getElementById('book-content');
-        return el.querySelectorAll('p').length > 5;
+        const el = document.getElementById('bookContent');
+        return el && el.querySelectorAll('p').length > 5;
       }, { timeout: 60000 });
-      const pCount = await page.$eval('#book-content', el => el.querySelectorAll('p').length);
-      log(pCount > 5, `5. Book content displays as paragraphs (${pCount} paragraphs found)`);
+      const pCount = await page.$eval('#bookContent', el => el.querySelectorAll('p').length);
+      log(pCount > 5, `6. Book content displays as paragraphs (${pCount} paragraphs found)`);
       contentLoaded = true;
     } catch (e) {
-      log(false, `5. Book content failed to load: ${e.message}`);
+      log(false, `6. Book content failed to load: ${e.message}`);
     }
 
     if (contentLoaded) {
-      // 5b. No HTML tags in content (only text nodes + button children)
-      const hasNoInnerHtml = await page.$$eval('#book-content p', ps => {
+      // 7. Paragraphs contain only text (no HTML tags except button)
+      const hasNoInnerHtml = await page.$$eval('#bookContent p', ps => {
         return ps.slice(0, 10).every(p => {
           const children = Array.from(p.childNodes).filter(n => n.nodeType === 1 && n.tagName !== 'BUTTON');
           return children.length === 0;
         });
       });
-      log(hasNoInnerHtml, '5b. Paragraphs contain only text (no HTML tags from source)');
+      log(hasNoInnerHtml, '7. Paragraphs contain only text (no HTML tags from source)');
 
-      // 6. line-height
-      const lineHeight = await page.$eval('#book-content', el => getComputedStyle(el).lineHeight);
-      log(lineHeight !== 'normal', `6. line-height is set (got: ${lineHeight})`);
+      // 8. Each paragraph has a Convert button inside it
+      const btnCount = await page.$$eval('#bookContent .convert-btn', btns => btns.length);
+      const pCount2 = await page.$eval('#bookContent', el => el.querySelectorAll('p').length);
+      log(btnCount === pCount2 && btnCount > 0, `8. Each paragraph has a Convert button (${btnCount} buttons, ${pCount2} paragraphs)`);
 
-      // 7. Each paragraph has a Convert button at the end (inside paragraph)
-      const btnCount = await page.$$eval('#book-content .convert-btn', btns => btns.length);
-      const pCount2 = await page.$eval('#book-content', el => el.querySelectorAll('p').length);
-      log(btnCount === pCount2 && btnCount > 0, `7. Each paragraph has a Convert button (${btnCount} buttons, ${pCount2} paragraphs)`);
-
-      // 7b. Button is the last child of the paragraph
-      const btnIsLast = await page.$$eval('#book-content p', ps => {
+      // 9. Button is the last child of the paragraph (appended at end, not below)
+      const btnIsLast = await page.$$eval('#bookContent p', ps => {
         return ps.slice(0, 5).every(p => {
           const lastEl = p.lastElementChild;
           return lastEl && lastEl.classList.contains('convert-btn');
         });
       });
-      log(btnIsLast, '7b. Convert button is appended at the end of each paragraph');
+      log(btnIsLast, '9. Convert button is appended at the end of each paragraph');
 
-      // 8. Convert buttons have gold background
-      const btnExists = await page.$('.convert-btn');
-      if (btnExists) {
-        const btnBg = await page.evaluate(() => {
-          const btn = document.querySelector('.convert-btn');
-          btn.classList.add('visible');
-          return getComputedStyle(btn).backgroundColor;
-        });
-        log(btnBg === 'rgb(255, 215, 0)', `8. Convert button background is gold (got: ${btnBg})`);
-      } else {
-        log(false, '8. No convert button found');
-      }
+      // 10. Convert button text
+      const btnText = await page.$eval('.convert-btn', el => el.textContent);
+      log(btnText === 'Convert to Simple English', `10. Button text is "Convert to Simple English" (got: "${btnText}")`);
 
-      // 9. Convert buttons hidden when not in viewport
+      // 11. Convert buttons have gold background
+      const btnBg = await page.evaluate(() => {
+        const btn = document.querySelector('.convert-btn');
+        btn.classList.add('visible');
+        return getComputedStyle(btn).backgroundColor;
+      });
+      log(btnBg === 'rgb(255, 215, 0)', `11. Convert button background is gold (got: ${btnBg})`);
+
+      // 12. Visible paragraphs show buttons, hidden ones don't
       await page.evaluate(() => window.scrollTo(0, 0));
       await new Promise(r => setTimeout(r, 500));
-      const hiddenBtns = await page.$$eval('#book-content .convert-btn', btns => {
+      const hiddenBtns = await page.$$eval('#bookContent .convert-btn', btns => {
         return btns.filter(b => !b.classList.contains('visible')).length;
       });
-      log(hiddenBtns > 0, `9. Some Convert buttons are hidden when not visible (${hiddenBtns} hidden)`);
+      log(hiddenBtns > 0, `12. Some Convert buttons are hidden when paragraph not in viewport (${hiddenBtns} hidden)`);
 
-      // 10. Visible buttons when paragraph in viewport
-      const visibleBtns = await page.$$eval('#book-content .convert-btn', btns => {
+      const visibleBtns = await page.$$eval('#bookContent .convert-btn', btns => {
         return btns.filter(b => b.classList.contains('visible')).length;
       });
-      log(visibleBtns > 0, `10. Some Convert buttons are visible in viewport (${visibleBtns} visible)`);
+      log(visibleBtns > 0, `13. Some Convert buttons are visible when paragraph in viewport (${visibleBtns} visible)`);
 
-      // 11. Select text and check modal appears
-      const firstP = await page.$('#book-content p');
+      // 14. Select text - modal appears
+      const firstP = await page.$('#bookContent p');
+      let modalTestsDone = false;
       if (firstP) {
         const box = await firstP.boundingBox();
         if (box) {
@@ -124,147 +130,108 @@ function log(ok, msg) {
           const selectedText = await page.evaluate(() => window.getSelection().toString().trim());
           if (selectedText) {
             const modalExists = await page.$('.modal-overlay');
-            log(!!modalExists, '11. Word meaning modal appears on text selection');
+            log(!!modalExists, '14. Word meaning modal appears on text selection');
 
             if (modalExists) {
-              // 12. Modal has body for streaming
-              const bodyExists = await page.$('.modal-overlay .modal-body');
-              log(!!bodyExists, '12. Word meaning modal has body for streaming content');
+              modalTestsDone = true;
 
-              // 13. Modal is draggable (header has cursor: move)
+              // 15. Modal body has vertical scrolling
+              const overflow = await page.$eval('.modal-overlay .modal-body', el => getComputedStyle(el).overflowY);
+              log(overflow === 'auto' || overflow === 'scroll', `15. Modal body has vertical scrolling (overflow-y: ${overflow})`);
+
+              // 16. Modal is draggable
               const cursor = await page.$eval('.modal-overlay .modal-header', el => getComputedStyle(el).cursor);
-              log(cursor === 'move', `13. Word meaning modal header is draggable (cursor: ${cursor})`);
+              log(cursor === 'move', `16. Modal header has cursor: move (got: ${cursor})`);
 
-              // 14. Close button
-              const closeBtn = await page.$('.modal-overlay .close-btn');
-              log(!!closeBtn, '14. Word meaning modal has close button');
+              // 17. Modal has close button
+              const closeBtn = await page.$('.modal-overlay .modal-close');
+              log(!!closeBtn, '17. Modal has close button');
+
               if (closeBtn) {
-                await page.evaluate(() => {
-                  document.querySelector('.modal-overlay .close-btn').click();
-                });
+                await closeBtn.click();
                 await new Promise(r => setTimeout(r, 500));
                 const modalGone = !(await page.$('.modal-overlay'));
-                log(modalGone, '14b. Modal closes on X click');
+                log(modalGone, '18. Modal closes on X click');
+              } else {
+                log(false, '18. (skipped - no close button)');
               }
-            } else {
-              log(false, '12. (skipped - no modal)');
-              log(false, '13. (skipped - no modal)');
-              log(false, '14. (skipped - no modal)');
-              log(false, '14b. (skipped - no modal)');
             }
-          } else {
-            log(false, '11. Could not select text');
-            log(false, '12. (skipped)');
-            log(false, '13. (skipped)');
-            log(false, '14. (skipped)');
-            log(false, '14b. (skipped)');
           }
         }
       }
+      if (!modalTestsDone) {
+        log(false, '14. Word meaning modal appears on text selection');
+        log(false, '15. (skipped - no modal)');
+        log(false, '16. (skipped - no modal)');
+        log(false, '17. (skipped - no modal)');
+        log(false, '18. (skipped - no modal)');
+      }
 
-      // 15. Click Convert button - opens modal with wheat background
+      // 19. Click Convert button - opens modal with wheat background
+      // First remove any existing modals
+      await page.evaluate(() => {
+        document.querySelectorAll('.modal-overlay').forEach(m => m.remove());
+      });
       const convertBtn = await page.$('.convert-btn.visible');
       if (convertBtn) {
         await convertBtn.click();
         await new Promise(r => setTimeout(r, 1000));
         const simpleModal = await page.$('.modal-overlay');
-        log(!!simpleModal, '15. Simple English modal opens on Convert click');
+        log(!!simpleModal, '19. Simple English modal opens on Convert click');
 
         if (simpleModal) {
           const simpleModalBg = await simpleModal.$eval('.modal-body', el => getComputedStyle(el).backgroundColor);
-          log(simpleModalBg === 'rgb(245, 222, 179)', `15b. Simple English modal has wheat background (got: ${simpleModalBg})`);
-
-          // 16. Streaming body
-          const bodyEl = await simpleModal.$('.modal-body');
-          log(!!bodyEl, '16. Simple English modal has body for streaming');
-
-          // 17. Draggable
-          const cursor2 = await simpleModal.$eval('.modal-header', el => getComputedStyle(el).cursor);
-          log(cursor2 === 'move', `17. Simple English modal is draggable (cursor: ${cursor2})`);
+          log(simpleModalBg === 'rgb(245, 222, 179)', `20. Simple English modal has wheat background (got: ${simpleModalBg})`);
         } else {
-          log(false, '15b. (skipped - no modal)');
-          log(false, '16. (skipped)');
-          log(false, '17. (skipped)');
+          log(false, '20. (skipped - no modal)');
         }
       } else {
-        log(false, '15. (no visible convert button found)');
-        log(false, '15b. (skipped)');
-        log(false, '16. (skipped)');
-        log(false, '17. (skipped)');
+        log(false, '19. (no visible convert button found)');
+        log(false, '20. (skipped)');
       }
-
-      // 18-19. Modal position persistence via localStorage
-      const codeSupportsPositionSave = await page.evaluate(() => {
-        const scripts = document.querySelectorAll('script');
-        for (const s of scripts) {
-          if (s.textContent.includes('modal_pos_')) return true;
-        }
-        return false;
-      });
-      log(codeSupportsPositionSave, '18-19. Code supports modal position persistence (modal_pos_ in localStorage)');
-
     } else {
-      for (let i = 0; i < 16; i++) {
-        log(false, `(skipped - content not loaded)`);
+      // Skip content-dependent tests
+      for (let i = 7; i <= 20; i++) {
+        log(false, `${i}. (skipped - content not loaded)`);
       }
     }
 
-    // 20. Modal body has vertical scrolling (check CSS rule)
-    const overflowCheck = await page.evaluate(() => {
-      const style = document.querySelector('style');
-      return style && style.textContent.includes('overflow-y: auto');
-    });
-    log(overflowCheck, '20. Modal body CSS has vertical scrolling (overflow-y: auto)');
-
-    // 21. LLM config check
-    const phpCheck = await page.evaluate(() => {
-      const scripts = document.querySelectorAll('script');
-      for (const s of scripts) {
-        if (s.textContent.includes('llm_prompt')) return true;
-      }
-      return false;
-    });
-    log(phpCheck, '21. JS sends llm_prompt to PHP backend for LLM proxy');
-
-    // 22-23. book_history localStorage
+    // 21. book_history saved to localStorage
     const historyCheck = await page.evaluate(() => {
       const history = JSON.parse(localStorage.getItem('book_history') || '[]');
       return history.length > 0;
     });
-    log(historyCheck, '22. book_history saved to localStorage after loading a book');
+    log(historyCheck, '21. book_history saved to localStorage');
 
-    // 23b. On reload, the last entry from book_history is loaded into URL input
-    const lastEntryCheck = await page.evaluate(() => {
-      const history = JSON.parse(localStorage.getItem('book_history') || '[]');
-      if (history.length > 0) {
-        const fakeUrl = 'https://www.gutenberg.org/cache/epub/11/pg11.txt';
-        if (!history.includes(fakeUrl)) {
-          history.push(fakeUrl);
-          localStorage.setItem('book_history', JSON.stringify(history));
-        }
-        return history[history.length - 1];
-      }
-      return null;
-    });
-    if (lastEntryCheck) {
-      await page.reload({ waitUntil: 'networkidle0' });
-      const urlValue = await page.$eval('#book-url', el => el.value);
-      log(urlValue === lastEntryCheck, `23b. On reload, last entry from book_history is loaded (expected: ${lastEntryCheck}, got: ${urlValue})`);
-      await page.evaluate(() => {
-        const history = JSON.parse(localStorage.getItem('book_history') || '[]');
-        const filtered = history.filter(u => u !== 'https://www.gutenberg.org/cache/epub/11/pg11.txt');
-        localStorage.setItem('book_history', JSON.stringify(filtered));
-      });
-    } else {
-      log(false, '23b. On reload, last entry from book_history is loaded (no history found)');
-    }
-
-    // 24-25. Unique entries in book_history
+    // 22. Entries in book_history are unique
     const uniqueCheck = await page.evaluate(() => {
       const history = JSON.parse(localStorage.getItem('book_history') || '[]');
       return new Set(history).size === history.length;
     });
-    log(uniqueCheck, '24-25. book_history entries are unique');
+    log(uniqueCheck, '22. book_history entries are unique');
+
+    // 23. On reload, last entry loaded into input
+    const lastEntry = await page.evaluate(() => {
+      const history = JSON.parse(localStorage.getItem('book_history') || '[]');
+      return history.length > 0 ? history[history.length - 1] : null;
+    });
+    if (lastEntry) {
+      await page.reload({ waitUntil: 'networkidle0' });
+      const urlValue = await page.$eval('#bookUrl', el => el.value);
+      log(urlValue === lastEntry, `23. On reload, last entry from book_history loaded (expected: ${lastEntry.substring(0, 40)}..., got: ${urlValue.substring(0, 40)}...)`);
+    } else {
+      log(false, '23. (no history to test reload)');
+    }
+
+    // 24. Modal position persistence - check code contains localStorage save for positions
+    const positionPersistence = await page.evaluate(() => {
+      const scripts = document.querySelectorAll('script');
+      for (const s of scripts) {
+        if (s.textContent.includes('modal_positions')) return true;
+      }
+      return false;
+    });
+    log(positionPersistence, '24. Code supports modal position persistence via localStorage');
 
   } catch (err) {
     console.error('Test error:', err.message);

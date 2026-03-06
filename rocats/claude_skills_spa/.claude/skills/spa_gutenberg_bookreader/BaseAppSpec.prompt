@@ -1,5 +1,7 @@
 class BaseAppSpec {
-  app_entrypoint: index.php
+  app_entrypoint: index.php {
+    coding_style: ./knowledge/php_page_style.md
+  }
 
   highlighted_text_in_popup_modal(text, popup_modal) {
     let context = (30 words before {text}) + {text} + (30 words after {text})

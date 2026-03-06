@@ -1,53 +1,61 @@
 Code Check Items for Gutenberg Book Reader
 ===========================================
 
+PHP Style:
+[x] 1. PHP logic on top with comment "//all application logic and data are here"
+[x] 2. HTML below with comment "<!-- all html/javascript/css code are here -->"
+[x] 3. Single PHP file (index.php) only
+
+PHP Backend - fetch_book:
+[x] 4. action=fetch_book reads URL from GET parameter
+[x] 5. Returns plain text (Content-Type: text/plain)
+[x] 6. Uses strip_tags() to return pure content
+[x] 7. Has error handling for empty URL and fetch failures
+
+PHP Backend - llm:
+[x] 8. action=llm proxies to 127.0.0.1:11434/api/generate
+[x] 9. Uses model "gemma3:latest"
+[x] 10. Streaming enabled (stream: true in payload)
+[x] 11. Content-Type: text/event-stream for streaming response
+[x] 12. Reads prompt from JSON POST body
+
 Layout & Styling:
-[x] 1. div.book_content has background: wheat
-[x] 2. URL bar div has background: BurlyWood
-[x] 3. URL bar contains textbox (input) for book_url
-[x] 4. book_content div exists below URL bar
-[x] 5. book_content has line-height: 1.4
+[x] 13. URL bar div has background: BurlyWood
+[x] 14. Book content div has background: wheat
+[x] 15. Book content has line-height: 1.4
+[x] 16. URL bar contains input textbox for book URL
+[x] 17. Book content div is below URL bar
 
-Book URL Textbox (BaseAppSpec.textbox.book_url):
-[x] 6. Input field exists with id "book-url"
-[x] 7. On load: reads the very last entry from localStorage key "book_history"
-[x] 8. On load: creates/dispatches key.enter event after setting value
-[x] 9. On key.enter: sets book_content to "Loading..."
-[x] 10. On key.enter: fetches book content via PHP (fetch_url parameter)
-[x] 11. On key.enter: appends URL to localStorage "book_history" with uniqueness check
-[x] 12. PHP backend strips HTML tags (returns pure content)
+textbox.book_url:
+[x] 18. Input field exists (id="bookUrl")
+[x] 19. On page load: reads last entry from localStorage "book_history"
+[x] 20. On page load: dispatches Enter key event to trigger loading
+[x] 21. On Enter: sets book content to "Loading..."
+[x] 22. On Enter: appends URL to localStorage "book_history" with uniqueness
+[x] 23. On Enter: fetches book content via PHP backend
 
-Book Content Display (BaseAppSpec.div.book_content):
-[x] 13. Before book_content is loaded, innerHTML is completely empty
-[x] 14. After loaded, content is pure text with no HTML tags
-[x] 15. Content is split into HTML paragraphs (double newline split)
+div.book_content:
+[x] 24. Before content loads, innerHTML is completely empty
+[x] 25. After loading, content is pure text (no HTML tags from source)
+[x] 26. Content is split into <p> paragraphs (split on double newlines)
 
-Highlighted Words Translation (BaseAppSpec.modal.highlighted_words_translation):
-[x] 16. On text selection (mouseup), captures highlighted text
-[x] 17. Builds context: 30 words before + highlighted text + 30 words after
-[x] 18. Sends prompt to LLM: "in the context: {context}, show the meaning of {text} using very simple English words no explanation, no extra words"
-[x] 19. Displays result in a popup modal with vertical scrolling
+highlighted_text_in_popup_modal:
+[x] 27. mouseup event captures selected text in book content
+[x] 28. Builds context: 30 words before + selected text + 30 words after
+[x] 29. Prompt: meaning using very simple English words, no explanation
+[x] 30. Result displayed in popup modal with vertical scrolling (overflow-y: auto)
+[x] 31. LLM streaming used for response
 
-SimpleModal Properties:
-[x] 20. Modal is draggable (via header)
-[x] 21. Modal remembers last position (localStorage)
-[x] 22. Modal has close button
+SimpleModal:
+[x] 32. Modal is draggable via header (cursor: move)
+[x] 33. Modal remembers last position in localStorage
+[x] 34. Modal has close button
 
-SimpleEnglishConversionButton (AppSpec):
-[x] 23. Each paragraph has a "Convert to Simple English" button
-[x] 24. Button is shown when paragraph is visible (IntersectionObserver)
-[x] 25. Button is appended at the end of the paragraph (inside <p>, not below)
-[x] 26. Button has background: gold
-[x] 27. On click: sends prompt to LLM for simple English conversion
-[x] 28. On click: shows result in a modal with wheat background
-
-Config.local_llm:
-[x] 29. LLM endpoint: 127.0.0.1:11434
-[x] 30. Model: gemma3:latest
-[x] 31. Streaming enabled (stream: true)
-[x] 32. PHP backend uses curl to proxy LLM requests
-
-General:
-[x] 33. Single PHP file (index.php) - no other PHP files
-[x] 34. PHP handles fetch_url GET requests for book content
-[x] 35. PHP handles POST requests for LLM prompts with streaming
+SimpleEnglishConversionButton:
+[x] 35. Each paragraph has "Convert to Simple English" button
+[x] 36. Button appended at end of paragraph (inside <p>, not below)
+[x] 37. Button shown only when paragraph is visible (IntersectionObserver)
+[x] 38. Button has background: gold
+[x] 39. On click: sends LLM prompt with "<text>...</text>" format
+[x] 40. On click: result shown in modal with wheat background
+[x] 41. LLM streaming used for conversion response

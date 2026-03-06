@@ -9,7 +9,7 @@ description: Single page app for reading books on Project Gutenberg
   - There should be only one single php file, {AppSpec.app_entrypoint}, no other php files should be generated
   - After {AppSpec.app_entrypoint} is generated or updated
     - Perform a loop:
-      - let current_directory = (path of .)
+      - let current_directory = (path of ./SKILL.md)
       - let test_result = TestManager.run(current_directory)
       - if (test_result is false)
         - fix {AppSpec.app_entrypoint}
