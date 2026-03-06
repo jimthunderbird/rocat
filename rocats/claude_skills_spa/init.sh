@@ -1,1 +1,1 @@
-claude "/spa_gutenberg_bookreader" --dangerously-skip-permissions
+claude "/spa_php_webapp_oop_spec_prompt AppSpec" --dangerously-skip-permissions

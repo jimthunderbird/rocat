@@ -8,22 +8,14 @@ if (isset($_GET['action'])) {
         header('Content-Type: text/plain; charset=utf-8');
         $url = $_GET['url'] ?? '';
         if (empty($url)) {
+            http_response_code(400);
             echo 'Error: No URL provided';
             exit;
         }
-        $context = stream_context_create([
-            'http' => [
-                'timeout' => 30,
-                'user_agent' => 'Mozilla/5.0 (compatible; BookReader/1.0)'
-            ],
-            'ssl' => [
-                'verify_peer' => true,
-                'verify_peer_name' => true
-            ]
-        ]);
-        $content = @file_get_contents($url, false, $context);
+        $content = @file_get_contents($url);
         if ($content === false) {
-            echo 'Error: Could not fetch the book content';
+            http_response_code(500);
+            echo 'Error: Failed to fetch content';
             exit;
         }
         echo strip_tags($content);
@@ -33,8 +25,6 @@ if (isset($_GET['action'])) {
     if ($action === 'llm') {
         header('Content-Type: text/event-stream');
         header('Cache-Control: no-cache');
-        header('Connection: keep-alive');
-
         $input = json_decode(file_get_contents('php://input'), true);
         $prompt = $input['prompt'] ?? '';
 
@@ -51,7 +41,7 @@ if (isset($_GET['action'])) {
         curl_setopt($ch, CURLOPT_RETURNTRANSFER, false);
         curl_setopt($ch, CURLOPT_WRITEFUNCTION, function($ch, $data) {
             echo $data;
-            if (ob_get_level() > 0) ob_flush();
+            if (ob_get_level()) ob_flush();
             flush();
             return strlen($data);
         });
@@ -70,326 +60,296 @@ if (isset($_GET['action'])) {
     <title>Gutenberg Book Reader</title>
     <style>
         * { margin: 0; padding: 0; box-sizing: border-box; }
-        body { font-family: Georgia, serif; min-height: 100vh; }
+        body { font-family: Georgia, serif; }
 
         .url-bar {
             background: BurlyWood;
-            padding: 12px 16px;
-            position: sticky;
-            top: 0;
-            z-index: 10;
+            padding: 10px;
         }
         .url-bar input {
             width: 100%;
-            padding: 8px 12px;
+            padding: 8px;
             font-size: 16px;
-            border: 1px solid #999;
-            border-radius: 4px;
         }
 
-        .book-content {
+        #bookContent {
             background: wheat;
-            padding: 24px 48px;
+            padding: 20px;
             line-height: 1.4;
-            min-height: calc(100vh - 52px);
+            min-height: 80vh;
         }
-        .book-content p {
+        #bookContent p {
             margin-bottom: 1em;
             position: relative;
         }
 
         .convert-btn {
             background: gold;
-            border: 1px solid #b8860b;
-            border-radius: 3px;
+            border: 1px solid #ccc;
             padding: 2px 8px;
-            font-size: 12px;
-            cursor: pointer;
             margin-left: 8px;
+            cursor: pointer;
+            font-size: 12px;
             display: none;
-            vertical-align: middle;
-        }
-        .convert-btn:hover {
-            background: #ffdf40;
         }
         .convert-btn.visible {
             display: inline;
         }
 
-        /* Modal styles */
         .modal-overlay {
             position: fixed;
             z-index: 1000;
-            background: #fff;
-            border: 2px solid #555;
+            background: white;
+            border: 1px solid #333;
             border-radius: 6px;
-            box-shadow: 0 4px 20px rgba(0,0,0,0.3);
-            min-width: 280px;
-            max-width: 450px;
-            max-height: 400px;
-            display: flex;
-            flex-direction: column;
+            min-width: 300px;
+            max-width: 500px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.3);
         }
         .modal-header {
-            background: #444;
-            color: #fff;
-            padding: 6px 12px;
-            cursor: move;
             display: flex;
             justify-content: space-between;
             align-items: center;
-            border-radius: 4px 4px 0 0;
-            font-size: 14px;
+            padding: 8px 12px;
+            background: #eee;
+            border-bottom: 1px solid #ccc;
+            cursor: move;
+            border-radius: 6px 6px 0 0;
             user-select: none;
         }
         .modal-close {
-            background: none;
-            border: none;
-            color: #fff;
-            font-size: 18px;
             cursor: pointer;
+            font-size: 18px;
+            font-weight: bold;
+            border: none;
+            background: none;
             padding: 0 4px;
         }
-        .modal-close:hover { color: #f88; }
         .modal-body {
             padding: 12px;
             overflow-y: auto;
-            flex: 1;
-            font-size: 15px;
-            line-height: 1.5;
-        }
-        .modal-body.wheat-bg {
-            background: wheat;
+            max-height: 400px;
         }
     </style>
 </head>
 <body>
+    <div class="url-bar">
+        <input type="text" id="bookUrl" placeholder="Enter Gutenberg book URL...">
+    </div>
+    <div id="bookContent"></div>
 
-<div class="url-bar">
-    <input type="text" id="bookUrl" placeholder="Enter Gutenberg book URL (e.g., https://www.gutenberg.org/cache/epub/1342/pg1342.txt)" />
-</div>
+    <script>
+        const bookUrl = document.getElementById('bookUrl');
+        const bookContent = document.getElementById('bookContent');
 
-<div class="book-content" id="bookContent"></div>
+        // Modal position persistence
+        function getModalPositions() {
+            try { return JSON.parse(localStorage.getItem('modal_positions') || '{}'); } catch { return {}; }
+        }
+        function saveModalPosition(id, x, y) {
+            const pos = getModalPositions();
+            pos[id] = { x, y };
+            localStorage.setItem('modal_positions', JSON.stringify(pos));
+        }
 
-<script>
-(function() {
-    const bookUrlInput = document.getElementById('bookUrl');
-    const bookContent = document.getElementById('bookContent');
+        // Create a draggable modal
+        function createModal(id, title, contentHtml, styles) {
+            // Remove existing modal with same id
+            const existing = document.getElementById(id);
+            if (existing) existing.remove();
 
-    // --- Modal System ---
-    const modalPositions = JSON.parse(localStorage.getItem('modal_positions') || '{}');
+            const modal = document.createElement('div');
+            modal.className = 'modal-overlay';
+            modal.id = id;
 
-    function createModal(id, title, options = {}) {
-        let existing = document.getElementById(id);
-        if (existing) existing.remove();
+            const pos = getModalPositions()[id];
+            modal.style.left = (pos ? pos.x : 100) + 'px';
+            modal.style.top = (pos ? pos.y : 100) + 'px';
 
-        const modal = document.createElement('div');
-        modal.className = 'modal-overlay';
-        modal.id = id;
+            const header = document.createElement('div');
+            header.className = 'modal-header';
+            header.innerHTML = `<span>${title}</span>`;
 
-        const saved = modalPositions[id];
-        const defaultTop = options.top || 100;
-        const defaultLeft = options.left || 200;
-        modal.style.top = (saved ? saved.top : defaultTop) + 'px';
-        modal.style.left = (saved ? saved.left : defaultLeft) + 'px';
+            const closeBtn = document.createElement('button');
+            closeBtn.className = 'modal-close';
+            closeBtn.textContent = '\u00d7';
+            closeBtn.onclick = () => modal.remove();
+            header.appendChild(closeBtn);
 
-        const header = document.createElement('div');
-        header.className = 'modal-header';
-        header.innerHTML = '<span>' + title + '</span>';
-
-        const closeBtn = document.createElement('button');
-        closeBtn.className = 'modal-close';
-        closeBtn.textContent = '\u00d7';
-        closeBtn.onclick = () => { modal.remove(); };
-        header.appendChild(closeBtn);
-
-        const body = document.createElement('div');
-        body.className = 'modal-body' + (options.wheatBg ? ' wheat-bg' : '');
-
-        modal.appendChild(header);
-        modal.appendChild(body);
-        document.body.appendChild(modal);
-
-        // Draggable
-        let isDragging = false, offsetX, offsetY;
-        header.addEventListener('mousedown', (e) => {
-            isDragging = true;
-            offsetX = e.clientX - modal.offsetLeft;
-            offsetY = e.clientY - modal.offsetTop;
-            e.preventDefault();
-        });
-        document.addEventListener('mousemove', (e) => {
-            if (!isDragging) return;
-            modal.style.left = (e.clientX - offsetX) + 'px';
-            modal.style.top = (e.clientY - offsetY) + 'px';
-        });
-        document.addEventListener('mouseup', () => {
-            if (isDragging) {
-                isDragging = false;
-                modalPositions[id] = { top: modal.offsetTop, left: modal.offsetLeft };
-                localStorage.setItem('modal_positions', JSON.stringify(modalPositions));
+            const body = document.createElement('div');
+            body.className = 'modal-body';
+            if (contentHtml) body.innerHTML = contentHtml;
+            if (styles) {
+                Object.keys(styles).forEach(k => body.style[k] = styles[k]);
             }
-        });
 
-        return { modal, body };
-    }
+            modal.appendChild(header);
+            modal.appendChild(body);
+            document.body.appendChild(modal);
 
-    // --- LLM Call (streaming) ---
-    async function callLLM(prompt, targetEl) {
-        targetEl.textContent = 'Thinking...';
-        try {
-            const resp = await fetch('?action=llm', {
+            // Draggable
+            let isDragging = false, offsetX, offsetY;
+            header.addEventListener('mousedown', (e) => {
+                isDragging = true;
+                offsetX = e.clientX - modal.offsetLeft;
+                offsetY = e.clientY - modal.offsetTop;
+                e.preventDefault();
+            });
+            document.addEventListener('mousemove', (e) => {
+                if (!isDragging) return;
+                const x = e.clientX - offsetX;
+                const y = e.clientY - offsetY;
+                modal.style.left = x + 'px';
+                modal.style.top = y + 'px';
+            });
+            document.addEventListener('mouseup', () => {
+                if (isDragging) {
+                    isDragging = false;
+                    saveModalPosition(id, modal.offsetLeft, modal.offsetTop);
+                }
+            });
+
+            return { modal, body };
+        }
+
+        // Stream LLM response into an element
+        function streamLLM(prompt, targetEl) {
+            targetEl.textContent = 'Thinking...';
+            fetch('index.php?action=llm', {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify({ prompt })
-            });
-            const reader = resp.body.getReader();
-            const decoder = new TextDecoder();
-            let result = '';
-            targetEl.textContent = '';
+            }).then(response => {
+                const reader = response.body.getReader();
+                const decoder = new TextDecoder();
+                targetEl.textContent = '';
+                let buffer = '';
 
-            while (true) {
-                const { done, value } = await reader.read();
-                if (done) break;
-                const chunk = decoder.decode(value, { stream: true });
-                const lines = chunk.split('\n').filter(l => l.trim());
-                for (const line of lines) {
-                    try {
-                        const json = JSON.parse(line);
-                        if (json.response) {
-                            result += json.response;
-                            targetEl.textContent = result;
+                function read() {
+                    reader.read().then(({ done, value }) => {
+                        if (done) return;
+                        buffer += decoder.decode(value, { stream: true });
+                        const lines = buffer.split('\n');
+                        buffer = lines.pop();
+                        for (const line of lines) {
+                            if (!line.trim()) continue;
+                            try {
+                                const json = JSON.parse(line);
+                                if (json.response) {
+                                    targetEl.textContent += json.response;
+                                }
+                            } catch {}
                         }
-                    } catch(e) {}
+                        read();
+                    });
                 }
-            }
-        } catch(e) {
-            targetEl.textContent = 'Error: ' + e.message;
+                read();
+            });
         }
-    }
 
-    // --- Highlighted text meaning ---
-    function getContext(text) {
-        const fullText = bookContent.textContent || '';
-        const idx = fullText.indexOf(text);
-        if (idx === -1) return text;
+        // Highlighted text modal
+        bookContent.addEventListener('mouseup', (e) => {
+            // Don't trigger on button clicks
+            if (e.target.closest('button')) return;
 
-        const before = fullText.substring(0, idx).split(/\s+/).slice(-30).join(' ');
-        const after = fullText.substring(idx + text.length).split(/\s+/).slice(0, 30).join(' ');
-        return before + ' ' + text + ' ' + after;
-    }
+            const sel = window.getSelection();
+            const selectedText = sel.toString().trim();
+            if (!selectedText || selectedText.length < 1) return;
 
-    document.addEventListener('mouseup', (e) => {
-        if (e.target.closest('.modal-overlay')) return;
-        if (e.target.closest('.url-bar')) return;
-        if (e.target.closest('.convert-btn')) return;
+            // Check selection is inside bookContent
+            if (!bookContent.contains(sel.anchorNode)) return;
 
-        const sel = window.getSelection();
-        const selectedText = sel.toString().trim();
-        if (!selectedText || selectedText.length === 0) return;
+            // Build context: 30 words before + selected + 30 words after
+            const fullText = bookContent.textContent;
+            const selStart = fullText.indexOf(selectedText);
+            if (selStart === -1) return;
 
-        // Check selection is within book content
-        const range = sel.getRangeAt(0);
-        if (!bookContent.contains(range.commonAncestorContainer)) return;
+            const beforeText = fullText.substring(0, selStart);
+            const afterText = fullText.substring(selStart + selectedText.length);
+            const wordsBefore = beforeText.split(/\s+/).filter(Boolean).slice(-30).join(' ');
+            const wordsAfter = afterText.split(/\s+/).filter(Boolean).slice(0, 30).join(' ');
+            const context = wordsBefore + ' ' + selectedText + ' ' + wordsAfter;
 
-        const context = getContext(selectedText);
-        const prompt = 'in the context: ' + context + ', show the meaning of "' + selectedText + '" using very simple English words. no explanation, no extra words';
+            const prompt = `in the context: ${context}, show the meaning of "${selectedText}" using very simple English words, no explanation, no extra words`;
 
-        const { body } = createModal('modal-highlight', 'Meaning: ' + selectedText.substring(0, 40), {
-            top: Math.min(e.clientY + 10, window.innerHeight - 300),
-            left: Math.min(e.clientX + 10, window.innerWidth - 350)
+            const { body } = createModal('highlightModal', 'Word Meaning', '', null);
+            streamLLM(prompt, body);
         });
 
-        callLLM(prompt, body);
-    });
-
-    // --- Load book content ---
-    async function loadBook(url) {
-        bookContent.innerHTML = '';
-        bookContent.textContent = 'Loading...';
-
-        // Save to history
-        let history = JSON.parse(localStorage.getItem('book_history') || '[]');
-        history = history.filter(h => h !== url);
-        history.push(url);
-        localStorage.setItem('book_history', JSON.stringify(history));
-
-        try {
-            const resp = await fetch('?action=fetch_book&url=' + encodeURIComponent(url));
-            const text = await resp.text();
-
+        // Load book content
+        function loadBook(url) {
+            if (!url) return;
             bookContent.innerHTML = '';
+            bookContent.textContent = 'Loading...';
 
-            if (text.startsWith('Error:')) {
-                bookContent.textContent = text;
-                return;
-            }
+            // Save to history
+            let history = [];
+            try { history = JSON.parse(localStorage.getItem('book_history') || '[]'); } catch {}
+            history = history.filter(h => h !== url);
+            history.push(url);
+            localStorage.setItem('book_history', JSON.stringify(history));
 
-            // Split into paragraphs
-            const paragraphs = text.split(/\n\s*\n/).filter(p => p.trim());
-            paragraphs.forEach(pText => {
-                const p = document.createElement('p');
-                p.textContent = pText.trim();
+            fetch(`index.php?action=fetch_book&url=${encodeURIComponent(url)}`)
+                .then(r => r.text())
+                .then(text => {
+                    bookContent.innerHTML = '';
+                    // Split into paragraphs on double newlines
+                    const paragraphs = text.split(/\n\s*\n/).map(p => p.trim()).filter(Boolean);
+                    paragraphs.forEach(pText => {
+                        const p = document.createElement('p');
+                        p.textContent = pText;
 
-                // Add "Convert to Simple English" button
-                const btn = document.createElement('button');
-                btn.className = 'convert-btn';
-                btn.textContent = 'Convert to Simple English';
-                btn.addEventListener('click', (e) => {
-                    e.stopPropagation();
-                    const paraText = p.childNodes[0].textContent;
-                    const prompt = 'given <text>' + paraText + '</text>, convert it to a version that use very simple English words, show me the converted result only, no explanation, no extra words';
-
-                    const { body } = createModal('modal-simple-english', 'Simple English', {
-                        wheatBg: true,
-                        top: Math.min(e.clientY, window.innerHeight - 300),
-                        left: Math.min(e.clientX, window.innerWidth - 350)
+                        const btn = document.createElement('button');
+                        btn.className = 'convert-btn';
+                        btn.textContent = 'Convert to Simple English';
+                        btn.addEventListener('click', () => {
+                            const prompt = `given <text>${pText}</text>, convert it to a version that use very simple English words, show me the converted result only, no explanation, no extra words`;
+                            const { body } = createModal('simpleEnglishModal', 'Simple English', '', null);
+                            body.style.setProperty('background-color', 'wheat', 'important');
+                            streamLLM(prompt, body);
+                        });
+                        p.appendChild(btn);
+                        bookContent.appendChild(p);
                     });
-                    callLLM(prompt, body);
+
+                    // IntersectionObserver to show/hide convert buttons
+                    const observer = new IntersectionObserver((entries) => {
+                        entries.forEach(entry => {
+                            const btn = entry.target.querySelector('.convert-btn');
+                            if (btn) {
+                                if (entry.isIntersecting) {
+                                    btn.classList.add('visible');
+                                } else {
+                                    btn.classList.remove('visible');
+                                }
+                            }
+                        });
+                    }, { threshold: 0.1 });
+
+                    bookContent.querySelectorAll('p').forEach(p => observer.observe(p));
+                })
+                .catch(err => {
+                    bookContent.textContent = 'Error loading book: ' + err.message;
                 });
-
-                p.appendChild(btn);
-                bookContent.appendChild(p);
-            });
-
-            // Intersection observer to show buttons when paragraph is visible
-            const observer = new IntersectionObserver((entries) => {
-                entries.forEach(entry => {
-                    const btn = entry.target.querySelector('.convert-btn');
-                    if (btn) {
-                        if (entry.isIntersecting) {
-                            btn.classList.add('visible');
-                        } else {
-                            btn.classList.remove('visible');
-                        }
-                    }
-                });
-            }, { threshold: 0.1 });
-
-            bookContent.querySelectorAll('p').forEach(p => observer.observe(p));
-
-        } catch(e) {
-            bookContent.textContent = 'Error: ' + e.message;
         }
-    }
 
-    // --- URL input handling ---
-    bookUrlInput.addEventListener('keydown', (e) => {
-        if (e.key === 'Enter') {
-            const url = bookUrlInput.value.trim();
-            if (url) loadBook(url);
-        }
-    });
+        // Enter key on URL input
+        bookUrl.addEventListener('keydown', (e) => {
+            if (e.key === 'Enter') {
+                loadBook(bookUrl.value.trim());
+            }
+        });
 
-    // --- On load: restore last URL from history ---
-    const history = JSON.parse(localStorage.getItem('book_history') || '[]');
-    if (history.length > 0) {
-        const lastUrl = history[history.length - 1];
-        bookUrlInput.value = lastUrl;
-        // Trigger enter key event
-        bookUrlInput.dispatchEvent(new KeyboardEvent('keydown', { key: 'Enter' }));
-    }
-})();
-</script>
+        // On page load: restore last URL from history
+        (function() {
+            let history = [];
+            try { history = JSON.parse(localStorage.getItem('book_history') || '[]'); } catch {}
+            if (history.length > 0) {
+                const lastUrl = history[history.length - 1];
+                bookUrl.value = lastUrl;
+                bookUrl.dispatchEvent(new KeyboardEvent('keydown', { key: 'Enter', bubbles: true }));
+            }
+        })();
+    </script>
 </body>
 </html>
