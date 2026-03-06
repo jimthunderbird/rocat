@@ -34,6 +34,6 @@
 - **innerHTML**: **book_content**
 
 ### modal.highlighted_words_translation(highlighted_text)
-**Extends:** SimpleModal
-**Behavior:**
-- When visible, call highlighted_text_in_popup_modal(**highlighted_text**, self).
+- **Extends:** SimpleModal
+- **Behavior:**
+  - When visible, call highlighted_text_in_popup_modal(**highlighted_text**, self).
