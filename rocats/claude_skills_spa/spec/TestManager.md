@@ -16,9 +16,9 @@
 
 ### run(current_directory)
 - **test_directory**: **current_directory**/test
-- If **test_directory**/code_check_items.txt does not exist, or any .prompt file has changed (git status check):
+- If **test_directory**/code_check_items.txt does not exist, or any .md file has changed (git status check):
   - Call create_code_check_list_items().
-- If **test_directory**/e2e_check_items.txt does not exist, or any .prompt file has changed (git status check):
+- If **test_directory**/e2e_check_items.txt does not exist, or any .md file has changed (git status check):
   - Call create_e2e_check_list_items().
 - **result**: Run CLI command: `node **test_directory**/e2e_test.mjs`.
 - If all E2E tests passed in **result**, return true; otherwise return false.
