@@ -20,15 +20,15 @@
 
 **Events:**
 * **@load**: 
-    1. Read the very last entry from local storage key "book_history".
-    2. Trigger key.enter event.
+- Read the very last entry from local storage key "book_history".
+- Trigger key.enter event.
 * **@key.enter**: 
-    1. Set book_content = "Loading...".
-    2. **let book_url** = value.
-    3. Append {book_url} to local storage "book_history".
-    4. Ensure all entries in "book_history" remain unique.
-    5. **let book_content** = PHP_READ({book_url}).
-    6. Ensure PHP returns only the pure file content.
+- Set book_content = "Loading...".
+- **book_url** = value.
+- Append **book_url** to local storage "book_history".
+- Ensure all entries in "book_history" remain unique.
+- **let book_content** = PHP_READ({book_url}).
+- Ensure PHP returns only the pure file content.
 
 ### div.book_content
 **Behavior (Pre-load):** 
