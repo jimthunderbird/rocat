@@ -1,4 +1,4 @@
-class BaseAppSpec {
+{
   app_entrypoint: index.php {
     coding_style: ./knowledge/php_page_style.md
   }

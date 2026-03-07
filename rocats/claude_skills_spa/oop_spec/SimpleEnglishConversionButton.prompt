@@ -1,4 +1,3 @@
-class SimpleEnglishConversionButton
 {
   parameter {
     text_to_convert

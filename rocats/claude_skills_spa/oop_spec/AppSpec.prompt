@@ -1,4 +1,4 @@
-class AppSpec extends BaseAppSpec {
+extends BaseAppSpec {
   init() {
     div.book_content.style.background: "wheat"
 
@@ -14,10 +14,6 @@ class AppSpec extends BaseAppSpec {
     }
 
     div.book_content {
-      words.@highlighted {
-        show modal.highlighted_words_translation(highlighted words)
-      }
-
       paragraphs.each (paragraph) {
         @load {
           add SimpleEnglishConversionButton {
@@ -29,6 +25,10 @@ class AppSpec extends BaseAppSpec {
               background: gold
             }
           }
+        }
+
+        words.@highlighted {
+          show modal.highlighted_words_translation(highlighted words)
         }
       }
     }

@@ -1,0 +1,32 @@
+role: markdown expert
+objective: convert the following prompt to markdown
+sameple:
+<source_prompt>
+spec extends BaseSpec {
+  layout {
+    ui.component1
+    ui.component2
+  }
+}
+</source_prompt>
+<target_markdown>
+#Spec
+-**extends**:BaseSpec
+
+##Layout
+-**ui.component1
+-**ui.component2
+
+</target_markdown>
+
+<prompt>
+spec extends BaseSpec {
+  layout {
+    div.id:"component-container" {
+      ui.component1
+      ui.component2
+      ui.component3
+    }
+  }
+}
+</prompt>
