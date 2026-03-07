@@ -139,10 +139,7 @@ body {
     display: flex;
     flex-direction: column;
 }
-.modal-container.wheat-bg {
-    background: wheat;
-}
-#modal_header, .se-modal-header {
+#modal_header {
     background: #ddd;
     padding: 6px 10px;
     cursor: move;
@@ -151,7 +148,7 @@ body {
     align-items: center;
     user-select: none;
 }
-#modal_box, .se-modal-body {
+#modal_box {
     padding: 10px;
     overflow-y: auto;
     flex: 1;
@@ -187,16 +184,6 @@ body {
     </div>
 </div>
 
-<!-- Simple English Modal -->
-<div id="se_modal" class="modal-overlay">
-    <div class="modal-container wheat-bg" id="se_modal_container">
-        <div class="se-modal-header" id="se_modal_header">
-            <span>Simple English</span>
-            <span class="modal-close-btn" id="se_modal_close">&times;</span>
-        </div>
-        <div class="se-modal-body" id="se_modal_body"></div>
-    </div>
-</div>
 
 <script>
 // ---- Utility: localStorage helpers ----
@@ -303,13 +290,13 @@ function addConvertButton(p) {
         const prompt = `given <text>${originalText}</text>, convert it to a version that use very simple English words, show me the converted result only, no explanation, no extra words`;
         // Store original
         p.dataset.originalText = originalText;
-        // Stream LLM result in-place
+        // Show "Converting..." then stream LLM result in-place
         const textNodes = Array.from(p.childNodes).filter(n => n.nodeType === 3);
         textNodes.forEach(n => n.remove());
-        // Remove convert button, add placeholder for streaming
         btn.remove();
         const streamSpan = document.createElement('span');
         streamSpan.className = 'stream-target';
+        streamSpan.textContent = 'Converting...';
         p.insertBefore(streamSpan, p.firstChild);
 
         streamLLM(prompt, streamSpan, function() {
@@ -435,13 +422,6 @@ function makeDraggable(header, container, storageKey) {
 }
 
 makeDraggable(document.getElementById('modal_header'), translationContainer, 'modal_pos');
-makeDraggable(document.getElementById('se_modal_header'), document.getElementById('se_modal_container'), 'se_modal_pos');
-
-// SE modal close
-document.getElementById('se_modal_close').addEventListener('click', function() {
-    document.getElementById('se_modal').style.display = 'none';
-});
-
 // ---- @load: restore last book_history entry ----
 (function() {
     const history = getBookHistory();

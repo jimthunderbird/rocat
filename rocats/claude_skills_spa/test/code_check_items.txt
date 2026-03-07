@@ -70,18 +70,19 @@ SimpleEnglishConversionButton (AppSpec):
 [x] 50. Button shown only when paragraph is visible (IntersectionObserver behavior)
 [x] 51. Button has background: gold style
 [x] 52. Button is appended at the end of paragraph (inside <p>, not below it)
-[x] 53. @click: sends prompt with "<text>{paragraph text}</text>" format
-[x] 54. @click: prompt asks to convert to very simple English words, result only, no explanation
-[x] 55. @click: replaces paragraph text in-place with LLM streaming result
-[x] 56. After replacement: shows OriginalTextButton
+[x] 53. @click: shows "Converting..." in paragraph before LLM streaming starts
+[x] 54. @click: sends prompt with "<text>{paragraph text}</text>" format
+[x] 55. @click: prompt asks to convert to very simple English words, result only, no explanation
+[x] 56. @click: replaces paragraph text in-place with LLM streaming result
+[x] 57. After replacement: shows OriginalTextButton
 
 OriginalTextButton:
-[x] 57. Text is "Original"
-[x] 58. Applies same style as SimpleEnglishConversionButton (background: gold)
-[x] 59. @click: replaces paragraph text with the original text
+[x] 58. Text is "Original"
+[x] 59. Applies same style as SimpleEnglishConversionButton (background: gold)
+[x] 60. @click: replaces paragraph text with the original text
 
 BookHistory (ui/BookHistory.md):
-[x] 60. Dropdown type component
-[x] 61. Shows the 10 most-recent book urls on click
-[x] 62. Clicking a history entry loads that URL
-[x] 63. Button has background_image: triangle bottom (downward arrow indicator)
+[x] 61. Dropdown type component
+[x] 62. Shows the 10 most-recent book urls on click
+[x] 63. Clicking a history entry loads that URL
+[x] 64. Button has background_image: triangle bottom (downward arrow indicator)

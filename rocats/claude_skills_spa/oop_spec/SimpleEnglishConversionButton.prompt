@@ -9,16 +9,11 @@
 
   @click {
     let text_to_convert = paragraph.text
-    paragraph.text = "Converting..."
+    let paragraph.text = "Converting..."
     let prompt = (
       given <text>{text_to_convert}</text>, convert it to a version that use very simple English words, show me the converted result only, no explanation, no extra words
     )
     result = Config.local_llm(prompt)
-    show model.simple_english_displayer extends SimpleModal {
-      content: result
-      style {
-        background: wheat
-      }
-    }
+    let paragraph.text = result 
   }  
 }

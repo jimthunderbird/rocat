@@ -27,7 +27,7 @@ E2E Check Items for Book Reader SPA (Puppeteer)
 24. Modal position is saved to localStorage
 25. BookHistory dropdown button exists
 26. BookHistory dropdown shows recent URLs when clicked
-27. Convert button click replaces paragraph text in-place (not in a modal)
+27. Convert button click shows "Converting..." then replaces paragraph text in-place
 28. After conversion, an "Original" button appears in the paragraph
 29. Original button has same style as Convert button (gold background)
 30. Clicking "Original" button restores original paragraph text
