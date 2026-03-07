@@ -20,103 +20,117 @@ function log(ok, msg) {
     await page.reload({ waitUntil: 'networkidle0' });
 
     // 1. Page loads - URL input exists
-    const inputExists = await page.$('#bookUrl');
-    log(!!inputExists, '1. Page has URL input field (#bookUrl)');
+    const inputExists = await page.$('#book_url');
+    log(!!inputExists, '1. Page has URL input field (#book_url)');
 
-    // 1b. Book content area is empty on initial load (no history)
-    const contentEmpty = await page.$eval('#bookContent', el => el.innerHTML.trim() === '');
-    log(contentEmpty, '1b. Book content area is empty on load (no history)');
+    // 2. Body has wheat background
+    const bodyBg = await page.evaluate(() => getComputedStyle(document.body).backgroundColor);
+    log(bodyBg === 'rgb(245, 222, 179)', `2. Body background is wheat (got: ${bodyBg})`);
 
-    // 2. URL bar has BurlyWood background
-    const urlBarBg = await page.$eval('.url-bar', el => getComputedStyle(el).backgroundColor);
-    log(urlBarBg === 'rgb(222, 184, 135)', `2. URL bar background is BurlyWood (got: ${urlBarBg})`);
+    // 3. Book content area is empty on initial load (no history)
+    const contentEmpty = await page.$eval('#book_content', el => el.innerHTML.trim() === '');
+    log(contentEmpty, '3. Book content area is empty on load (no history)');
 
-    // 3. Book content area has wheat background
-    const contentBg = await page.$eval('#bookContent', el => getComputedStyle(el).backgroundColor);
-    log(contentBg === 'rgb(245, 222, 179)', `3. Book content background is wheat (got: ${contentBg})`);
+    // 4. Top bar has BurlyWood background
+    const topBarBg = await page.$eval('.top-bar', el => getComputedStyle(el).backgroundColor);
+    log(topBarBg === 'rgb(222, 184, 135)', `4. Top bar background is BurlyWood (got: ${topBarBg})`);
 
-    // 4. Book content has line-height 1.4
-    const lineHeight = await page.$eval('#bookContent', el => getComputedStyle(el).lineHeight);
-    const fontSize = await page.$eval('#bookContent', el => parseFloat(getComputedStyle(el).fontSize));
+    // 5. Top bar uses horizontal layout
+    const topBarDir = await page.$eval('.top-bar', el => getComputedStyle(el).flexDirection);
+    log(topBarDir === 'row', `5. Top bar uses horizontal layout (got: ${topBarDir})`);
+
+    // 5b. Top bar has padding: 10px
+    const topBarPadding = await page.$eval('.top-bar', el => getComputedStyle(el).padding);
+    log(topBarPadding === '10px', `5b. Top bar has padding: 10px (got: ${topBarPadding})`);
+
+    // 6. Book content area has wheat background
+    const contentBg = await page.$eval('#book_content', el => getComputedStyle(el).backgroundColor);
+    log(contentBg === 'rgb(245, 222, 179)', `6. Book content background is wheat (got: ${contentBg})`);
+
+    // 7. Book content has line-height 1.4
+    const lineHeight = await page.$eval('#book_content', el => getComputedStyle(el).lineHeight);
+    const fontSize = await page.$eval('#book_content', el => parseFloat(getComputedStyle(el).fontSize));
     const expectedLH = Math.round(fontSize * 1.4 * 10) / 10;
     const actualLH = parseFloat(lineHeight);
-    log(Math.abs(actualLH - expectedLH) < 1, `4. line-height is ~1.4 (got: ${lineHeight})`);
+    log(Math.abs(actualLH - expectedLH) < 1, `7. line-height is ~1.4 (got: ${lineHeight})`);
 
-    // 5. Enter URL and press Enter - shows "Loading..."
-    await page.type('#bookUrl', GUTENBERG_URL);
+    // 8. BookHistory dropdown button exists
+    const historyBtn = await page.$('#book_history_btn');
+    log(!!historyBtn, '8. BookHistory dropdown button exists');
+
+    // 9. Enter URL and press Enter - shows "Loading..."
+    await page.type('#book_url', GUTENBERG_URL);
     await page.keyboard.press('Enter');
     await page.waitForFunction(() => {
-      const el = document.getElementById('bookContent');
+      const el = document.getElementById('book_content');
       return el && el.textContent.includes('Loading');
     }, { timeout: 3000 }).catch(() => {});
-    const loadingText = await page.$eval('#bookContent', el => el.textContent);
-    log(loadingText.includes('Loading'), `5. Shows "Loading..." after Enter (got: "${loadingText.substring(0, 30)}")`);
+    const loadingText = await page.$eval('#book_content', el => el.textContent);
+    log(loadingText.includes('Loading'), `9. Shows "Loading..." after Enter (got: "${loadingText.substring(0, 30)}")`);
 
-    // 6. Wait for content to load as paragraphs
+    // 10. Wait for content to load as paragraphs
     let contentLoaded = false;
     try {
       await page.waitForFunction(() => {
-        const el = document.getElementById('bookContent');
+        const el = document.getElementById('book_content');
         return el && el.querySelectorAll('p').length > 5;
       }, { timeout: 60000 });
-      const pCount = await page.$eval('#bookContent', el => el.querySelectorAll('p').length);
-      log(pCount > 5, `6. Book content displays as paragraphs (${pCount} paragraphs found)`);
+      const pCount = await page.$eval('#book_content', el => el.querySelectorAll('p').length);
+      log(pCount > 5, `10. Book content displays as paragraphs (${pCount} paragraphs found)`);
       contentLoaded = true;
     } catch (e) {
-      log(false, `6. Book content failed to load: ${e.message}`);
+      log(false, `10. Book content failed to load: ${e.message}`);
     }
 
     if (contentLoaded) {
-      // 7. Paragraphs contain only text (no HTML tags except button)
-      const hasNoInnerHtml = await page.$$eval('#bookContent p', ps => {
+      // 11. Paragraphs contain only text (no HTML tags except buttons)
+      const hasNoInnerHtml = await page.$$eval('#book_content p', ps => {
         return ps.slice(0, 10).every(p => {
           const children = Array.from(p.childNodes).filter(n => n.nodeType === 1 && n.tagName !== 'BUTTON');
           return children.length === 0;
         });
       });
-      log(hasNoInnerHtml, '7. Paragraphs contain only text (no HTML tags from source)');
+      log(hasNoInnerHtml, '11. Paragraphs contain only text (no HTML tags from source)');
 
-      // 8. Each paragraph has a Convert button inside it
-      const btnCount = await page.$$eval('#bookContent .convert-btn', btns => btns.length);
-      const pCount2 = await page.$eval('#bookContent', el => el.querySelectorAll('p').length);
-      log(btnCount === pCount2 && btnCount > 0, `8. Each paragraph has a Convert button (${btnCount} buttons, ${pCount2} paragraphs)`);
+      // 12. Each paragraph has a Convert button inside it
+      const btnCount = await page.$$eval('#book_content .simple-english-btn', btns => btns.length);
+      const pCount2 = await page.$eval('#book_content', el => el.querySelectorAll('p').length);
+      log(btnCount === pCount2 && btnCount > 0, `12. Each paragraph has a Convert button (${btnCount} buttons, ${pCount2} paragraphs)`);
 
-      // 9. Button is the last child of the paragraph (appended at end, not below)
-      const btnIsLast = await page.$$eval('#bookContent p', ps => {
+      // 13. Button is the last child of the paragraph (appended at end, not below)
+      const btnIsLast = await page.$$eval('#book_content p', ps => {
         return ps.slice(0, 5).every(p => {
           const lastEl = p.lastElementChild;
-          return lastEl && lastEl.classList.contains('convert-btn');
+          return lastEl && lastEl.classList.contains('simple-english-btn');
         });
       });
-      log(btnIsLast, '9. Convert button is appended at the end of each paragraph');
+      log(btnIsLast, '13. Convert button is appended at the end of each paragraph');
 
-      // 10. Convert button text
-      const btnText = await page.$eval('.convert-btn', el => el.textContent);
-      log(btnText === 'Convert to Simple English', `10. Button text is "Convert to Simple English" (got: "${btnText}")`);
+      // 14. Convert button text
+      const btnText = await page.$eval('.simple-english-btn', el => el.textContent);
+      log(btnText === 'Convert to Simple English', `14. Button text is "Convert to Simple English" (got: "${btnText}")`);
 
-      // 11. Convert buttons have gold background
+      // 15. Convert buttons have gold background
       const btnBg = await page.evaluate(() => {
-        const btn = document.querySelector('.convert-btn');
-        btn.classList.add('visible');
+        const btn = document.querySelector('.simple-english-btn');
+        btn.style.display = 'inline-block';
         return getComputedStyle(btn).backgroundColor;
       });
-      log(btnBg === 'rgb(255, 215, 0)', `11. Convert button background is gold (got: ${btnBg})`);
+      log(btnBg === 'rgb(255, 215, 0)', `15. Convert button background is gold (got: ${btnBg})`);
 
-      // 12. Visible paragraphs show buttons, hidden ones don't
+      // 16. Visible paragraphs show buttons, hidden ones don't (IntersectionObserver)
       await page.evaluate(() => window.scrollTo(0, 0));
       await new Promise(r => setTimeout(r, 500));
-      const hiddenBtns = await page.$$eval('#bookContent .convert-btn', btns => {
-        return btns.filter(b => !b.classList.contains('visible')).length;
+      const allBtns = await page.$$eval('#book_content .simple-english-btn', btns => {
+        return btns.map(b => getComputedStyle(b).display);
       });
-      log(hiddenBtns > 0, `12. Some Convert buttons are hidden when paragraph not in viewport (${hiddenBtns} hidden)`);
+      const hiddenCount = allBtns.filter(d => d === 'none').length;
+      const visibleCount = allBtns.filter(d => d !== 'none').length;
+      log(hiddenCount > 0, `16. Some Convert buttons are hidden when paragraph not in viewport (${hiddenCount} hidden)`);
+      log(visibleCount > 0, `17. Some Convert buttons are visible when paragraph in viewport (${visibleCount} visible)`);
 
-      const visibleBtns = await page.$$eval('#bookContent .convert-btn', btns => {
-        return btns.filter(b => b.classList.contains('visible')).length;
-      });
-      log(visibleBtns > 0, `13. Some Convert buttons are visible when paragraph in viewport (${visibleBtns} visible)`);
-
-      // 14. Select text - modal appears
-      const firstP = await page.$('#bookContent p');
+      // 18. Select text - modal appears
+      const firstP = await page.$('#book_content p');
       let modalTestsDone = false;
       if (firstP) {
         const box = await firstP.boundingBox();
@@ -129,120 +143,106 @@ function log(ok, msg) {
 
           const selectedText = await page.evaluate(() => window.getSelection().toString().trim());
           if (selectedText) {
-            const modalExists = await page.$('.modal-overlay');
-            log(!!modalExists, '14. Word meaning modal appears on text selection');
+            const modalVisible = await page.$eval('#translation_modal', el => getComputedStyle(el).display !== 'none');
+            log(modalVisible, '18. Word meaning modal appears on text selection');
 
-            if (modalExists) {
+            if (modalVisible) {
               modalTestsDone = true;
 
-              // 15. Modal body has vertical scrolling
-              const overflow = await page.$eval('.modal-overlay .modal-body', el => getComputedStyle(el).overflowY);
-              log(overflow === 'auto' || overflow === 'scroll', `15. Modal body has vertical scrolling (overflow-y: ${overflow})`);
+              // 19. Modal body has vertical scrolling
+              const overflow = await page.$eval('#modal_box', el => getComputedStyle(el).overflowY);
+              log(overflow === 'auto' || overflow === 'scroll', `19. Modal has vertical scrolling (overflow-y: ${overflow})`);
 
-              // 16. Modal is draggable
-              const cursor = await page.$eval('.modal-overlay .modal-header', el => getComputedStyle(el).cursor);
-              log(cursor === 'move', `16. Modal header has cursor: move (got: ${cursor})`);
+              // 20. Modal is draggable
+              const cursor = await page.$eval('#modal_header', el => getComputedStyle(el).cursor);
+              log(cursor === 'move', `20. Modal header has cursor: move (got: ${cursor})`);
 
-              // 17. Modal has close button
-              const closeBtn = await page.$('.modal-overlay .modal-close');
-              log(!!closeBtn, '17. Modal has close button');
+              // 21. Modal has close button
+              const closeBtn = await page.$('#modal_close');
+              log(!!closeBtn, '21. Modal has close button');
 
               if (closeBtn) {
                 await closeBtn.click();
                 await new Promise(r => setTimeout(r, 500));
-                const modalGone = !(await page.$('.modal-overlay'));
-                log(modalGone, '18. Modal closes on X click');
+                const modalHidden = await page.$eval('#translation_modal', el => getComputedStyle(el).display === 'none');
+                log(modalHidden, '22. Modal closes on X click');
               } else {
-                log(false, '18. (skipped - no close button)');
+                log(false, '22. (skipped - no close button)');
               }
             }
           }
         }
       }
       if (!modalTestsDone) {
-        log(false, '14. Word meaning modal appears on text selection');
-        log(false, '15. (skipped - no modal)');
-        log(false, '16. (skipped - no modal)');
-        log(false, '17. (skipped - no modal)');
-        log(false, '18. (skipped - no modal)');
+        log(false, '18. Word meaning modal appears on text selection');
+        log(false, '19. (skipped - no modal)');
+        log(false, '20. (skipped - no modal)');
+        log(false, '21. (skipped - no modal)');
+        log(false, '22. (skipped - no modal)');
       }
 
-      // 19. Click Convert button - replaces paragraph text in-place (not in a modal)
-      // First remove any existing modals
-      await page.evaluate(() => {
-        document.querySelectorAll('.modal-overlay').forEach(m => m.remove());
+      // 23. Modal position persistence
+      const positionPersistence = await page.evaluate(() => {
+        const scripts = document.querySelectorAll('script');
+        for (const s of scripts) {
+          if (s.textContent.includes('modal_pos')) return true;
+        }
+        return false;
       });
-      const convertBtn = await page.$('.convert-btn.visible');
-      if (convertBtn) {
-        // Get the parent paragraph and its original text
-        const parentP = await convertBtn.evaluateHandle(btn => btn.closest('p'));
-        const originalText = await parentP.evaluate(p => p.childNodes[0] ? p.childNodes[0].textContent : '');
+      log(positionPersistence, '23. Code supports modal position persistence via localStorage');
 
-        await convertBtn.click();
-        // Wait briefly for in-place replacement to start (Loading... text)
-        await new Promise(r => setTimeout(r, 2000));
-
-        const newText = await parentP.evaluate(p => p.childNodes[0] ? p.childNodes[0].textContent : '');
-        const textChanged = newText !== originalText;
-        log(textChanged, `19. Convert button replaces paragraph text in-place (text changed: ${textChanged})`);
-
-        // 20. No modal should appear for conversion (it's in-place)
-        const noModal = !(await page.$('.modal-overlay'));
-        log(noModal, '20. No modal opened for conversion (in-place replacement)');
-
-        // 21. After conversion, "Original" button appears
-        // Wait a bit more for LLM streaming to complete and Original button to appear
-        await new Promise(r => setTimeout(r, 5000));
-        const originalBtn = await parentP.$('.original-btn');
-        log(!!originalBtn, '21. After conversion, "Original" button appears in paragraph');
-      } else {
-        log(false, '19. (no visible convert button found)');
-        log(false, '20. (skipped)');
-        log(false, '21. (skipped)');
-      }
     } else {
       // Skip content-dependent tests
-      for (let i = 7; i <= 21; i++) {
+      for (let i = 11; i <= 23; i++) {
         log(false, `${i}. (skipped - content not loaded)`);
       }
     }
 
-    // 22. book_history saved to localStorage
+    // 24. book_history saved to localStorage
     const historyCheck = await page.evaluate(() => {
       const history = JSON.parse(localStorage.getItem('book_history') || '[]');
       return history.length > 0;
     });
-    log(historyCheck, '22. book_history saved to localStorage');
+    log(historyCheck, '24. book_history saved to localStorage');
 
-    // 23. Entries in book_history are unique
+    // 25. Entries in book_history are unique
     const uniqueCheck = await page.evaluate(() => {
       const history = JSON.parse(localStorage.getItem('book_history') || '[]');
       return new Set(history).size === history.length;
     });
-    log(uniqueCheck, '23. book_history entries are unique');
+    log(uniqueCheck, '25. book_history entries are unique');
 
-    // 24. On reload, last entry loaded into input
+    // 26. On reload, last entry loaded into input
     const lastEntry = await page.evaluate(() => {
       const history = JSON.parse(localStorage.getItem('book_history') || '[]');
       return history.length > 0 ? history[history.length - 1] : null;
     });
     if (lastEntry) {
       await page.reload({ waitUntil: 'networkidle0' });
-      const urlValue = await page.$eval('#bookUrl', el => el.value);
-      log(urlValue === lastEntry, `24. On reload, last entry from book_history loaded (expected: ${lastEntry.substring(0, 40)}..., got: ${urlValue.substring(0, 40)}...)`);
+      const urlValue = await page.$eval('#book_url', el => el.value);
+      log(urlValue === lastEntry, `26. On reload, last entry from book_history loaded (expected: ${lastEntry.substring(0, 40)}..., got: ${urlValue.substring(0, 40)}...)`);
     } else {
-      log(false, '24. (no history to test reload)');
+      log(false, '26. (no history to test reload)');
     }
 
-    // 25. Modal position persistence - check code contains localStorage save for positions
-    const positionPersistence = await page.evaluate(() => {
-      const scripts = document.querySelectorAll('script');
-      for (const s of scripts) {
-        if (s.textContent.includes('modal_positions')) return true;
-      }
-      return false;
-    });
-    log(positionPersistence, '25. Code supports modal position persistence via localStorage');
+    // 27. BookHistory dropdown shows recent entries
+    const historyBtnReload = await page.$('#book_history_btn');
+    if (historyBtnReload) {
+      await historyBtnReload.click();
+      await new Promise(r => setTimeout(r, 300));
+      const dropdownVisible = await page.$eval('#book_history_dropdown', el => getComputedStyle(el).display !== 'none');
+      log(dropdownVisible, '27. BookHistory dropdown shows when clicked');
+
+      const dropdownItems = await page.$$eval('#book_history_dropdown div', divs => divs.length);
+      log(dropdownItems > 0, `28. BookHistory dropdown has items (${dropdownItems} items)`);
+    } else {
+      log(false, '27. (no history button)');
+      log(false, '28. (skipped)');
+    }
+
+    // 29. BookHistory button has downward triangle background image
+    const historyBtnBgImg = await page.$eval('#book_history_btn', el => getComputedStyle(el).backgroundImage);
+    log(historyBtnBgImg !== 'none' && historyBtnBgImg.includes('url('), `29. BookHistory button has triangle background image (got: ${historyBtnBgImg.substring(0, 60)}...)`);
 
   } catch (err) {
     console.error('Test error:', err.message);

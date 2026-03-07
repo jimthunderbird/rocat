@@ -2,27 +2,33 @@ E2E Check Items for Book Reader SPA (Puppeteer)
 =================================================
 
 1. Page loads without errors
-2. URL bar with BurlyWood background exists
-3. Book URL input field (id="bookUrl") exists and is visible
-4. Book content div (id="bookContent") exists with wheat background
-5. Book content div has line-height 1.4
-6. Entering a Gutenberg URL and pressing Enter shows "Loading..." text
-7. After loading, content is split into paragraphs (<p> elements)
-8. Paragraphs contain pure text (no nested HTML tags other than button)
-9. Each paragraph contains a "Convert to Simple English" button
-10. Convert buttons have gold background
-11. Convert buttons are inside the paragraph element (appended at end)
-12. Visible paragraphs show the convert button (IntersectionObserver)
-13. Non-visible paragraphs hide the convert button
-14. Book URL is saved to localStorage "book_history"
-15. Entries in "book_history" are unique
-16. On reload, the last entry from book_history is loaded into the input and Enter is triggered
-17. Modal appears when text is selected in book content
-18. Modal is draggable (header has cursor: move)
-19. Modal has a close button that removes modal on click
-20. Modal body has vertical scrolling (overflow-y: auto)
-21. Modal position is saved to localStorage
-22. Convert button click replaces paragraph text in-place (not in a modal)
-23. After conversion, an "Original" button appears in the paragraph
-24. Original button has same style as Convert button (gold background)
-25. Clicking "Original" button restores original paragraph text
+2. Body has wheat background
+3. Top bar with BurlyWood background exists
+4. Top bar uses horizontal layout (flexbox row)
+5. Top bar has padding: 10px
+6. Book URL input field (id="book_url") exists and is visible
+7. Book content div (id="book_content") exists with wheat background
+8. Book content div has line-height 1.4
+9. Entering a Gutenberg URL and pressing Enter shows "Loading..." text
+10. After loading, content is split into paragraphs (<p> elements)
+11. Paragraphs contain pure text (no nested HTML tags other than buttons)
+12. Each paragraph contains a "Convert to Simple English" button
+13. Convert buttons have gold background
+14. Convert buttons are inside the paragraph element (appended at end)
+15. Visible paragraphs show the convert button (IntersectionObserver)
+16. Non-visible paragraphs hide the convert button
+17. Book URL is saved to localStorage "book_history"
+18. Entries in "book_history" are unique
+19. On reload, the last entry from book_history is loaded into the input and content loads
+20. Modal appears when text is selected in book content
+21. Modal is draggable (header has cursor: move)
+22. Modal has a close button that hides modal on click
+23. Modal body has vertical scrolling (overflow-y: auto)
+24. Modal position is saved to localStorage
+25. BookHistory dropdown button exists
+26. BookHistory dropdown shows recent URLs when clicked
+27. Convert button click replaces paragraph text in-place (not in a modal)
+28. After conversion, an "Original" button appears in the paragraph
+29. Original button has same style as Convert button (gold background)
+30. Clicking "Original" button restores original paragraph text
+31. BookHistory button has a downward triangle background image

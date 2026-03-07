@@ -1,4 +1,4 @@
-# TestManager
+# Spec
 - **Extends:** None
 
 ### Properties

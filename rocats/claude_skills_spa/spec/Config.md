@@ -1,4 +1,4 @@
-# Config
+# Spec
 
 ### local_llm(prompt)
 - **host**: "127.0.0.1:11434"

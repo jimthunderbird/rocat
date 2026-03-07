@@ -1,4 +1,4 @@
-# BaseAppSpec
+# Spec
 - **Extends:** None
 - **Entrypoint:** index.php
 - **PHP Style:** PHPCodingStyle 
@@ -29,9 +29,9 @@
   - Clear innerHTML (must be completely empty).
 - **@postload**
   - Strip all HTML tags from **book_content**.
-  - Split **book_content** into standard HTML paragraphs```<p> ```.
+  - Split **book_content** into standard HTML paragraphs (p tag html element).
 - **style**: line-height: 1.4
-- **innerHTML**: **book_content**
+- **innerHTML**: book_content**
 
 ### modal.highlighted_words_translation(highlighted_text)
 - **Extends:** SimpleModal

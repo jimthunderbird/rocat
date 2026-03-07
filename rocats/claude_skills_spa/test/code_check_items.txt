@@ -7,8 +7,8 @@ PHP Style (PHPCodingStyle):
 [x] 3. Single PHP file (index.php) only
 [x] 4. PHP section comes before <!DOCTYPE html>
 
-PHP Backend - fetch_book:
-[x] 5. Handles GET parameter 'fetch_book' to read URL
+PHP Backend - fetch_url:
+[x] 5. Handles GET parameter 'fetch_url' to read URL
 [x] 6. Returns pure file content (no wrapping HTML)
 [x] 7. Has error handling for fetch failures
 [x] 8. Calls exit after outputting content
@@ -23,57 +23,65 @@ PHP Backend - LLM proxy:
 [x] 15. Calls exit after streaming completes
 
 Layout & Styling:
-[x] 16. URL bar div has background: BurlyWood
-[x] 17. Book content div (div.book_content) has background: wheat (set in AppSpec.init)
-[x] 18. Book content has line-height: 1.4
-[x] 19. URL bar contains text input for book URL
-[x] 20. Book content div is below URL bar div
+[x] 16. Body background is wheat (AppSpec Layout)
+[x] 17. Top bar div has background: BurlyWood
+[x] 18. Top bar uses horizontal layout (flex-direction: row)
+[x] 19. Top bar has padding: 10px (AppSpec Layout)
+[x] 20. Book content div (#book_content) has background: wheat (AppSpec init)
+[x] 21. Book content has line-height: 1.4
+[x] 22. Top bar contains textbox and BookHistory dropdown
+[x] 23. Book content div is below top bar div
 
 textbox.book_url (BaseSpec):
-[x] 21. Input field exists with id="bookUrl"
-[x] 22. Default value is empty string
-[x] 23. @load: reads very last entry from localStorage "book_history"
-[x] 24. @load: triggers Enter key event after loading last entry
-[x] 25. @key.enter: sets book_content to "Loading..."
-[x] 26. @key.enter: appends URL to localStorage "book_history"
-[x] 27. @key.enter: ensures all entries in "book_history" remain unique
-[x] 28. @key.enter: fetches book content via PHP (fetch_book)
-[x] 29. PHP returns only pure file content
+[x] 24. Input field exists with id="book_url"
+[x] 25. Default value is empty string
+[x] 26. @load: reads very last entry from localStorage "book_history"
+[x] 27. @load: triggers key.enter event after loading last entry
+[x] 28. @key.enter: sets book_content to "Loading..."
+[x] 29. @key.enter: appends URL to localStorage "book_history"
+[x] 30. @key.enter: ensures all entries in "book_history" remain unique
+[x] 31. @key.enter: fetches book content via PHP (fetch_url)
+[x] 32. PHP returns only pure file content
 
 div.book_content (BaseSpec):
-[x] 30. @preload: clears innerHTML completely (must be completely empty)
-[x] 31. @postload: strips all HTML tags from book content
-[x] 32. @postload: splits content into standard HTML paragraphs <p>
-[x] 33. Style: line-height: 1.4
-[x] 34. innerHTML set to processed book_content
+[x] 33. @preload: clears innerHTML completely (must be completely empty)
+[x] 34. @postload: strips all HTML tags from book content
+[x] 35. @postload: splits content into standard HTML paragraphs <p>
+[x] 36. Style: line-height: 1.4
+[x] 37. innerHTML set to processed book_content
 
 highlighted_text_in_popup_modal (BaseSpec):
-[x] 35. mouseup event on book_content captures selected/highlighted text
-[x] 36. Context built: 30 words before + selected text + 30 words after
-[x] 37. Prompt: "In the context: {context}, show the meaning of {text} using very simple English words. No explanation, no extra words."
-[x] 38. Result displayed in popup modal (modal.highlighted_words_translation)
-[x] 39. LLM streaming used for response display
-[x] 40. Modal body has vertical scrolling enabled (overflow-y: auto)
+[x] 38. mouseup event on book_content captures selected/highlighted text
+[x] 39. Context built: 30 words before + selected text + 30 words after
+[x] 40. Prompt: "In the context: {context}, show the meaning of {text} using very simple English words. No explanation, no extra words."
+[x] 41. Result displayed in popup modal (modal.highlighted_words_translation)
+[x] 42. LLM streaming used for response display
+[x] 43. Modal body has vertical scrolling enabled (overflow-y: auto)
 
 SimpleModal:
-[x] 41. Modal is draggable via header
-[x] 42. Modal header has cursor: move
-[x] 43. Modal remembers last position in localStorage
-[x] 44. Modal has close button (×)
+[x] 44. Modal is draggable via header
+[x] 45. Modal header has cursor: move
+[x] 46. Modal remembers last position in localStorage
+[x] 47. Modal has close button (x)
 
 SimpleEnglishConversionButton (AppSpec):
-[x] 45. Each paragraph gets a "Convert to Simple English" button
-[x] 46. Button text is "Convert to Simple English"
-[x] 47. Button shown only when paragraph is visible (IntersectionObserver behavior)
-[x] 48. Button has background: gold style
-[x] 49. Button is appended at the end of paragraph (inside <p>, not below it)
-[x] 50. @click: sends prompt with "<text>{paragraph text}</text>" format
-[x] 51. @click: prompt asks to convert to very simple English words, result only, no explanation
-[x] 52. @click: replaces paragraph text in-place with LLM streaming result
-[x] 53. After replacement: shows OriginalTextButton
+[x] 48. Each paragraph gets a "Convert to Simple English" button
+[x] 49. Button text is "Convert to Simple English"
+[x] 50. Button shown only when paragraph is visible (IntersectionObserver behavior)
+[x] 51. Button has background: gold style
+[x] 52. Button is appended at the end of paragraph (inside <p>, not below it)
+[x] 53. @click: sends prompt with "<text>{paragraph text}</text>" format
+[x] 54. @click: prompt asks to convert to very simple English words, result only, no explanation
+[x] 55. @click: replaces paragraph text in-place with LLM streaming result
+[x] 56. After replacement: shows OriginalTextButton
 
 OriginalTextButton:
-[x] 54. Text is "Original"
-[x] 55. Applies same style as SimpleEnglishConversionButton (background: gold, same border, padding, font-size, cursor, border-radius)
-[x] 56. @click: replaces paragraph text with the original text
-[x] 57. @click: button removes itself after restoring original text
+[x] 57. Text is "Original"
+[x] 58. Applies same style as SimpleEnglishConversionButton (background: gold)
+[x] 59. @click: replaces paragraph text with the original text
+
+BookHistory (ui/BookHistory.md):
+[x] 60. Dropdown type component
+[x] 61. Shows the 10 most-recent book urls on click
+[x] 62. Clicking a history entry loads that URL
+[x] 63. Button has background_image: triangle bottom (downward arrow indicator)

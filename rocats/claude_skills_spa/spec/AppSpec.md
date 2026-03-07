@@ -1,12 +1,21 @@
-# AppSpec
+# Spec
 - **Extends:** BaseAppSpec
 
 ### init()
 - div.book_content.**style**.background: "wheat"
 
 ### Layout
-- div.**style**: background: BurlyWood
-  - {textbox.book_url}
+- body
+  - **style**:
+    - background: wheat
+- div
+  - **style**: 
+    - background: BurlyWood
+    - component_layout: horizontal
+    - padding: 10px
+  - **components**: 
+    - {textbox.book_url}
+    - ui.BookHistory
 - div
   - {book_content}
 

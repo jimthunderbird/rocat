@@ -1,4 +1,4 @@
-# SimpleModal
+# Spec
 - **Extends:** None
 - **Type:** Popup Modal
 
