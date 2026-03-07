@@ -19,7 +19,7 @@ extends BaseAppSpec {
           add SimpleEnglishConversionButton {
             text: "Convert to Simple English"
             behavior: show when {paragraph} is visible
-            params: paragraph.text
+            params: {paragraph}
             position: append at the end of the {paragraph} instead of below it
             style {
               background: gold
